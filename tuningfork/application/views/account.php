@@ -21,7 +21,7 @@
 	                        <a href="#" class="btn btn-primary btn-sm">Mon profil</a>
 	                        <?php if($this->session->userdata('user_isAdmin')) { ?>
 	                        	<?php if(strstr($this->router->class, 'admin') !== FALSE) { ?>
-	                        <a href="/" class="btn btn-primary btn-sm active">Admin</a>
+	                        <a href="/" class="btn btn-primary btn-sm">Site</a>
 	                        <?php } else { ?>
 	                        <a href="/admin" class="btn btn-primary btn-sm">Admin</a>
 								<?php } ?>

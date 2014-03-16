@@ -1,4 +1,4 @@
-<?php echo form_open('admin/instruments/edit', array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
+<?php echo form_open('admin/instruments/edit/' . $instrument->instru_id, array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
 	<h4><?php echo $title; ?></h4>
 
 	<br />
@@ -70,7 +70,7 @@
 			<button onclick="editInstrument();return false;" class="btn btn-warning no-edition">Modifier</button>
 			<button type="submit" class="btn btn-success edition hidden">Valider</button>
 			<button onclick="uneditInstrument();return false;" class="btn btn-default edition hidden">Annuler</button>
-			<button onclick="document.location.href='/admin/instruments/delete/<?php echo $instrument->instru_id; ?>';" class="btn btn-danger pull-right">Supprimer</button>
+			<button onclick="document.location.href='/admin/instruments/delete/<?php echo $instrument->instru_id; ?>';return false;" class="btn btn-danger pull-right">Supprimer</button>
         </div>
     </div>
 

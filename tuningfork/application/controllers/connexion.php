@@ -67,7 +67,7 @@ class Connexion extends CI_Controller {
 	public function deconnexion(){
 
 		$this->session->sess_destroy();
-		redirect('/connexion');
+		redirect('/');
 
 	}
 

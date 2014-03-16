@@ -45,6 +45,14 @@ class Instrument_model extends CI_Model {
         $this->db->insert('instruments', $this);
     }
 
+    function update($id)
+    {
+        $this->instru_code = $this->input->post('code');
+        $this->instru_dispo = $this->input->post('dispo');
+        $this->db->where('instru_id', $id);
+        $this->db->update('instruments', $this);
+    }
+
     function delete($id)
     {
         $this->db->where('instru_id', $id);

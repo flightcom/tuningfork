@@ -161,9 +161,8 @@ class Admin extends Admin_Controller {
 	public function modifier_instrument($id)
 	{
 		$this->load->model('Instrument_model');
-		// echo $id;
 		$this->Instrument_model->update($id);
-		redirect('/admin/instruments/');
+		redirect('/admin/instruments/'.$id);
 		// $this->instruments();
 	}
 

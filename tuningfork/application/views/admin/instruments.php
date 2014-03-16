@@ -24,7 +24,7 @@
 
 	<tbody>
 		<?php foreach ($instruments as $i){ ?>
-		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'">
+		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
 		    <td><?php echo $i->categ_nom; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td><?php echo $i->instru_modele; ?></td>
