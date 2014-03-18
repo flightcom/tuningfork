@@ -1,7 +1,8 @@
 <?php if($this->session->userdata('logged_in')) { ?>
 <ul class="nav navbar-nav navbar-right">
-	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Mon compte
-	    <b class="caret"></b></a>
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mon compte
+		<b class="caret"></b></a>
 	    <ul class="dropdown-menu">
 	        <li>
 	            <div class="navbar-content">

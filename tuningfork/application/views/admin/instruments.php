@@ -1,23 +1,28 @@
 <h3><?php echo $title; ?></h3>
 
-<div id="add">
+<div id="add" class="pull-right">
 	
 	<button onclick="document.location.href='/admin/instruments/add'" type="button" class="btn btn-primary">Ajouter un instrument</button>
 
 </div>
+
+<button type="button" class="reset btn btn-default">RàZ filtres</button>
 <br />
+<br />
+
 <table class="table table-bordered table-hover tablesorter">
 
 	<thead>
 
 		<tr class="">
-			<th class="filter-select filter-exact" data-placeholder="Sélectionner">Catégorie</th>
-			<th class="filter-select filter-exact" data-placeholder="Sélectionner">Marque</th>
+			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
+			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
 			<th>Modèle</th>
 			<th>Numéro de série</th>
 			<th>Code barre</th>
 			<th class="col-xs-1">Date entrée</th>
 			<th class="filter-select filter-exact col-xs-1" data-placeholder="Sélectionner">Disponibilité</th>
+			<th class="filter-select filter-exact col-xs-1" data-placeholder="Sélectionner">A vérifier</th>
 		</tr>
 
 	</thead>
@@ -31,7 +36,8 @@
 		    <td><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
 		    <td><?php echo $i->instru_date_entree; ?></td>
-		    <td><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
+		    <td class="bg-<?php echo ($i->instru_dispo ? 'green-soft' : 'red-soft'); ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
+		    <td class="bg-<?php echo ($i->instru_a_verifier ? 'red-soft' : 'green-soft'); ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>
 		</tr>
 		<?php } ?>
 

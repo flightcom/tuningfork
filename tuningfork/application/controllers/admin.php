@@ -175,7 +175,40 @@ class Admin extends Admin_Controller {
 		// $this->instruments();
 	}
 
-	public function membres()
+	public function membres($param1 = null, $param2 = null)
+	{
+		// $this->load->helper('form');
+		// $this->load->model('Membre_model');
+		// $this->load->library('form_validation');
+
+		if(is_null($param1))
+		{
+			$this->lister_membres();
+		} 
+		else if(is_numeric($param1))
+		{
+			$this->infos_membre($param1);
+		}
+		else {
+			switch($param1){
+				case 'add': 
+					$this->ajouter_instrument();
+					break;
+				case 'delete':
+					if(is_numeric($param2)){ $this->supprimer_instrument($param2); }
+					break;
+				case 'edit':
+					if(is_numeric($param2)){ $this->modifier_instrument($param2); }
+					break;
+				case 'liste':
+					$this->lister_instruments();
+					break;
+				default: break;
+			}
+		}
+	}
+
+	public function lister_membres()
 	{
 		$this->load->model('Membre_model');
 		$data = array(
@@ -183,8 +216,21 @@ class Admin extends Admin_Controller {
 			'title' => 'Liste des membres'
 			);
 		$content = $this->load->view('admin/membres', $data, TRUE);
-		$this->load->view('master_admin', array('title' => 'Liste des membres', 'content' => $content));				
+		$this->load->view('master_admin', array('title' => 'Liste des membres', 'content' => $content));
 	}
+
+	public function infos_membre()
+	{
+		$this->load->model('Membre_model');
+		$id = $param1;
+		$data = array(
+			'title' => 'Informations sur l\'instrument',
+			'membre' => $this->Membre_model->get_entry($id)
+			);
+		$content = $this->load->view('admin/membre', $data, TRUE);
+		$this->load->view('master_admin', array( 'content' => $content));
+	}
+
 
 }
 

@@ -2,9 +2,7 @@
 
 class Membre_model extends CI_Model {
 
-    var $title   = '';
-    var $content = '';
-    var $date    = '';
+    var $adresse = "";
 
     function __construct()
     {
@@ -51,6 +49,15 @@ class Membre_model extends CI_Model {
         $this->instru_numero_serie = $this->input->post('numero');
 
         $this->db->insert('instruments', $this);
+    }
+
+    static function format_address($m){
+        $adr = "";
+        $adr .= $m->adr_numero ." ";
+        $adr .= $m->adr_type_voie ." ";
+        $adr .= $m->adr_voie ." ";
+        return $adr;
+
     }
 
 }

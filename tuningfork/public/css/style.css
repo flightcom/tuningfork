@@ -127,3 +127,7 @@ overflow: hidden;
 }
 
 /** Fin account popup **/
+
+/** Backgrounds colors **/
+.bg-green-soft { background-color: #40CE5E!important;}
+.bg-red-soft { background-color: #F65757!important;}

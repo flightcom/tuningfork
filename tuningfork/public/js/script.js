@@ -10,6 +10,10 @@ $(document).ready(function(){
         widthFixed: true,
         headerTemplate: '{content} {icon}',
         widgets: ["uitheme", "filter", "zebra"],
+        widgetOptions: {
+            filter_reset: '.reset',
+            filter_onlyAvail : 'filter-onlyAvail'
+        }
     }).tablesorterPager({
         container: $(".ts-pager"),
         cssGoto: ".pagenum",
