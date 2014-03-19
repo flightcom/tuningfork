@@ -15,9 +15,9 @@ class Membre_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('membres');
-        $this->db->join('adresse', 'membres.membre_adr_id= adresse.adr_id');
-        $this->db->join('ville', 'adresse.adr_ville_id= ville.ville_id');
-        $this->db->join('pays', 'adresse.adr_pays_id= pays.pays_id');
+        $this->db->join('adresses', 'membres.membre_adr_id= adresses.adr_id');
+        $this->db->join('villes', 'adresses.adr_ville_id= villes.ville_id');
+        $this->db->join('pays', 'adresses.adr_pays_id= pays.pays_id');
         $query = $this->db->get();
         return $query->result();
 

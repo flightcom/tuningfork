@@ -17,8 +17,8 @@ class Instrument_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('instruments');
-        $this->db->join('marque', 'marque.marque_id= instruments.instru_marque_id');
-        $this->db->join('categorie', 'categorie.categ_id= instruments.instru_categ_id');
+        $this->db->join('marques', 'marques.marque_id= instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id= instruments.instru_categ_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -27,8 +27,8 @@ class Instrument_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('instruments');
-        $this->db->join('marque', 'marque.marque_id= instruments.instru_marque_id');
-        $this->db->join('categorie', 'categorie.categ_id= instruments.instru_categ_id');
+        $this->db->join('marques', 'marques.marque_id= instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id= instruments.instru_categ_id');
         $this->db->where('instru_id', $id);
         $query = $this->db->get();
         return $query->row();
@@ -63,14 +63,14 @@ class Instrument_model extends CI_Model {
     function get_all_marques()
     {
         $this->db->order_by('marque_nom', 'asc');
-        $query = $this->db->get('marque');
+        $query = $this->db->get('marques');
         return $query->result();
     }
 
     function insert_marque($nom)
     {
         $this->marque_nom = ucfirst(strtolower($nom));
-        $res = $this->db->insert('marque', $this);
+        $res = $this->db->insert('marques', $this);
         return $res;
     }
 
@@ -78,14 +78,14 @@ class Instrument_model extends CI_Model {
     function get_all_categories()
     {
         $this->db->order_by('categ_nom', 'asc');
-        $query = $this->db->get('categorie');
+        $query = $this->db->get('categories');
         return $query->result();
     }
 
     function insert_categorie($nom)
     {
         $this->categ_nom = ucfirst(strtolower($nom));
-        $res = $this->db->insert('categorie', $this);
+        $res = $this->db->insert('categories', $this);
         return $res;
     }
 }
