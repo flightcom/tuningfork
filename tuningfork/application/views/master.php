@@ -8,44 +8,55 @@
 
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<!-- <link href="<?php echo (CSS.'bootply.css'); ?>" rel="stylesheet" type="text/css"></script> -->
-		<!-- <link href="<?php echo (CSS.'font-awesome.css'); ?>" rel="stylesheet" type="text/css"></script> -->
+		<!-- <link href="<?php echo (CSS.'simple-sidebar.css'); ?>" rel="stylesheet" type="text/css"></script> -->
 
 	</head>
 
 	<body role="document">
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">Tuning Fork</a>
+
+		<div id="wrapper">
+
+			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">Tuning Fork</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="/">Home</a></li>
+						<li><a href="/instruments/liste">Instruments</a></li>
+						<li><a href="/news/liste">News</a></li>
+						<li><a href="/contact/form">Contact</a></li>
+					</ul>
+
+					<?php echo $this->session->userdata('account'); ?>
+
+				</div><!--/.nav-collapse -->
 			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
-					<li><a href="/instruments/liste">Instruments</a></li>
-					<li><a href="/news/liste">News</a></li>
-					<li><a href="/contact/form">Contact</a></li>
-				</ul>
 
-				<?php echo $this->session->userdata('account'); ?>
+			<div class="col-md-2">
+			</div>
 
-			</div><!--/.nav-collapse -->
-		</div>
+	   		<div id="wrap" role="main" class="col-xs-8">
+				<?php echo $content; ?>
+			</div>
 
-		<div style="height:48px;" id="spacer"></div>
+			<div class="col-md-2">
+			</div>
 
-   		<div id="wrap" role="main">
-			<?php echo $content; ?>
+	        <footer></footer>
+
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="<?php echo (JS.'jquery-1.11.0.min.js'); ?>"></script> 
-		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script>
+
 	</body>
 
 </html>

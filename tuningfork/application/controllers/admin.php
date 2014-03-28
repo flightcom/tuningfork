@@ -213,7 +213,7 @@ class Admin extends Admin_Controller {
 		$this->load->model('Membre_model');
 		$data = array(
 			'membres' => $this->Membre_model->get_all_entries(),
-			'title' => 'Liste des membres'
+			'title' => 'Liste des membres',
 			);
 		$content = $this->load->view('admin/membres', $data, TRUE);
 		$this->load->view('master_admin', array('title' => 'Liste des membres', 'content' => $content));

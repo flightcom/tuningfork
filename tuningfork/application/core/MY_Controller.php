@@ -1,5 +1,17 @@
 <?php
 
+class MY_Controller extends CI_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+		$account = $this->load->view('account', NULL, TRUE);
+        $this->session->set_userdata('account', $account);
+
+		// $this->load->view('master_admin', array('title' => 'Connexion', 'content' => $content));
+    }
+}
+
 class Auth_Controller extends CI_Controller {
 
     function __construct()

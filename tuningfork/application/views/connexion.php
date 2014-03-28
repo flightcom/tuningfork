@@ -3,7 +3,7 @@
 <div class="container">
 
     <div class="omb_login">
-    	<h3 class="omb_authTitle">Connectez-vous ou <a href="/account/create">Créez votre compte</a></h3>
+    	<h3 class="omb_authTitle">Connectez-vous ou <a href="/compte/creation">Créez votre compte</a></h3>
 		<div class="row omb_row-sm-offset-3 omb_socialButtons">
     	    <div class="col-xs-4 col-sm-2">
 		        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">

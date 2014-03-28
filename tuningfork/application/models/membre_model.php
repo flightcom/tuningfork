@@ -40,6 +40,7 @@ class Membre_model extends CI_Model {
         return $query->row();        
     }
 
+    /* A modifier */
     function insert()
     {
         $this->membre = $this->input->post('marque');
@@ -58,6 +59,11 @@ class Membre_model extends CI_Model {
         $adr .= $m->adr_voie ." ";
         return $adr;
 
+    }
+
+    static function get_genders(){
+        $enums = field_enums('membres', 'membre_genre');
+        return $enums;
     }
 
 }

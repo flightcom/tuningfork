@@ -131,3 +131,12 @@ overflow: hidden;
 /** Backgrounds colors **/
 .bg-green-soft { background-color: #40CE5E!important;}
 .bg-red-soft { background-color: #F65757!important;}
+
+/** Form validation  **/
+input::invalid {
+	border: 1px solid red!important;
+}
+
+input::valid {
+	border: 1px solid green!important;
+}
