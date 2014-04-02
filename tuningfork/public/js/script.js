@@ -29,7 +29,7 @@ $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
    $target.closest( '.btn-group' )
       .find( '[data-bind="label"]' ).text( $target.text() )
          .end()
-      .find( 'input' ).val( $target.attr('data-value') )
+      .find( 'input' ).val( $target.attr('data-value') ).change()
          .end()
       .children( '.dropdown-toggle' ).dropdown( 'toggle' );
  
@@ -94,6 +94,38 @@ function cancelAddCategorie(){
     $('#add-categorie form').remove();
     $('#add-categorie button').show();
     return false;
+
+}
+
+function addType(){
+
+    $('#add-type button').hide();
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/ajouter_type',
+        success: function(data){
+            $('#add-type').append(data);
+        }
+    });
+}
+
+function cancelAddType(){
+
+    $('#add-type form').remove();
+    $('#add-type button').show();
+    return false;
+
+}
+
+function getInstruTypes(categ_id){
+
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/selectionner_type/'+categ_id,
+        success: function(data){
+            $('#select-type').html(data);
+        }
+    });
 
 }
 

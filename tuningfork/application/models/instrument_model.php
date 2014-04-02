@@ -17,8 +17,9 @@ class Instrument_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('instruments');
-        $this->db->join('marques', 'marques.marque_id= instruments.instru_marque_id');
-        $this->db->join('categories', 'categories.categ_id= instruments.instru_categ_id');
+        $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
+        $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
         $query = $this->db->get();
         return $query->result();
     }
@@ -88,6 +89,23 @@ class Instrument_model extends CI_Model {
         $res = $this->db->insert('categories', $this);
         return $res;
     }
+
+    function insert_type($nom, $categ_id)
+    {
+        $this->type_nom = ucfirst(strtolower($nom));
+        $this->type_categ_id = $categ_id;
+        $res = $this->db->insert('types_instru', $this);
+        return $res;
+    }
+
+    function get_types_by_categ($categ_id)
+    {
+        $this->db->where('type_categ_id', $categ_id);
+        $this->db->order_by('type_nom', 'asc');
+        $query = $this->db->get('types_instru');
+        return $query->result();
+    }
+
 }
 
 ?>

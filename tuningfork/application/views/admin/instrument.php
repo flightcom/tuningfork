@@ -10,6 +10,13 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label for="type" class="control-label col-xs-1">Type</label>
+        <div class="col-xs-11">
+            <input type="text" class="form-control" id="type" name="type" value="<?php echo $instrument->type_nom; ?>" readonly />
+        </div>
+    </div>
+
 	<div class="form-group">
         <label for="marque" class="control-label col-xs-1">Marque</label>
         <div class="col-xs-11">

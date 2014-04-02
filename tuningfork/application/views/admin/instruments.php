@@ -16,6 +16,7 @@
 
 		<tr class="">
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
+			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
 			<th>Modèle</th>
 			<th>Numéro de série</th>
@@ -31,6 +32,7 @@
 		<?php foreach ($instruments as $i){ ?>
 		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
 		    <td><?php echo $i->categ_nom; ?></td>
+		    <td><?php echo $i->type_nom; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td><?php echo $i->instru_modele; ?></td>
 		    <td><?php echo $i->instru_numero_serie; ?></td>

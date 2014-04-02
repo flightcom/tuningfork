@@ -5,8 +5,8 @@
 	<br />
 
 	<div class="form-group">
-        <label for="modele" class="control-label col-xs-1">Catégorie</label>
-        <div class="col-xs-10">
+        <label for="categorie" class="control-label col-xs-1">Catégorie</label>
+        <div class="col-xs-2">
 			<div class="btn-group dropdown" name="categorie">
 				<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
 					<span data-bind="label">Sélectionnez</span> <span class="caret"></span>
@@ -16,16 +16,17 @@
 					<li data-value="<?php echo $c->categ_id; ?>"><a href="#"><?php echo $c->categ_nom; ?></a></li>
 					<?php } ?>
 				</ul>
-				<input type="hidden" name="categorie" value="0" />
+				<input type="hidden" name="categorie" value="" onchange="getInstruTypes(this.value);" />
 			</div>
 			<div id="add-categorie" style="display:inline-block;">
 				<button onclick="addCategorie();return false;"class="btn btn-default">Ajouter une Catégorie</button>
 			</div>
         </div>
+        <div class="col-xs-8" id="select-type"></div>
     </div>
 
 	<div class="form-group">
-        <label for="modele" class="control-label col-xs-1">Marque</label>
+        <label for="marque" class="control-label col-xs-1">Marque</label>
         <div class="col-xs-10">
 			<div class="btn-group dropdown" name="marque">
 				<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">

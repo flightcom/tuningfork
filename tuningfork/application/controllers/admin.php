@@ -43,7 +43,8 @@ class Admin extends Admin_Controller {
 
 		$data = array(
 			'marques' => $this->Instrument_model->get_all_marques(),
-			'categories' => $this->Instrument_model->get_all_categories()
+			'categories' => $this->Instrument_model->get_all_categories(),
+			'types' => array()
 		);
 
 		$this->form_validation->set_rules('numero', 'Number', 'required');
@@ -90,6 +91,46 @@ class Admin extends Admin_Controller {
 			}
 		}
 
+	}
+
+	public function ajouter_type()
+	{
+		// $this->load->helper('form');
+		$this->load->model('Instrument_model');
+		$this->load->library('form_validation');
+		// $this->form_validation->set_rules('nom-type', 'Type', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$content = $this->load->view('instruments/add_type', NULL, TRUE);
+			echo $content;
+		}
+		else
+		{
+			$type = $this->input->post('nom-type');
+			$type = $this->input->post('nom-type');
+			$res = $this->Instrument_model->insert_type($type);
+			if($res){
+				redirect('/admin/instruments/add');
+			}
+			else {
+				// echo $marque;
+			}
+		}
+
+	}
+
+	public function selectionner_type($categ_id)
+	{
+		$this->load->model('Instrument_model');
+		$this->load->library('form_validation');
+
+		$data = array(
+			'types' => $this->Instrument_model->get_types_by_categ($categ_id)
+			);
+
+		$content = $this->load->view('instruments/select_type', $data, TRUE);
+		echo $content;
 	}
 
 	public function ajouter_categorie()
