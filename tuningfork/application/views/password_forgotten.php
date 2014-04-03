@@ -1,1 +1,0 @@
-<p>Mot de passe oublié ?</p>

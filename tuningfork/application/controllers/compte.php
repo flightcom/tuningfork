@@ -32,21 +32,21 @@ class Compte extends MY_Controller {
         $this->load->helper('database');
 		$this->load->helper('form');
 		$data = array( 'cities' => $this->load->view('select_city', NULL, TRUE) );
-		$content = $this->load->view('create_account', $data, TRUE);
+		$content = $this->load->view('account/create', $data, TRUE);
 		$this->load->view('master', array('title' => 'Création de compte', 'content' => $content));				
 
 	}
 
 	public function show_account()
 	{
-		$content = $this->load->view('account', NULL, TRUE);
+		$content = $this->load->view('button', NULL, TRUE);
 		$this->load->view('master', array('title' => 'Mon compte', 'content' => $content));				
 	}
 
 	/* Password oublié */
 	public function password()
 	{
-		$content = $this->load->view('password_forgotten', NULL, TRUE);
+		$content = $this->load->view('account/password_forgotten', NULL, TRUE);
 		$this->load->view('master', array('title' => 'Mot de passe oublié', 'content' => $content));				
 	}
 

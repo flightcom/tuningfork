@@ -2,6 +2,7 @@
 
 	<div class="form-group">
 		<input name="nom-type" type="text" class="form-control" placeholder="Type">
+		<input type="hidden" name="categorie" value="<?php echo $categorie; ?>" />
 	</div>
 
 	<button type="button" class="btn btn-danger" onclick="cancelAddType();" style="margin-left:15px;">Annuler</button>

@@ -93,23 +93,25 @@ class Admin extends Admin_Controller {
 
 	}
 
-	public function ajouter_type()
+	public function ajouter_type($categorie = null)
 	{
-		// $this->load->helper('form');
+		$this->load->helper('form');
 		$this->load->model('Instrument_model');
 		$this->load->library('form_validation');
-		// $this->form_validation->set_rules('nom-type', 'Type', 'required');
+		$this->form_validation->set_rules('nom-type', 'Type', 'required');
+		// $this->form_validation->set_rules('categorie', 'Type', 'required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('instruments/add_type', NULL, TRUE);
+			$data = array('categorie' => $categorie);
+			$content = $this->load->view('instruments/add_type', $data, TRUE);
 			echo $content;
 		}
 		else
 		{
 			$type = $this->input->post('nom-type');
-			$type = $this->input->post('nom-type');
-			$res = $this->Instrument_model->insert_type($type);
+			$categorie = $this->input->post('categorie');
+			$res = $this->Instrument_model->insert_type($type, $categorie);
 			if($res){
 				redirect('/admin/instruments/add');
 			}
@@ -126,6 +128,7 @@ class Admin extends Admin_Controller {
 		$this->load->library('form_validation');
 
 		$data = array(
+			'categorie' => $categ_id,
 			'types' => $this->Instrument_model->get_types_by_categ($categ_id)
 			);
 

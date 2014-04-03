@@ -5,6 +5,24 @@ $(document).ready(function(){
     $('.navbar-nav li').click(function(){ activePage = $(this); });
     if(activePage) activePage.addClass('active');
 
+    $('.tablesorter').bind('filterInit', function(){
+        var tr1 = $(this).find('thead tr').eq(0);
+        var tr2 = $(this).find('thead tr').eq(1);
+        var ths = tr1.find('th');
+        var tds = tr2.find('td');
+        ths.each(function(index){
+            if( $(this).is('[class*="hidden"]') ) {
+                var classes = $(this).attr('class').split(' ');
+                for(i = 0; i < classes.length; i++){
+                    var classe = classes[i];
+                    if(classe.indexOf('hidden') != -1){
+                        tds.eq(index).addClass(classe);
+                    }
+                }
+            }
+        });
+    });
+
     $(".tablesorter").tablesorter({
         theme: "bootstrap",
         widthFixed: true,
@@ -19,6 +37,7 @@ $(document).ready(function(){
         cssGoto: ".pagenum",
         output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
     });
+
 
 });
 
@@ -97,12 +116,12 @@ function cancelAddCategorie(){
 
 }
 
-function addType(){
+function addType(categorie){
 
     $('#add-type button').hide();
     $.ajax({
         type: 'GET', 
-        url: '/admin/ajouter_type',
+        url: '/admin/ajouter_type/'+categorie,
         success: function(data){
             $('#add-type').append(data);
         }
