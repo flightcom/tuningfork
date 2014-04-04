@@ -18,12 +18,12 @@
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
-			<th class="hidden-xs">Modèle</th>
-			<th>Numéro de série</th>
+			<th class="hidden-xs hidden-sm">Modèle</th>
+			<th class="hidden-xs">Numéro de série</th>
 			<th>Code barre</th>
-			<th class="col-xs-1 hidden-xs hidden-sm">Date entrée</th>
-			<th class="filter-select filter-exact col-xs-1" data-placeholder="Sélectionner">Disponibilité</th>
-			<th class="filter-select filter-exact col-xs-1" data-placeholder="Sélectionner">A vérifier</th>
+			<th class="col-xs-1 visible-lg">Date entrée</th>
+			<th class="filter-select filter-exact col-1" data-placeholder="Sélectionner">Disponibilité</th>
+			<th class="filter-select filter-exact col-1" data-placeholder="Sélectionner">A vérifier</th>
 		</tr>
 
 	</thead>
@@ -34,10 +34,10 @@
 		    <td><?php echo $i->categ_nom; ?></td>
 		    <td><?php echo $i->type_nom; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
-		    <td class="hidden-xs"><?php echo $i->instru_modele; ?></td>
-		    <td><?php echo $i->instru_numero_serie; ?></td>
+		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
+		    <td class="hidden-xs"><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
-		    <td class="hidden-sm hidden-xs "><?php echo $i->instru_date_entree; ?></td>
+		    <td class="visible-lg"><?php echo $i->instru_date_entree; ?></td>
 		    <td class="bg-<?php echo ($i->instru_dispo ? 'green-soft' : 'red-soft'); ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
 		    <td class="bg-<?php echo ($i->instru_a_verifier ? 'red-soft' : 'green-soft'); ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>
 		</tr>
@@ -71,4 +71,3 @@
     </tfoot>
 
 </table>
-

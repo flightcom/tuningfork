@@ -11,11 +11,11 @@ $(document).ready(function(){
         var ths = tr1.find('th');
         var tds = tr2.find('td');
         ths.each(function(index){
-            if( $(this).is('[class*="hidden"]') ) {
+            if( $(this).is('[class*="hidden-"]') || $(this).is('[class*="visible-"]') ) {
                 var classes = $(this).attr('class').split(' ');
                 for(i = 0; i < classes.length; i++){
                     var classe = classes[i];
-                    if(classe.indexOf('hidden') != -1){
+                    if(classe.indexOf('hidden') != -1 || classe.indexOf('visible') != -1){
                         tds.eq(index).addClass(classe);
                     }
                 }
@@ -38,6 +38,9 @@ $(document).ready(function(){
         output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
     });
 
+    $(window).resize(function(){
+        $('table.tablesorter tfoot th').attr('colspan', $('table.tablesorter thead th').not(':hidden').size());
+    });
 
 });
 
