@@ -33,7 +33,6 @@ class Instruments extends Auth_Controller {
 		$this->load->view('master', array('title' => 'Liste d\'instruments', 'content' => $content));
 	}
 
-
 }
 
 /* End of file welcome.php */

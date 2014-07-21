@@ -25,7 +25,8 @@ class Auth_Controller extends MY_Controller {
 	        if ( ! in_array($this->router->method, $allowed) )
 	        {
 	        	// echo $this->router->method;
-	            redirect('/connexion');
+				$content = $this->load->view('index', NULL, TRUE);
+				$this->load->view('master', array('title' => 'Accueil', 'content' => $content));
 			    // Write the output.
 			    echo $this->output->get_output();  
 
