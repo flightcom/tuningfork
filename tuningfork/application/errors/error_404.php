@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
-<title>404 Page Not Found</title>
+		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<title>404 Page introuvable</title>
 <style type="text/css">
 
 ::selection{ background-color: #E13300; color: white; }
@@ -10,53 +11,58 @@
 
 body {
 	background-color: #fff;
-	margin: 40px;
 	font: 13px/20px normal Helvetica, Arial, sans-serif;
 	color: #4F5155;
-}
-
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
-}
-
-h1 {
-	color: #444;
-	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
-	font-size: 19px;
-	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
-}
-
-code {
-	font-family: Consolas, Monaco, Courier New, Courier, monospace;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
+	text-align: center;
 }
 
 #container {
-	margin: 10px;
-	border: 1px solid #D0D0D0;
-	-webkit-box-shadow: 0 0 8px #D0D0D0;
+	top: 50%;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.forbidden-outer {
+	border-radius: 100%;
+	background: red;
+	width: 200px;
+	height: 200px;
+	display: inline-block;
+	position: relative;
+}
+
+.forbidden-inner {
+	position: absolute;
+	height: 40px;
+	width: 150px;
+	margin: 0 auto;
+	background: white;
+	top: 50%;
+	margin-top: -20px;
+	left: 50%;
+	margin-left: -75px;
 }
 
 p {
-	margin: 12px 15px 12px 15px;
+	padding: 0 0 20px 0;
+	font-size: 13px;
 }
+
+
 </style>
 </head>
 <body>
+
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<div>
+			<div class="forbidden-outer">
+				<div class="forbidden-inner"></div>
+			</div>
+		</div>
+		<h1>Vous faîtes fausse route !</h1>
+		<p>La page que vous demandez n'existe pas</p>
+		<button class="btn btn-primary" onclick="history.go(-1);">Retour au site</button>
 	</div>
+
 </body>
 </html>

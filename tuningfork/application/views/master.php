@@ -29,7 +29,7 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>
-						<li><a href="/instruments/liste">Instruments</a></li>
+						<li><a onclick="$(this).closest('li').addClass('bold');" href="/instruments/">Instruments</a></li>
 						<li><a href="/news/liste">News</a></li>
 						<li><a href="/contact/form">Contact</a></li>
 					</ul>

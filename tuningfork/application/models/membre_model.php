@@ -66,6 +66,13 @@ class Membre_model extends CI_Model {
         return $enums;
     }
 
+    function set_date_last_connection($id, $date) 
+    {
+        $data = array('membre_date_last_connection'=> $date);
+        $this->db->where('membre_id', $id);
+        $this->db->update('membres', $data);
+    }
+
 }
 
 ?>

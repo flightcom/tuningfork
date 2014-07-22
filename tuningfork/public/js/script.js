@@ -2,8 +2,12 @@ activePage = null;
 
 $(document).ready(function(){
 
-    $('.navbar-nav li').click(function(){ activePage = $(this); });
-    if(activePage) activePage.addClass('active');
+    $('.navbar-nav li').click(function(){ 
+        activePage = $(this);
+        // if(activePage) activePage.addClass('active');
+        activePage.addClass('active');
+        activePage.addClass('bold');
+    });
 
     $('.tablesorter').bind('filterInit', function(){
         var tr1 = $(this).find('thead tr').eq(0);

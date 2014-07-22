@@ -12,6 +12,6 @@
 		<input type="hidden" name="type" value="0" />
 	</div>
 	<div id="add-type" style="display:inline-block;">
-		<button onclick="addType(<?php echo $categorie; ?>);return false;"class="btn btn-default">Ajouter un type</button>
+		<button onclick="addType(<?php echo $categorie; ?>);return false;" class="btn btn-default">Ajouter un type</button>
 	</div>
 </div>
