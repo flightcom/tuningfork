@@ -65,6 +65,28 @@ class Connexion extends MY_Controller {
 
 	}
 
+	public function fb() {
+
+		if ( $this->input->post('verified') ) {
+
+			$this->session->set_userdata('logged_in', true);
+			$this->session->set_userdata('user_isAdmin', 0);
+			$this->session->set_userdata('user_id', $this->input->post('id'));
+			$this->session->set_userdata('user_nom', $this->input->post('last_name'));
+			$this->session->set_userdata('user_prenom', $this->input->post('first_name'));
+			$this->session->set_userdata('user_email', $this->input->post('email'));
+			$this->session->set_userdata('user_picture', 'https://graph.facebook.com/332574310237336/picture?type=large');
+
+			echo 1;
+
+		} else {
+
+			echo 0;
+
+		}
+
+	}
+
 	public function deconnexion(){
 
 		$this->session->sess_destroy();

@@ -8,7 +8,7 @@
 	            <div class="navbar-content">
 	                <div class="row">
 	                    <div class="col-md-5">
-	                        <img src="http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"
+	                        <img src="<?php echo $this->session->userdata('user_picture'); ?>"
 	                            alt="Alternate Text" class="img-responsive" />
 	                        <p class="text-center small">
 	                            <a href="#">Changer ma photo</a></p>

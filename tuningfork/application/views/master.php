@@ -56,6 +56,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="<?php echo (JS.'jquery-1.11.0.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'fb.js'); ?>"></script>
 
 	</body>
 
