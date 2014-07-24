@@ -108,6 +108,38 @@ class Instrument_model extends CI_Model {
         return $query->result();
     }
 
+    function get_categ_available()
+    {
+        $this->db->select('categ_nom, categ_public_id');
+        $this->db->from('categories');
+        $this->db->join('instruments', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->group_by('categ_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_sous_categ_available($categ_id)
+    {
+        $this->db->select('type_nom, type_id');
+        $this->db->from('instruments');
+        $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
+        $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->where('instru_categ_id', $categ_id);
+        $this->db->where('instru_categ_id IS NOT', 'NULL');
+        $this->db->group_by('type_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_categ_by_public_id($public_id) 
+    {
+        $this->db->select('*');
+        $this->db->from('categories');
+        $this->db->where('categ_public_id', $public_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 
 ?>

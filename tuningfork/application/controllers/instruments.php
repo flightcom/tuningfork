@@ -17,20 +17,31 @@ class Instruments extends Auth_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$this->liste();
-	}
-
-	public function liste()
+	public function index($categ = null, $ssCateg = null, $instru = null)
 	{
 		$this->load->model('Instrument_model');
-		$data = array(
-			'instruments' => $this->Instrument_model->get_all_entries(),
-			'title' => 'Liste des instruments'
+
+		if ( $categ == null ) {
+
+			$data = array(
+				'categories' => $this->Instrument_model->get_categ_available(),
+				'title' => 'Liste des catégories'
 			);
-		$content = $this->load->view('instruments/liste', $data, TRUE);
-		$this->load->view('master', array('title' => 'Liste d\'instruments', 'content' => $content));
+			$content = $this->load->view('instruments/categories', $data, TRUE);
+			$this->load->view('master', array('title' => 'Catégories', 'content' => $content));
+
+		}
+		else if ( $categ != null && $ssCateg == null) {
+
+			$categ_infos = $this->Instrument_model->get_categ_by_public_id($categ);
+			$data = array(
+				'categories' => $this->Instrument_model->get_sous_categ_available($categ_infos->categ_id),
+				'title' => 'Liste des types de ' . $categ_infos->categ_nom
+			);
+			$content = $this->load->view('instruments/categories', $data, TRUE);
+			$this->load->view('master', array('title' => 'Catégories', 'content' => $content));
+
+		}
 	}
 
 }
