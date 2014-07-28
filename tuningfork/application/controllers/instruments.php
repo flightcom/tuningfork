@@ -42,6 +42,12 @@ class Instruments extends Auth_Controller {
 			$this->load->view('master', array('title' => 'Catégories', 'content' => $content));
 
 		}
+
+		else {
+
+			echo $categ . '  /  ' . $ssCateg;
+
+		}
 	}
 
 }

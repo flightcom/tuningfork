@@ -37,7 +37,8 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
-define('URL','http://tuningfork.local/');
+// define('URL','http://tuningfork.local/');
+define('URL','http://localhost:8888/');
 define('IMG',URL.'public/img/');
 define('CSS',URL.'public/css/');
 define('JS',URL.'public/js/');
