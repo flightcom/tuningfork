@@ -1,6 +1,6 @@
 <h3><?php echo $title; ?></h3>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-hover">
 
 	<?php foreach ($types as $t){ ?>
 	<tr onclick="location.href='/instruments/<?php echo $categorie . '/' . $t->type_public_id; ?>'">

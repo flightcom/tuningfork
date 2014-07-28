@@ -3,6 +3,10 @@
 	color: #FFF;
 }
 
+.table-hover tbody tr:hover > td {
+  cursor: pointer
+}
+
 #wrap {
 	min-height:100%;
 	height: auto!important;

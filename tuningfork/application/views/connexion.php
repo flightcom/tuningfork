@@ -66,3 +66,5 @@
 	</div>
 
 </div>
+
+<script src="<?php echo (JS.'fb.js'); ?>"></script>

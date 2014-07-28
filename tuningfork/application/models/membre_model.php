@@ -37,7 +37,17 @@ class Membre_model extends CI_Model {
         $this->db->where('membre_password', $md5pass);
         $this->db->limit(1);
         $query = $this->db->get();
-        return $query->row();        
+        return $query->row();
+    }
+
+    function get_membre_by_id($id)
+    {
+        $this->db->select('*');
+        $this->db->from('membres');
+        $this->db->where('membre_id', $id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     /* A modifier */
