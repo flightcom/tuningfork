@@ -19,7 +19,7 @@
 	                            <?php echo $this->session->userdata('user_email'); ?></p>
 	                        <div class="divider">
 	                        </div>
-	                        <a href="#" class="btn btn-primary btn-sm">Mon profil</a>
+	                        <a href="#" class="btn btn-primary btn-sm">Mes infos</a>
 	                        <?php if($this->session->userdata('user_isAdmin')) { ?>
 	                        	<?php if(strstr($this->router->class, 'admin') !== FALSE) { ?>
 	                        <a href="/" class="btn btn-primary btn-sm">Site</a>

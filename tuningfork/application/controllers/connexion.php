@@ -89,6 +89,7 @@ class Connexion extends MY_Controller {
 
 	public function deconnexion(){
 
+		show_404();
 		$this->session->sess_destroy();
 		redirect('/');
 
