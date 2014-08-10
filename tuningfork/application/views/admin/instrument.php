@@ -1,7 +1,7 @@
 <?php echo form_open('admin/instruments/edit/' . $instrument->instru_id, array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
 	<h4><?php echo $title; ?></h4>
 
-	<br />
+	<br>
 
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
@@ -77,7 +77,7 @@
 			<button onclick="editInstrument();return false;" class="btn btn-warning no-edition">Modifier</button>
 			<button type="submit" class="btn btn-success edition hidden">Valider</button>
 			<button onclick="uneditInstrument();return false;" class="btn btn-default edition hidden">Annuler</button>
-			<button onclick="document.location.href='/admin/instruments/delete/<?php echo $instrument->instru_id; ?>';return false;" class="btn btn-danger pull-right">Supprimer</button>
+			<button onclick="deleteInstrument(<?php echo $instrument->instru_id; ?>);return false;" class="btn btn-danger pull-right">Supprimer</button>
         </div>
     </div>
 
@@ -99,6 +99,12 @@ function uneditInstrument(){
 	$('button.editable').attr('data-toggle', '').find('span:last-child').removeClass('caret');
 	$('.no-edition').removeClass('hidden');
 	$('.edition').addClass('hidden');
+}
+
+function deleteInstrument(id)
+{
+    var r = confirm("Êtes-vous sûr de vouloir supprimer cet instrument ?");
+    if (r) { location.href='/admin/instruments/delete/' + id }
 }
 
 </script>

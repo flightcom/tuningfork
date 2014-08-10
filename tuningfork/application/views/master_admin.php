@@ -48,6 +48,7 @@
 		<script src="<?php echo (JS.'jquery.tablesorter.widgets.js'); ?>"></script> 
 		<script src="<?php echo (JS.'jquery.tablesorter.pager.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'script.js'); ?>"></script> 
 	</body>
 

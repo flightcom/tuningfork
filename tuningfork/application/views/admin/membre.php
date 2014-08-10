@@ -7,15 +7,21 @@
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Nom</label>
         <div class="col-xs-11">
-            <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $membre->membre_nom; ?>" readonly />
+            <input type="text" class="form-control editable" id="nom" name="nom" value="<?php echo $membre->membre_nom; ?>" readonly />
         </div>
     </div>
 
+    <div class="form-group">
+        <label for="categorie" class="control-label col-xs-1">Prénom</label>
+        <div class="col-xs-11">
+            <input type="text" class="form-control editable" id="nom" name="nom" value="<?php echo $membre->membre_prenom; ?>" readonly />
+        </div>
+    </div>
 
 	<div class="form-group">
         <label for="date-entree" class="control-label col-xs-1"></label>
         <div class="col-xs-11">
-			<button onclick="document.location.href='/admin/membre/';return false;" class="btn btn-default no-edition">Retour</button>
+			<button onclick="document.location.href='/admin/membres/';return false;" class="btn btn-default no-edition">Retour</button>
 			<button onclick="editMembre();return false;" class="btn btn-warning no-edition">Modifier</button>
 			<button type="submit" class="btn btn-success edition hidden">Valider</button>
 			<button onclick="uneditMembre();return false;" class="btn btn-default edition hidden">Annuler</button>

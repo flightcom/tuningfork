@@ -221,6 +221,10 @@ class Admin extends Admin_Controller {
 
 	public function membres($membre_id = null, $action = null)
 	{
+		$this->load->helper('form');
+		$this->load->model('Membre_model');
+		$this->load->library('form_validation');
+
 		if(is_null($membre_id))
 		{
 			$this->lister_membres();
@@ -236,7 +240,6 @@ class Admin extends Admin_Controller {
 
 	public function lister_membres()
 	{
-		$this->load->model('Membre_model');
 		$data = array(
 			'membres' => $this->Membre_model->get_all_entries(),
 			'title' => 'Liste des membres',
@@ -247,7 +250,6 @@ class Admin extends Admin_Controller {
 
 	public function infos_membre($membre_id)
 	{
-		$this->load->model('Membre_model');
 		$data = array(
 			'title' => 'Informations sur le membre',
 			'membre' => $this->Membre_model->get_membre_by_id($membre_id)
