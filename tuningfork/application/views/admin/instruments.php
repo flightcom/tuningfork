@@ -1,11 +1,5 @@
 <h3><?php echo $title; ?></h3>
 
-<style scoped>
-
-.glyphicon-star::before { color: #ffdb00; }
-
-</style>
-
 <div id="add" class="pull-right">
 	
 	<button onclick="document.location.href='/admin/instruments/add'" type="button" class="btn btn-primary">Ajouter un instrument</button>
@@ -45,8 +39,7 @@
 		    <td class="hidden-xs"><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
 		    <td class="visible-lg"><?php echo $i->instru_date_entree; ?></td>
-		    <!-- <td class="visible-lg"><input class="rating" data-max="5" data-min="1" id="some_id" name="your_awesome_parameter" type="number" data-empty-value="0" data-clearable=" " value="4" readonly /></td> -->
-		    <!-- <td class="visible-lg"><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star'></i><i class='glyphicon glyphicon-star-empty'></i><i class='glyphicon glyphicon-star-empty'></i></td> -->
+		    <!-- <td class="visible-lg"><input class="rating" data-max="5" data-min="1" id="some_id" name="your_awesome_parameter" type="number" data-empty-value="0" data-clearable=" " value="<?php echo $i->instru_etat; ?>" readonly /></td> -->
 		    <td class="visible-lg"><?php $n = 0; while ( $n++ < 5 ) : ?><i class='glyphicon glyphicon-star<?php echo ($i->instru_etat-- > 0) ? '' : '-empty'; ?>'></i><?php endwhile; ?></td>
 		    <td class="bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
 		    <td class="bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>

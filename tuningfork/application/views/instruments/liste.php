@@ -1,19 +1,20 @@
-<h3><?php echo $title; ?></h3>
+<ol class="breadcrumb">
+	<li><a href="/instruments">Tous</a></li>
+	<li><a href="/instruments/<?php echo $categ->categ_public_id . '/';?>"><?php echo $categ->categ_nom; ?></a></li>
+	<li class="active"><a href="/instruments/<?php echo $categ->categ_public_id . '/' . $type->type_public_id . '/';?>"><?php echo $type->type_nom; ?></a></li>
+</ol>
 
-<table class="table table-bordered table-striped">
 
-	<tr>
-		<th>Marque</th>
-		<th>Modèle</th>
-		<th>Numéro</th>
-	</tr>
+<?php foreach ($instruments as $i){ ?>
 
-	<?php foreach ($instruments as $i){ ?>
-	<tr>
-	    <td><?php echo $i->marque_nom; ?></td>
-	    <td><?php echo $i->instru_modele; ?></td>
-	    <td><?php echo $i->instru_code; ?></td>
-	</tr>
-	<?php } ?>
+<div class="categorie col-xs-3 hovered">
 
-</table>
+	<a href="/instruments/<?php echo $i->instru_id;?>">
+		<img />
+		<p><?php echo $i->marque_nom; ?> <?php echo $i->instru_modele; ?></p>
+	</a>
+
+</div>
+
+
+<?php } ?>

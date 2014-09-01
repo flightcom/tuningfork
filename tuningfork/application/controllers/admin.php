@@ -219,10 +219,21 @@ class Admin extends Admin_Controller {
 		// $this->instruments();
 	}
 
+	public function check_instru_code($instru_code) 
+	{
+		$this->load->model('Instrument_model');
+		$res = $this->Instrument_model->get_entry_by_instru_code($instru_code);
+		echo count($res);
+	}
+
+	/**
+	 * Fonctions membres
+	 */
 	public function membres($membre_id = null, $action = null)
 	{
 		$this->load->helper('form');
 		$this->load->model('Membre_model');
+		$this->load->model('Emprunt_model');
 		$this->load->library('form_validation');
 
 		if(is_null($membre_id))
@@ -251,13 +262,18 @@ class Admin extends Admin_Controller {
 	public function infos_membre($membre_id)
 	{
 		$data = array(
-			'title' => 'Informations sur le membre',
-			'membre' => $this->Membre_model->get_membre_by_id($membre_id)
+			'title'    => 'Informations sur le membre',
+			'membre'   => $this->Membre_model->get_membre_by_id($membre_id),
+			'emprunts' => $this->Emprunt_model->get_emprunts_by_membre_id($membre_id),
+			'en_cours' => $this->Emprunt_model->check_emprunt_en_cours_by_membre_id($membre_id)
 			);
 		$content = $this->load->view('admin/membre', $data, TRUE);
 		$this->load->view('master_admin', array( 'content' => $content));
 	}
 
+	/**
+	 * Fonctions emprunts
+	 */
 
 }
 

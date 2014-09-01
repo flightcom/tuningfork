@@ -36,6 +36,25 @@ class Instrument_model extends CI_Model {
         return $query->row();
     }
 
+    function is_available($instru_id) {
+        $this->db->select('count(*) as nb');
+        $this->db->from('instruments');
+        $this->db->where('instru_id', $instru_id);
+        $this->db->where('instru_dispo', 1);
+        $query = $this->db->get();
+        return (int)$query->row()->nb == 1 ? true : false;
+    }
+
+    function get_entry_by_instru_code($instru_code)
+    {
+        $this->db->select('*');
+        $this->db->from('instruments');
+        $this->db->where('instru_code', $instru_code);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     function insert()
     {
         $this->instru_marque_id = $this->input->post('marque');
@@ -52,6 +71,7 @@ class Instrument_model extends CI_Model {
     {
         $this->instru_code = $this->input->post('code');
         $this->instru_dispo = $this->input->post('dispo');
+        $this->instru_etat = $this->input->post('etat');
         $this->db->where('instru_id', $id);
         $this->db->update('instruments', $this);
     }
@@ -113,6 +133,9 @@ class Instrument_model extends CI_Model {
         $this->db->select('categ_nom, categ_public_id');
         $this->db->from('categories');
         $this->db->join('instruments', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->where('instru_dispo = 1');
+        $this->db->where('instru_categ_id IS NOT NULL');
+        $this->db->where('instru_type_id IS NOT NULL');
         $this->db->group_by('categ_id');
         $query = $this->db->get();
         return $query->result();
@@ -124,8 +147,10 @@ class Instrument_model extends CI_Model {
         $this->db->from('instruments');
         $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
         $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->where('instru_dispo = 1');
         $this->db->where('instru_categ_id', $categ_id);
         $this->db->where('instru_categ_id IS NOT NULL');
+        $this->db->where('instru_type_id IS NOT NULL');
         $this->db->group_by('type_id');
         $query = $this->db->get();
         return $query->result();
@@ -137,7 +162,7 @@ class Instrument_model extends CI_Model {
         $this->db->from('categories');
         $this->db->where('categ_public_id', $public_id);
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
     }
 
     function get_type_by_public_id($public_id) 
@@ -146,7 +171,7 @@ class Instrument_model extends CI_Model {
         $this->db->from('types_instru');
         $this->db->where('type_public_id', $public_id);
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
     }
 
     function get_instruments($categ_id, $type_id)

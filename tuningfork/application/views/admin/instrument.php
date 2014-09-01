@@ -45,6 +45,13 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label for="numero" class="control-label col-xs-1">État</label>
+        <div class="col-xs-11">
+            <input style="font-size:20px;"  class="rating editable" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " value="<?php echo $instrument->instru_etat; ?>" readonly />
+        </div>
+    </div>
+
 	<div class="form-group">
         <label for="date-entree" class="control-label col-xs-1">Date d'entrée</label>
         <div class="col-xs-11">

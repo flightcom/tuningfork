@@ -1,11 +1,18 @@
-<h3><?php echo $title; ?></h3>
+<ol class="breadcrumb">
+	<li><a href="/instruments">Tous</a></li>
+	<li class="active"><a href="/instruments/<?php echo $categ->categ_public_id . '/';?>"><?php echo $categ->categ_nom; ?></a></li>
+</ol>
 
-<table class="table table-bordered table-striped table-hover">
+<?php foreach ($types as $t){ ?>
 
-	<?php foreach ($types as $t){ ?>
-	<tr onclick="location.href='/instruments/<?php echo $categorie . '/' . $t->type_public_id; ?>'">
-	    <td><?php echo $t->type_nom; ?></td>
-	</tr>
-	<?php } ?>
+<div class="categorie col-xs-3 hovered">
+	
+	<a href="/instruments/<?php echo $categ->categ_public_id . '/' . $t->type_public_id; ?>">
+		<img />
+		<p><?php echo $t->type_nom; ?></p>
+	</a>
 
-</table>
+</div>
+
+
+<?php } ?>
