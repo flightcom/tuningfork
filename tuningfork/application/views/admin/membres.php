@@ -1,9 +1,10 @@
+<br>
+
+<button type="button" class="reset btn btn-default pull-right pull-top">RàZ filtres</button>
 <h3><?php echo $title; ?></h3>
 
-<button type="button" class="reset btn btn-default">RàZ filtres</button>
-<br />
-<br />
-	
+<br>
+
 <table class="table table-bordered table-striped tablesorter">
 
 	<thead>

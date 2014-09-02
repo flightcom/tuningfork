@@ -27,9 +27,6 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="/admin/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-					<li><a href="/admin/instruments"><span class="glyphicon glyphicon-music"></span> Instruments</a></li>
-					<li><a href="/admin/membres"><span class="glyphicon glyphicon-user"></span> Membres</a></li>
 				</ul>
 
 				<?php echo $this->session->userdata('account'); ?>
@@ -39,7 +36,9 @@
 
 		<div style="height:48px;" id="spacer"></div>
 
-		<div id="wrap" class="ui-layout-container" role="main">
+		<div class="col-md-1 col-xs-2 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
+
+		<div id="wrap" class="col-md-11 col-xs-10 col-centered pull-right" role="main">
 			<?php echo $content; ?>
 		</div>
 

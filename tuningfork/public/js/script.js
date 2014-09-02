@@ -1,12 +1,22 @@
-activePage = null;
+var activePage;
 
 $(document).ready(function(){
 
-    $('.navbar-nav li').click(function(){ 
-        activePage = $(this);
-        // if(activePage) activePage.addClass('active');
-        activePage.addClass('active');
-        activePage.addClass('bold');
+    if ( localStorage.activePage != undefined ) {
+        activePage = $.parseJSON(localStorage.getItem('activePage'));
+    } else {
+        activePage = 1;
+    }
+
+    console.log(activePage);
+
+    $('.nav-sidebar li').eq(activePage).addClass('active');
+
+    $('.nav-sidebar li').click(function(){
+        var index = $(this).index();
+        localStorage.removeItem('activePage');
+        localStorage.setItem('activePage', index);
+        $('.nav-sidebar').removeClass('active');
     });
 
     $('.tablesorter').bind('filterInit', function(){

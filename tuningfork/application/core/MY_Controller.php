@@ -53,6 +53,8 @@ class Admin_Controller extends Auth_Controller {
 		    // Stop the execution of the script.
 		    exit();
         }
+
+        $this->dashboard = $this->load->view('admin/dashboard', NULL, TRUE);
     }
 }
 

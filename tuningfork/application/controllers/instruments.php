@@ -26,8 +26,8 @@ class Instruments extends Auth_Controller {
 			$instru_exists = $this->Instrument_model->get_entry($instru_id);
 			$instru_dispo = $this->Instrument_model->is_available($instru_id);
 			if ( ! $instru_exists ) :
-				$data = array('error' => 'Cet instrument n\'existe pas');		
-			else if ( ! $instru_dispo ) :
+				$data = array('error' => 'Cet instrument n\'existe pas');
+			elseif ( ! $instru_dispo ) :
 				$data = array('error' => 'Cet instrument n\'est pas disponible pour le moment');
 			else :
 				$instrument = $this->Instrument_model->get_entry($instru_id);

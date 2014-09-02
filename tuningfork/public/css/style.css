@@ -1,29 +1,35 @@
 /**
  * Override bootstrap values
  */
-.breadcrumb {
-	background-color: inherit!important;
-}
-
+.breadcrumb {background-color: inherit!important;}
 .breadcrumb>li+li:before{content:"\203A\00a0"!important;}
+.nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}
 
-.table tr.tr-dark > th, .table tr.tr-dark > td {
-	background-color: #333!important;
-	color: #FFF;
-}
-
-.table-hover tbody tr:hover > td {
-  cursor: pointer
-}
+.table tr.tr-dark > th, .table tr.tr-dark > td {background-color: #333!important;color: #FFF;}
+.table-hover tbody tr:hover > td { cursor: pointer}
 
 #wrap {
 	min-height:100%;
 	height: auto!important;
 	height: 100%;
 	margin: 0 auto -60px;
-	top: 48px;
-	padding: 20px;
+	/*padding: 20px;*/
 	bos-sizing: border-box;
+}
+
+.sidebar {
+	position: fixed;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	display: block;
+	padding: 20px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #f5f5f5;
+	border-right: 1px solid #eee;
 }
 
 /** Page de login **/

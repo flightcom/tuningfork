@@ -20,6 +20,7 @@ class Admin extends Admin_Controller {
 	public function index()
 	{
 		$content = $this->load->view('admin/index', NULL, TRUE);
+		// $dashboard = $this->load->view('admin/dashboard', NULL, TRUE);
 		$this->load->view('master_admin', array('title' => 'Connexion', 'content' => $content));
 	}
 
