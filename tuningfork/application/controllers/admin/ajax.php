@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends MY_Controller {
+class Ajax extends Admin_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -17,14 +17,19 @@ class Welcome extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+    public function __construct()
+    {
+    	parent::__construct();
+		$this->load->model('Instrument_model');
+		$this->load->model('Membre_model');
+		$this->load->model('Emprunt_model');
+    }
+
+	public function searchMember($search)
 	{
-			$data = array();
-			$content = $this->load->view('index', $data, TRUE);
-			$this->load->view('master', array('title' => 'TuningFork', 'content' => $content));
+		$membres = $this->Membre_model->search_membre($search);
+
+		echo json_encode($membres);
 	}
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

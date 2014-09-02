@@ -31,15 +31,28 @@
 
 				<?php echo $this->session->userdata('account'); ?>
 
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+					</div>
+					<button type="submit" class="btn btn-default">Valider</button>
+				</form>
+
 			</div><!--/.nav-collapse -->
 		</div>
 
 		<div style="height:48px;" id="spacer"></div>
 
-		<div class="col-md-1 col-xs-2 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
+		<div class="col-xs-3 col-md-2 col-lg-1 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
 
-		<div id="wrap" class="col-md-11 col-xs-10 col-centered pull-right" role="main">
-			<?php echo $content; ?>
+		<div id="wrap" class="col-xs-9 col-md-10 col-lg-11 col-centered pull-right" role="main">
+
+			<?php echo $this->menu; ?>
+
+			<div id="content">
+				<?php echo $content; ?>
+			</div>
+
 		</div>
 
 		<script src="<?php echo (JS.'jquery-1.11.0.min.js'); ?>"></script>
@@ -48,6 +61,7 @@
 		<script src="<?php echo (JS.'jquery.tablesorter.pager.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap-rating-input.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'script.js'); ?>"></script> 
 	</body>
 

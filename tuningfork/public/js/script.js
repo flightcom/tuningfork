@@ -2,13 +2,16 @@ var activePage;
 
 $(document).ready(function(){
 
+    // Pour la selection de la page
+    if(document.referrer.indexOf('admin') == -1) {
+        localStorage.removeItem('activePage');        
+    }
+
     if ( localStorage.activePage != undefined ) {
         activePage = $.parseJSON(localStorage.getItem('activePage'));
     } else {
-        activePage = 1;
+        activePage = 0;
     }
-
-    console.log(activePage);
 
     $('.nav-sidebar li').eq(activePage).addClass('active');
 
@@ -17,6 +20,49 @@ $(document).ready(function(){
         localStorage.removeItem('activePage');
         localStorage.setItem('activePage', index);
         $('.nav-sidebar').removeClass('active');
+    });
+
+    // Pour la selection du menu
+    if(document.referrer.indexOf('admin') == -1) {
+        localStorage.removeItem('activeMenu');        
+    }
+
+    if ( localStorage.activeMenu != undefined ) {
+        activeMenu = $.parseJSON(localStorage.getItem('activeMenu'));
+    } else {
+        activeMenu = 0;
+    }
+
+    $('.nav-menu li').eq(activeMenu).addClass('active');
+
+    $('.nav-menu li').click(function(){
+        var index = $(this).index();
+        localStorage.removeItem('activeMenu');
+        localStorage.setItem('activeMenu', index);
+        $('.nav-menu').removeClass('active');
+    });
+
+    // Pour la recherche depuis la topbar
+    $('#search').keyup(function(){
+
+        var search = $(this).val();
+
+        $.ajax({
+            url: '/admin/ajax/searchMember/'+ search,
+            type: 'post',
+            async: false,
+            success: function(data){
+                console.log(data);
+            }
+        });
+
+
+    });
+
+    $('#search').typeahead({
+        name: 'search',
+        remote: '/admin/ajax/searchMember/'+ $(this).val(),
+        minLength: 3
     });
 
     $('.tablesorter').bind('filterInit', function(){

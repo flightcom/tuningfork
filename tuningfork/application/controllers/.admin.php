@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends MY_Controller {
+class Admin extends Admin_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -17,12 +17,14 @@ class Welcome extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-			$data = array();
-			$content = $this->load->view('index', $data, TRUE);
-			$this->load->view('master', array('title' => 'TuningFork', 'content' => $content));
-	}
+
+	/**
+	 * Fonctions membres
+	 */
+
+	/**
+	 * Fonctions emprunts
+	 */
 
 }
 

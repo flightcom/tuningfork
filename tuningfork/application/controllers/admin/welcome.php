@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends MY_Controller {
+class Welcome extends Admin_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,12 +19,9 @@ class Welcome extends MY_Controller {
 	 */
 	public function index()
 	{
-			$data = array();
-			$content = $this->load->view('index', $data, TRUE);
-			$this->load->view('master', array('title' => 'TuningFork', 'content' => $content));
+		$content = $this->load->view('admin/index', NULL, TRUE);
+		// $dashboard = $this->load->view('admin/dashboard', NULL, TRUE);
+		$this->load->view('master_admin', array('title' => 'Administration', 'content' => $content));
 	}
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

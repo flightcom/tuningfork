@@ -83,6 +83,15 @@ class Membre_model extends CI_Model {
         $this->db->update('membres', $data);
     }
 
+    function search_membre($search)
+    {
+        $this->db->select('*');
+        $this->db->from('membres');
+        $this->db->where("membre_nom LIKE '$search%' OR membre_prenom LIKE '$search%'");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 
 ?>

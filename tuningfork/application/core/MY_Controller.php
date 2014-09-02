@@ -30,6 +30,8 @@ class Auth_Controller extends MY_Controller {
 			    // Write the output.
 			    echo $this->output->get_output();  
 
+			    redirect('/connexion');
+
 			    // Stop the execution of the script.
 			    exit();
 	        }
@@ -55,6 +57,7 @@ class Admin_Controller extends Auth_Controller {
         }
 
         $this->dashboard = $this->load->view('admin/dashboard', NULL, TRUE);
+        $this->menu = '';
     }
 }
 

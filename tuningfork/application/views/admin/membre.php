@@ -142,8 +142,6 @@
 
 $(function(){
 
-    // $("section").hide();
-
     $('#membre-actions-list a').click(function (e) {
         if($(this).parent('li').hasClass('active')){
             $( $(this).attr('href') ).hide();
@@ -162,16 +160,15 @@ $(function(){
             // async:false,
             success: function(data){
                 if ( data == 1 ) { // ok
-                    console.log('ok');
                     $(this).closest('.form-group').addClass('has-sucess');
                 } else {
-                    console.log('ko');
                     $(this).closest('.form-group').addClass('has-error');                    
                 }
             }
-        })
+        });
 
     });
+
 });
 
 function editMembre(){
