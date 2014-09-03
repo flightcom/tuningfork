@@ -1,10 +1,20 @@
 <?php if($this->session->userdata('logged_in')) { ?>
 <ul class="nav navbar-nav navbar-right">
 	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mon compte
-		<b class="caret"></b></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></a>
 	    <ul class="dropdown-menu">
-	        <li>
+	    	<li><a href="#"><span class="glyphicon glyphicon-user"></a></li>
+	    	<li><a href="/connexion/deconnexion"><span class="glyphicon glyphicon-off"></a></li>
+            <?php if($this->session->userdata('user_isAdmin')) { ?>
+            	<?php if(in_array('admin', $this->uri->segments)) { ?>
+	    	<li><a href="/"><span class="glyphicon glyphicon-globe"></a></li>
+            <?php } else { ?>
+	    	<li><a href="/admin"><span class="glyphicon glyphicon-wrench"></a></li>
+				<?php } ?>
+			<?php } ?>
+
+
+<!-- 	        <li>
 	            <div class="navbar-content">
 	                <div class="row">
 	                    <div class="col-md-5">
@@ -43,7 +53,7 @@
 	                </div>
 	            </div>
 	        </li>
-	    </ul>
+ -->	    </ul>
 	</li>
 </ul>
 <?php } else { ?>

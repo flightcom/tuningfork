@@ -16,7 +16,7 @@
 
 		<div id="wrapper">
 
-			<div class="navbar navbar-default" role="navigation">
+			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -39,9 +39,11 @@
 				</div><!--/.nav-collapse -->
 			</div>
 
-			<div class="col-xs-2"></div>
+			<div style="height:48px;" id="spacer"></div>
 
-	   		<div id="wrap" role="main" class="col-xs-8 col-centered">
+			<div class="col-md-2"></div>
+
+	   		<div id="wrap" role="main" class="col-xs-12 col-md-8 col-centered">
 				<?php echo $content; ?>
 			</div>
 

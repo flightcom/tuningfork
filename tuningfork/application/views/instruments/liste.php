@@ -9,7 +9,7 @@
 
 <div class="categorie col-xs-3 hovered">
 
-	<a href="/instruments/<?php echo $i->instru_id;?>">
+	<a href="/instruments/<?php echo $categ->categ_public_id . '/' . $type->type_public_id . '/' . $i->instru_modele;?>">
 		<img />
 		<p><?php echo $i->marque_nom; ?> <?php echo $i->instru_modele; ?></p>
 	</a>

@@ -5,8 +5,10 @@
 .breadcrumb>li+li:before{content:"\203A\00a0"!important;}
 .nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}
-
-.navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
+.navbar-fixed-top .dropdown-menu { min-width: inherit; border: none;}
+.navbar-fixed-top .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
+.navbar-fixed-top .navbar-nav > li > a { font-size: 16px; }
+.nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
 
 .table tr.tr-dark > th, .table tr.tr-dark > td {background-color: #333!important;color: #FFF;}

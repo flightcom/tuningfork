@@ -28,7 +28,7 @@ class Auth_Controller extends MY_Controller {
 				$content = $this->load->view('index', NULL, TRUE);
 				$this->load->view('master', array('title' => 'Accueil', 'content' => $content));
 			    // Write the output.
-			    echo $this->output->get_output();  
+			    // echo $this->output->get_output();  
 
 			    redirect('/connexion');
 

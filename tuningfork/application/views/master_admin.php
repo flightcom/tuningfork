@@ -43,9 +43,9 @@
 
 		<div style="height:48px;" id="spacer"></div>
 
-		<div class="col-xs-3 col-md-2 col-lg-1 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
+		<div class="col-xs-2 col-lg-1 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
 
-		<div id="wrap" class="col-xs-9 col-md-10 col-lg-11 col-centered pull-right" role="main">
+		<div id="wrap" class="col-xs-10 col-lg-11 col-centered pull-right" role="main">
 
 			<?php echo $this->menu; ?>
 

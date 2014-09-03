@@ -20,9 +20,9 @@
 			<th class="hidden-xs">Numéro de série</th>
 			<th>Code barre</th>
 			<th class="col-xs-1 visible-lg">Date entrée</th>
-			<th class="hidden-xs col-xs-1 visible-lg">Etat</th>
+			<th class="col-xs-1 visible-lg">Etat</th>
 			<th class="filter-select filter-exact col-1" data-placeholder="Sélectionner">Disponibilité</th>
-			<th class="filter-select filter-exact col-1" data-placeholder="Sélectionner">A vérifier</th>
+			<th class="filter-select filter-exact col-1 visible-lg" data-placeholder="Sélectionner">A vérifier</th>
 		</tr>
 
 	</thead>
@@ -37,10 +37,9 @@
 		    <td class="hidden-xs"><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
 		    <td class="visible-lg"><?php echo $i->instru_date_entree; ?></td>
-		    <!-- <td class="visible-lg"><input class="rating" data-max="5" data-min="1" id="some_id" name="your_awesome_parameter" type="number" data-empty-value="0" data-clearable=" " value="<?php echo $i->instru_etat; ?>" readonly /></td> -->
 		    <td class="visible-lg"><?php $n = 0; while ( $n++ < 5 ) : ?><i class='glyphicon glyphicon-star<?php echo ($i->instru_etat-- > 0) ? '' : '-empty'; ?>'></i><?php endwhile; ?></td>
 		    <td class="bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
-		    <td class="bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>
+		    <td class="visible-lg bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>
 		</tr>
 		<?php } ?>
 
