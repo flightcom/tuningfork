@@ -1,4 +1,4 @@
-<?php echo form_open('admin/instruments/edit/' . $instrument->instru_id, array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
+<?php echo form_open('admin/instruments/' . $instrument->instru_id . '/edit', array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
 	<h4><?php echo $title; ?></h4>
 
 	<br>
@@ -111,7 +111,7 @@ function uneditInstrument(){
 function deleteInstrument(id)
 {
     var r = confirm("Êtes-vous sûr de vouloir supprimer cet instrument ?");
-    if (r) { location.href='/admin/instruments/delete/' + id }
+    if (r) { location.href='/admin/instruments/' + id + '/delete' }
 }
 
 </script>

@@ -6,7 +6,7 @@
 
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
-        <div class="col-xs-2">
+        <div class="col-xs-6">
 			<div class="btn-group dropdown" name="categorie">
 				<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
 					<span data-bind="label">Sélectionnez</span> <span class="caret"></span>
@@ -75,3 +75,67 @@
     </div>
 
 </form>
+
+<script>
+
+function addMarque(){
+
+    $('#add-marque button').hide();
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/instruments/ajouter_marque',
+        success: function(data){
+            $('#add-marque').append(data);
+        }
+    });
+}
+
+function cancelAddMArque(){
+
+    $('#add-marque form').remove();
+    $('#add-marque button').show();
+    return false;
+
+}
+
+function addCategorie(){
+
+    $('#add-categorie button').hide();
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/instruments/ajouter_categorie',
+        success: function(data){
+            $('#add-categorie').append(data);
+        }
+    });
+}
+
+function cancelAddCategorie(){
+
+    $('#add-categorie form').remove();
+    $('#add-categorie button').show();
+    return false;
+
+}
+
+function addType(categorie){
+
+    $('#add-type button').hide();
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/instruments/ajouter_type/'+categorie,
+        success: function(data){
+            $('#add-type').append(data);
+        }
+    });
+}
+
+function cancelAddType(){
+
+    $('#add-type form').remove();
+    $('#add-type button').show();
+    return false;
+
+}
+
+</script>

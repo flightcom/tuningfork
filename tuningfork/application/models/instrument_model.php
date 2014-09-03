@@ -185,6 +185,16 @@ class Instrument_model extends CI_Model {
         return $query->result();
     }
 
+    function search_instru($search)
+    {
+        $this->db->select('*');
+        $this->db->from('instruments');
+        $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
+        $this->db->where("instru_modele LIKE '$search%' OR marque_nom LIKE '$search%'");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 
 ?>

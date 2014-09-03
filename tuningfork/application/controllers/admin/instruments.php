@@ -32,9 +32,9 @@ class Instruments extends Admin_Controller {
 	{
 		if(is_null($param1))
 		{
-			$this->lister_instruments();
+			$this->liste();
 		} 
-		else if(is_numeric($param1))
+		else if(is_numeric($param1) && is_null($param2))
 		{
 			$id = $param1;
 			$data = array(
@@ -44,21 +44,30 @@ class Instruments extends Admin_Controller {
 			$content = $this->load->view('admin/instrument', $data, TRUE);
 			$this->load->view('master_admin', array( 'content' => $content));
 		}
-		else {
+		else if(is_numeric($param1) && !is_null($param2))
+		{
+			$instru_id = $param1;
+			$action = $param2;
+			echo $action;
+			switch($action){
+				case 'delete'	: $this->delete($instru_id); break;
+				case 'edit'		: $this->edit($instru_id); break;
+				default 		: break;
+			}
+		}
+		else if(!is_numeric($param1) && is_null($param2))
+		{
 			switch($param1){
-				case 'add'		: $this->ajouter_instrument();break;
-				case 'delete'	: if(is_numeric($param2)){ $this->supprimer_instrument($param2); }	break;
-				case 'edit'		: if(is_numeric($param2)){ $this->modifier_instrument($param2); }break;
-				case 'liste'	: $this->lister_instruments();break;
+				case 'add'		: $this->add();break;
+				case 'liste'	: $this->liste();break;
 				default 		: break;
 			}
 		}
 
 	}
 
-	public function lister_instruments()
+	public function liste()
 	{
-		$this->load->model('Instrument_model');
 		$data = array(
 			'instruments' => $this->Instrument_model->get_all_entries(),
 			'title' => 'Liste des instruments'
@@ -67,13 +76,9 @@ class Instruments extends Admin_Controller {
 		$this->load->view('master_admin', array('title' => 'Liste d\'instruments', 'content' => $content));
 	}
 
-	public function ajouter_instrument()
+	public function add()
 	{
 		/* Check if admin */
-		$this->load->helper('form');
-		$this->load->model('Instrument_model');
-		$this->load->library('form_validation');
-
 		$data = array(
 			'marques' => $this->Instrument_model->get_all_marques(),
 			'categories' => $this->Instrument_model->get_all_categories(),
@@ -102,9 +107,6 @@ class Instruments extends Admin_Controller {
 
 	public function ajouter_marque()
 	{
-		// $this->load->helper('form');
-		$this->load->model('Instrument_model');
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('nom-marque', 'Marque', 'required');
 
 		if ($this->form_validation->run() == FALSE)
@@ -128,11 +130,7 @@ class Instruments extends Admin_Controller {
 
 	public function ajouter_type($categorie = null)
 	{
-		$this->load->helper('form');
-		$this->load->model('Instrument_model');
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('nom-type', 'Type', 'required');
-		// $this->form_validation->set_rules('categorie', 'Type', 'required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -157,9 +155,6 @@ class Instruments extends Admin_Controller {
 
 	public function selectionner_type($categ_id)
 	{
-		$this->load->model('Instrument_model');
-		$this->load->library('form_validation');
-
 		$data = array(
 			'categorie' => $categ_id,
 			'types' => $this->Instrument_model->get_types_by_categ($categ_id)
@@ -171,9 +166,6 @@ class Instruments extends Admin_Controller {
 
 	public function ajouter_categorie()
 	{
-		// $this->load->helper('form');
-		$this->load->model('Instrument_model');
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('nom-categorie', 'Catégorie', 'required');
 
 		if ($this->form_validation->run() == FALSE)
@@ -195,26 +187,20 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function modifier_instrument($id)
+	public function edit($id)
 	{
-		$this->load->model('Instrument_model');
 		$this->Instrument_model->update($id);
 		redirect('/admin/instruments/'.$id);
-		// $this->instruments();
 	}
 
-	public function supprimer_instrument($id)
+	public function delete($id)
 	{
-		$this->load->model('Instrument_model');
-		// echo $id;
 		$this->Instrument_model->delete($id);
 		redirect('/admin/instruments/');
-		// $this->instruments();
 	}
 
 	public function check_instru_code($instru_code) 
 	{
-		$this->load->model('Instrument_model');
 		$res = $this->Instrument_model->get_entry_by_instru_code($instru_code);
 		echo count($res);
 	}

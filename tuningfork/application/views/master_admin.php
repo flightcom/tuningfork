@@ -8,6 +8,7 @@
 
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'theme.bootstrap.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'theme.jui.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'jquery.tablesorter.pager.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -35,7 +36,7 @@
 					<div class="form-group">
 						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
 					</div>
-					<button type="submit" class="btn btn-default">Valider</button>
+					<!-- <button type="submit" class="btn btn-default">Valider</button> -->
 				</form>
 
 			</div><!--/.nav-collapse -->
@@ -62,6 +63,7 @@
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'script.js'); ?>"></script> 
 	</body>
 

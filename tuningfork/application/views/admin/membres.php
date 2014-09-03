@@ -1,6 +1,4 @@
-<br>
-
-<button type="button" class="reset btn btn-default pull-right pull-top">RàZ filtres</button>
+<button type="button" class="reset btn btn-default pull-right">RàZ filtres</button>
 <h3><?php echo $title; ?></h3>
 
 <br>

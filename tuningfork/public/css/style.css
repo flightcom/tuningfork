@@ -4,12 +4,23 @@
 .breadcrumb {background-color: inherit!important;}
 .breadcrumb>li+li:before{content:"\203A\00a0"!important;}
 .nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
-.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}
+/*.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}*/
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #0074a2;}
+.nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #f1f1f1;top: 50%;margin-top: -8px;}
+.nav-sidebar > :not(.active) > a { color: #aaa;}
+.nav-sidebar > :not(.active) > a:hover { color: #555;}
 .navbar-fixed-top .dropdown-menu { min-width: inherit; border: none;}
 .navbar-fixed-top .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
 .navbar-fixed-top .navbar-nav > li > a { font-size: 16px; }
 .nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
+.navbar-inverse { border: none; }
+
+.search-result-title {
+  margin: 0 20px 5px 20px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ccc;
+}
 
 .table tr.tr-dark > th, .table tr.tr-dark > td {background-color: #333!important;color: #FFF;}
 .table-hover tbody tr:hover > td { cursor: pointer}
@@ -40,7 +51,7 @@
 	padding: 20px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: #f5f5f5;
+	background-color: #222;
 	border-right: 1px solid #eee;
 }
 

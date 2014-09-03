@@ -1,4 +1,5 @@
 var activePage;
+var activeMenu = 0;
 
 $(document).ready(function(){
 
@@ -27,10 +28,17 @@ $(document).ready(function(){
         localStorage.removeItem('activeMenu');        
     }
 
+
     if ( localStorage.activeMenu != undefined ) {
-        activeMenu = $.parseJSON(localStorage.getItem('activeMenu'));
-    } else {
-        activeMenu = 0;
+        var tmpMenu1 = localStorage.getItem('activeMenu');
+        console.log(tmpMenu1);
+        var tmpMenu2 = tmpMenu1.split('-');
+        activePageMenu = tmpMenu2[0];
+        if ( activePageMenu != activePage )  { 
+            localStorage.removeItem('activeMenu');
+        } else {
+            activeMenu = tmpMenu2[1];
+        }
     }
 
     $('.nav-menu li').eq(activeMenu).addClass('active');
@@ -38,32 +46,96 @@ $(document).ready(function(){
     $('.nav-menu li').click(function(){
         var index = $(this).index();
         localStorage.removeItem('activeMenu');
-        localStorage.setItem('activeMenu', index);
+        localStorage.setItem('activeMenu', activePage + '-' + index);
         $('.nav-menu').removeClass('active');
     });
 
     // Pour la recherche depuis la topbar
-    $('#search').keyup(function(){
+    // $('#search').keyup(function(){
 
-        var search = $(this).val();
+    //     var search = $(this).val();
 
-        $.ajax({
-            url: '/admin/ajax/searchMember/'+ search,
-            type: 'post',
-            async: false,
-            success: function(data){
-                console.log(data);
+    //     $.ajax({
+    //         url: '/admin/ajax/searchMember/'+ search,
+    //         type: 'post',
+    //         async: false,
+    //         success: function(data){
+    //             console.log(data);
+    //         }
+    //     });
+
+
+    // });
+
+    // Instantiate the Bloodhound suggestion engine
+    var membres = new Bloodhound({
+        datumTokenizer: function (datum) {
+            return Bloodhound.tokenizers.whitespace(datum.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/admin/ajax/searchMember/%QUERY',
+            filter: function (membres) {
+                return $.map(membres, function (membre) {
+                    return {
+                        value: membre.membre_prenom + ' ' + membre.membre_nom,
+                        id: membre.membre_id
+                    };
+                });
             }
-        });
-
-
+        }
     });
 
-    $('#search').typeahead({
-        name: 'search',
-        remote: '/admin/ajax/searchMember/'+ $(this).val(),
-        minLength: 3
+    var instruments = new Bloodhound({
+        datumTokenizer: function (datum) {
+            return Bloodhound.tokenizers.whitespace(datum.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/admin/ajax/searchInstru/%QUERY',
+            filter: function (instruments) {
+                return $.map(instruments, function (instru) {
+                    return {
+                        value: instru.marque_nom + ' ' + instru.instru_modele,
+                        id: instru.instru_id
+                    };
+                });
+            }
+        }
     });
+
+    // Initialize the Bloodhound suggestion engine
+    membres.initialize();
+    instruments.initialize();
+
+    // Instantiate the Typeahead UI
+    $('#search').typeahead(
+    {
+        highlight: true,
+        minLength: 3,
+        template: {
+            empty: '<div class="empty-message">Aucun résultat</div>'
+        }
+    },
+    {
+        name: 'membres',
+        displayKey: 'value',
+        source: membres.ttAdapter(),
+        templates: {
+            header: '<h4 class="search-result-title">Membres</h4>',
+            suggestion: Handlebars.compile("<p><a href='/admin/membres/{{id}}'>{{value}}</a></p>")
+        }
+    },
+    {
+        name: 'instruments',
+        displayKey: 'value',
+        source: instruments.ttAdapter(),
+        templates: {
+            header: '<h4 class="search-result-title">Instruments</h4>',
+            suggestion: Handlebars.compile("<p><a href='/admin/instruments/{{id}}'>{{value}}</a></p>")
+        }
+    }
+    );
 
     $('.tablesorter').bind('filterInit', function(){
         var tr1 = $(this).find('thead tr').eq(0);
@@ -137,66 +209,6 @@ function cancelNewInstrument(){
 
     $('#add > *:not(button)').remove();
     $('#add button').show();
-}
-
-function addMarque(){
-
-    $('#add-marque button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/ajouter_marque',
-        success: function(data){
-            $('#add-marque').append(data);
-        }
-    });
-}
-
-function cancelAddMArque(){
-
-    $('#add-marque form').remove();
-    $('#add-marque button').show();
-    return false;
-
-}
-
-function addCategorie(){
-
-    $('#add-categorie button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/ajouter_categorie',
-        success: function(data){
-            $('#add-categorie').append(data);
-        }
-    });
-}
-
-function cancelAddCategorie(){
-
-    $('#add-categorie form').remove();
-    $('#add-categorie button').show();
-    return false;
-
-}
-
-function addType(categorie){
-
-    $('#add-type button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/ajouter_type/'+categorie,
-        success: function(data){
-            $('#add-type').append(data);
-        }
-    });
-}
-
-function cancelAddType(){
-
-    $('#add-type form').remove();
-    $('#add-type button').show();
-    return false;
-
 }
 
 function getInstruTypes(categ_id){

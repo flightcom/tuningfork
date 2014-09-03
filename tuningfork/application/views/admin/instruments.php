@@ -1,12 +1,7 @@
+<button type="button" class="reset btn btn-default pull-right">RàZ filtres</button>
+<h3><?php echo $title; ?></h3>
+
 <br>
-
-<div id="add" class="pull-right">
-	<button onclick="document.location.href='/admin/instruments/add'" type="button" class="btn btn-primary">Ajouter un instrument</button>
-</div>
-
-<button type="button" class="reset btn btn-default">RàZ filtres</button>
-<br />
-<br />
 
 <table class="table table-bordered table-hover tablesorter">
 

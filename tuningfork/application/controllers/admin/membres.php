@@ -31,15 +31,16 @@ class Membres extends Admin_Controller {
 
 	public function index($membre_id = null, $action = null)
 	{
-		if(is_null($membre_id))
+		if(is_null($membre_id) && is_null($action))
 		{
 			$this->lister_membres();
 		} 
-		else if(is_numeric($membre_id))
+		else if(is_numeric($membre_id) && is_null($action))
 		{
 			$this->infos_membre($membre_id);
 		}
-		else {
+		else if(is_numeric($membre_id) && !is_null($action))
+		{
 			show_404();
 		}
 	}

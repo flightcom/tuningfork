@@ -32,4 +32,11 @@ class Ajax extends Admin_Controller {
 		echo json_encode($membres);
 	}
 
+	public function searchInstru($search)
+	{
+		$instruments = $this->Instrument_model->search_instru($search);
+
+		echo json_encode($instruments);
+	}
+
 }
