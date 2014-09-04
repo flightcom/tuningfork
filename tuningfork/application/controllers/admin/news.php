@@ -25,7 +25,7 @@ class News extends Admin_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('News_model');
 
-		// $this->menu = $this->load->view('admin/menus/news', NULL, TRUE);
+		$this->menu = $this->load->view('admin/news/menu', NULL, TRUE);
     }
 
 	public function index($news_id = null, $action = null)
@@ -38,6 +38,36 @@ class News extends Admin_Controller {
 		{
 			$this->get_news($news_id);
 		}
+	}
+
+	public function add()
+	{
+		/* Check if admin */
+		$data = array(
+			// 'marques' => $this->Instrument_model->get_all_marques(),
+			// 'categories' => $this->Instrument_model->get_all_categories(),
+			// 'types' => array()
+			'title' => 'Nouvel article',
+			'toolbox' => $this->load->view('admin/news/toolbox', NULL, TRUE)
+		);
+
+		$this->form_validation->set_rules('titre', 'Titre', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$content = $this->load->view('admin/news/add', $data, TRUE);
+			$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));		
+		}
+		else
+		{
+			$marque = $this->input->post('marque');
+			$modele = $this->input->post('modele');
+			$code = $this->input->post('code');
+			$numero = $this->input->post('numero');
+			$query = $this->News_model->insert();
+			redirect('/admin/news/list');
+		}
+
 	}
 
 	public function lister_news()

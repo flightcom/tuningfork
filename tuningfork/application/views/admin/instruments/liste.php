@@ -12,7 +12,7 @@
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
 			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
 			<th class="hidden-xs hidden-sm">Modèle</th>
-			<th class="hidden-xs">Numéro de série</th>
+			<th class="visible-lg">Numéro de série</th>
 			<th>Code barre</th>
 			<th class="col-xs-1 visible-lg">Date entrée</th>
 			<th class="col-xs-1 visible-lg">Etat</th>
@@ -29,12 +29,12 @@
 		    <td><?php echo $i->type_nom; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
-		    <td class="hidden-xs"><?php echo $i->instru_numero_serie; ?></td>
+		    <td class="visible-lg"><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
 		    <td class="visible-lg"><?php echo $i->instru_date_entree; ?></td>
-		    <td class="visible-lg"><?php $n = 0; while ( $n++ < 5 ) : ?><i class='glyphicon glyphicon-star<?php echo ($i->instru_etat-- > 0) ? '' : '-empty'; ?>'></i><?php endwhile; ?></td>
-		    <td class="bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></td>
-		    <td class="visible-lg bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></td>
+		    <td class="td-etat visible-lg"><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " value="<?php echo $i->instru_etat; ?>"></td>
+		    <td class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
+		    <td class="td-check visible-lg bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
 		</tr>
 		<?php } ?>
 
@@ -66,3 +66,91 @@
     </tfoot>
 
 </table>
+
+
+<script>
+
+$(function(){
+
+	// $('a.rating-clear, span.glyphicon.glyphicon-star').data('events').click.reverse();
+	// $(document).delegate('a.rating-clear, span.glyphicon.glyphicon-star', 'click', function(event){
+
+	// 	console.log('etat clicked');
+	// 	var id = $(this).find('input[type=hidden]').val();
+	// 	var etat = $(this).closest('td').find('.rating').val();
+	// 	// changeEtat(id, etat);
+
+	// });
+
+	// $('.td-etat .rating-input').queue('click', queue);
+
+	// Replace the queue
+	// var queue = $('.td-etat .rating-input').queue('click');
+	// $('.td-etat .rating-input').clearQueue('click');
+	$('.td-etat .rating-input').bind('click', function(event){
+
+		console.log('etat clicked');
+		var id = $(this).find('input[type=hidden]').val();
+		var etat = $(this).closest('td').find('.rating').val();
+		changeEtat(id, etat);
+		// event.stopPropagation();
+
+	});
+
+	// $('.td-etat .rating-input').queue('click', queue);
+
+
+	$('.td-dispo').click( function(event){
+
+		var id = $(this).find('input[type=hidden]').val();
+		toggleDispo(id);
+		event.stopPropagation();
+
+	});
+	
+	$('.td-check').click( function(event){
+
+		var id = $(this).find('input[type=hidden]').val();
+		toggleCheck(id);
+		event.stopPropagation();
+
+	});
+	
+});
+
+function toggleDispo(id) {
+
+	$.ajax({
+		url: '/admin/ajax/changeDispo/'+id,
+		async: false,
+		success: function(data){
+			document.location.reload();
+		}
+	});
+
+}
+
+function changeEtat(id, etat) {
+
+	$.ajax({
+		url: '/admin/ajax/changeEtat/'+id + '/' + etat,
+		async: false,
+		success: function(data){
+			document.location.reload();
+		}
+	});
+
+}
+
+function toggleCheck(id) {
+
+	$.ajax({
+		url: '/admin/ajax/changeCheck/'+id,
+		async: false,
+		success: function(data){
+			document.location.reload();
+		}
+	});
+
+}
+</script>

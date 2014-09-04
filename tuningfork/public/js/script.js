@@ -50,23 +50,6 @@ $(document).ready(function(){
         $('.nav-menu').removeClass('active');
     });
 
-    // Pour la recherche depuis la topbar
-    // $('#search').keyup(function(){
-
-    //     var search = $(this).val();
-
-    //     $.ajax({
-    //         url: '/admin/ajax/searchMember/'+ search,
-    //         type: 'post',
-    //         async: false,
-    //         success: function(data){
-    //             console.log(data);
-    //         }
-    //     });
-
-
-    // });
-
     // Instantiate the Bloodhound suggestion engine
     var membres = new Bloodhound({
         datumTokenizer: function (datum) {
@@ -158,9 +141,12 @@ $(document).ready(function(){
     $(".tablesorter").tablesorter({
         theme: "bootstrap",
         widthFixed: true,
+        sortReset: true,
         headerTemplate: '{content} {icon}',
-        widgets: ["uitheme", "filter", "zebra"],
+        widgets: ["uitheme", "filter", "zebra", "saveSort"],
         widgetOptions: {
+            saveSort : true,
+            filter_saveFilters: true,
             filter_reset: '.reset',
             filter_onlyAvail : 'filter-onlyAvail'
         }

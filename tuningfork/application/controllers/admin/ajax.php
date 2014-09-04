@@ -39,4 +39,29 @@ class Ajax extends Admin_Controller {
 		echo json_encode($instruments);
 	}
 
+	public function changeDispo($instru_id)
+	{
+		$instru = $this->Instrument_model->get_entry($instru_id);
+		$dispo = (int) $instru->instru_dispo;
+		$newdispo = $dispo == 1 ? 0 : 1;
+		$this->Instrument_model->updateDispo($instru_id, $newdispo);
+		echo $newdispo;
+	}
+
+	public function changeCheck($instru_id)
+	{
+		$instru = $this->Instrument_model->get_entry($instru_id);
+		$check = (int) $instru->instru_a_verifier;
+		$newcheck = $check == 1 ? 0 : 1;
+		$this->Instrument_model->updateCheck($instru_id, $newcheck);
+		echo $newcheck;
+	}
+
+	public function changeEtat($instru_id, $etat)
+	{
+		$instru = $this->Instrument_model->get_entry($instru_id);
+		$this->Instrument_model->updateEtat($instru_id, $etat);
+		echo 1;
+	}
+
 }

@@ -78,6 +78,27 @@ class Instrument_model extends CI_Model {
         $this->db->update('instruments', $this);
     }
 
+    function updateDispo($id, $dispo)
+    {
+        $this->instru_dispo = $dispo;
+        $this->db->where('instru_id', $id);
+        $this->db->update('instruments', $this);        
+    }
+
+    function updateCheck($id, $check)
+    {
+        $this->instru_a_verifier = $check;
+        $this->db->where('instru_id', $id);
+        $this->db->update('instruments', $this);        
+    }
+
+    function updateEtat($id, $etat)
+    {
+        $this->instru_etat = $etat;
+        $this->db->where('instru_id', $id);
+        $this->db->update('instruments', $this);        
+    }
+
     function delete($id)
     {
         $this->db->where('instru_id', $id);
