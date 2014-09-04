@@ -41,8 +41,8 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
-$route['admin/(:any)/(:num)'] = "admin/$1/index/$2";
-$route['admin/(:any)/(:num)/(:any)'] = "admin/$1/index/$2/$3";
+$route['admin/([a-z_]+)/(:num)'] = "admin/$1/index/$2";
+$route['admin/([a-z_]+)/(:num)/([a-z]+)'] = "admin/$1/index/$2/$3";
 // $route['(:any)'] = "$1";
 
 /* End of file routes.php */

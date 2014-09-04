@@ -24,8 +24,9 @@ class Instruments extends Admin_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('Instrument_model');
+		$this->load->model('Emprunt_model');
 
-		$this->menu = $this->load->view('admin/menus/instruments', NULL, TRUE);
+		$this->menu = $this->load->view('admin/instruments/menu', NULL, TRUE);
     }  
 
 	public function index($param1 = null, $param2 = null)
@@ -41,14 +42,14 @@ class Instruments extends Admin_Controller {
 				'title' => 'Informations sur l\'instrument',
 				'instrument' => $this->Instrument_model->get_entry($id)
 				);
-			$content = $this->load->view('admin/instrument', $data, TRUE);
-			$this->load->view('master_admin', array( 'content' => $content));
+			$content = $this->load->view('admin/instruments/instrument', $data, TRUE);
+			$this->load->view('admin/master', array( 'content' => $content));
 		}
 		else if(is_numeric($param1) && !is_null($param2))
 		{
 			$instru_id = $param1;
 			$action = $param2;
-			echo $action;
+
 			switch($action){
 				case 'delete'	: $this->delete($instru_id); break;
 				case 'edit'		: $this->edit($instru_id); break;
@@ -59,6 +60,7 @@ class Instruments extends Admin_Controller {
 		{
 			switch($param1){
 				case 'add'		: $this->add();break;
+				case 'prets'	: $this->prets();break;
 				case 'liste'	: $this->liste();break;
 				default 		: break;
 			}
@@ -72,8 +74,8 @@ class Instruments extends Admin_Controller {
 			'instruments' => $this->Instrument_model->get_all_entries(),
 			'title' => 'Liste des instruments'
 			);
-		$content = $this->load->view('admin/instruments', $data, TRUE);
-		$this->load->view('master_admin', array('title' => 'Liste d\'instruments', 'content' => $content));
+		$content = $this->load->view('admin/instruments/instruments', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste d\'instruments', 'content' => $content));
 	}
 
 	public function add()
@@ -90,8 +92,8 @@ class Instruments extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('instruments/add', $data, TRUE);
-			$this->load->view('master_admin', array('title' => 'Nouvel instrument', 'content' => $content));		
+			$content = $this->load->view('admin/instruments/add', $data, TRUE);
+			$this->load->view('admin/master', array('title' => 'Nouvel instrument', 'content' => $content));		
 		}
 		else
 		{
@@ -100,7 +102,7 @@ class Instruments extends Admin_Controller {
 			$code = $this->input->post('code');
 			$numero = $this->input->post('numero');
 			$query = $this->Instrument_model->insert();
-			redirect('/admin/instruments');
+			redirect('/admin/instruments/instruments');
 		}
 
 	}
@@ -111,7 +113,7 @@ class Instruments extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('instruments/add_marque', NULL, TRUE);
+			$content = $this->load->view('admin/instruments/add_marque', NULL, TRUE);
 			echo $content;
 		}
 		else
@@ -135,7 +137,7 @@ class Instruments extends Admin_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			$data = array('categorie' => $categorie);
-			$content = $this->load->view('instruments/add_type', $data, TRUE);
+			$content = $this->load->view('admin/instruments/add_type', $data, TRUE);
 			echo $content;
 		}
 		else
@@ -160,7 +162,7 @@ class Instruments extends Admin_Controller {
 			'types' => $this->Instrument_model->get_types_by_categ($categ_id)
 			);
 
-		$content = $this->load->view('instruments/select_type', $data, TRUE);
+		$content = $this->load->view('admin/instruments/select_type', $data, TRUE);
 		echo $content;
 	}
 
@@ -170,7 +172,7 @@ class Instruments extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('instruments/add_categorie', NULL, TRUE);
+			$content = $this->load->view('admin/instruments/add_categorie', NULL, TRUE);
 			echo $content;
 		}
 		else
@@ -205,4 +207,14 @@ class Instruments extends Admin_Controller {
 		echo count($res);
 	}
 
+	public function prets()
+	{
+		$data = array(
+			'emprunts' => $this->Emprunt_model->get_emprunt_en_cours(),
+			'title' => 'Liste des prêts en cours'
+			);
+		$content = $this->load->view('admin/instruments/prets', $data, TRUE);
+		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+
+	}
 }

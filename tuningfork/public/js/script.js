@@ -176,16 +176,16 @@ $(document).ready(function(){
 
 });
 
-$( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
+$('#wrap .dropdown-menu li').on( 'click', function( event ) {
  
-   var $target = $( event.currentTarget );
- 
-   $target.closest( '.btn-group' )
-      .find( '[data-bind="label"]' ).text( $target.text() )
-         .end()
-      .find( 'input' ).val( $target.attr('data-value') ).change()
-         .end()
-      .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+    var $target = $( event.currentTarget );
+
+    $target.closest( '.btn-group' )
+        .find( '[data-bind="label"]' ).text( $target.text() )
+            .end()
+        .find( 'input' ).val( $target.attr('data-value') ).change()
+            .end()
+        .children( '.dropdown-toggle' ).dropdown( 'toggle' );
  
    return false;
  
@@ -211,20 +211,8 @@ function cancelNewInstrument(){
     $('#add button').show();
 }
 
-function getInstruTypes(categ_id){
-
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/selectionner_type/'+categ_id,
-        success: function(data){
-            $('#select-type').html(data);
-        }
-    });
-
-}
-
 function loadAddMemberView(){
 
-    $('#add').load('/admin/ajouter-membre');
+    $('#add').load('/admin/membres/ajouter_membre');
 
 }

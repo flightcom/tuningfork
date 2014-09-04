@@ -62,6 +62,8 @@ class Instrument_model extends CI_Model {
         $this->instru_modele = $this->input->post('modele');
         $this->instru_code = $this->input->post('code');
         $this->instru_numero_serie = $this->input->post('numero');
+        $this->instru_etat = $this->input->post('etat');
+        $this->instru_dispo = $this->input->post('dispo');
         $this->instru_type_id = $this->input->post('type') ? $this->input->post('type') : null;
 
         $this->db->insert('instruments', $this);
@@ -190,7 +192,7 @@ class Instrument_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('instruments');
         $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
-        $this->db->where("instru_modele LIKE '$search%' OR marque_nom LIKE '$search%'");
+        $this->db->where("instru_modele LIKE '%$search%' OR marque_nom LIKE '%$search%'");
         $query = $this->db->get();
         return $query->result();
     }

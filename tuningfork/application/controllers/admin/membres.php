@@ -26,7 +26,7 @@ class Membres extends Admin_Controller {
 		$this->load->model('Membre_model');
 		$this->load->model('Emprunt_model');
 
-		$this->menu = $this->load->view('admin/menus/membres', NULL, TRUE);
+		$this->menu = $this->load->view('admin/membres/menu', NULL, TRUE);
     }
 
 	public function index($membre_id = null, $action = null)
@@ -51,8 +51,8 @@ class Membres extends Admin_Controller {
 			'membres' => $this->Membre_model->get_all_entries(),
 			'title' => 'Liste des membres',
 			);
-		$content = $this->load->view('admin/membres', $data, TRUE);
-		$this->load->view('master_admin', array('title' => 'Liste des membres', 'content' => $content));
+		$content = $this->load->view('admin/membres/membres', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste des membres', 'content' => $content));
 	}
 
 	public function infos_membre($membre_id)
@@ -63,8 +63,8 @@ class Membres extends Admin_Controller {
 			'emprunts' => $this->Emprunt_model->get_emprunts_by_membre_id($membre_id),
 			'en_cours' => $this->Emprunt_model->check_emprunt_en_cours_by_membre_id($membre_id)
 			);
-		$content = $this->load->view('admin/membre', $data, TRUE);
-		$this->load->view('master_admin', array( 'content' => $content));
+		$content = $this->load->view('admin/membres/membre', $data, TRUE);
+		$this->load->view('admin/master', array( 'content' => $content));
 	}
 
 }

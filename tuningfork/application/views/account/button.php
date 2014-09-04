@@ -4,7 +4,7 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></a>
 	    <ul class="dropdown-menu">
 	    	<li><a href="#"><span class="glyphicon glyphicon-user"></a></li>
-	    	<li><a href="/connexion/deconnexion"><span class="glyphicon glyphicon-off"></a></li>
+	    	<li><a onclick="console.log('ok');" href="/connexion/deconnexion"><span class="glyphicon glyphicon-off"></a></li>
             <?php if($this->session->userdata('user_isAdmin')) { ?>
             	<?php if(in_array('admin', $this->uri->segments)) { ?>
 	    	<li><a href="/"><span class="glyphicon glyphicon-globe"></a></li>

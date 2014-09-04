@@ -87,7 +87,7 @@ class Membre_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('membres');
-        $this->db->where("membre_nom LIKE '$search%' OR membre_prenom LIKE '$search%'");
+        $this->db->where("membre_nom LIKE '%$search%' OR membre_prenom LIKE '%$search%'");
         $query = $this->db->get();
         return $query->result();
     }

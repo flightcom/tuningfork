@@ -6,7 +6,7 @@
 
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
-        <div class="col-xs-6">
+        <div class="col-xs-11">
 			<div class="btn-group dropdown" name="categorie">
 				<button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
 					<span data-bind="label">Sélectionnez</span> <span class="caret"></span>
@@ -16,14 +16,15 @@
 					<li data-value="<?php echo $c->categ_id; ?>"><a href="#"><?php echo $c->categ_nom; ?></a></li>
 					<?php } ?>
 				</ul>
-				<input type="hidden" name="categorie" value="" onchange="getInstruTypes(this.value);" />
+				<input type="hidden" name="categorie" value="" onchange="getInstruTypes(this.value);" required />
 			</div>
 			<div id="add-categorie" style="display:inline-block;">
-				<button onclick="addCategorie();return false;"class="btn btn-default">Ajouter une Catégorie</button>
+				<button onclick="addCategorie();return false;"class="btn btn-primary">Ajouter une Catégorie</button>
 			</div>
         </div>
-        <div class="col-xs-8" id="select-type"></div>
     </div>
+
+    <div class="form-group hidden" id="select-type"></div>
 
 	<div class="form-group">
         <label for="marque" class="control-label col-xs-1">Marque</label>
@@ -37,10 +38,10 @@
 					<li data-value="<?php echo $m->marque_id; ?>"><a href="#"><?php echo $m->marque_nom; ?></a></li>
 					<?php } ?>
 				</ul>
-				<input type="hidden" name="marque" value="0" />
+				<input type="hidden" name="marque" value="0" required />
 			</div>
 			<div id="add-marque" style="display:inline-block;">
-				<button onclick="addMarque();return false;"class="btn btn-default">Ajouter une marque</button>
+				<button onclick="addMarque();return false;"class="btn btn-primary">Ajouter une marque</button>
 			</div>
         </div>
     </div>
@@ -48,21 +49,44 @@
 	<div class="form-group">
         <label for="modele" class="control-label col-xs-1">Modèle</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="modele" name="modele" placeholder="Modèle">
+            <input type="text" class="form-control" id="modele" name="modele" placeholder="Modèle" required>
         </div>
     </div>
 
 	<div class="form-group">
         <label for="code" class="control-label col-xs-1">Code</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="code" name="code" placeholder="Code">
+            <input type="text" class="form-control" id="code" name="code" placeholder="Code" required>
         </div>
     </div>
 
 	<div class="form-group">
         <label for="numero" class="control-label col-xs-1">Numéro de série</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="numero" name="numero" placeholder="Numéro de série">
+            <input type="text" class="form-control" id="numero" name="numero" placeholder="Numéro de série" >
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="etat" class="control-label col-xs-1">État</label>
+        <div class="col-xs-11">
+            <input style="font-size:20px;"  class="rating editable" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " value="" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="dispo" class="control-label col-xs-1">Disponibilité</label>
+        <div class="col-xs-10">
+            <div class="btn-group dropdown" name="dispo">
+                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                    <span data-bind="label">Oui</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li data-value="1"><a href="#">Oui</a></li>
+                    <li data-value="0"><a href="#">Non</a></li>
+                </ul>
+                <input type="hidden" name="dispo" value="1" />
+            </div>
         </div>
     </div>
 
@@ -135,6 +159,19 @@ function cancelAddType(){
     $('#add-type form').remove();
     $('#add-type button').show();
     return false;
+
+}
+
+function getInstruTypes(categ_id){
+
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/instruments/selectionner_type/'+categ_id,
+        success: function(data){
+            $('#select-type').html(data);
+            $('#select-type').removeClass('hidden');
+        }
+    });
 
 }
 

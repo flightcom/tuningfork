@@ -46,8 +46,8 @@ class News extends Admin_Controller {
 			'articles' => $this->News_model->get_all_entries(),
 			'title' => 'Liste des articles',
 			);
-		$content = $this->load->view('admin/news', $data, TRUE);
-		$this->load->view('master_admin', array('title' => 'Liste des news', 'content' => $content));
+		$content = $this->load->view('admin/news/news', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste des news', 'content' => $content));
 	}
 
 	public function get_news($news_id)
@@ -55,8 +55,8 @@ class News extends Admin_Controller {
 		$data = array(
 			'article' => $this->News_model->get_entry($news_id)
 			);
-		$content = $this->load->view('admin/news', $data, TRUE);
-		$this->load->view('master_admin', array('title' => 'Liste des news', 'content' => $content));
+		$content = $this->load->view('admin/news/news', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste des news', 'content' => $content));
 
 	}
 

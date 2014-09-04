@@ -10,6 +10,33 @@ class Emprunt_model extends CI_Model {
         $this->load->database(); 
     }
     
+    function get_all_entries()
+    {
+        $this->db->select('*');
+        $this->db->from('emprunts');
+        $this->db->join('membres', 'emprunts.emp_membre_id = membres.membre_id');
+        $this->db->join('instruments', 'emprunts.emp_instru_id = instruments.instru_id');
+        $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
+        $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_entry($id)
+    {
+        $this->db->select('*');
+        $this->db->from('emprunts');
+        $this->db->join('membres', 'emprunts.emp_membre_id = membres.membre_id');
+        $this->db->join('instruments', 'emprunts_emp_instru_id = instruments.instru_id');
+        $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
+        $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
+        $this->db->where('emprunt_id', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     function get_emprunts_by_membre_id($membre_id)
     {
         $this->db->select('*');
@@ -29,9 +56,23 @@ class Emprunt_model extends CI_Model {
         $this->db->from('emprunts');
         $this->db->join('membres', 'membres.membre_id=emprunts.emp_membre_id');
         $this->db->where('membre_id', $membre_id);
-        $this->db->where('emp_date_fin < ', 'NOW()');
+        $this->db->where('emp_date_fin_effective IS NULL');
         $query = $this->db->get();
         return $query->row();
+    }
+
+    function get_emprunt_en_cours()
+    {
+        $this->db->select('*');
+        $this->db->from('emprunts');
+        $this->db->join('membres', 'membres.membre_id=emprunts.emp_membre_id');
+        $this->db->join('instruments', 'emprunts.emp_instru_id = instruments.instru_id');
+        $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
+        $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
+        $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
+        $this->db->where('emp_date_fin_effective IS NULL');
+        $query = $this->db->get();
+        return $query->result();
     }
 
 }

@@ -21,7 +21,7 @@ class Welcome extends Admin_Controller {
 	{
 		$content = $this->load->view('admin/index', NULL, TRUE);
 		// $dashboard = $this->load->view('admin/dashboard', NULL, TRUE);
-		$this->load->view('master_admin', array('title' => 'Administration', 'content' => $content));
+		$this->load->view('admin/master', array('title' => 'Administration', 'content' => $content));
 	}
 
 }
