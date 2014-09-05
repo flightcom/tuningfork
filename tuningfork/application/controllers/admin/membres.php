@@ -51,7 +51,7 @@ class Membres extends Admin_Controller {
 			'membres' => $this->Membre_model->get_all_entries(),
 			'title' => 'Liste des membres',
 			);
-		$content = $this->load->view('admin/membres/membres', $data, TRUE);
+		$content = $this->load->view('admin/membres/liste', $data, TRUE);
 		$this->load->view('admin/master', array('title' => 'Liste des membres', 'content' => $content));
 	}
 

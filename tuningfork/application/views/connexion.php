@@ -1,6 +1,6 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
-<div class="container">
+<div class="col-xs-12">
 
     <div class="omb_login">
     	<h3 class="omb_authTitle">Connectez-vous ou <a href="/compte/creation">Créez votre compte</a></h3>

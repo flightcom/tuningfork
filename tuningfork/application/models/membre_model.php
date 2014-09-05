@@ -87,6 +87,9 @@ class Membre_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('membres');
+        $this->db->join('adresses', 'membres.membre_adr_id= adresses.adr_id');
+        $this->db->join('villes', 'adresses.adr_ville_id= villes.ville_id');
+        $this->db->join('pays', 'adresses.adr_pays_id= pays.pays_id');
         $this->db->where("membre_nom LIKE '%$search%' OR membre_prenom LIKE '%$search%'");
         $query = $this->db->get();
         return $query->result();

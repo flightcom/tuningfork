@@ -11,13 +11,11 @@
             <th>Prénom</th>
             <th>Téléphone</th>
             <th>Email</th>
-            <th>Adresse</th>
-            <th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Ville</th>
+            <th>Catégorie</th>
             <th>Marque</th>
             <th>Modèle</th>
-            <th>Code</th>
             <th>Date emprunt</th>
-            <th>Date de remise</th>
+            <th>Date de remise prévue</th>
         </tr>
 
     </thead>
@@ -30,13 +28,11 @@
             <td><?php echo $e->membre_prenom; ?></td>
             <td><?php echo $e->membre_tel; ?></td>
             <td><?php echo $e->membre_email; ?></td>
-            <td><?php echo Membre_model::format_address($e); ?></td>
-            <td><?php echo $e->ville_nom; ?></td>
+            <td><?php echo $e->categ_nom; ?></td>
             <td><?php echo $e->marque_nom; ?></td>
             <td><?php echo $e->instru_modele; ?></td>
-            <td><?php echo $e->instru_code; ?></td>
             <td><?php echo $e->emp_date_debut; ?></td>
-            <td><?php echo $e->emp_date_fin; ?></td>
+            <td><?php echo $e->emp_date_fin_prevue; ?></td>
         </tr>
         <?php } ?>
 

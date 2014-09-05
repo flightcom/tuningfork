@@ -34,7 +34,7 @@
 
 				<?php echo $this->session->userdata('account'); ?>
 
-				<form class="navbar-form navbar-right" role="search">
+				<form action="/admin/recherche/" method="post" class="navbar-form navbar-right" role="search">
 					<div class="form-group">
 						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
 					</div>
@@ -66,7 +66,7 @@
 		<script src="<?php echo (JS.'bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
-		<script src="<?php echo (JS.'script.js'); ?>"></script> 
+		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
 	</body>
 
 </html>

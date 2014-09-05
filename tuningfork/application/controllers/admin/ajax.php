@@ -64,4 +64,20 @@ class Ajax extends Admin_Controller {
 		echo 1;
 	}
 
+	public function preview()
+	{
+		$title = $this->input->post('titre');
+		$text = $this->input->post('texte');
+
+		$data = array(
+			'title' => $title,
+			'text' => $text
+			);
+		$content = $this->load->view('admin/news/preview', $data, TRUE);
+		// $this->load->view('master', array('title' => $data['title'], 'content' => $content));
+		echo $content;
+
+		// echo 'ok';
+	}
+
 }
