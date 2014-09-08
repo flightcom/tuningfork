@@ -10,6 +10,7 @@
 		<link href="<?php echo (CSS.'theme.bootstrap.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'theme.jui.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="<?php echo (CSS.'calendar.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'jquery.tablesorter.pager.css'); ?>" rel="stylesheet" type="text/css"></script>
 
@@ -66,6 +67,7 @@
 		<script src="<?php echo (JS.'bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
+		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
 	</body>
 
