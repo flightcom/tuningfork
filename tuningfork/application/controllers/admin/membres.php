@@ -63,7 +63,7 @@ class Membres extends Admin_Controller {
 			'emprunts' => $this->Emprunt_model->get_emprunts_by_membre_id($membre_id),
 			'en_cours' => $this->Emprunt_model->check_emprunt_en_cours_by_membre_id($membre_id)
 			);
-		$content = $this->load->view('admin/membres/membre', $data, TRUE);
+		$content = $this->load->view('admin/membres/detail', $data, TRUE);
 		$this->load->view('admin/master', array( 'content' => $content));
 	}
 

@@ -13,7 +13,7 @@
 			    <li><a href="/admin/news"><span class="glyphicon glyphicon-th-list"></span> Liste</a></li>
 			    <li><a href="/admin/news/add"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
                 <li><a href="/admin/news/media"><span class="glyphicon glyphicon-picture"></span> Médias</a></li>
-                <li><a href="/admin/news/comments"><span class="glyphicon glyphicon-comment"></span> Commentaires</a></li>
+                <li><a href="/admin/news/comments"><span class="glyphicon glyphicon-comment"></span> Commentaires<span class="badge alert-info">10</span></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->

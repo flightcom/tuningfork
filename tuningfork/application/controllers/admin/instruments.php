@@ -40,9 +40,10 @@ class Instruments extends Admin_Controller {
 			$id = $param1;
 			$data = array(
 				'title' => 'Informations sur l\'instrument',
-				'instrument' => $this->Instrument_model->get_entry($id)
+				'instrument' => $this->Instrument_model->get_entry($id),
+				'emprunts' => $this->Emprunt_model->get_history($id)
 				);
-			$content = $this->load->view('admin/instruments/instrument', $data, TRUE);
+			$content = $this->load->view('admin/instruments/detail', $data, TRUE);
 			$this->load->view('admin/master', array( 'content' => $content));
 		}
 		else if(is_numeric($param1) && !is_null($param2))
@@ -53,6 +54,7 @@ class Instruments extends Admin_Controller {
 			switch($action){
 				case 'delete'	: $this->delete($instru_id); break;
 				case 'edit'		: $this->edit($instru_id); break;
+				case 'preter'	: $this->preter($instru_id); break;
 				default 		: break;
 			}
 		}
@@ -102,7 +104,7 @@ class Instruments extends Admin_Controller {
 			$code = $this->input->post('code');
 			$numero = $this->input->post('numero');
 			$query = $this->Instrument_model->insert();
-			redirect('/admin/instruments/instruments');
+			redirect('/admin/instruments/liste');
 		}
 
 	}
@@ -205,6 +207,11 @@ class Instruments extends Admin_Controller {
 	{
 		$res = $this->Instrument_model->get_entry_by_instru_code($instru_code);
 		echo count($res);
+	}
+
+	public function preter($instru_code)
+	{
+
 	}
 
 	public function prets()

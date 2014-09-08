@@ -75,6 +75,18 @@ class Emprunt_model extends CI_Model {
         return $query->result();
     }
 
+    function get_history($instru_id)
+    {
+        $this->db->select('*');
+        $this->db->from('emprunts');
+        $this->db->join('membres', 'membres.membre_id=emprunts.emp_membre_id');
+        $this->db->join('instruments', 'emprunts.emp_instru_id = instruments.instru_id');
+        $this->db->where('emp_instru_id', $instru_id);
+        $this->db->order_by('emp_date_debut', 'desc');
+        $query = $this->db->get();
+        return $query->result(); 
+    }
+
 }
 
 ?>

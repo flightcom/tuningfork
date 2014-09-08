@@ -4,6 +4,7 @@
 .breadcrumb {background-color: inherit!important;}
 .breadcrumb>li+li:before{content:"\203A\00a0"!important;}
 .nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
+.nav-sidebar ul{ overflow-x:hidden;}
 /*.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}*/
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #0074a2;}
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
@@ -201,6 +202,20 @@ input::valid {
 .bold {
 	font-weight: bold;
 }
+
+.fs14 { font-size: 14px;}
+.fs15 { font-size: 15px;}
+.fs16 { font-size: 16px;}
+.fs17 { font-size: 17px;}
+.fs18 { font-size: 18px;}
+.fs19 { font-size: 19px;}
+.fs20 { font-size: 20px;}
+.fs22 { font-size: 22px;}
+.fs24 { font-size: 24px;}
+.fs26 { font-size: 26px;}
+.fs28 { font-size: 28px;}
+.fs30 { font-size: 30px;}
+.fs32 { font-size: 32px;}
 
 input.rating {
 	font-size: 20px;

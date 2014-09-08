@@ -1,23 +1,37 @@
 <button type="button" class="reset btn btn-default pull-right">RàZ filtres</button>
+
+<div class="btn-group pull-right" style="margin-right:10px;">
+	<button type="button" class="btn btn-default">Afficher</button>
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="show">
+		<li><a href="#" data-col="date">Date entrée</a></li>
+		<li><a href="#" data-col="check">A vérifier</a></li>
+		<li><a href="#" data-col="serial">Numéro de série</a></li>
+	</ul>
+</div>
+
 <h3><?php echo $title; ?></h3>
 
 <br>
 
-<table class="table table-bordered table-hover tablesorter">
+<table class="table table-bordered table-hover tablesorter col-xs-12">
 
 	<thead>
 
 		<tr class="">
-			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
-			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
-			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
+			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
+			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
+			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
 			<th class="hidden-xs hidden-sm">Modèle</th>
-			<th class="visible-lg">Numéro de série</th>
+			<th class="hidden" data-col="serial">Numéro de série</th>
 			<th>Code barre</th>
-			<th class="col-xs-1 visible-lg">Date entrée</th>
-			<th class="col-xs-1 visible-lg">Etat</th>
-			<th class="filter-select filter-exact col-1" data-placeholder="Sélectionner">Disponibilité</th>
-			<th class="filter-select filter-exact col-1 visible-lg" data-placeholder="Sélectionner">A vérifier</th>
+			<th class="col-xs-1 hidden" data-col="date">Date entrée</th>
+			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Etat</th>
+			<th class="filter-select" data-placeholder="Sélectionner">Disponible</th>
+			<th class="filter-select hidden" data-col="check" data-placeholder="Sélectionner">A vérifier</th>
 		</tr>
 
 	</thead>
@@ -29,12 +43,12 @@
 		    <td><?php echo $i->type_nom; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
-		    <td class="visible-lg"><?php echo $i->instru_numero_serie; ?></td>
+		    <td class="hidden" data-col="serial"><?php echo $i->instru_numero_serie; ?></td>
 		    <td><?php echo $i->instru_code; ?></td>
-		    <td class="visible-lg"><?php echo $i->instru_date_entree; ?></td>
-		    <td class="td-etat visible-lg"><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="<?php echo $i->instru_id; ?>" value="<?php echo $i->instru_etat; ?>"></td>
-		    <td class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
-		    <td class="td-check visible-lg bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>"><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
+		    <td class="hidden" data-col="date"><?php echo $i->instru_date_entree; ?></td>
+		    <td class="td-etat"><span class="hidden"><?php echo $i->instru_etat; ?></span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="<?php echo $i->instru_id; ?>" value="<?php echo $i->instru_etat; ?>"></td>
+		    <td class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><span><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
+		    <td class="td-check hidden bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>" data-col="check" ><span><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
 		</tr>
 		<?php } ?>
 
@@ -71,6 +85,14 @@
 <script>
 
 $(function(){
+
+	$('ul[role="show"] li a').on('click', function(){
+		var col = $(this).data('col');
+		console.log(col);
+		$('table').find('[data-col="'+col+'"]').toggleClass('hidden');
+		$(this).closest('li').toggleClass('active');
+		$('.tablesorter').trigger('filterInit');
+	});
 
 	$(document).on('usercall', function(event, element){
 
@@ -117,7 +139,7 @@ function toggle(fonction, id, elem) {
 		success: function(data){
 			var text = data == 1 ? 'Oui' : 'Non';
 			var newclass = $(elem).hasClass('bg-green-soft') ? 'bg-red-soft' : 'bg-green-soft';
-			$(elem).html(text).removeClass('bg-green-soft bg-red-soft').addClass(newclass);
+			$(elem).find('span').html(text).parent().removeClass('bg-green-soft bg-red-soft').addClass(newclass);
 		}
 	});
 

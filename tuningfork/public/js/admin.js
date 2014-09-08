@@ -121,12 +121,14 @@ $(document).ready(function(){
     );
 
     $('.tablesorter').bind('filterInit', function(){
+        console.log('filterInit');
         var tr1 = $(this).find('thead tr').eq(0);
         var tr2 = $(this).find('thead tr').eq(1);
         var ths = tr1.find('th');
         var tds = tr2.find('td');
         ths.each(function(index){
-            if( $(this).is('[class*="hidden-"]') || $(this).is('[class*="visible-"]') ) {
+            tds.eq(index).removeClass();
+            if( $(this).is('[class*="hidden"]') || $(this).is('[class*="visible"]') ) {
                 var classes = $(this).attr('class').split(' ');
                 for(i = 0; i < classes.length; i++){
                     var classe = classes[i];
