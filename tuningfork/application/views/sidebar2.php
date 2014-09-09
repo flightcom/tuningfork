@@ -1,13 +1,57 @@
-<div id="calendar"></div>
+<section id="social">
+
+<!-- 	<h3 class="header">
+		<span class="label label-default">Suivez-nous !</span>
+	</h3>
+ -->
+	<button class="btn btn-facebook"><i class="fa fa-facebook"></i></button>
+	<button class="btn btn-twitter"><i class="fa fa-twitter"></i></button>
+
+	<div></div>
+
+</section>
+
+<section id="agenda">
+
+	<h3 class="header">
+		<!-- <span class="label label-default">Agenda</span> -->
+		<span class=""></span>
+		<span class="pull-right" style="cursor:pointer;" data-calendar-nav="next">&gt;</span> 
+		<span class="pull-right" style="margin-right:5px;cursor:pointer;" data-calendar-nav="prev">&lt;</span>
+	</h3>
+
+	<div id="calendar"></div>
+
+</section>
+
+<section id="new-instru">
+
+	<h3 class="header">
+		<span class="">Derniers instruments récupérés</span>
+	</h3>
+
+	<div id="last-instrus"></div>
+
+</section>
 
 <script>
 
 $(function(){
 
+	// Derniers instruments récupérés
+	$.ajax({
+		url: '/ajax/getLastInstru',
+		// type: 'post',
+		async: false,
+		success: function(data) {
+			$('#last-instrus').html(data);
+		}
+	});
+
+	// Calendrier
 	var options = {
         language: 'fr-FR',
 	    events_source: "/admin/agenda/get_events/",
-	    // events_source: "events.json.php",
 		view: 'month',
 		tmpl_path: '/public/html/tmplsmin/',
 		tmpl_cache: false,
@@ -18,15 +62,9 @@ $(function(){
 			}
 			var list = $('#eventlist');
 			list.html('');
-
-			$.each(events, function(key, val) {
-				$(document.createElement('li'))
-					.html('<a href="/' + val.id + '">' + val.title + '</a>')
-					.appendTo(list);
-			});
 		},
 		onAfterViewLoad: function(view) {
-			$('.header h3').text(this.getTitle());
+			$('#agenda .header span').eq(0).text(this.getTitle());
 			$('.btn-group button').removeClass('active');
 			$('button[data-calendar-view="' + view + '"]').addClass('active');
 		},
@@ -39,18 +77,10 @@ $(function(){
 
 	var calendar = $('#calendar').calendar(options);
 
-	// var calendar = $('#calendar').calendar({language: 'fr-FR'});
-	$('.btn-group button[data-calendar-nav]').each(function() {
+	$('.header span[data-calendar-nav]').each(function() {
 		var $this = $(this);
 		$this.click(function() {
 			calendar.navigate($this.data('calendar-nav'));
-		});
-	});
-
-	$('.btn-group button[data-calendar-view]').each(function() {
-		var $this = $(this);
-		$this.click(function() {
-			calendar.view($this.data('calendar-view'));
 		});
 	});
 

@@ -7,6 +7,8 @@
 		<title><?php echo $title; ?></title>
 
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="<?php echo (CSS.'bootstrap-social-buttons.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<!-- <link href="<?php echo (CSS.'simple-sidebar.css'); ?>" rel="stylesheet" type="text/css"></script> -->
 		<link href="<?php echo (CSS.'calendar.public.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -47,7 +49,9 @@
 			<div class="col-lg-2 psidebar visible-lg-inline"></div>
 
 	   		<div id="wrap" role="main" class="col-sd-12 col-lg-8 col-centered">
-				<?php echo $content; ?>
+	   			<div id="content">
+					<?php echo $content; ?>
+				</div>
 			</div>
 
 			<div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div>

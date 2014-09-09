@@ -21,6 +21,7 @@ class Instruments extends Admin_Controller {
     {
     	parent::__construct();
         $this->load->helper('url');
+		$this->load->helper('text');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('Instrument_model');
@@ -41,6 +42,7 @@ class Instruments extends Admin_Controller {
 			$data = array(
 				'title' => 'Informations sur l\'instrument',
 				'instrument' => $this->Instrument_model->get_entry($id),
+				'types' => $this->Instrument_model->get_types_by_categ($this->Instrument_model->get_categ_id_of($id)),
 				'emprunts' => $this->Emprunt_model->get_history($id)
 				);
 			$content = $this->load->view('admin/instruments/detail', $data, TRUE);
@@ -161,7 +163,7 @@ class Instruments extends Admin_Controller {
 	{
 		$data = array(
 			'categorie' => $categ_id,
-			'types' => $this->Instrument_model->get_types_by_categ($categ_id)
+			'types' => Instrument_model::get_types_by_categ($categ_id)
 			);
 
 		$content = $this->load->view('admin/instruments/select_type', $data, TRUE);

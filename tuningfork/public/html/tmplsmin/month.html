@@ -1,6 +1,6 @@
 <div class="cal-row-fluid cal-row-head">
 	<% _.each(days_name, function(name){ %>
-		<div class="cal-cell1"><%= name %></div>
+		<div class="cal-cell1"><%= name.substr(0,1) %></div>
 	<% }) %>
 </div>
 <div class="cal-month-box">

@@ -7,7 +7,7 @@
 
 <?php foreach ($instruments as $i){ ?>
 
-<div class="categorie col-xs-3 hovered">
+<div class="categorie col-xs-1 col-sd-2 col-md-3 col-lg-4 hovered">
 
 	<a href="/instruments/<?php echo $categ->categ_public_id . '/' . $type->type_public_id . '/' . $i->instru_modele;?>">
 		<img />

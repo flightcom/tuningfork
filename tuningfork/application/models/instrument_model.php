@@ -72,6 +72,7 @@ class Instrument_model extends CI_Model {
     function update($id)
     {
         $this->instru_code = $this->input->post('code');
+        $this->instru_type_id = $this->input->post('type');
         $this->instru_dispo = $this->input->post('dispo');
         $this->instru_etat = $this->input->post('etat');
         $this->db->where('instru_id', $id);
@@ -131,6 +132,7 @@ class Instrument_model extends CI_Model {
     function insert_categorie($nom)
     {
         $this->categ_nom = ucfirst(strtolower($nom));
+        $this->categ_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
         $res = $this->db->insert('categories', $this);
         return $res;
     }
@@ -138,6 +140,7 @@ class Instrument_model extends CI_Model {
     function insert_type($nom, $categ_id)
     {
         $this->type_nom = ucfirst(strtolower($nom));
+        $this->type_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
         $this->type_categ_id = $categ_id;
         $res = $this->db->insert('types_instru', $this);
         return $res;
@@ -149,6 +152,16 @@ class Instrument_model extends CI_Model {
         $this->db->order_by('type_nom', 'asc');
         $query = $this->db->get('types_instru');
         return $query->result();
+    }
+
+    function get_categ_id_of($id)
+    {
+        $this->db->select('categ_id');
+        $this->db->from('categories');
+        $this->db->join('instruments', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->where('instru_id', $id);
+        $query = $this->db->get();
+        return $query->row('categ_id');
     }
 
     function get_categ_available()
@@ -218,6 +231,20 @@ class Instrument_model extends CI_Model {
         $this->db->where("instru_modele LIKE '%$search%' OR marque_nom LIKE '%$search%'");
         $query = $this->db->get();
         return $query->result();
+    }
+
+    function get_last($count)
+    {
+        $this->db->select('*');
+        $this->db->from('instruments');
+        $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
+        $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
+        $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
+        $this->db->order_by('instru_date_entree', 'desc');
+        $this->db->limit($count);
+        $query = $this->db->get();
+        return $query->result();
+
     }
 
 }

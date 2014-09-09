@@ -6,6 +6,7 @@ class MY_Controller extends CI_Controller {
     {
         parent::__construct();
 		$account = $this->load->view('account/button', NULL, TRUE);
+
 		$sidebar2 = $this->load->view('sidebar2', NULL, TRUE);
         $this->session->set_userdata('account', $account);
         $this->session->set_userdata('sidebar2', $sidebar2);

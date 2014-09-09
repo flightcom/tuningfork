@@ -213,3 +213,23 @@ function loadAddMemberView(){
     $('#add').load('/admin/membres/ajouter_membre');
 
 }
+
+function addType(categorie){
+
+    $('#add-type button').hide();
+    $.ajax({
+        type: 'GET', 
+        url: '/admin/instruments/ajouter_type/'+categorie,
+        success: function(data){
+            $('#add-type').append(data);
+        }
+    });
+}
+
+function cancelAddType(){
+
+    $('#add-type form').remove();
+    $('#add-type button').show();
+    return false;
+
+}

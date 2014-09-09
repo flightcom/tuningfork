@@ -1,3 +1,9 @@
+/** Global settings **/
+ul {
+	list-style-type: none;
+	padding: 0;
+}
+
 /**
  * Override bootstrap values
  */
@@ -32,14 +38,15 @@
 	height: auto!important;
 	height: 100%;
 	margin: 0 auto;
-	padding: 0!important;
-	/*padding: 20px;*/
-	bos-sizing: border-box;
+	/*padding: 10px!important;*/
+	padding: 0px;
+	box-sizing: border-box;
+	/*border: 1px solid #eee;*/
 }
 
 #content {
+	box-sizing: border-box;
 	padding: 20px;
-	/*border: 1px solid #eee;*/
 }
 
 
@@ -230,3 +237,31 @@ div.categorie p { text-align: center;}
 #writer-toolbox, #writer-toolbox ul {background-color: #bbb;}
 #writer-toolbox a { color: #fff;}
 #writer-toolbox .navbar-nav > li > a {padding:5px 10px!important;}
+
+/** EVENTS **/
+.cal-month-day:hover .event-add {
+	display: inline-block;
+}
+
+.event-add { 
+	display: none;
+	background-color: #ccc;
+	color: #fff;
+	border-radius: 3px;
+	padding: 5px;
+	position:absolute;
+	top:5px;
+	left: 5px;
+	font-weight:bold;
+	text-align; center;
+	width:auto!important;
+}
+
+.event-add:hover { 
+	background-color: #aaa;
+	cursor: pointer;
+}
+
+/** SIDEBAR **/
+.psidebar { padding: 20px;}
+.psidebar section { padding: 10px 0;}

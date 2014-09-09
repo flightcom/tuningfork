@@ -396,6 +396,7 @@
 }
 .cal-month-day {
   /*height: 100px;*/
+  text-align: center;
 }
 [class*="cal-cell"]:hover {
   background-color: #ededed;
@@ -403,7 +404,7 @@
 .cal-year-box [class*="span"],
 .cal-month-box [class*="cal-cell"] {
   /*min-height: 100px;*/
-  border-right: 1px solid #e1e1e1;
+  /*border-right: 1px solid #e1e1e1;*/
   position: relative;
 }
 .cal-year-box [class*="span"] {
@@ -415,7 +416,7 @@
 }
 .cal-year-box .row-fluid,
 .cal-month-box .cal-row-fluid {
-  border-bottom: 1px solid #e1e1e1;
+  /*border-bottom: 1px solid #e1e1e1;*/
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -426,14 +427,14 @@
 .cal-month-box,
 .cal-year-box,
 .cal-week-box {
-  border-top: 1px solid #e1e1e1;
+/*  border-top: 1px solid #e1e1e1;
   border-bottom: 1px solid #e1e1e1;
   border-right: 1px solid #e1e1e1;
   border-left: 1px solid #e1e1e1;
-  border-radius: 2px;
+*/  border-radius: 2px;
 }
 span[data-cal-date] {
-  font-size: 1.0em;
+  font-size: 1.5em;
   font-weight: normal;
   opacity: 0.5;
   cursor: pointer;
@@ -459,7 +460,8 @@ span[data-cal-date]:hover {
   color: darkgreen;
 }
 .cal-month-box .cal-day-today span[data-cal-date] {
-  font-size: 1.9em;
+  /*font-size: 1.9em;*/
+  font-weight: bold;
 }
 .cal-day-holiday span[data-cal-date] {
   color: #800080;

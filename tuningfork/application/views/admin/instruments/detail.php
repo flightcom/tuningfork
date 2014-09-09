@@ -25,7 +25,21 @@
             <div class="form-group">
                 <label for="type" class="control-label col-xs-1">Type</label>
                 <div class="col-xs-11">
-                    <input type="text" class="form-control" id="type" name="type" value="<?php echo $instrument->type_nom; ?>" readonly />
+                    <!-- <input type="text" class="form-control" id="type" name="type" value="<?php echo $instrument->type_nom; ?>" readonly /> -->
+                    <div class="btn-group dropdown" name="type">
+                        <button type="button" class="btn btn-default dropdown-toggle form-control editable" data-toggle="" readonly>
+                            <span data-bind="label"><?php echo $instrument->type_nom; ?></span> <span class=""></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                        <?php foreach ( $types = Instrument_model::get_types_by_categ($instrument->categ_id) as $t) : ?>
+                            <li data-value="<?php echo $t->type_id; ?>"><a href="#"><?php echo $t->type_nom; ?></a></li>
+                        <?php endforeach; ?>
+                        </ul>
+                        <input type="hidden" name="type" id="type" value="0" />
+                    </div>
+                    <div id="add-type" style="display:inline-block;">
+                        <button onclick="addType(<?php echo $instrument->categ_id; ?>);return false;" class="btn btn-primary edition hidden">Ajouter un type</button>
+                    </div>
                 </div>
             </div>
 
