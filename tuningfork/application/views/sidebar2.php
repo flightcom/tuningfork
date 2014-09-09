@@ -1,22 +1,3 @@
-<div class="header">
-
-	<div class="btn-group">
-		<button class="btn btn-warning" data-calendar-view="year">Year</button>
-		<button class="btn btn-warning" data-calendar-view="month">Month</button>
-		<button class="btn btn-warning" data-calendar-view="week">Week</button>
-		<button class="btn btn-warning" data-calendar-view="day">Day</button>
-	</div>
-
-	<div class="btn-group">
-		<button class="btn btn-primary" data-calendar-nav="prev">&lt;&lt; Prev</button>
-		<button class="btn" data-calendar-nav="today">Today</button>
-		<button class="btn btn-primary" data-calendar-nav="next">Next &gt;&gt;</button>
-	</div>
-
-	<h3></h3>
-
-</div>
-
 <div id="calendar"></div>
 
 <script>
@@ -28,20 +9,19 @@ $(function(){
 	    events_source: "/admin/agenda/get_events/",
 	    // events_source: "events.json.php",
 		view: 'month',
-		tmpl_path: '/public/html/tmpls/',
+		tmpl_path: '/public/html/tmplsmin/',
 		tmpl_cache: false,
 		day: 'now',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
 			}
-
 			var list = $('#eventlist');
 			list.html('');
 
 			$.each(events, function(key, val) {
 				$(document.createElement('li'))
-					.html('<a href="/admin/agenda/' + val.id + '">' + val.title + '</a>')
+					.html('<a href="/' + val.id + '">' + val.title + '</a>')
 					.appendTo(list);
 			});
 		},

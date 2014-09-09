@@ -55,8 +55,11 @@ class Agenda extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('admin/agenda/add', null, TRUE);
-			$this->load->view('admin/master', array('title' => 'Nouvel Événement', 'content' => $content));		
+			$data = array(
+				'title' => 'Nouvel Événement'
+			);
+			$content = $this->load->view('admin/agenda/add', $data, TRUE);
+			$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));		
 		}
 		else
 		{
@@ -71,14 +74,16 @@ class Agenda extends Admin_Controller {
 			$event = $this->input->post();
 			// var_dump($event);
 			$query = $this->Agenda_model->insert($event);
-			redirect('/admin/agenda/list');
+			redirect('/admin/agenda/');
 		}
 	}
 
 	public function get_events()
 	{
-		$events = file_get_contents('/views/admin/agenda/events.json.php');
-		echo $events;
+		$response = array();
+		$response['success'] = 1;
+		$response['result'] = $this->Agenda_model->get_all_entries_formatted();
+		echo json_encode($response);
 	}
 
 }

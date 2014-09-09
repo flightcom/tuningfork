@@ -9,6 +9,9 @@
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<!-- <link href="<?php echo (CSS.'simple-sidebar.css'); ?>" rel="stylesheet" type="text/css"></script> -->
+		<link href="<?php echo (CSS.'calendar.public.css'); ?>" rel="stylesheet" type="text/css"></script>
+
+		<script src="<?php echo (JS.'jquery-1.11.0.min.js'); ?>"></script> 
 
 	</head>
 
@@ -41,21 +44,20 @@
 
 			<div style="height:48px;" id="spacer"></div>
 
-			<div class="col-md-2"></div>
+			<div class="col-lg-2 psidebar visible-lg-inline"></div>
 
-	   		<div id="wrap" role="main" class="col-xs-12 col-md-8 col-centered">
+	   		<div id="wrap" role="main" class="col-sd-12 col-lg-8 col-centered">
 				<?php echo $content; ?>
 			</div>
 
-			<div class="col-md-2"></div>
+			<div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div>
 
 	        <footer></footer>
 
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="<?php echo (JS.'jquery-1.11.0.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 
 	</body>
 

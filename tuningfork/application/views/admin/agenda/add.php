@@ -32,10 +32,26 @@
     </div>
 
 	<div class="form-group">
+
         <label for="lieu" class="control-label col-sm-1 hidden-xs">Lieu</label>
-        <div class="col-xs-12 col-sm-11">
+        <div class="col-xs-6 col-sm-5">
             <input type="text" class="form-control" id="lieu" name="lieu" rows="20" placeholder="Lieu" required>
         </div>
+
+        <label for="type" class="control-label col-sm-1 hidden-xs">Type</label>
+        <div class="col-xs-3 col-sm-2">
+            <select class="form-control" id="type" name="type" placeholder="Type" required>
+            <?php foreach ($types = Agenda_model::get_event_types() as $t) : ?>
+                <option value="<?php echo $t; ?>"><?php echo ucfirst($t); ?></option>
+            <?php endforeach; ?>
+            </select>
+        </div>
+
+        <label for="public" class="control-label col-sm-1 hidden-xs">Public</label>
+        <div class="">
+            <input type="checkbox" class="" id="public" name="public" value="1">
+        </div>
+
     </div>
 
 	<div class="form-group">

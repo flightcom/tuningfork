@@ -54,15 +54,15 @@
     </div>
 
     <div class="form-group">
-        <!-- <label for="tel" class="control-label col-xs-2">Adresse</label> -->
-<!--         <div class="col-xs-2">
+        <label for="tel" class="control-label col-xs-2">Adresse</label>
+         <div class="col-xs-2">
             <select class="form-control" id="adr-type-voie" name="adr-type-voie" placeholder="Voie">
                 <option value>Sélectionnez...</option>
                 <?php foreach ( $types_voie = Adresse_model::get_voies() as $v) { ?>
                 <option value="<?php echo $v; ?>"><?php echo $v; ?></option>
                 <?php } ?>
             </select>
-        </div> -->
+        </div>
         <div class="col-xs-3">
             <input type="text" class="form-control" id="adr-voie" name="adr-voie" placeholder="Adresse" />
         </div>
