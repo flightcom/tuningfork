@@ -1,9 +1,5 @@
 <section id="social">
 
-<!-- 	<h3 class="header">
-		<span class="label label-default">Suivez-nous !</span>
-	</h3>
- -->
 	<button class="btn btn-facebook"><i class="fa fa-facebook"></i></button>
 	<button class="btn btn-twitter"><i class="fa fa-twitter"></i></button>
 
@@ -14,7 +10,6 @@
 <section id="agenda">
 
 	<h3 class="header">
-		<!-- <span class="label label-default">Agenda</span> -->
 		<span class=""></span>
 		<span class="pull-right" style="cursor:pointer;" data-calendar-nav="next">&gt;</span> 
 		<span class="pull-right" style="margin-right:5px;cursor:pointer;" data-calendar-nav="prev">&lt;</span>
@@ -41,7 +36,7 @@ $(function(){
 	// Derniers instruments récupérés
 	$.ajax({
 		url: '/ajax/getLastInstru',
-		// type: 'post',
+		type: 'post',
 		async: false,
 		success: function(data) {
 			$('#last-instrus').html(data);
@@ -77,33 +72,6 @@ $(function(){
 
 	var calendar = $('#calendar').calendar(options);
 
-	$('.header span[data-calendar-nav]').each(function() {
-		var $this = $(this);
-		$this.click(function() {
-			calendar.navigate($this.data('calendar-nav'));
-		});
-	});
-
-	$('#first_day').change(function(){
-		var value = $(this).val();
-		value = value.length ? parseInt(value) : null;
-		calendar.setOptions({first_day: value});
-		calendar.view();
-	});
-
-	$('#language').change(function(){
-		calendar.setLanguage($(this).val());
-		calendar.view();
-	});
-
-	$('#events-in-modal').change(function(){
-		var val = $(this).is(':checked') ? $(this).val() : null;
-		calendar.setOptions({modal: val});
-	});
-	$('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
-		//e.preventDefault();
-		//e.stopPropagation();
-	});
 });
 
 </script>

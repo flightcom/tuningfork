@@ -30,6 +30,8 @@ class Connexion extends MY_Controller {
 
 			if ($this->form_validation->run() == FALSE)
 			{
+				// var_dump($this->input->post('username'));
+				// die();
 				$content = $this->load->view('connexion', NULL, TRUE);
 				$this->load->view('master', array('title' => 'Connexion', 'content' => $content));				
 			}

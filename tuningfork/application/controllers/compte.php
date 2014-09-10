@@ -32,7 +32,7 @@ class Compte extends MY_Controller {
         $this->load->helper('database');
 		$this->load->helper('form');
 		$data = array( 'cities' => $this->load->view('/account/select_city', NULL, TRUE) );
-		$content = $this->load->view('account/create', $data, TRUE);
+		$content = $this->load->view('account/create', NULL, TRUE);
 		$this->load->view('master', array('title' => 'Création de compte', 'content' => $content));				
 
 	}
@@ -50,15 +50,6 @@ class Compte extends MY_Controller {
 		$this->load->view('master', array('title' => 'Mot de passe oublié', 'content' => $content));				
 	}
 
-	public function select_city($cp)
-	{
-		$this->load->model('Adresse_model');
-		$data = array(
-			'cities' => $this->Adresse_model->get_cities_by_cp($cp)
-		);
-		$content = $this->load->view('select_city', $data, TRUE);
-		echo $content;
-	}
 }
 
 /* End of file welcome.php */
