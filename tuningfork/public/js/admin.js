@@ -233,3 +233,19 @@ function cancelAddType(){
     return false;
 
 }
+
+function editForm(id){
+
+    $('#'+id+' .editable').removeAttr('readonly');
+    $('button.editable').attr('data-toggle', 'dropdown').find('span:last-child').addClass('caret');
+    $('.no-edition').addClass('hidden');
+    $('.edition').removeClass('hidden');
+}
+
+function uneditForm(id){
+
+    $('#'+id+' .editable').attr('readonly', '');
+    $('button.editable').attr('data-toggle', '').find('span:last-child').removeClass('caret');
+    $('.no-edition').removeClass('hidden');
+    $('.edition').addClass('hidden');
+}

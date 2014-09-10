@@ -44,28 +44,44 @@ class Membre_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('membres');
+        $this->db->join('adresses', 'membres.membre_adr_id= adresses.adr_id');
+        $this->db->join('villes', 'adresses.adr_ville_id= villes.ville_id');
+        $this->db->join('pays', 'adresses.adr_pays_id= pays.pays_id');
         $this->db->where('membre_id', $id);
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();
     }
 
-    /* A modifier */
     function insert()
     {
-        $this->membre = $this->input->post('marque');
-        $this->instru_categ_id = $this->input->post('categorie');
-        $this->instru_modele = $this->input->post('modele');
-        $this->instru_code = $this->input->post('code');
-        $this->instru_numero_serie = $this->input->post('numero');
+        $adrid = !is_null($this->input->post('adresse')) ? $this->insert_address($this->input->post('adresse'), $this->input->post('ville'), $this->input->post('pays')) : 0;
+        $this->membre_genre          = $this->input->post('genre');
+        $this->membre_nom            = $this->input->post('nom');
+        $this->membre_prenom         = $this->input->post('prenom');
+        $this->membre_date_naissance = $this->input->post('dob');
+        $this->membre_email          = $this->input->post('email');
+        $this->membre_tel            = $this->input->post('tel');
+        $this->membre_adr_id         = $adrid;
+        $this->membre_login          = $this->input->post('login');
+        $this->membre_password       = $this->input->post('passwd');
 
-        $this->db->insert('instruments', $this);
+        $this->db->insert('membres', $this);
+    }
+
+    private function insert_address($adr, $ville_id, $pays_id)
+    {
+        $this->adr_voie     = $adr;
+        $this->adr_ville_id = $ville_id;
+        $this->adr_pays_id  = $pays_id;
+
+        $adr_id = $this->db->insert('adresses', $this);
+
+        return $adr_id;
     }
 
     static function format_address($m){
         $adr = "";
-        $adr .= $m->adr_numero ." ";
-        $adr .= $m->adr_type_voie ." ";
         $adr .= $m->adr_voie ." ";
         return $adr;
 

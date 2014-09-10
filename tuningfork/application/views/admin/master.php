@@ -18,7 +18,7 @@
 
 	</head>
 
-	<body role="document">
+	<body role="document" data-app="admin">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

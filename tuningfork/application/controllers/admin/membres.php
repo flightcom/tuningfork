@@ -59,6 +59,7 @@ class Membres extends Admin_Controller {
 	{
 		$data = array(
 			'title'    => 'Informations sur le membre',
+			'formid'   => 'edit-membre',
 			'membre'   => $this->Membre_model->get_membre_by_id($membre_id),
 			'emprunts' => $this->Emprunt_model->get_emprunts_by_membre_id($membre_id),
 			'en_cours' => $this->Emprunt_model->check_emprunt_en_cours_by_membre_id($membre_id)

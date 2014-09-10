@@ -11,7 +11,7 @@
 
     <section id="infos" class="tab-pane fade in active">
 
-        <?php echo form_open('admin/instruments/' . $instrument->instru_id . '/edit', array('id' =>'edit-instrument', 'class' => 'form-horizontal')); ?>
+        <?php echo form_open('admin/instruments/' . $instrument->instru_id . '/edit', array('id' => $formid, 'class' => 'form-horizontal')); ?>
 
             <br>
 
@@ -107,10 +107,10 @@
                 <label for="date-entree" class="control-label col-xs-1"></label>
                 <div class="col-xs-11">
         			<button onclick="document.location.href='/admin/instruments/';return false;" class="btn btn-default no-edition">Retour</button>
-        			<button onclick="editInstrument();return false;" class="btn btn-warning no-edition">Modifier</button>
+        			<button onclick="editForm('<?php echo $formid; ?>');return false;" class="btn btn-warning no-edition">Modifier</button>
                     <?php if ($instrument->instru_dispo && ! $instrument->instru_a_verifier) : ?><button onclick="preter();return false" class="btn btn-success no-edition">Prêter</button><?php endif; ?>
         			<button type="submit" class="btn btn-success edition hidden">Valider</button>
-        			<button onclick="uneditInstrument();return false;" class="btn btn-default edition hidden">Annuler</button>
+        			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>
         			<button onclick="deleteInstrument(<?php echo $instrument->instru_id; ?>);return false;" class="btn btn-danger pull-right">Supprimer</button>
                 </div>
             </div>
@@ -206,21 +206,6 @@ $(function(){
 
 });
 
-function editInstrument(){
-
-	$('#edit-instrument .editable').removeAttr('readonly');
-	$('button.editable').attr('data-toggle', 'dropdown').find('span:last-child').addClass('caret');
-	$('.no-edition').addClass('hidden');
-	$('.edition').removeClass('hidden');
-}
-
-function uneditInstrument(){
-
-	$('#edit-instrument .editable').attr('readonly', '');
-	$('button.editable').attr('data-toggle', '').find('span:last-child').removeClass('caret');
-	$('.no-edition').removeClass('hidden');
-	$('.edition').addClass('hidden');
-}
 
 function deleteInstrument(id)
 {

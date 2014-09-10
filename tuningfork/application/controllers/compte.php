@@ -17,6 +17,16 @@ class Compte extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{
+    	parent::__construct();
+		$this->load->model('Membre_model');
+		$this->load->model('Adresse_model');
+        $this->load->helper('database');
+		$this->load->helper('form');
+		$this->load->library('form_validation');		
+	}
+
 	public function index($param)
 	{
 		if(is_numeric($param)){
@@ -27,13 +37,24 @@ class Compte extends MY_Controller {
 
 	public function creation()
 	{
-		$this->load->model('Membre_model');
-		$this->load->model('Adresse_model');
-        $this->load->helper('database');
-		$this->load->helper('form');
-		$data = array( 'cities' => $this->load->view('/account/select_city', NULL, TRUE) );
-		$content = $this->load->view('account/create', NULL, TRUE);
-		$this->load->view('master', array('title' => 'Création de compte', 'content' => $content));				
+
+		$this->form_validation->set_rules('nom', 'Nom', 'required');
+		$this->form_validation->set_rules('prenom', 'Prénom', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
+		$this->form_validation->set_rules('passwd', 'Mot de passe', 'required');
+		$this->form_validation->set_rules('passwd-conf', 'Confirmation mot de passe', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data = array( 'cities' => $this->load->view('/account/select_city', NULL, TRUE) );
+			$content = $this->load->view('account/create', NULL, TRUE);
+			$this->load->view('master', array('title' => 'Création de compte', 'content' => $content));				
+		}
+		else
+		{
+			$this->create_account();
+		}
 
 	}
 
@@ -41,6 +62,11 @@ class Compte extends MY_Controller {
 	{
 		$content = $this->load->view('button', NULL, TRUE);
 		$this->load->view('master', array('title' => 'Mon compte', 'content' => $content));				
+	}
+
+	public function create_account()
+	{
+		$userdata = $this->input->post();
 	}
 
 	/* Password oublié */

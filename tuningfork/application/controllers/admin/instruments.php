@@ -28,7 +28,7 @@ class Instruments extends Admin_Controller {
 		$this->load->model('Emprunt_model');
 
 		$this->menu = $this->load->view('admin/instruments/menu', NULL, TRUE);
-    }  
+    }
 
 	public function index($param1 = null, $param2 = null)
 	{
@@ -41,6 +41,7 @@ class Instruments extends Admin_Controller {
 			$id = $param1;
 			$data = array(
 				'title' => 'Informations sur l\'instrument',
+				'formid'   => 'edit-instrument',
 				'instrument' => $this->Instrument_model->get_entry($id),
 				'types' => $this->Instrument_model->get_types_by_categ($this->Instrument_model->get_categ_id_of($id)),
 				'emprunts' => $this->Emprunt_model->get_history($id)

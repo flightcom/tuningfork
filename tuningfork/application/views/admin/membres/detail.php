@@ -11,7 +11,7 @@
 
     <section id="infos" class="tab-pane fade in active">
 
-        <?php echo form_open('admin/membres/' . $membre->membre_id . '/edit', array('id' =>'edit-membre', 'class' => 'form-horizontal')); ?>
+        <?php echo form_open('admin/membres/' . $membre->membre_id . '/edit', array('id' => $formid, 'class' => 'form-horizontal')); ?>
 
         	<br>
 
@@ -29,13 +29,34 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="adresse" class="control-label col-xs-1">Adresse</label>
+                <div class="col-xs-11">
+                    <input type="text" class="form-control editable" id="adresse" name="adresse" value="<?php echo $membre->adr_voie; ?>" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cp" class="control-label col-xs-1">Code Postal</label>
+                <div class="col-xs-11">
+                    <input type="text" class="form-control editable" id="cp" name="cp" value="<?php echo $membre->ville_code_postal; ?>" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ville" class="control-label col-xs-1">Ville</label>
+                <div class="col-xs-11">
+                    <input type="text" class="form-control " id="ville" name="ville" value="<?php echo $membre->ville_nom; ?>" readonly />
+                </div>
+            </div>
+
         	<div class="form-group">
                 <label for="date-entree" class="control-label col-xs-1"></label>
                 <div class="col-xs-11">
         			<button onclick="document.location.href='/admin/membres/';return false;" class="btn btn-default no-edition">Retour</button>
-        			<button onclick="editMembre();return false;" class="btn btn-warning no-edition">Modifier</button>
+        			<button onclick="editForm('<?php echo $formid;?>');return false;" class="btn btn-warning no-edition">Modifier</button>
         			<button type="submit" class="btn btn-success edition hidden">Valider</button>
-        			<button onclick="uneditMembre();return false;" class="btn btn-default edition hidden">Annuler</button>
+        			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>
         			<button onclick="document.location.href='/admin/membre/<?php echo $membre->membre_id; ?>/delete';return false;" class="btn btn-danger pull-right">Supprimer</button>
                 </div>
             </div>
@@ -170,23 +191,5 @@ $(function(){
     });
 
 });
-
-function editMembre(){
-
-	$('#edit-membre .editable').removeAttr('readonly');
-	$('button.editable').attr('data-toggle', 'dropdown').find('span:last-child').addClass('caret');
-	$('.no-edition').addClass('hidden');
-	$('.edition').removeClass('hidden');
-}
-
-function uneditMembre(){
-
-	$('#edit-membre .editable').attr('readonly', '');
-	$('button.editable').attr('data-toggle', '').find('span:last-child').removeClass('caret');
-	$('.no-edition').removeClass('hidden');
-	$('.edition').addClass('hidden');
-}
-
-function
 
 </script>

@@ -9,11 +9,11 @@
 
 <section id="agenda">
 
-	<h3 class="header">
+	<h4 class="header">
 		<span class=""></span>
 		<span class="pull-right" style="cursor:pointer;" data-calendar-nav="next">&gt;</span> 
 		<span class="pull-right" style="margin-right:5px;cursor:pointer;" data-calendar-nav="prev">&lt;</span>
-	</h3>
+	</h4>
 
 	<div id="calendar"></div>
 
@@ -21,9 +21,9 @@
 
 <section id="new-instru">
 
-	<h3 class="header">
+	<h4 class="header">
 		<span class="">Derniers instruments récupérés</span>
-	</h3>
+	</h4>
 
 	<div id="last-instrus"></div>
 
