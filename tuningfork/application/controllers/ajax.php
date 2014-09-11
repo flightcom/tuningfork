@@ -46,4 +46,10 @@ class Ajax extends MY_Controller {
 		echo $content;
 	}
 
+	public function searchInstru($search)
+	{
+		$instruments = $this->Instrument_model->search_instru($search);
+
+		echo json_encode($instruments);
+	}
 }

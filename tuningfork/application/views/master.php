@@ -21,7 +21,7 @@
 
 		<div id="wrapper">
 
-			<div class="navbar navbar-default" role="navigation">
+			<div class="navbar-default center" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -46,7 +46,6 @@
 
 			<!-- <div style="height:50px;" id="spacer"></div> -->
 
-			<div id="search"><?php echo $this->session->userdata('search'); ?></div>
 
 			<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
 
@@ -63,6 +62,8 @@
 		</div>
 
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'public.js'); ?>"></script> 
 

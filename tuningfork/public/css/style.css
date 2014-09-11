@@ -29,9 +29,9 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
 .nav-sidebar > :not(.active) > a { color: #aaa;}
 .nav-sidebar > :not(.active) > a:hover { color: #555;}
-#wrapper .navbar .dropdown-menu { min-width: inherit; border: none;}
-#wrapper .navbar .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
-#wrapper .navbar .navbar-nav > li > a { font-size: 16px; }
+#wrapper [role="navigation"] .dropdown-menu { min-width: inherit; border: none;}
+#wrapper [role="navigation"] .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
+#wrapper [role="navigation"] .navbar-nav > li > a { font-size: 16px; }
 .nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
 .navbar-inverse { border: none; }
@@ -68,31 +68,54 @@ body[data-app="admin"] {
 
 #content {
 	box-sizing: border-box;
-	padding: 20px;
+	/*padding: 20px;*/
 }
 
-#search {
-	background-color: green;
+#banner {
+	background-image: url('../img/home.jpg');
+	background-position: center;
+	background-size: 100%;
+	background-color: #3c983c;
 	padding: 10px 0;
+	min-height: 400px;
+	position: relative;
+	overflow: hidden;
 }
 
-#search .form-group {
-	margin-bottom:0!important;
+.banner-title {
+	color: #efefef;
+	font-weight: bold;
+	font: bold 10em "TeXGyreReg", sans-serif;
+    -webkit-filter: url('#filter'); /* webkit browser */
+            filter: url('#filter'); /* all others browsers */
 }
 
-#search input { 
+#banner .form-group {
+	margin:0!important;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	margin-bottom: 20px!important;
+}
+
+#banner .form-group .twitter-typeahead {
+	width: 100%;
+}
+
+#banner input { 
 	font-size: 24px;
 	line-height: 1.4em;
+	width: 100%;
 }
 
-#search .form-control {
+#banner .form-control {
 	height: inherit;
 }
 
-#search input::-webkit-input-placeholder {font-style: italic;}
-#search input::-moz-placeholder, /* firefox 19+ */
-#search input:-moz-placeholder,
-#search input:-ms-input-placeholder /* ie */
+#banner input::-webkit-input-placeholder {font-style: italic;}
+#banner input::-moz-placeholder, /* firefox 19+ */
+#banner input:-moz-placeholder,
+#banner input:-ms-input-placeholder /* ie */
 {font-style: italic;}
 
 .sidebar {

@@ -1,6 +1,4 @@
-<div class="center">
+<div id="banner"><?php echo $this->session->userdata('search'); ?></div>
 
-	<h1>Apprenez la musique sans vous ruiner !</h1>
 
-</div>
 
