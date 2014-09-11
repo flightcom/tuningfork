@@ -20,7 +20,6 @@ class Membre_model extends CI_Model {
         $this->db->join('pays', 'adresses.adr_pays_id= pays.pays_id');
         $query = $this->db->get();
         return $query->result();
-
     }
 
     function get_last_ten_entries()

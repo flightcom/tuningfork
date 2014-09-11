@@ -21,7 +21,7 @@
 
 		<div id="wrapper">
 
-			<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="navbar navbar-default" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -44,17 +44,19 @@
 				</div><!--/.nav-collapse -->
 			</div>
 
-			<div style="height:48px;" id="spacer"></div>
+			<!-- <div style="height:50px;" id="spacer"></div> -->
 
-			<div class="col-lg-2 psidebar visible-lg-inline"></div>
+			<div id="search"><?php echo $this->session->userdata('search'); ?></div>
 
-	   		<div id="wrap" role="main" class="col-sd-12 col-lg-8 col-centered">
+			<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
+
+	   		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
 	   			<div id="content">
 					<?php echo $content; ?>
 				</div>
 			</div>
 
-			<div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div>
+			<!-- <div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div> -->
 
 	        <footer></footer>
 

@@ -5,11 +5,17 @@ class MY_Controller extends CI_Controller {
     function __construct()
     {
         parent::__construct();
+		$this->load->helper('form');
+
 		$account = $this->load->view('account/button', NULL, TRUE);
+        $this->session->set_userdata('account', $account);
 
 		$sidebar2 = $this->load->view('sidebar2', NULL, TRUE);
-        $this->session->set_userdata('account', $account);
         $this->session->set_userdata('sidebar2', $sidebar2);
+
+		$search = $this->load->view('search', NULL, TRUE);
+        $this->session->set_userdata('search', $search);
+
     }
 }
 
