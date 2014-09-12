@@ -52,4 +52,12 @@ class Ajax extends MY_Controller {
 
 		echo json_encode($instruments);
 	}
+
+	public function testpdf()
+	{
+		$this->load->library('pdf');
+		$this->pdf->load_view('account/contrat');
+		$this->pdf->render();
+		$this->pdf->stream("welcome.pdf");
+	}
 }

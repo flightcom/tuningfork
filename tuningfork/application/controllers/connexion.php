@@ -17,11 +17,16 @@ class Connexion extends MY_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Membre_model');
+	}
+
 	public function index()
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->load->model('Membre_model');
 
 		if(!$this->session->userdata('logged_in'))
 		{
@@ -30,8 +35,6 @@ class Connexion extends MY_Controller {
 
 			if ($this->form_validation->run() == FALSE)
 			{
-				// var_dump($this->input->post('username'));
-				// die();
 				$content = $this->load->view('connexion', NULL, TRUE);
 				$this->load->view('master', array('title' => 'Connexion', 'content' => $content));				
 			}

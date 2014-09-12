@@ -212,9 +212,15 @@ class Instruments extends Admin_Controller {
 		echo count($res);
 	}
 
-	public function preter($instru_code)
+	public function preter($instru_id)
 	{
-
+		$data = array(
+			'title' => 'Nouveau prêt',
+			'formid' => 'pret-new',
+			'instrument' => $this->Instrument_model->get_entry($instru_id)
+		);
+		$content = $this->load->view('admin/prets/new', $data, TRUE);
+		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
 	}
 
 	public function prets()

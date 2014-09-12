@@ -68,7 +68,10 @@ body[data-app="admin"] {
 
 #content {
 	box-sizing: border-box;
-	/*padding: 20px;*/
+}
+
+#content.admin {
+	padding: 20px;
 }
 
 #banner {
@@ -79,16 +82,18 @@ body[data-app="admin"] {
 	padding: 10px 0;
 	min-height: 400px;
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
-.banner-title {
+.banner-title h1{
 	color: #efefef;
 	font-weight: bold;
-	font: bold 10em "TeXGyreReg", sans-serif;
-    -webkit-filter: url('#filter'); /* webkit browser */
-            filter: url('#filter'); /* all others browsers */
-}
+/*	font: bold 10em "TeXGyreReg", sans-serif;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+	color: transparent;
+	background-color: #555;
+	background-clip: text;
+*/}
 
 #banner .form-group {
 	margin:0!important;

@@ -30,3 +30,27 @@
     </feMerge>
 
 </filter>
+
+<script type="text/javascript">
+	
+var search = $('#search').closest('.form-group');
+var origOffsetY = search.offset().top;
+
+$(function(){
+
+    document.onscroll = scroll;
+
+});
+
+
+function scroll() 
+{
+    if ($(window).scrollTop() >= origOffsetY) {
+        search.addClass('navbar-fixed-top');
+    } else {
+        search.removeClass('navbar-fixed-top');
+    }
+
+}
+
+</script>

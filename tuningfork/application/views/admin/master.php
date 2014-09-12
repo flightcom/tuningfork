@@ -53,7 +53,7 @@
 
 			<?php echo $this->menu; ?>
 
-			<div id="content">
+			<div id="content" class="admin">
 				<?php echo $content; ?>
 			</div>
 

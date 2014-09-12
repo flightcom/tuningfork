@@ -1,6 +1,4 @@
 var activePage;
-var search = $('#search');
-var origOffsetY = search.offset().top;
 
 $(document).ready(function(){
 
@@ -19,7 +17,6 @@ $(document).ready(function(){
         $('.navbar-nav').removeClass('active');
     });
 
-    document.onscroll = scroll;
 
     // Recherche
     var instruments = new Bloodhound({
@@ -61,16 +58,3 @@ $(document).ready(function(){
     });
 
 });
-
-
-function scroll() 
-{
-    if ($(window).scrollTop() >= origOffsetY) {
-        search.addClass('navbar-fixed-top');
-        // $('.content').addClass('menu-padding');
-    } else {
-        search.removeClass('navbar-fixed-top');
-        // $('.content').removeClass('menu-padding');
-    }
-
-}

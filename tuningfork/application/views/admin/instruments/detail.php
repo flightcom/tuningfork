@@ -108,7 +108,7 @@
                 <div class="col-xs-11">
         			<button onclick="document.location.href='/admin/instruments/';return false;" class="btn btn-default no-edition">Retour</button>
         			<button onclick="editForm('<?php echo $formid; ?>');return false;" class="btn btn-warning no-edition">Modifier</button>
-                    <?php if ($instrument->instru_dispo && ! $instrument->instru_a_verifier) : ?><button onclick="preter();return false" class="btn btn-success no-edition">Prêter</button><?php endif; ?>
+                    <?php if ($instrument->instru_dispo && ! $instrument->instru_a_verifier) : ?><button onclick="location.href='/admin/instruments/<?php echo $instrument->instru_id; ?>/preter';return false;" class="btn btn-success no-edition">Prêter</button><?php endif; ?>
         			<button type="submit" class="btn btn-success edition hidden">Valider</button>
         			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>
         			<button onclick="deleteInstrument(<?php echo $instrument->instru_id; ?>);return false;" class="btn btn-danger pull-right">Supprimer</button>
