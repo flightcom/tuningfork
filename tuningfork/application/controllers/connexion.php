@@ -33,6 +33,8 @@ class Connexion extends MY_Controller {
 			$this->form_validation->set_rules('username', 'Adresse Email', 'required');
 			$this->form_validation->set_rules('password', 'Password', 'required');
 
+			log_message('debug', serialize($this->input->post()));
+
 			if ($this->form_validation->run() == FALSE)
 			{
 				$content = $this->load->view('connexion', NULL, TRUE);

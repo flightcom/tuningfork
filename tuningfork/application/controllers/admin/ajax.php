@@ -32,6 +32,13 @@ class Ajax extends Admin_Controller {
 		echo json_encode($membres);
 	}
 
+	public function searchMemberById($id = null)
+	{
+		$membre = $this->Membre_model->get_membre_by_id($id);
+
+		echo json_encode($membre);
+	}
+
 	public function searchInstru($search)
 	{
 		$instruments = $this->Instrument_model->search_instru($search);
