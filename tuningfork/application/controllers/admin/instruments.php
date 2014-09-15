@@ -217,7 +217,8 @@ class Instruments extends Admin_Controller {
 		$data = array(
 			'title' => 'Nouveau prêt',
 			'formid' => 'pret-new',
-			'instrument' => $this->Instrument_model->get_entry($instru_id)
+			'instrument' => $this->Instrument_model->get_entry($instru_id),
+			'date_fin_prevue' => date('Y-m-d', strtotime('next sixth month'))
 		);
 		$content = $this->load->view('admin/prets/new', $data, TRUE);
 		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));

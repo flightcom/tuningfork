@@ -1,6 +1,6 @@
-<?php echo form_open('admin/prets/new', array('id' => $formid, 'class' => 'form-horizontal')); ?>
+<?php echo form_open('admin/prets/add', array('id' => $formid, 'class' => 'form-horizontal')); ?>
 
-	<input type="hidden" name="instru_id" value="<?php echo $instrument->instru_id; ?>">
+	<input type="hidden" name="instru-id" value="<?php echo $instrument->instru_id; ?>">
 
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
@@ -37,6 +37,13 @@
         </div>
     </div>
 
+	<div class="form-group">
+        <label for="date-fin-prevue" class="control-label col-xs-1">Date de retour</label>
+        <div class="col-xs-11">
+            <input type="date" class="form-control" id="date-fin-prevue" name="date-fin-prevue" value="<?php echo $date_fin_prevue; ?>">
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="emprunteur" class="control-label col-xs-1">Emprunteur</label>
         <div class="col-xs-4">
@@ -50,7 +57,7 @@
         </div>
     </div>
 
-    <button type="submit" id="pret-validate" class="btn btn-success hidden col-xs-offset-1">Valider le prêt</button>
+    <button type="submit" id="pret-validate" class="btn btn-success hidden col-xs-offset-1">Valider</button>
 
 <?php echo form_close(); ?>
 

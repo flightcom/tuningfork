@@ -28,11 +28,11 @@ class Emprunt_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('emprunts');
         $this->db->join('membres', 'emprunts.emp_membre_id = membres.membre_id');
-        $this->db->join('instruments', 'emprunts_emp_instru_id = instruments.instru_id');
+        $this->db->join('instruments', 'emprunts.emp_instru_id = instruments.instru_id');
         $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
         $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
         $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
-        $this->db->where('emprunt_id', $id);
+        $this->db->where('emp_id', $id);
         $query = $this->db->get();
         return $query->row();
     }
@@ -85,6 +85,12 @@ class Emprunt_model extends CI_Model {
         $this->db->order_by('emp_date_debut', 'desc');
         $query = $this->db->get();
         return $query->result(); 
+    }
+
+    function insert($pret)
+    {
+        $this->db->insert('emprunts', $pret);
+        return $this->db->insert_id();
     }
 
 }

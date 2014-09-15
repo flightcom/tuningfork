@@ -80,7 +80,33 @@ class Prets extends Admin_Controller {
 
     public function add()
     {
+        $this->form_validation->set_rules('membre-id', 'Numéro de membre', 'required');
+        $this->form_validation->set_rules('instru-id', 'Numéro d\'instrument', 'required');
+        $this->form_validation->set_rules('date-fin-prevue', 'Date de retour', 'required');
 
+        if ($this->form_validation->run() == FALSE)
+        {
+            redirect('/admin/instruments/'.$this->input->post('instru-id').'/preter');
+        }
+        else
+        {
+            $this->pret = new stdClass;
+            $this->pret->emp_membre_id       = $this->input->post('membre-id');
+            $this->pret->emp_instru_id       = $this->input->post('instru-id');
+            $this->pret->emp_caution_versee  = $this->input->post('caution-versee');
+            $this->pret->emp_etat_initial     = $this->input->post('etat-inital');
+            $this->pret->emp_date_fin_prevue = $this->input->post('date-fin-prevue');
+
+            $this->pret->id = $this->Emprunt_model->insert($this->pret);
+
+            $data = array(
+                'pret' => $this->Emprunt_model->get_entry($this->pret->id),
+                'title' => 'Confirmation du prêt'
+            );
+
+            $content = $this->load->view('admin/prets/confirmed', $data, TRUE);
+            $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+        }
 
     }
 
@@ -104,6 +130,17 @@ class Prets extends Admin_Controller {
         $content = $this->load->view('admin/prets/liste', $data, TRUE);
         $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
 
+    }
+
+    public function print($emp_id)
+    {
+        $data = array(
+            'pret' => $this->Emprunt_model->get_entry($emp_id);
+        );
+        $this->load->library('pdf');
+        $this->pdf->load_view('admin/prets/contrat', $data);
+        $this->pdf->render();
+        $this->pdf->stream("contrat.pdf");
     }
 
 }
