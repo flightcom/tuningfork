@@ -27,7 +27,7 @@
 				
 				<p>
 					<span class="bordered col-xs-6">Adhérent n° <?php echo $membre->id; ?></span>
-					<span class="bordered col-xs-6">Date de retour : <?php echo $pret->emp_date_fin_prevue; ?></span>
+					<span class="bordered col-xs-6 pull-right">Date de retour : <?php echo $pret->emp_date_fin_prevue; ?></span>
 				</p>
 
 			</section>

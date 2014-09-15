@@ -28,6 +28,8 @@ class Emprunt_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('emprunts');
         $this->db->join('membres', 'emprunts.emp_membre_id = membres.membre_id');
+        $this->db->join('adresses', 'adresses.adr_id = membres.membre_adr_id');
+        $this->db->join('villes', 'adresses.adr_ville_id = villes.ville_id');
         $this->db->join('instruments', 'emprunts.emp_instru_id = instruments.instru_id');
         $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
         $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');

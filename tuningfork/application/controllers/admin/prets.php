@@ -132,15 +132,19 @@ class Prets extends Admin_Controller {
 
     }
 
-    public function print($emp_id)
+    public function contrat($emp_id)
     {
         $data = array(
-            'pret' => $this->Emprunt_model->get_entry($emp_id);
+            'pret' => $this->Emprunt_model->get_entry($emp_id),
+            'title' => "Contrat de prêt"
         );
-        $this->load->library('pdf');
-        $this->pdf->load_view('admin/prets/contrat', $data);
-        $this->pdf->render();
-        $this->pdf->stream("contrat.pdf");
+        // $this->load->library('pdf');
+        // $content = $this->load->view('admin/prets/contrat', $data, TRUE);
+        // $this->pdf->load_view('master_simple', array("content" => $content));
+        // $this->pdf->render();
+        // $this->pdf->stream("contrat.pdf");
+        $content = $this->load->view('admin/prets/contrat', $data, TRUE);
+        $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
     }
 
 }

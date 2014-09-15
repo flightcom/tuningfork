@@ -214,11 +214,12 @@ class Instruments extends Admin_Controller {
 
 	public function preter($instru_id)
 	{
+		$strdate = 'last friday of june';
 		$data = array(
 			'title' => 'Nouveau prêt',
 			'formid' => 'pret-new',
 			'instrument' => $this->Instrument_model->get_entry($instru_id),
-			'date_fin_prevue' => date('Y-m-d', strtotime('next sixth month'))
+			'date_fin_prevue' => date('Y-m-d', strtotime($strdate) < time() ? strtotime($strdate . ' +1 year') : strtotime($strdate))
 		);
 		$content = $this->load->view('admin/prets/new', $data, TRUE);
 		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
