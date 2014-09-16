@@ -19,6 +19,7 @@ class Emprunt_model extends CI_Model {
         $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
         $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
         $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left outer');
+        $this->db->order_by('emprunts.emp_date_debut', 'desc');
         $query = $this->db->get();
         return $query->result();
     }

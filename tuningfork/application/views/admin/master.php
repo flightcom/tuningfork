@@ -18,7 +18,7 @@
 
 	</head>
 
-	<body role="document" data-app="admin">
+	<body role="document" data-app="admin" ng-app="tuningfork">
 		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -59,6 +59,7 @@
 
 		</div>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
 		<script src="<?php echo (JS.'jquery.extend.js'); ?>"></script> 
 		<script src="<?php echo (JS.'jquery.tablesorter.js'); ?>"></script> 
 		<script src="<?php echo (JS.'jquery.tablesorter.widgets.js'); ?>"></script> 
@@ -69,6 +70,7 @@
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
+		<script src="<?php echo (JS.'app.js'); ?>"></script> 
 	</body>
 
 </html>

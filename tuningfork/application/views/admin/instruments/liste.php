@@ -102,21 +102,21 @@ $(function(){
 
 	});
 
-	$('.td-dispo').click( function(event){
+	// $('.td-dispo').click( function(event){
 
-		var id = $(this).find('input[type=hidden]').val();
-		toggle('changeDispo', id, this);
-		event.stopPropagation();
+	// 	var id = $(this).find('input[type=hidden]').val();
+	// 	toggle('changeDispo', id, this);
+	// 	event.stopPropagation();
 
-	});
+	// });
 	
-	$('.td-check').click( function(event){
+	// $('.td-check').click( function(event){
 
-		var id = $(this).find('input[type=hidden]').val();
-		toggle('changeCheck', id, this);
-		event.stopPropagation();
+	// 	var id = $(this).find('input[type=hidden]').val();
+	// 	toggle('changeCheck', id, this);
+	// 	event.stopPropagation();
 
-	});
+	// });
 	
 });
 

@@ -160,15 +160,12 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function selectionner_type($categ_id)
+	public function getTypes($categ_id)
 	{
-		$data = array(
-			'categorie' => $categ_id,
-			'types' => Instrument_model::get_types_by_categ($categ_id)
-			);
+		$types = Instrument_model::get_types_by_categ($categ_id);
 
-		$content = $this->load->view('admin/instruments/select_type', $data, TRUE);
-		echo $content;
+		// $content = $this->load->view('admin/instruments/select_type', $data, TRUE);
+		echo json_encode($types);
 	}
 
 	public function ajouter_categorie()

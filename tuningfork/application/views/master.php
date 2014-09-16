@@ -15,7 +15,7 @@
 
 	</head>
 
-	<body role="document">
+	<body role="document" ng-app="tuningfork">
 
 		<div id="wrapper">
 

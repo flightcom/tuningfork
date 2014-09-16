@@ -172,21 +172,21 @@ $(document).ready(function(){
         }
     });
 
-});
+    $('#wrap .dropdown-menu li').on( 'click', function( event ) {
+     
+        var $target = $( event.currentTarget );
 
-$('#wrap .dropdown-menu li').on( 'click', function( event ) {
- 
-    var $target = $( event.currentTarget );
+        $target.closest( '.btn-group' )
+            .find( '[data-bind="label"]' ).text( $target.text() )
+                .end()
+            // .find( 'input' ).val( $target.attr('data-value') ).change()
+            //     .end()
+            .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+     
+       return false;
+     
+    });
 
-    $target.closest( '.btn-group' )
-        .find( '[data-bind="label"]' ).text( $target.text() )
-            .end()
-        .find( 'input' ).val( $target.attr('data-value') ).change()
-            .end()
-        .children( '.dropdown-toggle' ).dropdown( 'toggle' );
- 
-   return false;
- 
 });
 
 function loadAddInstruView(){
