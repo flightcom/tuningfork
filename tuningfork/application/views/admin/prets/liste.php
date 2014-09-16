@@ -23,7 +23,7 @@
     <tbody>
 
         <?php foreach ($emprunts as $e){ ?>
-        <tr onclick="location.href='/admin/membres/<?php echo $e->membre_id; ?>'" style="cursor:pointer;">
+        <tr onclick="location.href='/admin/prets/<?php echo $e->emp_id; ?>'" style="cursor:pointer;">
             <td><?php echo $e->membre_nom; ?></td>
             <td><?php echo $e->membre_prenom; ?></td>
             <td><?php echo $e->membre_tel; ?></td>

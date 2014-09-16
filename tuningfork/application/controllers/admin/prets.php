@@ -39,10 +39,10 @@ class Prets extends Admin_Controller {
         {
             $id = $param1;
             $data = array(
-                'title' => 'Informations sur l\'instrument',
-                'instrument' => $this->Instrument_model->get_entry($id)
+                'title' => 'Informations sur le prêt',
+                'pret' => $this->Emprunt_model->get_entry($id)
                 );
-            $content = $this->load->view('admin/instruments/instrument', $data, TRUE);
+            $content = $this->load->view('admin/prets/detail', $data, TRUE);
             $this->load->view('admin/master', array( 'content' => $content));
         }
         else if(is_numeric($param1) && !is_null($param2))

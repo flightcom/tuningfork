@@ -29,9 +29,9 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
 .nav-sidebar > :not(.active) > a { color: #aaa;}
 .nav-sidebar > :not(.active) > a:hover { color: #555;}
-#wrapper [role="navigation"] .dropdown-menu { min-width: inherit; border: none;}
-#wrapper [role="navigation"] .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
-#wrapper [role="navigation"] .navbar-nav > li > a { font-size: 16px; }
+[role="navigation"] .dropdown-menu { min-width: inherit; border: none;}
+[role="navigation"] .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
+[role="navigation"] .navbar-nav > li > a { font-size: 16px; }
 .nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
 .navbar-inverse { border: none; }
@@ -303,9 +303,22 @@ input.rating {
 
 .glyphicon-star::before { color: #ffc100; }
 
-div.categorie {width:300px;height:400px;position:relative;box-sizing:border-box;}
-div.categorie img { width:100%;height:350px;margin-bottom:20px;}
-div.categorie p { text-align: center;}
+div.categorie {
+	width:300px;
+	height:400px;
+	position:relative;
+	box-sizing:border-box;
+
+	img {
+		width:100%;
+		height:350px;
+		margin-bottom:20px;
+	}
+
+	p {
+		text-align: center;
+	}
+}
 
 #writer-toolbox, #writer-toolbox ul {background-color: #bbb;}
 #writer-toolbox a { color: #fff;}
@@ -328,11 +341,11 @@ div.categorie p { text-align: center;}
 	font-weight:bold;
 	text-align: center;
 	width:auto!important;
-}
 
-.event-add:hover { 
-	background-color: #aaa;
-	cursor: pointer;
+	:hover {
+		background-color: #aaa;
+		cursor: pointer;		
+	}
 }
 
 /** SIDEBAR **/
@@ -354,7 +367,6 @@ div.categorie p { text-align: center;}
 	}
 
 	table {
-
 		margin: 10px 0;
 
 		td {

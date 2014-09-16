@@ -21,8 +21,6 @@
 
 </div>
 
-<button onclick="location.href='/ajax/testpdf'">pdf</button>
-
 <script type="text/javascript">
 	
 var search = $('#search').closest('.form-group');
@@ -35,19 +33,6 @@ $(function(){
 
 
 });
-
-function testpdf() {
-
-	$.ajax({
-		url: '/ajax/testpdf',
-		async: false,
-		success: function(data) {
-			$(document).append(data);
-			// console.log(data);
-		}
-	});
-
-}
 
 function scroll() 
 {
