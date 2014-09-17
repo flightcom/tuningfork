@@ -15,6 +15,10 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	}
 
+	$scope.addCateg = function(){
+		$http.get('/admin/instruments/ajouter_categorie/')
+	}
+
 	$scope.changeType = function(index){
 
 		console.log(index);
