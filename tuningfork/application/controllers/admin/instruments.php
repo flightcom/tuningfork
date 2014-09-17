@@ -168,6 +168,14 @@ class Instruments extends Admin_Controller {
 		echo json_encode($types);
 	}
 
+	public function getCategories()
+	{
+		$categs = Instrument_model::get_all_categories();
+
+		// $content = $this->load->view('admin/instruments/select_type', $data, TRUE);
+		echo json_encode($categs);
+	}
+
 	public function ajouter_categorie()
 	{
 		$this->form_validation->set_rules('nom-categorie', 'Catégorie', 'required');
