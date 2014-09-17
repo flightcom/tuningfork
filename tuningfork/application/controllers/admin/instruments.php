@@ -92,13 +92,29 @@ class Instruments extends Admin_Controller {
 			'types' => array()
 		);
 
-		$this->form_validation->set_rules('numero', 'Number', 'required');
+		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
+		$this->form_validation->set_rules('marque', 'Marque', 'required');
+		$this->form_validation->set_rules('numero', 'Numéro de série', 'required');
 		$this->form_validation->set_rules('code', 'Code', 'required');
 
 		if ($this->form_validation->run() == FALSE)
 		{
 			$content = $this->load->view('admin/instruments/add', $data, TRUE);
-			$this->load->view('admin/master', array('title' => 'Nouvel instrument', 'content' => $content));		
+			$data2 = array(
+				'title'   => 'Nouvel instrument',
+				'content' => $content,
+				'result' => json_encode(array(
+					'errors'  => array(
+						'categorie' => form_error('categorie'),
+						'type'      => form_error('type'),
+						'marque'    => form_error('marque'),
+						'numero'    => form_error('numero'),
+						'code'      => form_error('code')
+					)
+				))
+			);
+			$this->load->view('admin/master', $data2);
 		}
 		else
 		{
@@ -176,7 +192,7 @@ class Instruments extends Admin_Controller {
 		echo json_encode($categs);
 	}
 
-	public function ajouter_categorie()
+	public function addCategorie()
 	{
 		$this->form_validation->set_rules('nom-categorie', 'Catégorie', 'required');
 
