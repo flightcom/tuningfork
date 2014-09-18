@@ -4,10 +4,14 @@
 
 	<br>
 
+    <pre>
+        {{instru}}
+    </pre>
+
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2">
-            <select class="form-control" name="categorie" ng-model="instru.categ_id" ng-change="changeCateg()">
+            <select class="form-control" name="categorie" ng-change="changeCateg()" ng-model="instru.categ_id">
                 <option value="">Sélectionnez</li>
                 <?php foreach($categories as $c){ ?>
                 <option value="<?php echo $c->categ_id; ?>" <?php echo set_value('categorie') == $c->categ_id ? 'selected' : ''; ?>><?php echo $c->categ_nom; ?></li>
@@ -15,8 +19,18 @@
             </select>
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
         </div>
-        <div id="add-categorie" style="display:inline-block;">
-            <button onclick="addCategorie();return false;"class="btn btn-primary">Ajouter une Catégorie</button>
+        <div style="display:inline-block;">
+            <button ng-click="addcateg = !addcateg" ng-show="!addcateg" class="btn btn-primary" onclick="return false;">Ajouter une Catégorie</button>
+            <div class='navbar-form hidden' ng-class="{hidden : !addcateg}" style='width:400px;margin-top:0;margin-bottom:0;'>
+
+                <div class="form-group">
+                    <input name="nom-categorie" type="text" class="form-control" placeholder="Catégorie" ng-model="newcateg">
+                </div>
+
+                <button type="button" class="btn btn-danger" ng-click="addcateg = !addcateg" style="margin-left:15px;">Annuler</button>
+                <button type="button" class="btn btn-primary" ng-click="addCateg()" >Valider</button>
+
+            </div>
         </div>
     </div>
 
@@ -30,7 +44,17 @@
             <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
         </div>
         <div id="add-type" style="display:inline-block;">
-            <button onclick="addType($(this).parent('form').find('[name=categorie]').val());return false;" class="btn btn-primary">Ajouter un type</button>
+            <button  class="btn btn-primary" ng-click="addtype = !addtype" ng-show="!addtype" onclick="return false;">Ajouter un type</button>
+            <div class='navbar-form hidden' ng-class="{hidden : !addtype}" style='width:400px;margin-top:0;margin-bottom:0;'>
+
+                <div class="form-group">
+                    <input name="nom-type" type="text" class="form-control" placeholder="Type">
+                </div>
+
+                <button type="button" class="btn btn-danger" ng-click="addtype = !addtype" style="margin-left:15px;">Annuler</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
+
+            </div>
         </div>
     </div>
 
@@ -45,8 +69,18 @@
             </select>
             <span class="helper-block text-danger" ><?php echo form_error('marque'); ?></span>
         </div>
-        <div id="add-marque" style="display:inline-block;">
-            <button onclick="addMarque();return false;"class="btn btn-primary">Ajouter une marque</button>
+        <div style="display:inline-block;">
+            <button ng-click="addmarque = !addmarque" ng-show="!addmarque" class="btn btn-primary" onclick="return false;">Ajouter une marque</button>
+            <div class='navbar-form hidden' ng-class="{hidden : !addmarque}" style='width:400px;margin-top:0;margin-bottom:0;'>
+
+                <div class="form-group">
+                    <input name="nom-marque" type="text" class="form-control" placeholder="Marque">
+                </div>
+
+                <button type="button" class="btn btn-danger" ng-click="addmarque = !addmarque" style="margin-left:15px;">Annuler</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
+
+            </div>
         </div>
     </div>
 
@@ -61,7 +95,7 @@
 	<div class="form-group">
         <label for="code" class="control-label col-xs-1">Code</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="code" name="code" pattern="^[0-9]{5,}$" placeholder="Code" ng-model="instru.instru_code" required>
+            <input type="text" class="form-control" id="code" name="code" pattern="^[0-9]+$" placeholder="Code" ng-model="instru.instru_code" required>
             <!-- <span class="helper-block text-danger" ng-show="code.$invalid"><?php echo form_error('code'); ?></span> -->
             <span class="helper-block text-danger" ng-show="newinstrument.code.$invalid"><?php echo form_error('code'); ?></span>
         </div>
@@ -102,47 +136,3 @@
     </div>
 
 </form>
-
-<script>
-
-function addMarque(){
-
-    $('#add-marque button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/instruments/ajouter_marque',
-        success: function(data){
-            $('#add-marque').append(data);
-        }
-    });
-}
-
-function cancelAddMarque(){
-
-    $('#add-marque form').remove();
-    $('#add-marque button').show();
-    return false;
-
-}
-
-function addCategorie(){
-
-    $('#add-categorie button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/instruments/ajouter_categorie',
-        success: function(data){
-            $('#add-categorie').append(data);
-        }
-    });
-}
-
-function cancelAddCategorie(){
-
-    $('#add-categorie form').remove();
-    $('#add-categorie button').show();
-    return false;
-
-}
-
-</script>

@@ -88,8 +88,8 @@ class Instruments extends Admin_Controller {
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		$this->form_validation->set_rules('type', 'Type', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
-		$this->form_validation->set_rules('numero', 'Numéro de série', 'required');
-		$this->form_validation->set_rules('code', 'Code', 'required');
+		// $this->form_validation->set_rules('numero', 'Numéro de série', 'required');
+		$this->form_validation->set_rules('code', 'Code', 'trim|required|is_numeric');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -99,23 +99,8 @@ class Instruments extends Admin_Controller {
 				'title'   => 'Nouvel instrument'
 			);
 
-			// if ( !empty($this->input->post()) ) {
-			// 	$data2 = array(
-			// 		'result' => array(
-			// 			'errors'  => array(
-			// 				'categorie' => form_error('categorie'),
-			// 				'type'      => form_error('type'),
-			// 				'marque'    => form_error('marque'),
-			// 				'numero'    => form_error('numero'),
-			// 				'code'      => form_error('code')
-			// 			)
-			// 		)
-			// 	);
-			// 	echo json_encode($data2);
-			// } else {
-				$content = $this->load->view('admin/instruments/add', $data, TRUE);
-				$this->load->view('admin/master', array('content' => $content));
-			// }
+			$content = $this->load->view('admin/instruments/add', $data, TRUE);
+			$this->load->view('admin/master', array('content' => $content));
 
 		}
 		else

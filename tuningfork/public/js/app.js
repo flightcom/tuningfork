@@ -2,16 +2,20 @@ var tfApp = angular.module('tuningfork', []);
 
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
-	$scope.instru = {
-		type_id: '',
-		categ_id: '',
-		marque_id: '',
-		instru_modele: '',
-		instru_numero: '',
-		instru_etat: 0,
-		instru_dispo: '',
-		instru_a_verifier: 0
-	};
+	// $scope.instru = {
+	// 	type_id: '',
+	// 	categ_id: '',
+	// 	marque_id: '',
+	// 	instru_modele: '',
+	// 	instru_numero: '',
+	// 	instru_etat: 0,
+	// 	instru_dispo: '',
+	// 	instru_a_verifier: 0
+	// };
+
+	$scope.addcateg  = false;
+	$scope.addtype  = false;
+	$scope.addmarque = false;
 
 	$scope.changeCateg = function(){
 
