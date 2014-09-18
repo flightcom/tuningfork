@@ -85,13 +85,6 @@ class Instruments extends Admin_Controller {
 
 	public function add()
 	{
-		/* Check if admin */
-		$data = array(
-			'marques' => $this->Instrument_model->get_all_marques(),
-			'categories' => $this->Instrument_model->get_all_categories(),
-			'types' => array()
-		);
-
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		$this->form_validation->set_rules('type', 'Type', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
@@ -100,21 +93,30 @@ class Instruments extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('admin/instruments/add', $data, TRUE);
-			$data2 = array(
-				'title'   => 'Nouvel instrument',
-				'content' => $content,
-				'result' => json_encode(array(
-					'errors'  => array(
-						'categorie' => form_error('categorie'),
-						'type'      => form_error('type'),
-						'marque'    => form_error('marque'),
-						'numero'    => form_error('numero'),
-						'code'      => form_error('code')
-					)
-				))
+			$data = array(
+				'marques' => $this->Instrument_model->get_all_marques(),
+				'categories' => $this->Instrument_model->get_all_categories(),
+				'title'   => 'Nouvel instrument'
 			);
-			$this->load->view('admin/master', $data2);
+
+			// if ( !empty($this->input->post()) ) {
+			// 	$data2 = array(
+			// 		'result' => array(
+			// 			'errors'  => array(
+			// 				'categorie' => form_error('categorie'),
+			// 				'type'      => form_error('type'),
+			// 				'marque'    => form_error('marque'),
+			// 				'numero'    => form_error('numero'),
+			// 				'code'      => form_error('code')
+			// 			)
+			// 		)
+			// 	);
+			// 	echo json_encode($data2);
+			// } else {
+				$content = $this->load->view('admin/instruments/add', $data, TRUE);
+				$this->load->view('admin/master', array('content' => $content));
+			// }
+
 		}
 		else
 		{

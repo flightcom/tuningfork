@@ -28,15 +28,12 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	$scope.changeType = function(index){
 
-		console.log(index);
 		$scope.instru.type = $scope.types[index];
 	}
 
-	$scope.submit = function(){
+	$scope.validate = function(){
 
-		console.log('submit');
-
-		// if($scope.newinstrument.$invalid) return false;
+		console.log('validate');
 
 		$http({
 			method: 'post',
@@ -44,13 +41,27 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 			data: $.param($scope.instru),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
-			console.log(data);
+			console.log(data.result);
 			$scope.result = data.result;
-			// return false;
+		}).then(function(){
+			return false;
 		});
 
-		// return false;
+	}
 
+	$scope.submit = function(){
+
+		console.log('submit');
+
+		$http({
+			method: 'post',
+			url: '/admin/instruments/add',
+			data: $.param($scope.instru),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function(data){
+			// console.log(data.result);
+			$scope.result = data.result;
+		});
 	}
 
 
