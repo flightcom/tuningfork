@@ -12,9 +12,9 @@
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2">
             <select class="form-control" name="categorie" ng-change="changeCateg()" ng-model="instru.categ_id">
-                <option value="">Sélectionnez</li>
+                <option value="">Sélectionnez</option>
                 <?php foreach($categories as $c){ ?>
-                <option value="<?php echo $c->categ_id; ?>" <?php echo set_value('categorie') == $c->categ_id ? 'selected' : ''; ?>><?php echo $c->categ_nom; ?></li>
+                <option value="<?php echo $c->categ_id; ?>" <?php echo $c->categ_id == set_value('categorie') ? 'selected' : ''; ?>><?php echo $c->categ_nom; ?></option>
                 <?php } ?>
             </select>
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
@@ -34,11 +34,11 @@
         </div>
     </div>
 
-    <div class="form-group hidden" ng-class="{hidden : !instru.categ_id}">
+    <div class="form-group">
         <label for="type" class="control-label col-xs-1">Type</label>
         <div class="col-xs-2">
             <select class="form-control" name="type" value="<?php echo set_value('type'); ?>" ng-model="instru.type_id">
-                <option value="">Sélectionnez</li>
+                <option value="">Sélectionnez</option>
                 <option ng-repeat="type in types" value="{{type.type_id}}">{{type.type_nom}}</option>
             </select>
             <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
@@ -62,7 +62,7 @@
         <label for="marque" class="control-label col-xs-1">Marque</label>
         <div class="col-xs-2">
             <select class="form-control" name="type" ng-model="instru.marque_id">
-                <option value="">Sélectionnez</li>
+                <option value="">Sélectionnez</option>
                 <?php foreach($marques as $m){ ?>
                 <option value="<?php echo $m->marque_id; ?>"><?php echo $m->marque_nom; ?></option>
                 <?php } ?>
