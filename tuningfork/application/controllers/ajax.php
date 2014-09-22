@@ -42,8 +42,7 @@ class Ajax extends MY_Controller {
 		$data = array(
 			'cities' => $this->Adresse_model->get_cities_by_cp($cp)
 		);
-		$content = $this->load->view('account/select_city', $data, TRUE);
-		echo $content;
+		echo json_encode($data);
 	}
 
 	public function searchInstru($search)

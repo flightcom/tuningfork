@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Compte extends MY_Controller {
+class Membres extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -27,8 +27,9 @@ class Compte extends MY_Controller {
 		$this->load->library('form_validation');		
 	}
 
-	public function index($param)
+	public function index($param = null)
 	{
+
 		if(is_numeric($param)){
 			$this->show_account();
 		}
@@ -38,10 +39,11 @@ class Compte extends MY_Controller {
 	public function create()
 	{
 		$this->form_validation->set_rules('genre', 'Genre', 'required');
-		$this->form_validation->set_rules('nom', 'Nom', 'required');
-		$this->form_validation->set_rules('prenom', 'Prénom', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('nom', 'Nom', 'trim|required|min_length[3]');
+		$this->form_validation->set_rules('prenom', 'Prénom', 'trim|required|min_length[3]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
+		$this->form_validation->set_rules('dob', 'Date de naissance', 'required');
 		$this->form_validation->set_rules('passwd', 'Mot de passe', 'required');
 		$this->form_validation->set_rules('passwd-conf', 'Confirmation mot de passe', 'required|matches[passwd]');
 

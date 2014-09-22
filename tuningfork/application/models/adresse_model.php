@@ -69,7 +69,7 @@ class Adresse_model extends CI_Model {
     function get_cities_by_cp($cp){
         $this->db->select('*');
         $this->db->from('villes');
-        $this->db->like('ville_code_postal', $cp, 'both');
+        $this->db->like('ville_code_postal', $cp, 'after');
         $this->db->order_by('ville_nom', 'asc');
         $query = $this->db->get();
         return $query->result();

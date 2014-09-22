@@ -13,12 +13,9 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	}
 
 	$scope.$watch('instru.categ_id', function(){
-		// console.log(instru.categ_id);
-		// if(instru.categ_id) {
-			$http.get('/admin/instruments/getTypes/'+$scope.instru.categ_id).success(function(data){
-				$scope.types = data;
-			});
-		// }
+		$http.get('/admin/instruments/getTypes/'+$scope.instru.categ_id).success(function(data){
+			$scope.types = data;
+		});
 	}, true);
 
 	$scope.validate = function(){
@@ -38,5 +35,29 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		});
 
 	}
+
+});
+
+tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
+
+	$scope.$watch('membre.ville_code_postal', function(){
+		if(!angular.isUndefined($scope.membre.ville_code_postal) && $scope.membre.ville_code_postal.length >= 3) {
+			$http.get('/ajax/getcities/'+$scope.membre.ville_code_postal).success(function(data){
+				$scope.villes = data.cities;
+				if ( $scope.villes.length == 1) {
+					$scope.membre.ville_id = $scope.villes[0].ville_id;
+				}
+			});			
+		}
+	}, true);
+
+	$scope.$watch('membre.ville_id', function(){
+		if(!angular.isUndefined($scope.membre.ville_code_postal)) {
+			var found = $filter('filter')($scope.villes, {ville_id: $scope.membre.ville_id}, true);
+			if(found.length) {
+				$scope.membre.ville_code_postal = found[0].ville_code_postal;
+			}
+		}
+	}, true);
 
 });
