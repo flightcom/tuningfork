@@ -88,7 +88,8 @@ class Instruments extends Admin_Controller {
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		$this->form_validation->set_rules('type', 'Type', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
-		// $this->form_validation->set_rules('numero', 'Numéro de série', 'required');
+		$this->form_validation->set_rules('modele', 'Modèle', 'required');
+		$this->form_validation->set_rules('numero', 'Numéro de série', 'required');
 		$this->form_validation->set_rules('code', 'Code', 'trim|required|is_numeric');
 
 		if ($this->form_validation->run() == FALSE)
@@ -163,7 +164,7 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function getTypes($categ_id)
+	public function getTypes($categ_id = null)
 	{
 		$types = Instrument_model::get_types_by_categ($categ_id);
 

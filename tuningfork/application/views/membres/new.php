@@ -6,13 +6,13 @@
 
 <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         
-    <?php echo form_open('compte/creation', array('id' =>'create-account', 'class' => 'form-horizontal', 'autocomplete' => 'off')); ?>
+    <form method="post" action="membres/create" id='create-account' class='form-horizontal' autocomplete='off' novalidate>
 
         <div class="form-group ">
             <label for="genre" class="control-label col-md-2">Genre</label>
             <div class="col-md-5">
                 <?php foreach ( $genres = Membre_model::get_genders() as $g) { ?>
-                <div class="col-xs-1">
+                <div>
                     <label for="genre-<?php echo $i; ?>" class="radio control-label col-xs-1">
                         <input type="radio" class="" id="genre-<?php echo $i; ?>" name="genre" value="<?php echo $g; ?>" required /><?php echo $g; ?>
                     </label>                
@@ -25,7 +25,7 @@
             <label for="nom" class="control-label col-md-2">Nom</label>
             <div class="col-xs-12 col-md-10">
                 <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" pattern="^[^0-9]{2,}$" required>
-                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span class="helper-block text-danger"><?php echo form_error('nom'); ?></span>
             </div>
         </div>
 
@@ -103,7 +103,7 @@
             </div>
         </div>
 
-    <?php echo form_close(); ?>
+    </form>
 
 </div>
 

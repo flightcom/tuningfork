@@ -11,10 +11,13 @@
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2">
-            <select class="form-control" name="categorie" ng-change="changeCateg()" ng-model="instru.categ_id">
+            <select class="form-control" name="categorie" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id">
+            <!-- <select class="form-control" name="categorie" ng-model="instru.categ_id"> -->
+            <!-- <select class="form-control" name="categorie"> -->
                 <option value="">Sélectionnez</option>
                 <?php foreach($categories as $c){ ?>
-                <option value="<?php echo $c->categ_id; ?>" <?php echo $c->categ_id == set_value('categorie') ? 'selected' : ''; ?>><?php echo $c->categ_nom; ?></option>
+                <!-- <option value="<?php echo $c->categ_id; ?>" ng-selected="'<?php echo $c->categ_id; ?>' == '<?php echo set_value('categorie'); ?>'"><?php echo $c->categ_nom; ?></option> -->
+                <option value="<?php echo $c->categ_id; ?>"><?php echo $c->categ_nom; ?></option>
                 <?php } ?>
             </select>
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
@@ -37,10 +40,8 @@
     <div class="form-group">
         <label for="type" class="control-label col-xs-1">Type</label>
         <div class="col-xs-2">
-            <select class="form-control" name="type" value="<?php echo set_value('type'); ?>" ng-model="instru.type_id">
-                <option value="">Sélectionnez</option>
-                <option ng-repeat="type in types" value="{{type.type_id}}">{{type.type_nom}}</option>
-            </select>
+            <select class="form-control" name="type-select" ng-options="type.type_id as type.type_nom for type in types" ng-init="instru.type_id='<?php echo set_value('type'); ?>'" ng-model="instru.type_id"></select>
+            <input type="hidden" name="type" value="{{instru.type_id}}">
             <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
         </div>
         <div id="add-type" style="display:inline-block;">
@@ -61,7 +62,7 @@
 	<div class="form-group">
         <label for="marque" class="control-label col-xs-1">Marque</label>
         <div class="col-xs-2">
-            <select class="form-control" name="type" ng-model="instru.marque_id">
+            <select class="form-control" name="marque" ng-init="instru.marque_id='<?php echo set_value('marque'); ?>'" ng-model="instru.marque_id">
                 <option value="">Sélectionnez</option>
                 <?php foreach($marques as $m){ ?>
                 <option value="<?php echo $m->marque_id; ?>"><?php echo $m->marque_nom; ?></option>
@@ -87,16 +88,15 @@
 	<div class="form-group">
         <label for="modele" class="control-label col-xs-1">Modèle</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="modele" name="modele" placeholder="Modèle" ng-model="instru.instru_modele" >
-            <span class="helper-block text-danger" ng-show="newinstrument.type.$invalid"><?php echo form_error('modele'); ?></span>
+            <input type="text" class="form-control" id="modele" name="modele" placeholder="Modèle" ng-model="instru.instru_modele" ng-init="instru.instru_modele='<?php echo set_value('modele'); ?>'" required>
+            <span class="helper-block text-danger" ng-show="newinstrument.modele.$invalid"><?php echo form_error('modele'); ?></span>
         </div>
     </div>
 
 	<div class="form-group">
         <label for="code" class="control-label col-xs-1">Code</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="code" name="code" pattern="^[0-9]+$" placeholder="Code" ng-model="instru.instru_code" required>
-            <!-- <span class="helper-block text-danger" ng-show="code.$invalid"><?php echo form_error('code'); ?></span> -->
+            <input type="text" class="form-control" id="code" name="code" pattern="^[0-9]+$" placeholder="Code" ng-model="instru.instru_code" ng-init="instru.instru_code='<?php echo set_value('code'); ?>'" required>
             <span class="helper-block text-danger" ng-show="newinstrument.code.$invalid"><?php echo form_error('code'); ?></span>
         </div>
     </div>

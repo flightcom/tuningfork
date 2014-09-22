@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
 		$this->load->helper('form');
 
-		$account = $this->load->view('account/button', NULL, TRUE);
+		$account = $this->load->view('membres/button', NULL, TRUE);
         $this->session->set_userdata('account', $account);
 		// $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
     }
