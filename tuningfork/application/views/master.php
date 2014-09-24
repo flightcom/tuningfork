@@ -59,7 +59,8 @@
 
 		</div>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>-->
+		<script src="<?php echo (JS.'angular.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'bootstrap.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'bootstrap-typeahead.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
