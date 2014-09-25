@@ -30,17 +30,24 @@ class Auth_Controller extends MY_Controller {
 	        	// echo $this->router->method;
 				$content = $this->load->view('index', NULL, TRUE);
 				$this->load->view('master', array('title' => 'Accueil', 'content' => $content));
-			    // Write the output.
-			    // echo $this->output->get_output();  
 
 			    redirect('/connexion');
-
 			    // Stop the execution of the script.
 			    exit();
 	        }
         }
 
     }
+}
+
+class Membre_Controller extends Auth_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+        // Traitements
+    }
+
 }
 
 class Admin_Controller extends Auth_Controller {

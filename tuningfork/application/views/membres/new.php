@@ -15,9 +15,10 @@
                         <input type="radio" class="" id="genre-<?php echo $i; ?>" name="genre" value="<?php echo $g; ?>" required ng-model="membre.genre"><?php echo $g; ?>
                     </label>                
                 </div>
+                <?php $i++; } ?>
+                <span class="helper-block text-danger" ng-show="newaccount.genre.$invalid"><?php echo form_error('genre'); ?></span>
                 <span ng-show="newaccount.genre.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                 <span ng-show="newaccount.genre.$invalid && newaccount.genre.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                <?php $i++; } ?>
             </div>
         </div>
 
