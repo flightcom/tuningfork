@@ -174,32 +174,34 @@ class Instruments extends Admin_Controller {
 
 	public function getCategories()
 	{
-		$categs = Instrument_model::get_all_categories();
-
-		// $content = $this->load->view('admin/instruments/select_type', $data, TRUE);
+		$categs = $this->Instrument_model->get_all_categories();
 		echo json_encode($categs);
 	}
 
 	public function addCategorie()
 	{
-		$this->form_validation->set_rules('nom-categorie', 'Catégorie', 'required');
+		$this->form_validation->set_rules('newcateg', 'Catégorie', 'strtolower|ucfirst|is_unique[categories.categ_nom]');
+
+		$data = array();
+		$data['errors'] = array();
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$content = $this->load->view('admin/instruments/add_categorie', NULL, TRUE);
-			echo $content;
+			$data['errors']['newcateg'] = form_error('newcateg');
 		}
 		else
 		{
-			$categorie = $this->input->post('nom-categorie');
+			$categorie = $this->input->post('newcateg');
 			$res = $this->Instrument_model->insert_categorie($categorie);
 			if($res){
-				redirect('/admin/instruments/add');
+				$data['success'] = 1;
+				$data['categid'] = $res;
 			}
 			else {
-				// echo $marque;
+				$data['success'] = 0;
 			}
 		}
+		echo json_encode($data);
 
 	}
 

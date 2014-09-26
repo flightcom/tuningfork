@@ -8,8 +8,32 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	$scope.addtype  = false;
 	$scope.addmarque = false;
 
+	$scope.loadCategs();
+
 	$scope.addCateg = function(){
-		$http.post('/admin/instruments/ajouter_categorie/')
+
+		$http({
+			method: 'post',
+			url: '/admin/instruments/addCategorie/',
+			data: 'newcateg=' + $scope.newcateg,
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function(data){
+			console.log(data);
+			$scope.results = data;
+			if($scope.results.success) {
+				$scope.loadCategs();
+				$scope.instru.categ_id = $scope.results.categid;
+			}
+		}).then(function(){
+			return false;
+		});
+	}
+
+	$scope.loadCategs = function(){
+		$http.get('/admin/instruments/getCategories/').success(function(data){
+			$scope.categories = data;
+		},true);
+
 	}
 
 	$scope.$watch('instru.categ_id', function(){
@@ -20,15 +44,12 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	$scope.validate = function(){
 
-		console.log('validate');
-
 		$http({
 			method: 'post',
 			url: '/admin/instruments/add',
 			data: $.param($scope.instru),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
-			console.log(data.result);
 			$scope.result = data.result;
 		}).then(function(){
 			return false;

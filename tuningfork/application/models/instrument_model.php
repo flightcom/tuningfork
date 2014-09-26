@@ -134,7 +134,7 @@ class Instrument_model extends CI_Model {
         $this->categ_nom = ucfirst(strtolower($nom));
         $this->categ_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
         $res = $this->db->insert('categories', $this);
-        return $res;
+        return $this->db->insert_id();
     }
 
     function insert_type($nom, $categ_id)

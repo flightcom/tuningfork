@@ -11,15 +11,8 @@
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2">
-            <select class="form-control" name="categorie" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id">
-            <!-- <select class="form-control" name="categorie" ng-model="instru.categ_id"> -->
-            <!-- <select class="form-control" name="categorie"> -->
-                <option value="">Sélectionnez</option>
-                <?php foreach($categories as $c){ ?>
-                <!-- <option value="<?php echo $c->categ_id; ?>" ng-selected="'<?php echo $c->categ_id; ?>' == '<?php echo set_value('categorie'); ?>'"><?php echo $c->categ_nom; ?></option> -->
-                <option value="<?php echo $c->categ_id; ?>"><?php echo $c->categ_nom; ?></option>
-                <?php } ?>
-            </select>
+            <select class="form-control" name="selectcategorie" ng-options="categ.categ_id as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id"></select>
+            <input type="hidden" name="categorie" value="{{instru.categ_id}}">
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
         </div>
         <div style="display:inline-block;">
@@ -27,13 +20,13 @@
             <div class='navbar-form hidden' ng-class="{hidden : !addcateg}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
-                    <input name="nom-categorie" type="text" class="form-control" placeholder="Catégorie" ng-model="newcateg">
+                    <input name="nomcategorie" type="text" class="form-control" placeholder="Catégorie" ng-model="newcateg" ng-focus="!addcateg">
                 </div>
 
-                <button type="button" class="btn btn-danger" ng-click="addcateg = !addcateg" style="margin-left:15px;">Annuler</button>
-                <button type="button" class="btn btn-primary" ng-click="addCateg()" >Valider</button>
-
+                <button type="button" class="btn btn-primary" ng-click="addCateg()" style="margin-left:15px;">Valider</button>
+                <button type="button" class="btn btn-danger" ng-click="addcateg = !addcateg">Annuler</button>
             </div>
+            <span class="helper-block text-danger" ng-show="results.errors.newcateg">{{results.errors.newcateg}}</span>
         </div>
     </div>
 
