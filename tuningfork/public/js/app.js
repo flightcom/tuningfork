@@ -2,13 +2,13 @@ var tfApp = angular.module('tuningfork', []);
 
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
-	$scope.instru = {};
+	$scope.instru = {
+		categ_id: null
+	};
 
 	$scope.addcateg  = false;
 	$scope.addtype  = false;
 	$scope.addmarque = false;
-
-	$scope.loadCategs();
 
 	$scope.addCateg = function(){
 
@@ -22,7 +22,28 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 			$scope.results = data;
 			if($scope.results.success) {
 				$scope.loadCategs();
-				$scope.instru.categ_id = $scope.results.categid;
+				$scope.addcateg = false;
+				$scope.instru.categ_id = $scope.results.categid.toString();
+			}
+		}).then(function(){
+			return false;
+		});
+	}
+
+	$scope.addType = function(){
+
+		$http({
+			method: 'post',
+			url: '/admin/instruments/addCategorie/',
+			data: 'newcateg=' + $scope.newcateg,
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		}).success(function(data){
+			console.log(data);
+			$scope.results = data;
+			if($scope.results.success) {
+				$scope.loadCategs();
+				$scope.addcateg = false;
+				$scope.instru.categ_id = $scope.results.categid.toString();
 			}
 		}).then(function(){
 			return false;
@@ -36,26 +57,13 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	}
 
+	$scope.loadCategs();
+
 	$scope.$watch('instru.categ_id', function(){
 		$http.get('/admin/instruments/getTypes/'+$scope.instru.categ_id).success(function(data){
 			$scope.types = data;
 		});
 	}, true);
-
-	$scope.validate = function(){
-
-		$http({
-			method: 'post',
-			url: '/admin/instruments/add',
-			data: $.param($scope.instru),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function(data){
-			$scope.result = data.result;
-		}).then(function(){
-			return false;
-		});
-
-	}
 
 });
 

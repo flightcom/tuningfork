@@ -41,9 +41,10 @@ class Membres extends MY_Controller {
 		$this->form_validation->set_rules('genre', 'Genre', 'required');
 		$this->form_validation->set_rules('nom', 'Nom', 'trim|required|min_length[3]');
 		$this->form_validation->set_rules('prenom', 'Prénom', 'trim|required|min_length[3]');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[membres.membre_email]');
 		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
 		$this->form_validation->set_rules('dob', 'Date de naissance', 'required');
+		$this->form_validation->set_rules('cp', 'CP', 'required|exact_length[5]');
 		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
 		$this->form_validation->set_rules('ville', 'Ville', 'required');
 		$this->form_validation->set_rules('passwd', 'Mot de passe', 'required');

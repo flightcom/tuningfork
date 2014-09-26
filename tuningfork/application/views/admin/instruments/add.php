@@ -11,7 +11,9 @@
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2">
-            <select class="form-control" name="selectcategorie" ng-options="categ.categ_id as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id"></select>
+            <select class="form-control" name="selectcategorie" ng-options="categ.categ_id as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id">
+                <option value="">Sélectionnez ...</option>
+            </select>
             <input type="hidden" name="categorie" value="{{instru.categ_id}}">
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
         </div>
@@ -20,20 +22,22 @@
             <div class='navbar-form hidden' ng-class="{hidden : !addcateg}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
-                    <input name="nomcategorie" type="text" class="form-control" placeholder="Catégorie" ng-model="newcateg" ng-focus="!addcateg">
+                    <input name="nomcategorie" type="text" class="form-control" placeholder="Nouvelle catégorie" ng-model="newcateg" ng-focus="!addcateg">
                 </div>
 
                 <button type="button" class="btn btn-primary" ng-click="addCateg()" style="margin-left:15px;">Valider</button>
                 <button type="button" class="btn btn-danger" ng-click="addcateg = !addcateg">Annuler</button>
             </div>
-            <span class="helper-block text-danger" ng-show="results.errors.newcateg">{{results.errors.newcateg}}</span>
+            <span class="helper-block text-danger hidden" ng-class="{ hidden : !results.errors.newcateg}">{{results.errors.newcateg}}</span>
         </div>
     </div>
 
     <div class="form-group">
         <label for="type" class="control-label col-xs-1">Type</label>
         <div class="col-xs-2">
-            <select class="form-control" name="type-select" ng-options="type.type_id as type.type_nom for type in types" ng-init="instru.type_id='<?php echo set_value('type'); ?>'" ng-model="instru.type_id"></select>
+            <select class="form-control" name="type-select" ng-options="type.type_id as type.type_nom for type in types" ng-init="instru.type_id='<?php echo set_value('type'); ?>'" ng-model="instru.type_id">
+                <option value="">Sélectionnez ...</option>
+            </select>
             <input type="hidden" name="type" value="{{instru.type_id}}">
             <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
         </div>

@@ -139,9 +139,31 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function ajouter_type($categorie = null)
+	public function addType($categorie = null)
 	{
-		$this->form_validation->set_rules('nom-type', 'Type', 'required');
+		$this->form_validation->set_rules('nomtype', 'Type', 'required');
+
+		$data = array();
+		$data['errors'] = array();
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['errors']['nomtype'] = form_error('nomtype');
+		}
+		else
+		{
+			$type = $this->input->post('nomtype');
+			$categorie = $this->input->post('categorie');
+			$res = $this->Instrument_model->insert_type($type, $categorie);
+			if($res){
+				$data['success'] = 1;
+				$data['categid'] = $res;
+			}
+			else {
+				$data['success'] = 0;
+			}
+		}
+		echo json_encode($data);
 
 		if ($this->form_validation->run() == FALSE)
 		{
