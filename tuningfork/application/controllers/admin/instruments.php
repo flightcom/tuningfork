@@ -116,48 +116,24 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function ajouter_marque()
+	public function addMarque()
 	{
-		$this->form_validation->set_rules('nom-marque', 'Marque', 'required');
-
-		if ($this->form_validation->run() == FALSE)
-		{
-			$content = $this->load->view('admin/instruments/add_marque', NULL, TRUE);
-			echo $content;
-		}
-		else
-		{
-			$marque = $this->input->post('nom-marque');
-			$res = $this->Instrument_model->insert_marque($marque);
-			if($res){
-				redirect('/admin/instruments/add');
-			}
-			else {
-				// echo $marque;
-			}
-		}
-
-	}
-
-	public function addType($categorie = null)
-	{
-		$this->form_validation->set_rules('nomtype', 'Type', 'required');
+		$this->form_validation->set_rules('newmarque', 'Marque', 'strtolower|ucfirst|is_unique[marques.marque_nom]');
 
 		$data = array();
 		$data['errors'] = array();
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['errors']['nomtype'] = form_error('nomtype');
+			$data['errors']['newmarque'] = form_error('newmarque');
 		}
 		else
 		{
-			$type = $this->input->post('nomtype');
-			$categorie = $this->input->post('categorie');
-			$res = $this->Instrument_model->insert_type($type, $categorie);
+			$marque = $this->input->post('newmarque');
+			$res = $this->Instrument_model->insert_marque($marque);
 			if($res){
 				$data['success'] = 1;
-				$data['categid'] = $res;
+				$data['marqueid'] = $res;
 			}
 			else {
 				$data['success'] = 0;
@@ -165,24 +141,35 @@ class Instruments extends Admin_Controller {
 		}
 		echo json_encode($data);
 
+	}
+
+	public function addType()
+	{
+		$this->form_validation->set_rules('newtype', 'Type', 'required');
+		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
+
+		$data = array();
+		$data['errors'] = array();
+
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data = array('categorie' => $categorie);
-			$content = $this->load->view('admin/instruments/add_type', $data, TRUE);
-			echo $content;
+			$data['errors']['newtype'] = form_error('newtype');
+			$data['errors']['categorie'] = form_error('categorie');
 		}
 		else
 		{
-			$type = $this->input->post('nom-type');
+			$type = $this->input->post('newtype');
 			$categorie = $this->input->post('categorie');
 			$res = $this->Instrument_model->insert_type($type, $categorie);
 			if($res){
-				redirect('/admin/instruments/add');
+				$data['success'] = 1;
+				$data['typeid'] = $res;
 			}
 			else {
-				// echo $marque;
+				$data['success'] = 0;
 			}
 		}
+		echo json_encode($data);
 
 	}
 
@@ -190,7 +177,6 @@ class Instruments extends Admin_Controller {
 	{
 		$types = Instrument_model::get_types_by_categ($categ_id);
 
-		// $content = $this->load->view('admin/instruments/select_type', $data, TRUE);
 		echo json_encode($types);
 	}
 
@@ -198,6 +184,12 @@ class Instruments extends Admin_Controller {
 	{
 		$categs = $this->Instrument_model->get_all_categories();
 		echo json_encode($categs);
+	}
+
+	public function getMarques()
+	{
+		$marques = $this->Instrument_model->get_all_marques();
+		echo json_encode($marques);
 	}
 
 	public function addCategorie()
@@ -258,14 +250,18 @@ class Instruments extends Admin_Controller {
 		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
 	}
 
-	public function prets()
-	{
-		$data = array(
-			'emprunts' => $this->Emprunt_model->get_emprunt_en_cours(),
-			'title' => 'Liste des prêts en cours'
-			);
-		$content = $this->load->view('admin/instruments/prets', $data, TRUE);
-		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+	function getCode() {
+
+		$code = null;
+
+		while (!$code) {
+			$tmpcode = $this->generateCode();
+			$check = $this->Instrument_model->test_code($tmpcode);
+			if ( $check ) $code = $tmpcode;
+		}
 
 	}
+
+	private function generateCode() {}
+
 }

@@ -118,7 +118,7 @@ class Instrument_model extends CI_Model {
     {
         $this->marque_nom = ucfirst(strtolower($nom));
         $res = $this->db->insert('marques', $this);
-        return $res;
+        return $this->db->insert_id();
     }
 
     /** Catégories **/
@@ -143,7 +143,7 @@ class Instrument_model extends CI_Model {
         $this->type_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
         $this->type_categ_id = $categ_id;
         $res = $this->db->insert('types_instru', $this);
-        return $res;
+        return $this->db->insert_id();
     }
 
     function get_types_by_categ($categ_id)
@@ -245,6 +245,13 @@ class Instrument_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
 
+    }
+
+    function test_code($code)
+    {
+        $this->db->select('*');
+        $this->db->from('instruments');
+        $this->db->where("instru_code = " . $code);
     }
 
 }
