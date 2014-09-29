@@ -72,7 +72,7 @@
             <div class='navbar-form hidden' ng-class="{hidden : !addmarque}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
-                    <input name="newmarque" type="text" class="form-control" placeholder="Nouvelle marque" ng-model="newmarque" ng-focuson="addmarque">
+                    <input name="newmarque" type="text" class="form-control" placeholder="Nouvelle marque" ng-model="newmarque" ng-focus-on="addmarque">
                 </div>
 
                 <button type="button" class="btn btn-primary" ng-click="addMarque()" style="margin-left:15px;">Valider</button>
