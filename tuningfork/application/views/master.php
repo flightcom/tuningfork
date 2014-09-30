@@ -7,6 +7,7 @@
 		<title><?php echo $title; ?></title>
 
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap-social-buttons.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -19,7 +20,7 @@
 
 		<div id="wrapper">
 
-			<div class="navbar-default center" role="navigation">
+			<div class=" center" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
@@ -31,13 +32,24 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="/">Home</a></li>
+<!-- 						<li><a href="/">Home</a></li>
 						<li><a onclick="$(this).closest('li').addClass('bold');" href="/instruments/">Instruments</a></li>
 						<li><a href="/news/liste">News</a></li>
 						<li><a href="/contact/form">Contact</a></li>
+ -->
+ 						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
+						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/instruments'">Instruments</button></li>
+						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/news'">News</button></li>
+						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/contact'">Contact</button></li>
 					</ul>
 
 					<?php echo $this->session->userdata('account'); ?>
+
+					<form name="search" id="search-form" class="navbar-form navbar-right" autocomplete="off" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" id="search" name="search" placeholder="Rechercher un instrument..." >
+						</div>
+					</form>
 
 				</div><!--/.nav-collapse -->
 			</div>

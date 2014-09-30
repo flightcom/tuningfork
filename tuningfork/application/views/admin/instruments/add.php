@@ -31,8 +31,7 @@
     </div>
 
     <div class="form-group">
-        <label for="type" class="control-label col-xs-1">Type</label>
-        <div class="col-xs-2 has-feedback" ng-class="{'has-success' : newinstrument.selecttype.$valid, 'has-error': newinstrument.selecttype.$invalid && newinstrument.selecttype.$dirty}">
+        <div class="col-xs-offset-1 col-xs-2 has-feedback" ng-class="{'has-success' : newinstrument.selecttype.$valid, 'has-error': newinstrument.selecttype.$invalid && newinstrument.selecttype.$dirty}">
             <select class="form-control" name="selecttype" required ng-options="type.type_id as type.type_nom for type in types" ng-init="instru.type_id='<?php echo set_value('type'); ?>'" ng-model="instru.type_id">
                 <option value="">Sélectionnez ...</option>
             </select>
@@ -40,19 +39,6 @@
             <span ng-show="newinstrument.selecttype.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="newinstrument.selecttype.$invalid && newinstrument.selecttype.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
             <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
-        </div>
-        <div id="add-type" style="display:inline-block;">
-            <button  class="btn btn-primary" ng-click="addtype = !addtype" ng-show="!addtype" onclick="return false;">Ajouter un type</button>
-            <div class='navbar-form hidden' ng-class="{hidden : !addtype}" style='width:400px;margin-top:0;margin-bottom:0;'>
-
-                <div class="form-group">
-                    <input name="newtype" type="text" class="form-control" placeholder="Nouveau type" ng-model="newtype" ng-focus-on="addtype">
-                </div>
-
-                <button type="button" class="btn btn-primary" ng-click="addType()" style="margin-left:15px;">Valider</button>
-                <button type="button" class="btn btn-danger" ng-click="addtype = !addtype">Annuler</button>
-            </div>
-            <span class="helper-block text-danger hidden" ng-class="{ hidden : !results.errors.newtype}">{{results.errors.newtype}}</span>
         </div>
     </div>
 

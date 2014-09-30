@@ -12,9 +12,13 @@ $(document).ready(function(){
 
     $('.navbar-nav li').click(function(){
         var index = $(this).index();
-        localStorage.removeItem('activePage');
-        localStorage.setItem('activePage', index);
-        $('.navbar-nav').removeClass('active');
+        if ( $(this).hasClass('navbar-btn') ) {
+            localStorage.removeItem('activePage');
+            localStorage.setItem('activePage', index);
+            $('.navbar-nav').removeClass('active');            
+        } else {
+            localStorage.removeItem('activePage');            
+        }
     });
 
 

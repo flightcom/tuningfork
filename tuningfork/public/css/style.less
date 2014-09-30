@@ -1,6 +1,6 @@
 /** Global settings **/
 body {
-	background-color: #efefef;
+	background-color: #fff;
 }
 
 ul {
@@ -16,6 +16,12 @@ input[type="date"]:before {
 input[type="date"]:focus:before, input[type="date"]:valid:before {
 	content: "";
 }
+
+@sweet-green : #4d994f;
+@sweet-green-dark : @sweet-green - #111;
+@sweet-green-dark-more : @sweet-green - #222;
+@sweet-green-light : @sweet-green + #111;
+@sweet-green-light-more : @sweet-green + #222;
 
 /**
  * Override bootstrap values
@@ -48,29 +54,57 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 
 #wrapper {
 
-	> .navbar {
+	&> .navbar {
 		border: none;
 	}
 
-	.navbar-default { 
-		background-color: #4d994f; 
-	}
-
 	[role="navigation"] {
+
+		background: @sweet-green; /* Old browsers */
+		background: -moz-linear-gradient(top,  #4e994f 0%, #479949 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4e994f), color-stop(100%,#479949)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #4e994f 0%,#479949 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #4e994f 0%,#479949 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #4e994f 0%,#479949 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #4e994f 0%,#479949 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e994f', endColorstr='#479949',GradientType=0 ); /* IE6-9 */
 
 		.navbar-nav {
 
 			li {
 
-				a {
-					font-size: 14px;
+				a  {
 					color: white;
 				}
 
-				&.active {
-					background-color: rgba(0,0,0,.5);
-					border-radius: 5px;
+				button {
+					border: none;
+					margin-right: 15px;
+					background-color: transparent;
+					color: white;
+
+					&:hover {
+						background-color: @sweet-green-dark;
+					}
+
 				}
+
+				&.active button{
+					background-color: @sweet-green-dark-more;
+					box-shadow: 0 0 5px 1px rgba(0,0,0,.2) inset;
+				}
+			}
+
+		}
+
+		.form-group {
+
+			input {
+				background-color: @sweet-green-dark-more!important;
+				color: white;
+				border: none;
+				// &::-webkit-input-placeholder, &::-moz-placeholder, &:-moz-placeholder, &:-ms-input-placeholder {color: #eee!important;font-style: italic!important;}					
+				&::-webkit-input-placeholder {color: #ccc!important;font-style: italic!important;}					
 			}
 		}
 
@@ -118,7 +152,6 @@ body[data-app="admin"] {
 	background-image: url('../img/home.jpg');
 	background-position: center;
 	background-size: 100%;
-	background-color: #3c983c;
 	padding: 10px 0;
 	min-height: 400px;
 	position: relative;
@@ -128,12 +161,7 @@ body[data-app="admin"] {
 .banner-title h1{
 	color: #efefef;
 	font-weight: bold;
-/*	font: bold 10em "TeXGyreReg", sans-serif;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-	color: transparent;
-	background-color: #555;
-	background-clip: text;
-*/}
+}
 
 #banner .form-group {
 	margin:0!important;
@@ -257,22 +285,23 @@ body[data-app="admin"] {
 /** Account popup **/
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
 .navbar-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  margin-top: 20px;
-}
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 20;
+	margin-top: 20px;
 
-/* Flip around the padding for proper display in narrow viewports */
-.navbar-wrapper .container {
-  padding-left: 0;
-  padding-right: 0;
-}
-.navbar-wrapper .navbar {
-  padding-left: 15px;
-  padding-right: 15px;
+	.container {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.navbar-wrapper .navbar {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+
 }
 
 .navbar-content
@@ -280,13 +309,15 @@ body[data-app="admin"] {
     width:320px;
     padding: 15px;
     padding-bottom:0px;
+
+    &:before, &:after {
+	    display: table;
+	    content: "";
+	    line-height: 0;
+    }
+
 }
-.navbar-content:before, .navbar-content:after
-{
-    display: table;
-    content: "";
-    line-height: 0;
-}
+
 .navbar-nav.navbar-right:last-child {
 margin-right: 15px !important;
 }
@@ -302,18 +333,6 @@ overflow: hidden;
 
 /** Fin account popup **/
 
-/** Backgrounds colors **/
-.bg-green-soft { background-color: #40CE5E!important;}
-.bg-red-soft { background-color: #F65757!important;}
-
-/** Form validation  **/
-/*input:required:invalid {
-	border: 1px solid red!important;
-}*/
-
-// input:required:valid {border: 1px solid #5cb85c!important;}
-// input:required:invalid + .glyphicon-ok.form-control-feedback{display:none;}
-// input:required:valid + .glyphicon-ok.form-control-feedback{display:inline;}
 .form-horizontal .has-feedback select ~ .form-control-feedback {
 	right: 23px!important;
 }
