@@ -1,16 +1,13 @@
 var tfApp = angular.module('tuningfork', [])
-	.directive('ngFocusOn', function() {
-	    return {
-	        link: function(scope, element, attrs) {
-	            scope.$watch(attrs.ngFocusOn, function(newValue){
-	                if ( newValue ) {
-	                    element.focus();
-	                }
-	            });
-	        }
-		};    
-	});
-
+.directive('ngFocusOn', function($timeout) {
+    return {
+        link: function(scope, element, attrs) {
+            scope.$watch(attrs.ngFocusOn, function(newValue){
+                newValue && $timeout(function(){element.focus()}, 10);
+            });
+        }
+	};    
+});
 
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 

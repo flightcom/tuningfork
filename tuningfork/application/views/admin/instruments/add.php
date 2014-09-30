@@ -20,7 +20,7 @@
             <div class='navbar-form hidden' ng-class="{hidden : !addcateg}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
-                    <input name="nomcategorie" type="text" class="form-control" placeholder="Nouvelle catégorie" ng-model="newcateg">
+                    <input name="nomcategorie" type="text" class="form-control" placeholder="Nouvelle catégorie" ng-model="newcateg" ng-focus-on="addcateg">
                 </div>
 
                 <button type="button" class="btn btn-primary" ng-click="addCateg()" style="margin-left:15px;">Valider</button>
@@ -46,7 +46,7 @@
             <div class='navbar-form hidden' ng-class="{hidden : !addtype}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
-                    <input name="newtype" type="text" class="form-control" placeholder="Nouveau type" ng-model="newtype">
+                    <input name="newtype" type="text" class="form-control" placeholder="Nouveau type" ng-model="newtype" ng-focus-on="addtype">
                 </div>
 
                 <button type="button" class="btn btn-primary" ng-click="addType()" style="margin-left:15px;">Valider</button>
