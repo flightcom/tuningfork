@@ -22,12 +22,12 @@
 	<thead>
 
 		<tr class="">
+			<th>Identifiant</th>
 			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
-			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
+			<th>Chemin</th>
 			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
 			<th class="hidden-xs hidden-sm">Modèle</th>
 			<th class="hidden" data-col="serial">Numéro de série</th>
-			<th>Code barre</th>
 			<th class="col-xs-1 hidden" data-col="date">Date entrée</th>
 			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Etat</th>
 			<th class="filter-select" data-placeholder="Sélectionner">Disponible</th>
@@ -39,12 +39,12 @@
 	<tbody>
 		<?php foreach ($instruments as $i){ ?>
 		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
+		    <td><?php echo $i->instru_code; ?></td>
 		    <td><?php echo $i->categ_nom; ?></td>
-		    <td><?php echo $i->type_nom; ?></td>
+		    <td><?php echo $i->path; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
 		    <td class="hidden" data-col="serial"><?php echo $i->instru_numero_serie; ?></td>
-		    <td><?php echo $i->instru_code; ?></td>
 		    <td class="hidden" data-col="date"><?php echo $i->instru_date_entree; ?></td>
 		    <td class="td-etat"><span class="hidden"><?php echo $i->instru_etat; ?></span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="<?php echo $i->instru_id; ?>" value="<?php echo $i->instru_etat; ?>"></td>
 		    <td class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><span><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>

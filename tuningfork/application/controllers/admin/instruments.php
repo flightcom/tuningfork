@@ -43,7 +43,6 @@ class Instruments extends Admin_Controller {
 				'title' => 'Informations sur l\'instrument',
 				'formid'   => 'edit-instrument',
 				'instrument' => $this->Instrument_model->get_entry($id),
-				'types' => $this->Instrument_model->get_types_by_categ($this->Instrument_model->get_categ_id_of($id)),
 				'emprunts' => $this->Emprunt_model->get_history($id)
 				);
 			$content = $this->load->view('admin/instruments/detail', $data, TRUE);
@@ -86,7 +85,6 @@ class Instruments extends Admin_Controller {
 	public function add()
 	{
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
-		$this->form_validation->set_rules('type', 'Type', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
 		$this->form_validation->set_rules('modele', 'Modèle', 'required');
 		$this->form_validation->set_rules('numero', 'Numéro de série', 'required');
@@ -141,43 +139,6 @@ class Instruments extends Admin_Controller {
 		}
 		echo json_encode($data);
 
-	}
-
-	public function addType()
-	{
-		$this->form_validation->set_rules('newtype', 'Type', 'required');
-		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
-
-		$data = array();
-		$data['errors'] = array();
-
-		if ($this->form_validation->run() == FALSE)
-		{
-			$data['errors']['newtype'] = form_error('newtype');
-			$data['errors']['categorie'] = form_error('categorie');
-		}
-		else
-		{
-			$type = $this->input->post('newtype');
-			$categorie = $this->input->post('categorie');
-			$res = $this->Instrument_model->insert_type($type, $categorie);
-			if($res){
-				$data['success'] = 1;
-				$data['typeid'] = $res;
-			}
-			else {
-				$data['success'] = 0;
-			}
-		}
-		echo json_encode($data);
-
-	}
-
-	public function getTypes($categ_id = null)
-	{
-		$types = Instrument_model::get_types_by_categ($categ_id);
-
-		echo json_encode($types);
 	}
 
 	public function getCategories($parent = null)

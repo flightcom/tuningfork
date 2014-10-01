@@ -10,7 +10,7 @@
             <select class="form-control" name="selectcategorie" required ng-options="categ as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="categorie">
                 <option value="">Sélectionnez ...</option>
             </select>
-            <input type="hidden" name="categorie" value="{{instru.categ_id}}" required>
+            <input type="hidden" name="categorie" value="{{instru.categpath[0].categ_id}}" required>
             <span ng-show="newinstrument.selectcategorie.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
             <span ng-show="newinstrument.selectcategorie.$invalid && newinstrument.selectcategorie.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
@@ -28,7 +28,7 @@
             </div>
             <span class="helper-block text-danger hidden" ng-class="{ hidden : !results.errors.newcateg}">{{results.errors.newcateg}}</span>
         </div>
-        <span class="path" ng-repeat="categ in instru.categ_path">{{categ.categ_nom}}</span>
+        <button onclick="return false;" class="btn btn-default path" ng-repeat="categ in instru.categpath | reverse" ng-click="removeCateg(categ);">{{categ.categ_nom}}</button>
     </div>
 
 	<div class="form-group">

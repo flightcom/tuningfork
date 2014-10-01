@@ -1,3 +1,5 @@
+@import (reference) 'bootstrap/bootstrap.less';
+
 /** Global settings **/
 body {
 	background-color: #fff;
@@ -22,6 +24,12 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 @sweet-green-dark-more : @sweet-green - #222;
 @sweet-green-light : @sweet-green + #111;
 @sweet-green-light-more : @sweet-green + #222;
+
+@bg-green-soft : #10c140;
+@bg-red-soft: #ff2f2f;
+
+.bg-red-soft {	background-color: @bg-red-soft!important;}
+.bg-green-soft {	background-color: @bg-green-soft!important;}
 
 /**
  * Override bootstrap values
@@ -56,6 +64,15 @@ body {
 
 	.navbar {
 		border: none;
+	}
+
+	#wrap {
+		min-height:100%;
+		height: auto!important;
+		height: 100%;
+		margin: 0 auto;
+		padding: 0px;
+		box-sizing: border-box;
 	}
 
 	&[data-app="public"] {
@@ -121,6 +138,8 @@ body {
 
 	&[data-app="admin"] {
 
+		background-color: white;
+
 		#wrap {
 
 			#content {
@@ -129,13 +148,17 @@ body {
 
 					#newinstrument {
 
+						[name="nomcategorie"] { text-transform: capitalize};
+
 						.path {
-							&:not(:first-of-type) {
-								&::before {
-									content: ' > ';
+							margin-left: 5px;
+
+							&:hover {
+								.btn-danger;
+								& ~ .path {
+									.btn-danger;									
 								}
 							}
-
 						}
 
 					}
@@ -150,20 +173,7 @@ body {
 
 }
 
-body[data-app="admin"] {
-	background-color: white;
-}
 
-#wrap {
-	min-height:100%;
-	height: auto!important;
-	height: 100%;
-	margin: 0 auto;
-	/*padding: 10px!important;*/
-	padding: 0px;
-	box-sizing: border-box;
-	/*border: 1px solid #eee;*/
-}
 
 #content {
 	box-sizing: border-box;

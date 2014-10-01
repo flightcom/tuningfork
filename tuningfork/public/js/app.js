@@ -7,12 +7,16 @@ var tfApp = angular.module('tuningfork', [])
             });
         }
 	};    
+}).filter('reverse', function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
 });
 
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	$scope.instru = {
-		categ_path: []
+		categpath: []
 	};
 
 	$scope.addcateg  = false;
@@ -24,7 +28,7 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		$http({
 			method: 'post',
 			url: '/admin/instruments/addCategorie/',
-			data: 'newcateg=' + $scope.newcateg + '&parent=' + $scope.instru.categ_path[0].categ_id,
+			data: 'newcateg=' + $scope.newcateg + '&parent=' + $scope.instru.categpath[0].categ_id,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
 			$scope.results = data;
@@ -59,12 +63,12 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	}
 
 	$scope.loadCategs = function(){
-		// categ = $scope.instru.categ_path.slice(-1)[0].categ_id;
-		categ = $scope.instru.categ_path.length > 0 ? $scope.instru.categ_path[0].categ_id:'';
-		console.log(categ);
+		// categ = $scope.instru.categpath.slice(-1)[0].categ_id;
+		categ = $scope.instru.categpath.length > 0 ? $scope.instru.categpath[0].categ_id:'';
+		// console.log(categ);
 		$http.get('/admin/instruments/getCategories/' + categ ).success(function(data){
+			// console.log(data);
 			$scope.categories = data;
-			console.log(data);
 		},true);
 	}
 
@@ -81,12 +85,23 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	}
 
+	$scope.removeLeafCateg = function(){
+		$scope.instru.categpath.shift();
+		$scope.categorie = $scope.instru.categpath[0];
+	}
+
+	$scope.removeCateg = function(categ){
+		var index = $scope.instru.categpath.indexOf(categ);
+		$scope.instru.categpath.splice(0, index+1);
+		$scope.categorie = $scope.instru.categpath[0];
+	}
+
 	$scope.loadCategs();
 	$scope.loadMarques();
 
 	$scope.$watch('categorie', function(){
-		if ( $scope.categorie !== undefined) {
-			$scope.instru.categ_path.unshift($scope.categorie);
+		if ( $scope.categorie !== undefined && $scope.instru.categpath.indexOf($scope.categorie) == -1 ) {
+			$scope.instru.categpath.unshift($scope.categorie);
 		}
 		$scope.loadCategs();
 	}, true);
