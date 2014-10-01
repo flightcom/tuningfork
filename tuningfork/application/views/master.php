@@ -16,60 +16,56 @@
 
 	</head>
 
-	<body role="document" ng-app="tuningfork">
+	<body role="document" ng-app="tuningfork" data-app="public">
 
-		<div id="wrapper">
-
-			<div class=" center" role="navigation">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="/">tuningfork</a>
-				</div>
-				<div class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
+		<div class=" center" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">tuningfork</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
 <!-- 						<li><a href="/">Home</a></li>
-						<li><a onclick="$(this).closest('li').addClass('bold');" href="/instruments/">Instruments</a></li>
-						<li><a href="/news/liste">News</a></li>
-						<li><a href="/contact/form">Contact</a></li>
- -->
- 						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
-						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/instruments'">Instruments</button></li>
-						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/news'">News</button></li>
-						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/contact'">Contact</button></li>
-					</ul>
+					<li><a onclick="$(this).closest('li').addClass('bold');" href="/instruments/">Instruments</a></li>
+					<li><a href="/news/liste">News</a></li>
+					<li><a href="/contact/form">Contact</a></li>
+-->
+						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
+					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/instruments'">Instruments</button></li>
+					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/news'">News</button></li>
+					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/contact'">Contact</button></li>
+				</ul>
 
-					<?php echo $this->session->userdata('account'); ?>
+				<?php echo $this->session->userdata('account'); ?>
 
-					<form name="search" id="search-form" class="navbar-form navbar-right" autocomplete="off" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" id="search" name="search" placeholder="Rechercher un instrument..." >
-						</div>
-					</form>
+				<form name="search" id="search-form" class="navbar-form navbar-right" autocomplete="off" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" id="search" name="search" placeholder="Rechercher un instrument..." >
+					</div>
+				</form>
 
-				</div><!--/.nav-collapse -->
-			</div>
-
-			<!-- <div style="height:50px;" id="spacer"></div> -->
-
-
-			<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
-
-	   		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
-	   			<div id="content">
-					<?php echo $content; ?>
-				</div>
-			</div>
-
-			<!-- <div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div> -->
-
-	        <footer></footer>
-
+			</div><!--/.nav-collapse -->
 		</div>
+
+		<!-- <div style="height:50px;" id="spacer"></div> -->
+
+
+		<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
+
+   		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
+   			<div id="content">
+				<?php echo $content; ?>
+			</div>
+		</div>
+
+		<!-- <div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div> -->
+
+        <footer></footer>
 
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script> -->
 		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>

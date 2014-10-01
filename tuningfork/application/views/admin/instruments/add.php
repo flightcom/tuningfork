@@ -7,7 +7,7 @@
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
         <div class="col-xs-2 has-feedback" ng-class="{'has-success' : newinstrument.selectcategorie.$valid, 'has-error': newinstrument.selectcategorie.$invalid && newinstrument.selectcategorie.$dirty}">
-            <select class="form-control" name="selectcategorie" required ng-options="categ.categ_id as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="instru.categ_id">
+            <select class="form-control" name="selectcategorie" required ng-options="categ as categ.categ_nom for categ in categories" ng-init="instru.categ_id='<?php echo set_value('categorie');?>'" ng-model="categorie">
                 <option value="">Sélectionnez ...</option>
             </select>
             <input type="hidden" name="categorie" value="{{instru.categ_id}}" required>
@@ -28,18 +28,7 @@
             </div>
             <span class="helper-block text-danger hidden" ng-class="{ hidden : !results.errors.newcateg}">{{results.errors.newcateg}}</span>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-xs-offset-1 col-xs-2 has-feedback" ng-class="{'has-success' : newinstrument.selecttype.$valid, 'has-error': newinstrument.selecttype.$invalid && newinstrument.selecttype.$dirty}">
-            <select class="form-control" name="selecttype" required ng-options="type.type_id as type.type_nom for type in types" ng-init="instru.type_id='<?php echo set_value('type'); ?>'" ng-model="instru.type_id">
-                <option value="">Sélectionnez ...</option>
-            </select>
-            <input type="hidden" name="type" value="{{instru.type_id}}" required>
-            <span ng-show="newinstrument.selecttype.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
-            <span ng-show="newinstrument.selecttype.$invalid && newinstrument.selecttype.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>
-            <span class="helper-block text-danger" ng-show="!instru.type_id"><?php echo form_error('type'); ?></span>
-        </div>
+        <span class="path" ng-repeat="categ in instru.categ_path">{{categ.categ_nom}}</span>
     </div>
 
 	<div class="form-group">

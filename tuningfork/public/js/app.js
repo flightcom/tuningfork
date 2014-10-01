@@ -12,7 +12,7 @@ var tfApp = angular.module('tuningfork', [])
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 
 	$scope.instru = {
-		categ_id: null
+		categ_path: []
 	};
 
 	$scope.addcateg  = false;
@@ -24,7 +24,7 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		$http({
 			method: 'post',
 			url: '/admin/instruments/addCategorie/',
-			data: 'newcateg=' + $scope.newcateg,
+			data: 'newcateg=' + $scope.newcateg + '&parent=' + $scope.instru.categ_path[0].categ_id,
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
 			$scope.results = data;
@@ -36,26 +36,6 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		}).then(function(){
 			return false;
 		});
-	}
-
-	$scope.addType = function(){
-
-		$http({
-			method: 'post',
-			url: '/admin/instruments/addType/',
-			data: 'newtype=' + $scope.newtype + '&categorie='+$scope.instru.categ_id,
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		}).success(function(data){
-			$scope.results = data;
-			if($scope.results.success) {
-				$scope.loadTypes();
-				$scope.addtype = false;
-				$scope.instru.type_id = $scope.results.typeid.toString();
-			}
-		}).then(function(){
-			return false;
-		});
-
 	}
 
 	$scope.addMarque = function(){
@@ -79,17 +59,19 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	}
 
 	$scope.loadCategs = function(){
-		$http.get('/admin/instruments/getCategories/').success(function(data){
+		// categ = $scope.instru.categ_path.slice(-1)[0].categ_id;
+		categ = $scope.instru.categ_path.length > 0 ? $scope.instru.categ_path[0].categ_id:'';
+		console.log(categ);
+		$http.get('/admin/instruments/getCategories/' + categ ).success(function(data){
 			$scope.categories = data;
+			console.log(data);
 		},true);
-
 	}
 
 	$scope.loadTypes = function(){
 		$http.get('/admin/instruments/getTypes/' + $scope.instru.categ_id).success(function(data){
 			$scope.types = data;
 		},true);
-
 	}
 
 	$scope.loadMarques = function(){
@@ -102,8 +84,11 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	$scope.loadCategs();
 	$scope.loadMarques();
 
-	$scope.$watch('instru.categ_id', function(){
-		$scope.loadTypes();
+	$scope.$watch('categorie', function(){
+		if ( $scope.categorie !== undefined) {
+			$scope.instru.categ_path.unshift($scope.categorie);
+		}
+		$scope.loadCategs();
 	}, true);
 
 	$scope.$watch('addmarque', function(){

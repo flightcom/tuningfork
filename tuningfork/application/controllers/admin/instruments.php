@@ -180,9 +180,9 @@ class Instruments extends Admin_Controller {
 		echo json_encode($types);
 	}
 
-	public function getCategories()
+	public function getCategories($parent = null)
 	{
-		$categs = $this->Instrument_model->get_all_categories();
+		$categs = $this->Instrument_model->get_categories($parent);
 		echo json_encode($categs);
 	}
 
@@ -192,7 +192,7 @@ class Instruments extends Admin_Controller {
 		echo json_encode($marques);
 	}
 
-	public function addCategorie()
+	public function addCategorie($parent = null)
 	{
 		$this->form_validation->set_rules('newcateg', 'Catégorie', 'strtolower|ucfirst|is_unique[categories.categ_nom]');
 
@@ -206,7 +206,8 @@ class Instruments extends Admin_Controller {
 		else
 		{
 			$categorie = $this->input->post('newcateg');
-			$res = $this->Instrument_model->insert_categorie($categorie);
+			$parent = $this->input->post('parent');
+			$res = $this->Instrument_model->insert_categorie($categorie, $parent);
 			if($res){
 				$data['success'] = 1;
 				$data['categid'] = $res;

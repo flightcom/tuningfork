@@ -122,6 +122,20 @@ class Instrument_model extends CI_Model {
     }
 
     /** Catégories **/
+    function get_categories($parent)
+    {
+        // $this->db->order_by('categ_nom', 'asc');
+        // $this->db->where('categ_parent_id', $parent);
+        // $query = $this->db->get('categories');
+        // return $query->result();
+        $this->db->select('*');
+        $this->db->from('categories');
+        $this->db->where('categ_parent_id', $parent);
+        $this->db->order_by('categ_nom', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function get_all_categories()
     {
         $this->db->order_by('categ_nom', 'asc');
@@ -129,10 +143,11 @@ class Instrument_model extends CI_Model {
         return $query->result();
     }
 
-    function insert_categorie($nom)
+    function insert_categorie($nom, $parent)
     {
         $this->categ_nom = ucfirst(strtolower($nom));
         $this->categ_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
+        $this->categ_parent_id = $parent;
         $res = $this->db->insert('categories', $this);
         return $this->db->insert_id();
     }
