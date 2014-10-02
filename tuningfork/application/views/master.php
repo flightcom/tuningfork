@@ -58,7 +58,7 @@
 		<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
 
    		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
-   			<div id="content">
+   			<div id="content" ng-controller="<?php echo $controller; ?>">
 				<?php echo $content; ?>
 			</div>
 		</div>

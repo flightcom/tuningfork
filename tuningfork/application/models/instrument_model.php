@@ -59,7 +59,7 @@ class Instrument_model extends CI_Model {
         $this->instru_marque_id = $this->input->post('marque');
         $this->instru_categ_id = $this->input->post('categorie');
         $this->instru_modele = $this->input->post('modele');
-        $this->instru_code = $this->input->post('code');
+        // $this->instru_code = $this->input->post('code');
         $this->instru_numero_serie = $this->input->post('numero');
         $this->instru_etat = $this->input->post('etat');
         $this->instru_dispo = $this->input->post('dispo');
@@ -210,6 +210,15 @@ class Instrument_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('categories');
         $this->db->where('categ_public_id', $public_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    function get_categ_by_id($public_id) 
+    {
+        $this->db->select('*, GetCategPath(categ_id)');
+        $this->db->from('categories');
+        $this->db->where('categ_id', $public_id);
         $query = $this->db->get();
         return $query->row();
     }

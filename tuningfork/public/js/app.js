@@ -138,3 +138,12 @@ tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 
 });
 
+tfApp.controller('CategoriesCtrl', function($scope, $http, $filter){
+
+	$scope.$watch('categorie', function(){
+		$http.get('/instruments/getCategorieInfos/'+$scope.categorie).success(function(data){
+			$scope.categorie = data.categorie;
+		});	
+	}, true);
+
+})

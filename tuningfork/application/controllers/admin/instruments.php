@@ -87,8 +87,8 @@ class Instruments extends Admin_Controller {
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
 		$this->form_validation->set_rules('modele', 'Modèle', 'required');
-		$this->form_validation->set_rules('numero', 'Numéro de série', 'required');
-		$this->form_validation->set_rules('code', 'Code', 'trim|required|is_numeric');
+		// $this->form_validation->set_rules('numero', 'Numéro de série', 'required');
+		// $this->form_validation->set_rules('code', 'Code', 'trim|required|is_numeric');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -106,7 +106,7 @@ class Instruments extends Admin_Controller {
 		{
 			$marque = $this->input->post('marque');
 			$modele = $this->input->post('modele');
-			$code = $this->input->post('code');
+			// $code = $this->input->post('code');
 			$numero = $this->input->post('numero');
 			$query = $this->Instrument_model->insert();
 			redirect('/admin/instruments/liste');
