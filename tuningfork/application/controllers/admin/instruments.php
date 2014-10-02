@@ -143,7 +143,7 @@ class Instruments extends Admin_Controller {
 
 	public function getCategories($parent = null)
 	{
-		$categs = $this->Instrument_model->get_categories($parent);
+		$categs = $this->Instrument_model->get_children_categories($parent);
 		echo json_encode($categs);
 	}
 

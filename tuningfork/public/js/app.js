@@ -35,6 +35,7 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 			if($scope.results.success) {
 				$scope.loadCategs();
 				$scope.addcateg = false;
+				$scope.newcateg = '';
 				$scope.instru.categ_id = $scope.results.categid.toString();
 			}
 		}).then(function(){
@@ -54,6 +55,7 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 			if($scope.results.success) {
 				$scope.loadMarques();
 				$scope.addmarque = false;
+				$scope.newmarque = '';
 				$scope.instru.marque_id = $scope.results.marqueid.toString();
 			}
 		}).then(function(){
@@ -140,10 +142,22 @@ tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 
 tfApp.controller('CategoriesCtrl', function($scope, $http, $filter){
 
-	$scope.$watch('categorie', function(){
-		$http.get('/instruments/getCategorieInfos/'+$scope.categorie).success(function(data){
-			$scope.categorie = data.categorie;
-		});	
+	$scope.$watch('parent', function(){
+		console.log('parent: '+$scope.parent);
+		if ( !angular.isUndefined($scope.parent) ) {
+			$http.get('/instruments/getCategorieInfos/'+$scope.parent).success(function(data){
+				console.log('categ infos:');
+				console.log(data);
+				$scope.categorie = data.categorie;
+			});
+		}
+
+		parent = $scope.parent || '';
+		$http.get('/instruments/getChildrenCategories/'+parent).success(function(data){
+			console.log('children infos:');
+			console.log(data);
+			$scope.children = data;
+		});
 	}, true);
 
 })

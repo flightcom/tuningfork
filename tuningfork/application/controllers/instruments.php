@@ -54,10 +54,13 @@ class Instruments extends Auth_Controller {
 		// 	$this->load->view('master', array('title' => $instrument->marque_nom . ' ' . $instrument->instru_modele, 'content' => $content));
 
 		// }
-		if ( count($params) == 0 ) { // Liste des categories
+		// if ( count($params) == 0 ) { // Liste des categories
+		if ( @!is_numeric(array_reverse($params)[0]) ) { // Liste des categories
+
+			@$parent = array_reverse($params)[0];
 
 			$data = array(
-				'categorie' => $this->Instrument_model->get_categ_available(),
+				'parent' => $this->Instrument_model->get_categorie_by_public_id($parent),
 				'title' => 'Nos instruments'
 			);
 			$content = $this->load->view('instruments/categories', $data, TRUE);
@@ -108,10 +111,17 @@ class Instruments extends Auth_Controller {
 	public function getCategorieInfos($categ_id) {
 
 		$ata = array(
-			'categorie' => $this->Instrument_model->get_categ_by_id($categ_id)
+			'categorie' => $this->Instrument_model->get_categorie($categ_id)
 		);
 
 		echo json_encode($data);
+
+	}
+
+	public function getChildrenCategories($parent = null) {
+
+		$categs = $this->Instrument_model->get_children_categories($parent);
+		echo json_encode($categs);
 
 	}
 

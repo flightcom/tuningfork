@@ -29,7 +29,7 @@ class Instrument_model extends CI_Model {
         $this->db->from('instruments');
         $this->db->join('marques', 'marques.marque_id= instruments.instru_marque_id');
         $this->db->join('categories', 'categories.categ_id= instruments.instru_categ_id');
-        $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left');
+        // $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left');
         $this->db->where('instru_id', $id);
         $query = $this->db->get();
         return $query->row();
@@ -120,16 +120,21 @@ class Instrument_model extends CI_Model {
     }
 
     /** Catégories **/
-    function get_categories($parent)
+    function get_children_categories($parent = null)
     {
-        // $this->db->order_by('categ_nom', 'asc');
-        // $this->db->where('categ_parent_id', $parent);
-        // $query = $this->db->get('categories');
-        // return $query->result();
         $this->db->select('*');
         $this->db->from('categories');
         $this->db->where('categ_parent_id', $parent);
         $this->db->order_by('categ_nom', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_categorie($id)
+    {
+        $this->db->select('*, GetCategPath(categ_id)');
+        $this->db->from('categories');
+        $this->db->where('categ_id', $id);
         $query = $this->db->get();
         return $query->result();
     }
@@ -205,20 +210,11 @@ class Instrument_model extends CI_Model {
         return $query->result();
     }
 
-    function get_categ_by_public_id($public_id) 
+    function get_categorie_by_public_id($public_id) 
     {
         $this->db->select('*');
         $this->db->from('categories');
         $this->db->where('categ_public_id', $public_id);
-        $query = $this->db->get();
-        return $query->row();
-    }
-
-    function get_categ_by_id($public_id) 
-    {
-        $this->db->select('*, GetCategPath(categ_id)');
-        $this->db->from('categories');
-        $this->db->where('categ_id', $public_id);
         $query = $this->db->get();
         return $query->row();
     }
