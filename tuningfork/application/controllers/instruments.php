@@ -57,7 +57,7 @@ class Instruments extends Auth_Controller {
 		if ( count($params) == 0 ) { // Liste des categories
 
 			$data = array(
-				// 'categories' => $this->Instrument_model->get_categ_available(),
+				'categorie' => $this->Instrument_model->get_categ_available(),
 				'title' => 'Nos instruments'
 			);
 			$content = $this->load->view('instruments/categories', $data, TRUE);
