@@ -132,11 +132,11 @@ class Instrument_model extends CI_Model {
 
     function get_categorie($id)
     {
-        $this->db->select('*, GetCategPath(categ_id)');
-        $this->db->from('categories');
+        $this->db->select('*');
+        $this->db->from('categories_extended');
         $this->db->where('categ_id', $id);
         $query = $this->db->get();
-        return $query->result();
+        return $query->row();
     }
 
     function get_all_categories()

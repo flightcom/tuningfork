@@ -61,13 +61,13 @@ class Instruments extends Auth_Controller {
 
 			$data = array(
 				'parent' => $this->Instrument_model->get_categorie_by_public_id($parent),
+				'children' => $this->Instrument_model->get_children_categories($parent),
 				'title' => 'Nos instruments'
 			);
 			$content = $this->load->view('instruments/categories', $data, TRUE);
 			$this->load->view('master', array(	
 					'title' => 'Catégories', 
-					'content' => $content, 
-					'controller' => 'CategoriesCtrl'));
+					'content' => $content));
 
 		}
 		else {
@@ -110,7 +110,7 @@ class Instruments extends Auth_Controller {
 
 	public function getCategorieInfos($categ_id) {
 
-		$ata = array(
+		$data = array(
 			'categorie' => $this->Instrument_model->get_categorie($categ_id)
 		);
 
@@ -125,18 +125,14 @@ class Instruments extends Auth_Controller {
 
 	}
 
-	public function _remap($method, $args = array())
+	public function _remap($method, $args)
 	{
 		if (method_exists($this, $method)){
-			$this->$method($args);
+			// $this->$method($args);
+			call_user_func_array(array($this, $method), $args);
 		} else {
 			$this->index(array_merge(array($method),$args));
-			// $this->index($args);
 		}
-		// if($method != 'index') :
-		// 	array_unshift($params, $method);
-		// endif;
-  //       return call_user_func_array(array($this, 'index'), $params);
 	}
 
 }

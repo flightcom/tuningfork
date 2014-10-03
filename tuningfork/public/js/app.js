@@ -140,24 +140,21 @@ tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 
 });
 
-tfApp.controller('CategoriesCtrl', function($scope, $http, $filter){
+tfApp.controller('CategoriesCtrl', function ($scope, $http, $filter){
 
-	$scope.$watch('parent', function(){
-		console.log('parent: '+$scope.parent);
-		if ( !angular.isUndefined($scope.parent) ) {
-			$http.get('/instruments/getCategorieInfos/'+$scope.parent).success(function(data){
-				console.log('categ infos:');
-				console.log(data);
-				$scope.categorie = data.categorie;
+	$scope.$watch('parent.categ_id', function(){
+		if ( !angular.isUndefined($scope.parent.categ_id) ) {
+			$http.get('/instruments/getCategorieInfos/'+$scope.parent.categ_id).success(function(data){
+				$scope.parent = data.categorie;
+				$scope.path = $scope.parent.path.split(',');
 			});
 		}
 
-		parent = $scope.parent || '';
-		$http.get('/instruments/getChildrenCategories/'+parent).success(function(data){
-			console.log('children infos:');
-			console.log(data);
+		console.log($scope.parent);
+		$http.get('/instruments/getChildrenCategories/'+$scope.parent.categ_id||'').success(function(data){
 			$scope.children = data;
+			console.log($scope.children);
 		});
 	}, true);
 
-})
+});
