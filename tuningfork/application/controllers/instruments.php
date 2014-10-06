@@ -57,11 +57,13 @@ class Instruments extends Auth_Controller {
 		// if ( count($params) == 0 ) { // Liste des categories
 		if ( @!is_numeric(array_reverse($params)[0]) ) { // Liste des categories
 
-			@$parent = array_reverse($params)[0];
+			$parent = $params ? $this->Instrument_model->get_categorie_by_public_id(array_reverse($params)[0]) : null;
+			$parents = !$parent ? null : $this->Instrument_model->get_parents_categories($parent->categ_id);
 
 			$data = array(
-				'parent' => $this->Instrument_model->get_categorie_by_public_id($parent),
-				'children' => $this->Instrument_model->get_children_categories($parent),
+				'parent' => $parent,
+				'parents' => $parents,
+				'children' => $this->Instrument_model->get_children_categories( $parent ? $parent->categ_id : null),
 				'title' => 'Nos instruments'
 			);
 			$content = $this->load->view('instruments/categories', $data, TRUE);

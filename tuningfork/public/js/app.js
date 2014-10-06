@@ -8,9 +8,14 @@ var tfApp = angular.module('tuningfork', [])
         }
 	};    
 }).filter('reverse', function() {
-  return function(items) {
-    return items.slice().reverse();
-  };
+    return function(items) {
+    	return items.slice().reverse();
+  	};
+}).filter('split', function() {
+    return function(input, delimiter) {
+      	var delimiter = delimiter || ',';
+      	return input.split(delimiter);
+    } 
 });
 
 tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
