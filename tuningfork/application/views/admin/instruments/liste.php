@@ -41,7 +41,7 @@
 		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
 		    <td><?php echo $i->instru_code; ?></td>
 		    <td><?php echo $i->categ_nom; ?></td>
-		    <td><?php echo $i->path; ?></td>
+		    <td><?php echo $i->categ_pathpublic; ?></td>
 		    <td><?php echo $i->marque_nom; ?></td>
 		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
 		    <td class="hidden" data-col="serial"><?php echo $i->instru_numero_serie; ?></td>

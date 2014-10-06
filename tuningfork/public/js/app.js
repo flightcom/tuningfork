@@ -7,6 +7,22 @@ var tfApp = angular.module('tuningfork', [])
             });
         }
 	};    
+}).directive('squarebox', function ($window) {
+    return {
+        restrict: "C",
+        link: function (scope, element) {
+            scope.getWidth = function () {
+                return $(element).width();
+            };
+            scope.$watch(scope.getWidth, function (width) {
+            	$(element).height(width);
+            });
+			return angular.element($window).bind('resize', function() {
+				scope.getWidth();
+				return scope.$apply();
+			});
+        }
+   }
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();

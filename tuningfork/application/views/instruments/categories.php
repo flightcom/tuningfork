@@ -9,10 +9,10 @@
 <input type="hidden" name="path" value ng-init="path='<?php echo $parent ? $parent->categ_pathpublic : ''; ?>'" ng-model="path">
 
 <?php foreach ( $children as $child ) : ?>
-<div class="categorie col-xs-6 col-sd-4 col-md-3 col-lg-2 hovered">
+<div class="categorie col-xs-6 col-sm-4 col-md-3 col-lg-2 hovered">
 	
 	<a href="/instruments/<?php echo $child->categ_pathpublic; ?>">
-		<img>
+		<img class="squarebox">
 		<p><?php echo $child->categ_nom; ?></p>
 	</a>
 

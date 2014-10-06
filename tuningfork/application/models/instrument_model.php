@@ -15,10 +15,10 @@ class Instrument_model extends CI_Model {
     
     function get_all_entries()
     {
-        $this->db->select('*, GetCategPath(categ_id) AS path');
+        $this->db->select('*');
         $this->db->from('instruments');
         $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
-        $this->db->join('categories', 'categories.categ_id = instruments.instru_categ_id');
+        $this->db->join('categories_extended', 'categories_extended.categ_id = instruments.instru_categ_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -120,15 +120,12 @@ class Instrument_model extends CI_Model {
     }
 
     /** Catégories **/
-    function get_parents_categories($categ = null) 
+    function get_parents_categories($id = null) 
     {
-        $this->db->select('*');
-        $this->db->from('categories_extended');
-        $this->db->where('categ_id IN (SELECT GetCategPathIDs('.$categ.'))');
-        $this->db->order_by('categ_nom', 'asc');
-        $query = $this->db->get();
-        return $query->result();
-
+        $query = $this->db->query('CALL GetParents('.$id.')');
+        $result = $query->result();
+        $query->free_result();
+        return $result;
     }
 
     function get_children_categories($parent = null)
@@ -159,7 +156,7 @@ class Instrument_model extends CI_Model {
 
     function insert_categorie($nom, $parent)
     {
-        $this->categ_nom = ucfirst(strtolower($nom));
+        $this->categ_nom = mb_strtoupper(mb_substr($nom,0,1)).mb_substr($nom,1,mb_strlen($nom));
         $this->categ_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
         $this->categ_parent_id = $parent;
         $res = $this->db->insert('categories', $this);
