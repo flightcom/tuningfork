@@ -1,8 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @import (reference) 'bootstrap/bootstrap.less';
 
 /** Global settings **/
 body {
 	background-color: #fff;
+	font-family: "Open Sans", "Helvetica Neue";
 }
 
 ul {
@@ -493,3 +495,43 @@ body[role="print"] {
 
 }
 
+#dashboard-state {
+position: relative;
+width: 160px;
+margin: 0 auto;
+}
+#dashboard-state {
+margin: 0 0 0 12px;
+float: right;
+}
+
+#holder {
+	margin: 0;
+	padding: 0;
+	height: 160px;
+	width: 160px;
+	 -webkit-border-radius: 80px; 
+	-moz-border-radius: 80px;
+	 border-radius: 80px; 
+	overflow: hidden;
+	background: #eaeef3;
+}
+
+.dashboard-score {
+margin: 0;
+padding: 0;
+height: 152px;
+width: 152px;
+line-height: 152px;
+-webkit-border-radius: 76px;
+-moz-border-radius: 76px;
+border-radius: 76px;
+position: absolute;
+top: 4px;
+left: 4px;
+font-size: 56px;
+font-weight: 300;
+text-align: center;
+background: #fff;
+color: #444;
+}

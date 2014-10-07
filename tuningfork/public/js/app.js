@@ -23,25 +23,6 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
 			});
         }
    }
-}).directive('xngColHidden', function ($window) {
-    return {
-        restrict: "A",
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.xngColHidden, function(newValue) {
-	        	var index = $(element).closest('tr').find('td').index(element);
-	        	var thead = $(element).closest('table').find('thead');
-            	if ( newValue ) {
-		        	thead.find('tr').each(function(){
-		        		$(this).find('th').eq(index).addClass('ng-hide');
-		        	});
-            	} else {
-		        	thead.find('tr').each(function(){
-		        		$(this).find('th').eq(index).removeClass('ng-hide');
-		        	});
-            	}
-            });
-       }
-   }
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();
@@ -62,6 +43,10 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	$scope.addcateg  = false;
 	$scope.addtype  = false;
 	$scope.addmarque = false;
+
+	$scope.go = function(path) {
+		$location.path(path);
+	}
 
 	$scope.addCateg = function(){
 

@@ -7,13 +7,10 @@
 		<title><?php echo $title; ?></title>
 
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'theme.bootstrap.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-		<!-- <link href="<?php echo (CSS.'theme.jui.css'); ?>" rel="stylesheet" type="text/css"></script> -->
+		<link href="<?php echo (CSS.'ng-table.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'calendar.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'jquery.tablesorter.pager.css'); ?>" rel="stylesheet" type="text/css"></script>
 
 		<script src="<?php echo (JS.'jquery/jquery-1.11.0.min.js'); ?>"></script>
 
@@ -60,13 +57,9 @@
 
 		</div>
 
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script> -->
 		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'jquery/jquery.extend.js'); ?>"></script> 
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.js'); ?>"></script>
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.widgets.js'); ?>"></script>
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.pager.js'); ?>"></script>
 		<script src="<?php echo (JS.'bootstrap/bootstrap.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
