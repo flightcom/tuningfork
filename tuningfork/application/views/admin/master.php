@@ -62,10 +62,11 @@
 
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script> -->
 		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'jquery/jquery.extend.js'); ?>"></script> 
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.js'); ?>"></script> 
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.widgets.js'); ?>"></script> 
-		<script src="<?php echo (JS.'jquery/jquery.tablesorter.pager.js'); ?>"></script> 
+		<script src="<?php echo (JS.'jquery/jquery.tablesorter.js'); ?>"></script>
+		<script src="<?php echo (JS.'jquery/jquery.tablesorter.widgets.js'); ?>"></script>
+		<script src="<?php echo (JS.'jquery/jquery.tablesorter.pager.js'); ?>"></script>
 		<script src="<?php echo (JS.'bootstrap/bootstrap.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
@@ -73,6 +74,7 @@
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app.js'); ?>"></script> 
+		<script src="<?php echo (JS.'app-admin.js'); ?>"></script> 
 	</body>
 
 </html>

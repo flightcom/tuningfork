@@ -1,4 +1,4 @@
-var tfApp = angular.module('tuningfork', [])
+var tfApp = angular.module('tuningfork', ['ngTable'])
 .directive('ngFocusOn', function($timeout) {
     return {
         link: function(scope, element, attrs) {
@@ -22,6 +22,25 @@ var tfApp = angular.module('tuningfork', [])
 				return scope.$apply();
 			});
         }
+   }
+}).directive('xngColHidden', function ($window) {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.xngColHidden, function(newValue) {
+	        	var index = $(element).closest('tr').find('td').index(element);
+	        	var thead = $(element).closest('table').find('thead');
+            	if ( newValue ) {
+		        	thead.find('tr').each(function(){
+		        		$(this).find('th').eq(index).addClass('ng-hide');
+		        	});
+            	} else {
+		        	thead.find('tr').each(function(){
+		        		$(this).find('th').eq(index).removeClass('ng-hide');
+		        	});
+            	}
+            });
+       }
    }
 }).filter('reverse', function() {
     return function(items) {
@@ -92,12 +111,6 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		$http.get('/admin/instruments/getCategories/' + categ ).success(function(data){
 			// console.log(data);
 			$scope.categories = data;
-		},true);
-	}
-
-	$scope.loadTypes = function(){
-		$http.get('/admin/instruments/getTypes/' + $scope.instru.categ_id).success(function(data){
-			$scope.types = data;
 		},true);
 	}
 

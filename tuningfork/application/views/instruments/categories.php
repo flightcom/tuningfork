@@ -1,6 +1,5 @@
 <ol class="breadcrumb">
 	<li><a href="/instruments/">Tous</a></li>
-	<!-- <li ng-hide="!path.length" ng-repeat="cpath in path | split:'/'"><a href="/instruments">{{cpath}}</a></li> -->
 	<?php if ( $parents) : foreach ( $parents as $p ) : ?>
 	<li><a href="/instruments/<?php echo $p->categ_pathpublic; ?>"><?php echo $p->categ_nom; ?></a></li>
 <?php endforeach; endif;?>

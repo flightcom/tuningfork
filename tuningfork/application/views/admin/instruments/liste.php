@@ -17,67 +17,35 @@
 
 <br>
 
-<table class="table table-bordered table-hover tablesorter col-xs-12">
+<table ng-table="tableInstruments" show-filter="true" class="table table-hover col-xs-12" ng-controller="AdminListInstruCtrl">
 
-	<thead>
-
-		<tr class="">
-			<th>Identifiant</th>
-			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
-			<th>Chemin</th>
-			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
-			<th class="hidden-xs hidden-sm">Modèle</th>
-			<th class="hidden" data-col="serial">Numéro de série</th>
-			<th class="col-xs-1 hidden" data-col="date">Date entrée</th>
-			<th class="filter-select filter-onlyAvail" data-placeholder="Sélectionner">Etat</th>
-			<th class="filter-select" data-placeholder="Sélectionner">Disponible</th>
-			<th class="filter-select hidden" data-col="check" data-placeholder="Sélectionner">A vérifier</th>
-		</tr>
-
-	</thead>
-
-	<tbody>
-		<?php foreach ($instruments as $i){ ?>
-		<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
-		    <td><?php echo $i->instru_code; ?></td>
-		    <td><?php echo $i->categ_nom; ?></td>
-		    <td><?php echo $i->categ_pathpublic; ?></td>
-		    <td><?php echo $i->marque_nom; ?></td>
-		    <td class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
-		    <td class="hidden" data-col="serial"><?php echo $i->instru_numero_serie; ?></td>
-		    <td class="hidden" data-col="date"><?php echo $i->instru_date_entree; ?></td>
-		    <td class="td-etat"><span class="hidden"><?php echo $i->instru_etat; ?></span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="<?php echo $i->instru_id; ?>" value="<?php echo $i->instru_etat; ?>"></td>
-		    <td class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><span><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
-		    <td class="td-check hidden bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>" data-col="check" ><span><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
-		</tr>
-		<?php } ?>
-
-	</tbody>
-
-    <tfoot>
-
-        <tr>
-            <th colspan="10" class="ts-pager form-horizontal">
-                <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i>
-                </button>
-                <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i>
-                </button>	<span class="pagedisplay"></span> 
-                <!-- this can be any element, including an input -->
-                <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i>
-                </button>
-                <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i>
-                </button>
-                <select class="pagesize input-mini" title="Select page size">
-                    <option selected="selected" value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                </select>
-                <select class="pagenum input-mini" title="Select page number"></select>
-            </th>
-        </tr>
-
-    </tfoot>
+<!-- 	<?php foreach ($instruments as $i){ ?>
+	<tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
+	    <td data-title="'Identifiant'" filter="{ 'categ_id': 'text' }"><?php echo $i->instru_code; ?></td>
+	    <td data-title="'Catégorie'" filter="{ 'categ_nom': 'select' }"><?php echo $i->categ_nom; ?></td>
+	    <td data-title="'Chemin'" filter="{ 'categ_pathpublic': 'text' }"><?php echo $i->categ_pathpublic; ?></td>
+	    <td data-title="'Marque'" filter="{ 'marque_nom': 'select' }"><?php echo $i->marque_nom; ?></td>
+	    <td data-title="'Modèle'" filter="{ 'instru_modele': 'text' }" class="hidden-xs hidden-sm"><?php echo $i->instru_modele; ?></td>
+	    <td data-title="'Numéro de série'" filter="{ 'instru_numero': 'text' }" class="hidden" data-col="serial"><?php echo $i->instru_numero_serie; ?></td>
+	    <td data-title="'Date d\'entrée'" filter="{ 'instru_date_entree': 'text' }" class="hidden" data-col="date"><?php echo $i->instru_date_entree; ?></td>
+	    <td data-title="'État'" filter="{ 'instru_etat': 'select' }" class="td-etat"><span class="hidden"><?php echo $i->instru_etat; ?></span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="<?php echo $i->instru_id; ?>" value="<?php echo $i->instru_etat; ?>"></td>
+	    <td data-title="'Disponibilité'" filter="{ 'instru_dispo': 'select' }" class="td-dispo bg-<?php echo ($i->instru_dispo) ? 'green-soft' : 'red-soft'; ?>"><span><?php echo ($i->instru_dispo ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
+	    <td data-title="'À vérifier'" filter="{ 'instru_a_verifier': 'select' }" class="td-check hidden bg-<?php echo ($i->instru_a_verifier) ? 'red-soft' : 'green-soft'; ?>" data-col="check" ><span><?php echo ($i->instru_a_verifier ? 'Oui' : 'Non'); ?></span><input type="hidden" value="<?php echo $i->instru_id; ?>"></td>
+	</tr>
+	<?php } ?>
+ -->
+	<tr ng-repeat="instrument in instruments" ng-click="location.href='/admin/instruments/{{instrument.instru_id}}'" style="cursor:pointer;">
+	    <td data-title="'Identifiant'" filter="{ 'categ_id': 'text' }">{{instrument.instru_id}}</td>
+	    <td data-title="'Catégorie'" filter="{ 'categ_nom': 'select' }">{{instrument.categ_nom}}</td>
+	    <td data-title="'Chemin'" filter="{ 'categ_pathpublic': 'text' }">{{instrument.categ_pathpublic}}</td>
+	    <td data-title="'Marque'" filter="{ 'marque_nom': 'select' }">{{instrument.marque_nom}}</td>
+	    <td data-title="'Modèle'" filter="{ 'instru_modele': 'text' }" class="hidden-xs hidden-sm">{{instrument.instru_modele}}</td>
+	    <td xng-col-hidden="true" data-title="'Numéro de série'" filter="{ 'instru_numero': 'text' }" class="hidden" data-col="serial">{{instrument.instru_numero_serie}}</td>
+	    <td xng-col-hidden="true" data-title="'Date d\'entrée'" filter="{ 'instru_date_entree': 'text' }" class="hidden" data-col="date">{{instrument.instru_date_entree}}</td>
+	    <td data-title="'État'" filter="{ 'instru_etat': 'select' }" class="td-etat"><span class="hidden">{{instrument.instru_etat}}</span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="{{instrument.instru_id}}" value="{{instrument.instru_etat}}"></td>
+	    <td data-title="'Disponibilité'" filter="{ 'instru_dispo': 'select' }" class="td-dispo bg-{ instrument.instru_dispo ? 'green-soft' : 'red-soft' }"><span>{{ instrument.instru_dispo ? 'Oui' : 'Non' }}</span><input type="hidden" value="{{instrument.instru_id}}"></td>
+	    <td xng-col-hidden="true" data-title="'À vérifier'" filter="{ 'instru_a_verifier': 'select' }" class="td-check hidden bg-{ instrument.instru_a_verifier ? 'green-soft' : 'red-soft' }" data-col="check" ><span>{ instrument.instru_a_verifier ? 'Oui' : 'Non' }</span><input type="hidden" value="{{instrument.instru_id}}"></td>
+	</tr>
 
 </table>
 
