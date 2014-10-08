@@ -34,7 +34,16 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
     } 
 });
 
-tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
+tfApp.factory('utilities', function() {
+    return {
+        go: function(path) {
+        	console.log('go');
+			$location.path(path);
+        }
+    };
+});
+
+tfApp.controller('AddInstrumentCtrl', ['$scope', 'utilities', function ($scope, $http){
 
 	$scope.instru = {
 		categpath: []
@@ -43,10 +52,6 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 	$scope.addcateg  = false;
 	$scope.addtype  = false;
 	$scope.addmarque = false;
-
-	$scope.go = function(path) {
-		$location.path(path);
-	}
 
 	$scope.addCateg = function(){
 
@@ -133,7 +138,7 @@ tfApp.controller('AddInstrumentCtrl', function ($scope, $http){
 		}
 	});
 
-});
+}]);
 
 tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 

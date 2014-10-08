@@ -27,11 +27,13 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 @sweet-green-light : @sweet-green + #111;
 @sweet-green-light-more : @sweet-green + #222;
 
-@bg-green-soft : #10c140;
-@bg-red-soft: #ff2f2f;
+@green-soft : #10c140;
+@red-soft: #ff2f2f;
 
-.bg-red-soft {	background-color: @bg-red-soft!important;}
-.bg-green-soft {	background-color: @bg-green-soft!important;}
+.border-left-ok { border-left-color: @green-soft!important;}
+.border-left-ko { border-left-color: @red-soft!important;}
+.bg-red-soft {	background-color: @red-soft!important;}
+.bg-green-soft {	background-color: @green-soft!important;}
 
 /**
  * Override bootstrap values
@@ -153,6 +155,14 @@ body {
 			#content {
 
 				&.admin {
+
+					.table-list-instru {
+						tr {
+							border-left-width: 5px;
+							border-left-style: solid;
+							border-left-color: transparent;
+						}
+					}
 
 					#newinstrument {
 

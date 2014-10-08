@@ -1,6 +1,9 @@
-tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ngTableParams){
+tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
 
-	$scope.instruments = [];
+	// $scope.instruments = <?php print_r($instruments); ?>;
+	// $scope.instruments = [];
+
+	// console.log($scope.instruments);
 
 	$scope.showcol = {
 		dateEntree: false,
@@ -10,39 +13,60 @@ tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ng
 
 	$scope.showTable = false;
 
+	var defer = $q.defer();
+
+	// $http.get('/admin/instruments/liste/json/').success(function(data){
+	// 	$scope.instruments = data.instruments;
+	// 	$scope.showTable = true;
+	// 	defer.resolve();
+	// },true);
+
 	$scope.loadInstruments = function(){
 
 		$http.get('/admin/instruments/liste/json/').success(function(data){
-			$scope.instruments = data.instruments;
-			$scope.showTable = true;
+			defer.resolve(data);
 		},true);
+
+		return defer.promise;
 
 	}
 
-	$scope.loadInstruments();
+	var promise = $scope.loadInstruments();
 
-	$scope.tableInstruments = new ngTableParams({
-        page: 1,            // show first page
-        count: 10,          // count per page
-        filter: {
-			categ_id: '',
-			categ_nom: ''
-        },
-        sorting: {
-        	instru_id: 'asc'
-        }
-    }, {
-    	filterDelay: 0,
-        total: $scope.instruments.length, // length of data
-        getData: function($defer, params) {
-            // use build-in angular filter
-            var orderedData = params.filter() ? $filter('filter')($scope.instruments, params.filter()) : $scope.instruments;
-			orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
-            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-            params.total(orderedData.length); // set total for recalc pagination
-            $defer.resolve($scope.filteredInstruments);
-        }
-    });
+	promise.then(function(data){
+		$scope.instruments = data.instruments;
+		$scope.showTable = true;
+		$scope.loadTableParams();
+	});
+
+	$scope.loadTableParams = function(){
+
+		console.log('table params');
+
+		$scope.tableInstrumentsParams = new ngTableParams({
+	        page: 1,            // show first page
+	        count: 10,          // count per page
+	        filter: {
+				categ_id: '',
+				categ_nom: ''
+	        },
+	        sorting: {
+	        	instru_id: 'asc'
+	        }
+	    }, {
+	    	filterDelay: 0,
+	        total: $scope.instruments.length, // length of data
+	        getData: function($defer, params) {
+	            // use build-in angular filter
+	            var orderedData = params.filter() ? $filter('filter')($scope.instruments, params.filter()) : $scope.instruments;
+				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	            params.total(orderedData.length); // set total for recalc pagination
+	            $defer.resolve($scope.filteredInstruments);
+	        }
+	    });
+
+	}
 
     var inArray = Array.prototype.indexOf ?
         function (val, arr) {
@@ -78,4 +102,4 @@ tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ng
     // 	$scope.selectmarque = $scope.getMarques();
     // });
 
-});
+}]);
