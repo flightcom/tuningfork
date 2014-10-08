@@ -2,17 +2,21 @@ tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ng
 
 	$scope.instruments = [];
 
-	$scope.hidecol = {
-		dateEntree: true,
-		aVerifier: true,
-		numeroSerie: true
+	$scope.showcol = {
+		dateEntree: false,
+		aVerifier: false,
+		numeroSerie: false
 	};
+
+	$scope.showTable = false;
 
 	$scope.loadInstruments = function(){
 
 		$http.get('/admin/instruments/liste/json/').success(function(data){
 			$scope.instruments = data.instruments;
+			$scope.showTable = true;
 		},true);
+
 	}
 
 	$scope.loadInstruments();
@@ -28,6 +32,7 @@ tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ng
         	instru_id: 'asc'
         }
     }, {
+    	filterDelay: 0,
         total: $scope.instruments.length, // length of data
         getData: function($defer, params) {
             // use build-in angular filter
@@ -40,31 +45,37 @@ tfApp.controller('AdminListInstruCtrl', function ($scope, $http, $filter, $q, ng
     });
 
     var inArray = Array.prototype.indexOf ?
-            function (val, arr) {
-                return arr.indexOf(val)
-            } :
-            function (val, arr) {
-                var i = arr.length;
-                while (i--) {
-                    if (arr[i] === val) return i;
-                }
-                return -1;
+        function (val, arr) {
+            return arr.indexOf(val)
+        } :
+        function (val, arr) {
+            var i = arr.length;
+            while (i--) {
+                if (arr[i] === val) return i;
             }
-    $scope.selectlist = function(column) {
+            return -1;
+        };
+
+    $scope.getMarques = function() {
         var def = $q.defer(),
             arr = [],
-            selectlist = [];
+            names = [];
         angular.forEach($scope.filteredInstruments, function(item){
+        	console.log(item);
             if (inArray(item.marque_nom, arr) === -1) {
                 arr.push(item.marque_nom);
-                selectlist.push({
-                    'id': item.marque_id,
+                names.push({
+                    'id': item.marque_nom,
                     'title': item.marque_nom
                 });
             }
         });
-        def.resolve(selectlist);
+        def.resolve(names);
         return def;
     };
+
+    // $scope.$watch('filteredInstruments', function(){
+    // 	$scope.selectmarque = $scope.getMarques();
+    // });
 
 });
