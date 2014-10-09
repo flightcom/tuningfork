@@ -75,12 +75,23 @@ class Instruments extends Admin_Controller {
 	public function liste($format = null)
 	{
 		$data = array(
-			'instruments' => json_encode($this->Instrument_model->get_all_entries()),
+			'instruments' => $this->getInstruments(),
 			'title' => 'Liste des instruments'
 		);
 
 		$content = $this->load->view('admin/instruments/liste', $data, TRUE);
 		$this->load->view('admin/master', array('title' => 'Liste d\'instruments', 'content' => $content));
+	}
+
+	public function getInstruments($method = null)
+	{
+		$data = $this->Instrument_model->get_all_entries();
+		switch( $method ) {
+			case 'ajax' : echo json_encode($data); break;
+			default: return $data;
+		}
+
+		return;
 	}
 
 	public function add()

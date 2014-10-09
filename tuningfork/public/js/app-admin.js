@@ -23,7 +23,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 
 	$scope.loadInstruments = function(){
 
-		$http.get('/admin/instruments/liste/json/').success(function(data){
+		$http.get('/admin/instruments/getInstruments/ajax').success(function(data){
 			defer.resolve(data);
 		},true);
 
@@ -34,14 +34,8 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	var promise = $scope.loadInstruments();
 
 	promise.then(function(data){
+
 		$scope.instruments = data.instruments;
-		$scope.showTable = true;
-		$scope.loadTableParams();
-	});
-
-	$scope.loadTableParams = function(){
-
-		console.log('table params');
 
 		$scope.tableInstrumentsParams = new ngTableParams({
 	        page: 1,            // show first page
@@ -55,10 +49,10 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	        }
 	    }, {
 	    	filterDelay: 0,
-	        total: $scope.instruments.length, // length of data
+	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
-	            var orderedData = params.filter() ? $filter('filter')($scope.instruments, params.filter()) : $scope.instruments;
+	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 	            params.total(orderedData.length); // set total for recalc pagination
@@ -66,7 +60,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	        }
 	    });
 
-	}
+	});
 
     var inArray = Array.prototype.indexOf ?
         function (val, arr) {
