@@ -1,9 +1,6 @@
 tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
 
-	// $scope.instruments = <?php print_r($instruments); ?>;
-	// $scope.instruments = [];
-
-	// console.log($scope.instruments);
+	$scope.instruments = [];
 
 	$scope.showcol = {
 		dateEntree: false,
@@ -11,19 +8,11 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 		numeroSerie: false
 	};
 
-	$scope.showTable = false;
-
 	var defer = $q.defer();
-
-	// $http.get('/admin/instruments/liste/json/').success(function(data){
-	// 	$scope.instruments = data.instruments;
-	// 	$scope.showTable = true;
-	// 	defer.resolve();
-	// },true);
 
 	$scope.loadInstruments = function(){
 
-		$http.get('/admin/instruments/liste/json/').success(function(data){
+		$http.get('/admin/instruments/getInstruments/ajax').success(function(data){
 			defer.resolve(data);
 		},true);
 
@@ -35,38 +24,32 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 
 	promise.then(function(data){
 		$scope.instruments = data.instruments;
-		$scope.showTable = true;
-		$scope.loadTableParams();
-	});
-
-	$scope.loadTableParams = function(){
-
-		console.log('table params');
-
 		$scope.tableInstrumentsParams = new ngTableParams({
 	        page: 1,            // show first page
 	        count: 10,          // count per page
 	        filter: {
 				categ_id: '',
-				categ_nom: ''
+				categ_nom: '',
+				instru_dispo: ''
 	        },
 	        sorting: {
 	        	instru_id: 'asc'
 	        }
 	    }, {
 	    	filterDelay: 0,
-	        total: $scope.instruments.length, // length of data
+	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
-	            var orderedData = params.filter() ? $filter('filter')($scope.instruments, params.filter()) : $scope.instruments;
+	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 	            params.total(orderedData.length); // set total for recalc pagination
 	            $defer.resolve($scope.filteredInstruments);
+	            return $defer.promise;
 	        }
 	    });
+	});
 
-	}
 
     var inArray = Array.prototype.indexOf ?
         function (val, arr) {
@@ -80,21 +63,21 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
             return -1;
         };
 
-    $scope.getMarques = function() {
+    $scope.selectlist = function() {
         var def = $q.defer(),
             arr = [],
-            names = [];
+            selectlist = [];
         angular.forEach($scope.filteredInstruments, function(item){
         	console.log(item);
             if (inArray(item.marque_nom, arr) === -1) {
                 arr.push(item.marque_nom);
-                names.push({
+                selectlist.push({
                     'id': item.marque_nom,
                     'title': item.marque_nom
                 });
             }
         });
-        def.resolve(names);
+        def.resolve(selectlist);
         return def;
     };
 
