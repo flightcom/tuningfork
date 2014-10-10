@@ -1,3 +1,4 @@
+// tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
 tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
 
 	$scope.instruments = [];
@@ -29,19 +30,20 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 		$scope.tableInstrumentsParams = new ngTableParams({
 	        page: 1,            // show first page
 	        count: 10,          // count per page
-	        sorting: {
-	        	instru_id: 'asc'
-	        }
+	        filter: {},
+	        sorting: {instru_id: 'asc'}
 	    }, {
 	    	filterDelay: 0,
 	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
+	            console.log(params.sorting());
 	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 	            params.total(orderedData.length); // set total for recalc pagination
 	            $defer.resolve($scope.filteredInstruments);
+	            // $scope.apply();
 	            return $defer.promise;
 	        }
 	    });
@@ -77,11 +79,11 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
         return def.promise;
     };
 
-    var promise2 = $scope.selectlist();
+    // var promise2 = $scope.selectlist();
 
-    promise2.then(function(data){
-    	$scope.selectlist = data;
-    });
+    // promise2.then(function(data){
+    // 	$scope.selectlist = data;
+    // });
 
     // $scope.$watch('filteredInstruments', function(){
     // 	$scope.selectmarque = $scope.getMarques();

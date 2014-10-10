@@ -23,6 +23,19 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
 			});
         }
    }
+}).directive('ngClassTh', function() {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngClassTh , function (classes) {
+            	var index = $(element).closest('tr').children('td').index($(element));
+            	// console.log(classes.join(' '));
+            	$(element).closest('table').find('thead > tr').each(function(){
+	            	$(this).children('th').eq(index).addClass(classes.join(' '));
+            	});
+            });
+        }
+   }
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();
