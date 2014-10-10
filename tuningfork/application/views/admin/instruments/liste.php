@@ -22,18 +22,15 @@
 
 <table ng-table="tableInstrumentsParams" show-filter="true" class="table table-hover col-xs-12 table-list-instru" ng-controller="AdminListInstruCtrl">
 
-	<tr ng-repeat="instrument in filteredInstruments" ng-click="go('/admin/instruments/{{instrument.instru_id}}')" style="cursor:pointer;" ng-class="instrument.instru_dispo =='1' ? 'border-left-ok' : 'border-left-ko'">
-	    <td class="col-xs-1" data-title="'Identifiant'" filter="{ 'categ_id': 'text' }" sortable="'instru_id'">{{instrument.instru_id}}</td>
-	    <td class="col-xs-2" data-title="'Catégorie'" filter="{ 'categ_nom': 'select' }" sortable="'categ_nom'" filter-data="selectlist()">{{instrument.categ_nom}}</td>
-	    <!-- <td class="col-xs-1" data-title="'Chemin'">{{instrument.categ_pathpublic}}</td> -->
+	<tr ng-repeat="instrument in filteredInstruments" ng-click="go('/admin/instruments/{{instrument.instru_id}}')" style="cursor:pointer;" class="border-state border-state-{{instrument.instru_etat}}" ng-class="instrument.instru_dispo =='1' ? 'border-left-ok' : 'border-left-ko'">
+	    <td class="col-xs-1" data-title="'Identifiant'" filter="{ 'instru_id': 'text' }" sortable="'instru_id'">{{instrument.instru_id}}</td>
+	    <td class="col-xs-2" data-title="'Catégorie'" filter="{ 'categ_nom': 'select' }" sortable="'categ_nom'" filter-data="selectlist($column)">{{instrument.categ_nom}}</td>
 	    <td class="col-xs-2" data-title="'Marque'" filter="{ 'marque_nom': 'select' }">{{instrument.marque_nom}}</td>
 	    <td data-title="'Modèle'" filter="{ 'instru_modele': 'text' }" class="col-xs-2 hidden-xs hidden-sm">{{instrument.instru_modele}}</td>
-	    <!-- <td ng-show="showcol.numeroSerie" data-title="'Numéro de série'" filter="{ 'instru_numero_serie': 'text' }" class="col-xs-1">{{instrument.instru_numero_serie}}</td> -->
-	    <!-- <td ng-show="showcol.dateEntree" data-title="'Date d\'entrée'" filter="{ 'instru_date_entree': 'text' }" class="col-xs-2" sortable="'instru_date_entree'">{{instrument.instru_date_entree}}</td> -->
 	    <td data-title="'Numéro de série'" filter="{ 'instru_numero_serie': 'text' }" class="col-xs-1">{{instrument.instru_numero_serie}}</td>
 	    <td data-title="'Date d\'entrée'" filter="{ 'instru_date_entree': 'text' }" class="col-xs-2" sortable="'instru_date_entree'">{{instrument.instru_date_entree}}</td>
-	    <!-- <td data-title="'État'" filter="{ 'instru_etat': 'select' }" class="col-xs-1 td-etat"><span class="hidden">{{instrument.instru_etat}}</span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="{{instrument.instru_id}}" value="{{instrument.instru_etat}}"></td> -->
-	    <!-- <td data-title="'Disponibilité'" filter="{ 'instru_dispo': 'select' }" class="col-xs-1 td-dispo" ng-class="{ 'bg-green-soft': instrument.instru_dispo, 'bg-red-soft': !instrument.instru_dispo }"><input type="hidden" value="{{instrument.instru_id}}"></td> -->
+	    <!-- <td data-title="'État'" filter="{ 'instru_etat': 'select' }" class="col-xs-1 td-etat"><span class="hidden">{{instrument.instru_etat}}</span><input style="font-size:20px;"  class="rating" data-max="5" data-min="1" id="etat" name="etat" type="number" data-empty-value="0" data-clearable=" " data-instruid="{{instrument.instru_id}}" value="5"></td> -->
+	    <!-- <td data-title="'État'" filter="{ 'instru_etat': 'select' }" class="col-xs-1 td-etat state-gradient" data-etat="{{instrument.instru_etat*20}}" style="position:relative;"><div style="position:absolute;left:0;top:0;height:100%;width:100%;background:-webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) {{instrument.instru_etat*20}}%,rgba(255,255,255,1) {{instrument.instru_etat*20}}%,rgba(255,255,255,1) 100%);"></div></td> -->
 	    <!-- <td ng-show="showcol.aVerifier" data-title="'À vérifier'" filter="{ 'instru_a_verifier': 'select' }" class="col-xs-1 td-check" ng-class="{ 'bg-green-soft': instrument.instru_a_verifier, 'bg-red-soft': !instrument.instru_a_verifier }"><input type="hidden" value="{{instrument.instru_id}}"></td> -->
 	    <!-- <td data-title="'À vérifier'" filter="{ 'instru_a_verifier': 'select' }" class="col-xs-1 td-check" ng-class="{ 'bg-green-soft': instrument.instru_a_verifier, 'bg-red-soft': !instrument.instru_a_verifier }"><input type="hidden" value="{{instrument.instru_id}}"></td> -->
 	</tr>

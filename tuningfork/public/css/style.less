@@ -1,4 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,600,700,800,300);@import (reference) 'bootstrap/bootstrap.less';
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+@import (reference) 'bootstrap/bootstrap.less';
 
 /** Global settings **/
 body {
@@ -28,6 +29,43 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 
 @green-soft : #10c140;
 @red-soft: #ff2f2f;
+
+.state-gradient {
+	background: #ff0000; /* Old browsers */
+	background: -moz-linear-gradient(left,  #ff0000 0%, #ffff00 50%, #00ff00 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff0000), color-stop(50%,#ffff00), color-stop(100%,#00ff00)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #ff0000 0%,#ffff00 50%,#00ff00 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #ff0000 0%,#ffff00 50%,#00ff00 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #ff0000 0%,#ffff00 50%,#00ff00 100%); /* IE10+ */
+	background: linear-gradient(to right,  #ff0000 0%,#ffff00 50%,#00ff00 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff00',GradientType=1 ); /* IE6-9 */
+}
+
+@color-state-0 : #000000;
+@color-state-1 : #ff0000;
+@color-state-2 : #ff8800;
+@color-state-3 : #ffff00;
+@color-state-4 : #00ff00;
+@color-state-5 : #0000ff;
+
+.border-state {
+	border-right-width: 5px;
+	border-right-style: solid;
+	border-right-color: transparent; 
+}
+// .border-state-0 { border-right-color: @color-state-0!important; }
+// .border-state-0 { border-right-color: @color-state-0!important; }
+// .border-state-0 { border-right-color: @color-state-0!important; }
+// .border-state-0 { border-right-color: @color-state-0!important; }
+// .border-state-0 { border-right-color: @color-state-0!important; }
+
+@iterations: 5;
+.state-loop(@i) when (@i >= 0)
+{
+	.border-state-@{i} { border-right-color: ~"@{color-state-@{i}}!important"; }
+	.state-loop(@i - 1);
+}
+.state-loop(@iterations);
 
 .border-left-ok { border-left-color: @green-soft!important;}
 .border-left-ko { border-left-color: @red-soft!important;}
@@ -156,6 +194,9 @@ body {
 				&.admin {
 
 					.table-list-instru {
+						th {
+							white-space: nowrap;
+						}
 						tr {
 							border-left-width: 5px;
 							border-left-style: solid;

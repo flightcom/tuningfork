@@ -8,10 +8,10 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 		numeroSerie: false
 	};
 
-	var defer = $q.defer();
 
 	$scope.loadInstruments = function(){
 
+		var defer = $q.defer();
 		$http.get('/admin/instruments/getInstruments/ajax').success(function(data){
 			defer.resolve(data);
 		},true);
@@ -23,15 +23,12 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	var promise = $scope.loadInstruments();
 
 	promise.then(function(data){
+
 		$scope.instruments = data.instruments;
+
 		$scope.tableInstrumentsParams = new ngTableParams({
 	        page: 1,            // show first page
 	        count: 10,          // count per page
-	        filter: {
-				categ_id: '',
-				categ_nom: '',
-				instru_dispo: ''
-	        },
 	        sorting: {
 	        	instru_id: 'asc'
 	        }
@@ -50,7 +47,6 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	    });
 	});
 
-
     var inArray = Array.prototype.indexOf ?
         function (val, arr) {
             return arr.indexOf(val)
@@ -63,7 +59,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
             return -1;
         };
 
-    $scope.selectlist = function() {
+    $scope.selectlist = function(column) {
         var def = $q.defer(),
             arr = [],
             selectlist = [];
@@ -78,8 +74,14 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
             }
         });
         def.resolve(selectlist);
-        return def;
+        return def.promise;
     };
+
+    var promise2 = $scope.selectlist();
+
+    promise2.then(function(data){
+    	$scope.selectlist = data;
+    });
 
     // $scope.$watch('filteredInstruments', function(){
     // 	$scope.selectmarque = $scope.getMarques();

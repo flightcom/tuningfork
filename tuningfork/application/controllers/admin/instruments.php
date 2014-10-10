@@ -85,10 +85,9 @@ class Instruments extends Admin_Controller {
 
 	public function getInstruments($method = null)
 	{
-		$data = json_encode($this->Instrument_model->get_all_entries());
-
-		switch($method) {
-			case 'ajax' : echo $data; break;
+		$data = $this->Instrument_model->get_all_entries();
+		switch( $method ) {
+			case 'ajax' : echo json_encode($data); break;
 			default: return $data;
 		}
 
