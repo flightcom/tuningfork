@@ -3,11 +3,15 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 
 	$scope.instruments = [];
 
-	$scope.showcol = {
-		dateEntree: false,
-		aVerifier: false,
-		numeroSerie: false
-	};
+	$scope.columns = [
+		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru': 'text' } },
+		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
+		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-2", filter: { 'marque_nom': 'text' } },
+		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-2", filter: { 'instru_modele': 'text' } },
+		{ title: 'Numéro de série', field: 'instru_numero_serie', visible: true, classes: "col-xs-2", filter: { 'instru_numero_serie': 'text' } },
+		{ title: 'Date d\'entrée', field: 'instru_date_entree', visible: true, classes: "col-xs-2", filter: { 'instru_date_entree': 'text' } }
+	];
+
 
 
 	$scope.loadInstruments = function(){
@@ -30,14 +34,15 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 		$scope.tableInstrumentsParams = new ngTableParams({
 	        page: 1,            // show first page
 	        count: 10,          // count per page
-	        filter: {},
+	        filter: {
+	        	instru_etat: ''
+	        },
 	        sorting: {instru_id: 'asc'}
 	    }, {
 	    	filterDelay: 0,
 	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
-	            console.log(params.sorting());
 	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
@@ -78,6 +83,20 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
         def.resolve(selectlist);
         return def.promise;
     };
+
+    $scope.toggleDispo = function(value){
+    	var actual = $scope.tableInstrumentsParams.filter().instru_dispo;
+    	if (value === actual) { $scope.tableInstrumentsParams.filter().instru_dispo = ''; }
+    	else { $scope.tableInstrumentsParams.filter().instru_dispo = value; }
+    }
+
+    $scope.toggleEtat = function(value){
+    	var actual = $scope.tableInstrumentsParams.filter().instru_etat;
+    	// if (value == actual) { $scope.tableInstrumentsParams.filter({instru_etat: ''}); }
+    	// else { $scope.tableInstrumentsParams.filter({instru_etat: value}); }
+    	if (value === actual) { $scope.tableInstrumentsParams.filter().instru_etat = ''; }
+    	else { $scope.tableInstrumentsParams.filter().instru_etat = value; }
+    }
 
     // var promise2 = $scope.selectlist();
 

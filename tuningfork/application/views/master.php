@@ -67,7 +67,6 @@
 
         <footer></footer>
 
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script> -->
 		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'bootstrap/bootstrap.min.js'); ?>"></script>
