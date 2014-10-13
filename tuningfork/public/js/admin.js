@@ -120,6 +120,45 @@ $(document).ready(function(){
     }
     );
 
+    $('.tablesorter').bind('filterInit', function(){
+        console.log('filterInit');
+        var tr1 = $(this).find('thead tr').eq(0);
+        var tr2 = $(this).find('thead tr').eq(1);
+        var ths = tr1.find('th');
+        var tds = tr2.find('td');
+        ths.each(function(index){
+            tds.eq(index).removeClass();
+            if( $(this).is('[class*="hidden"]') || $(this).is('[class*="visible"]') ) {
+                var classes = $(this).attr('class').split(' ');
+                for(i = 0; i < classes.length; i++){
+                    var classe = classes[i];
+                    if(classe.indexOf('hidden') != -1 || classe.indexOf('visible') != -1){
+                        tds.eq(index).addClass(classe);
+                    }
+                }
+            }
+        });
+    });
+
+    $(".tablesorter").tablesorter({
+        theme: "bootstrap",
+        widthFixed: true,
+        sortReset: true,
+        headerTemplate: '{content} {icon}',
+        widgets: ["uitheme", "filter", "zebra", "saveSort"],
+        widgetOptions: {
+            saveSort : true,
+            filter_saveFilters: true,
+            filter_reset: '.reset',
+            filter_searchDelay: 0,
+            filter_onlyAvail : 'filter-onlyAvail'
+        }
+    }).tablesorterPager({
+        container: $(".ts-pager"),
+        cssGoto: ".pagenum",
+        output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'
+    });
+
     // Soumission formulaire de recherche
     $('.navbar-fixed-top form input').on("keypress", function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
