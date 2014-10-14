@@ -47,22 +47,22 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	            // use build-in angular filter
 	            // console.log(data);
 	            var orderedData = params.filter() ? $filter('filter')(data, function(value, index){
-
 	            	angular.forEach(value, function(valD, keyD){
 						angular.forEach(params.filter(), function(valF, keyF){
-							console.log(Object.prototype.toString.call( valF ));
+							// console.log(Object.prototype.toString.call( valF ));
 							if ( keyF == keyD ) {
 								if ( Object.prototype.toString.call( valF ) === '[object Array]' ) {
-									return inArray(valD, valF) >= 0;
+                                    console.log(valF.toString() + ', ' + valD);
+									return inArray(valD, valF) > -1;
 								} else {
 									return valF == valD;
 								}
 							}
 						});
-						return true;	
 	            	});
-            }) : data;
-	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
+                    return false;
+                }) : data;
+	            // var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 	            params.total(orderedData.length); // set total for recalc pagination
