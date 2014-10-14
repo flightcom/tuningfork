@@ -55,8 +55,8 @@
 
         <tbody>
 
-			<tr ng-repeat="instrument in filteredInstruments" ng-click="go('/admin/instruments/{{instrument.instru_id}}')" style="cursor:pointer;" class="border-state border-state-{{instrument.instru_etat}}" ng-class="instrument.instru_dispo =='1' ? 'border-left-ok' : 'border-left-ko'">
-	 		    <td ng-repeat="column in columns" data-title="column.title" ng-show="column.visible" sortable="column.field" filter="column.filter" ng-class="column.classes">{{instrument[column.field]}}</td>
+			<tr ng-repeat="instrument in filteredInstruments" ng-click="go('/admin/instruments/' + instrument.instru_id)" style="cursor:pointer;" class="border-state border-state-{{instrument.instru_etat}}" ng-class="instrument.instru_dispo =='1' ? 'border-left-ok' : 'border-left-ko'">
+	 		    <td ng-repeat="column in columns" data-title="column.title" ng-show="column.visible" sortable="column.field" ng-class="column.classes">{{instrument[column.field]}}</td>
 			</tr>
 
 		</tbody>

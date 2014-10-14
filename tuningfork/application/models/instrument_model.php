@@ -29,7 +29,6 @@ class Instrument_model extends CI_Model {
         $this->db->from('instruments');
         $this->db->join('marques', 'marques.marque_id= instruments.instru_marque_id');
         $this->db->join('categories', 'categories.categ_id= instruments.instru_categ_id');
-        // $this->db->join('types_instru', 'types_instru.type_categ_id = categories.categ_id AND types_instru.type_id = instruments.instru_type_id', 'left');
         $this->db->where('instru_id', $id);
         $query = $this->db->get();
         return $query->row();
@@ -70,7 +69,6 @@ class Instrument_model extends CI_Model {
     function update($id)
     {
         $this->instru_code = $this->input->post('code');
-        $this->instru_type_id = $this->input->post('type');
         $this->instru_dispo = $this->input->post('dispo');
         $this->instru_etat = $this->input->post('etat');
         $this->db->where('instru_id', $id);
@@ -163,23 +161,6 @@ class Instrument_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function insert_type($nom, $categ_id)
-    {
-        $this->type_nom = ucfirst(strtolower($nom));
-        $this->type_public_id = strtolower(str_replace(' ', '-', convert_accented_characters($nom)));
-        $this->type_categ_id = $categ_id;
-        $res = $this->db->insert('types_instru', $this);
-        return $this->db->insert_id();
-    }
-
-    function get_types_by_categ($categ_id)
-    {
-        $this->db->where('type_categ_id', $categ_id);
-        $this->db->order_by('type_nom', 'asc');
-        $query = $this->db->get('types_instru');
-        return $query->result();
-    }
-
     function get_categ_id_of($id)
     {
         $this->db->select('categ_id');
@@ -197,7 +178,6 @@ class Instrument_model extends CI_Model {
         $this->db->join('instruments', 'instruments.instru_categ_id = categories.categ_id');
         $this->db->where('instru_dispo = 1');
         $this->db->where('instru_categ_id IS NOT NULL');
-        $this->db->where('instru_type_id IS NOT NULL');
         $this->db->group_by('categ_id');
         $query = $this->db->get();
         return $query->result();
@@ -205,15 +185,11 @@ class Instrument_model extends CI_Model {
 
     function get_sous_categ_available($categ_id)
     {
-        $this->db->select('type_nom, type_id, type_public_id');
         $this->db->from('instruments');
-        $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
         $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
         $this->db->where('instru_dispo = 1');
         $this->db->where('instru_categ_id', $categ_id);
         $this->db->where('instru_categ_id IS NOT NULL');
-        $this->db->where('instru_type_id IS NOT NULL');
-        $this->db->group_by('type_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -227,22 +203,12 @@ class Instrument_model extends CI_Model {
         return $query->row();
     }
 
-    function get_type_by_public_id($public_id) 
-    {
-        $this->db->select('*');
-        $this->db->from('types_instru');
-        $this->db->where('type_public_id', $public_id);
-        $query = $this->db->get();
-        return $query->row();
-    }
-
-    function get_instruments($categ_id, $type_id)
+    function get_instruments($categ_id)
     {
         $this->db->select('*');
         $this->db->from('instruments');
         $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
         $this->db->where('instru_categ_id', $categ_id);
-        $this->db->where('instru_type_id', $type_id);
         $query = $this->db->get();
         return $query->result();
     }
@@ -251,7 +217,6 @@ class Instrument_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('instruments');
-        $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
         $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
         $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
         $this->db->where("instru_modele LIKE '%$search%' OR marque_nom LIKE '%$search%'");
@@ -263,7 +228,6 @@ class Instrument_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('instruments');
-        $this->db->join('types_instru', 'types_instru.type_id = instruments.instru_type_id');
         $this->db->join('categories', 'instruments.instru_categ_id = categories.categ_id');
         $this->db->join('marques', 'instruments.instru_marque_id = marques.marque_id');
         $this->db->order_by('instru_date_entree', 'desc');

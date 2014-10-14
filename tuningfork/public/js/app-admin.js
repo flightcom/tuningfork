@@ -12,7 +12,9 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 		{ title: 'Date d\'entrée', field: 'instru_date_entree', visible: true, classes: "col-xs-2", filter: { 'instru_date_entree': 'text' } }
 	];
 
-
+	$scope.go = function(path){
+		location.href = path;
+	}
 
 	$scope.loadInstruments = function(){
 
@@ -35,7 +37,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	        page: 1,            // show first page
 	        count: 10,          // count per page
 	        filter: {
-	        	instru_etat: ''
+	        	instru_etat: []
 	        },
 	        sorting: {instru_id: 'asc'}
 	    }, {
@@ -43,6 +45,23 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
+	            // console.log(data);
+	            var orderedData = params.filter() ? $filter('filter')(data, function(value, index){
+
+	            	angular.forEach(value, function(valD, keyD){
+						angular.forEach(params.filter(), function(valF, keyF){
+							console.log(Object.prototype.toString.call( valF ));
+							if ( keyF == keyD ) {
+								if ( Object.prototype.toString.call( valF ) === '[object Array]' ) {
+									return inArray(valD, valF) >= 0;
+								} else {
+									return valF == valD;
+								}
+							}
+						});
+						return true;	
+	            	});
+            }) : data;
 	            var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
@@ -92,10 +111,12 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 
     $scope.toggleEtat = function(value){
     	var actual = $scope.tableInstrumentsParams.filter().instru_etat;
-    	// if (value == actual) { $scope.tableInstrumentsParams.filter({instru_etat: ''}); }
-    	// else { $scope.tableInstrumentsParams.filter({instru_etat: value}); }
-    	if (value === actual) { $scope.tableInstrumentsParams.filter().instru_etat = ''; }
-    	else { $scope.tableInstrumentsParams.filter().instru_etat = value; }
+    	// if (value === actual) { $scope.tableInstrumentsParams.filter().instru_etat = ''; }
+    	// else { $scope.tableInstrumentsParams.filter().instru_etat = value; }
+    	var pos = inArray(value, actual);
+    	if (pos == -1) { $scope.tableInstrumentsParams.filter().instru_etat.push(value); }
+    	else { $scope.tableInstrumentsParams.filter().instru_etat.splice(pos, 1); }
+    	console.log($scope.tableInstrumentsParams.filter().instru_etat);
     }
 
     // var promise2 = $scope.selectlist();
