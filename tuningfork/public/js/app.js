@@ -45,6 +45,26 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
       	var delimiter = delimiter || ',';
       	return input.split(delimiter);
     } 
+}).filter('isEmpty', function () {
+    var bar;
+    return function (obj) {
+		if ( Object.prototype.toString.call( obj ) === '[object Array]' ) {
+			if ( obj !== undefined && obj.length !== 0 && obj !== null ) {
+				return false;
+			}
+	    } else if (typeof(obj) == 'object') {
+	        for (bar in obj) {
+	            if (obj.hasOwnProperty(bar)) {
+	                return false;
+	            }
+	        }	    	
+	    } else if ( typeof(obj) == 'string') {
+			if ( obj !== undefined && obj.length !== 0 && obj !== null ) {
+				return false;
+			}
+	    }
+        return true;
+    };
 });
 
 tfApp.factory('utilities', function() {
@@ -111,7 +131,7 @@ tfApp.controller('AddInstrumentCtrl', ['$scope', 'utilities', function ($scope, 
 		// categ = $scope.instru.categpath.slice(-1)[0].categ_id;
 		categ = $scope.instru.categpath.length > 0 ? $scope.instru.categpath[0].categ_id:'';
 		// console.log(categ);
-		$http.get('/admin/instruments/getCategories/' + categ ).success(function(data){
+		$http.get('/admin/instruments/getCategories/' + categ + '/ajax').success(function(data){
 			// console.log(data);
 			$scope.categories = data;
 		},true);

@@ -153,10 +153,13 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function getCategories($parent = null)
+	public function getCategories($parent = null, $method = null;)
 	{
 		$categs = $this->Instrument_model->get_children_categories($parent);
-		echo json_encode($categs);
+		switch( $method ) {
+			case 'ajax' : echo json_encode($data); break;
+			default: return $data;
+		}
 	}
 
 	public function getMarques()

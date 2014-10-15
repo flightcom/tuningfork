@@ -3,7 +3,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 	$scope.instruments = [];
 
 	$scope.columns = [
-		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru': 'text' } },
+		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru_id': 'text' } },
 		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
 		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-2", filter: { 'marque_nom': 'text' } },
 		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-2", filter: { 'instru_modele': 'text' } },
@@ -110,3 +110,19 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
     }
 
 }]);
+
+tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
+
+    $scope.categories = []
+
+    $scope.loadCategories = function(parent = null) {
+
+        $http.get('/admin/instruments/getCategories/'+parent+'/ajax').success(function(data){
+            $scope.categories.push(data);
+        },true);
+
+    }
+
+
+
+});

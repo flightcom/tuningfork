@@ -1,6 +1,30 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
 @import (reference) 'bootstrap/bootstrap.less';
 
+/**** Colors ****/
+
+// Header
+@sweet-green : #4d994f;
+@sweet-green-dark : @sweet-green - #111;
+@sweet-green-dark-more : @sweet-green - #222;
+@sweet-green-light : @sweet-green + #111;
+@sweet-green-light-more : @sweet-green + #222;
+
+// Disponibilité
+@green-soft : #10c140;
+@red-soft: #ff2f2f;
+
+// Etat instruments
+@color-state-0 : #000000;
+@color-state-1 : #ff0000;
+@color-state-2 : #ff8800;
+@color-state-3 : #ffff00;
+@color-state-4 : #0000ff;
+@color-state-5 : #00ff00;
+
+// Menu selected
+@color-menu-active : #0074a2;
+
 /** Global settings **/
 body {
 	background-color: #fff;
@@ -21,14 +45,6 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 	content: "";
 }
 
-@sweet-green : #4d994f;
-@sweet-green-dark : @sweet-green - #111;
-@sweet-green-dark-more : @sweet-green - #222;
-@sweet-green-light : @sweet-green + #111;
-@sweet-green-light-more : @sweet-green + #222;
-
-@green-soft : #10c140;
-@red-soft: #ff2f2f;
 
 .state-gradient {
 	background: #ff0000; /* Old browsers */
@@ -40,13 +56,6 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 	background: linear-gradient(to right,  #ff0000 0%,#ffff00 50%,#00ff00 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0000', endColorstr='#00ff00',GradientType=1 ); /* IE6-9 */
 }
-
-@color-state-0 : #000000;
-@color-state-1 : #ff0000;
-@color-state-2 : #ff8800;
-@color-state-3 : #ffff00;
-@color-state-4 : #0000ff;
-@color-state-5 : #00ff00;
 
 .border-state {
 	border-right-width: 5px;
@@ -75,7 +84,7 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 .nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
 .nav-sidebar ul{ overflow-x:hidden;}
 /*.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}*/
-.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #0074a2;}
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: @color-menu-active;}
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
 .nav-sidebar > :not(.active) > a { color: #aaa;}
 .nav-sidebar > :not(.active) > a:hover { color: #555;}

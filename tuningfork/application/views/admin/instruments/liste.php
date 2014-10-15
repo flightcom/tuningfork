@@ -3,7 +3,7 @@
 	<div class="btn-group pull-right">
 		<div class="btn-group">
 			<button type="button" class="btn dropdown-toggle" 
-				ng-class="{'btn-primary': tiParams.filter().instru_etat !== undefined, 'btn-default': tiParams.filter().instru_etat === undefined}" 
+				ng-class="{'btn-default': (tiParams.filter().instru_etat | isEmpty), 'btn-primary': !(tiParams.filter().instru_etat | isEmpty)}" 
 				data-toggle="dropdown">État <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
 				<li ng-click="toggleEtat(0)" ng-class="{active : tiParams.filter().instru_etat.indexOf(0) > -1}"><a href="#">Très mauvais</a></li>
@@ -16,7 +16,7 @@
 		</div>
 		<div class="btn-group">
 			<button type="button" class="btn dropdown-toggle"
-				ng-class="{'btn-primary': tiParams.filter().instru_dispo !== undefined, 'btn-default': tiParams.filter().instru_dispo === undefined}" 
+				ng-class="{'btn-default': (tiParams.filter().instru_dispo | isEmpty), 'btn-primary': !(tiParams.filter().instru_dispo | isEmpty)}" 
 				data-toggle="dropdown">Disponibilité <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
 				<li ng-click="toggleDispo(1)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(1) > -1}"><a href="#">Oui</a></li>
@@ -25,6 +25,8 @@
 		</div>
 		<button ng-click="tiParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
 	</div>
+
+	<!-- <p>Filter : {{tiParams.filter() | json}}</p> -->
 
 	<h3><b><?php echo $title; ?></b></h3>
 
@@ -41,7 +43,7 @@
 	                    'sort-desc': tiParams.isSortBy(column.field, 'desc')
 	                  }"
 	                ng-click="tiParams.sorting(column.field, tiParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
-	                {{column.title}}
+					<div ng-if="!template" ng-show="!template" class="ng-scope ng-binding">{{column.title}}</div>
 	            </th>
 	        </tr>
 
