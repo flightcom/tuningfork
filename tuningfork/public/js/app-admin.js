@@ -1,5 +1,4 @@
-// tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
-tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filter', '$q', 'ngTableParams', function ($scope, utilities, $http, $filter, $q, ngTableParams){
+tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
 
 	$scope.instruments = [];
 
@@ -33,100 +32,81 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', 'utilities', '$http', '$filte
 
 		$scope.instruments = data.instruments;
 
-		$scope.tableInstrumentsParams = new ngTableParams({
+		$scope.tiParams = new ngTableParams({
 	        page: 1,            // show first page
 	        count: 10,          // count per page
 	        filter: {
-	        	instru_etat: []
+	        	// instru_dispo: [0,1],
+	        	// instru_etat: [0,1,2,3,4,5]
 	        },
-	        sorting: {instru_id: 'asc'}
+	        sorting: {
+	        	instru_id: 'asc'
+	        }
 	    }, {
 	    	filterDelay: 0,
 	        total: data.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
-	            // console.log(data);
 	            var orderedData = params.filter() ? $filter('filter')(data, function(value, index){
+	            	var result = true;
 	            	angular.forEach(value, function(valD, keyD){
-						angular.forEach(params.filter(), function(valF, keyF){
-							// console.log(Object.prototype.toString.call( valF ));
-							if ( keyF == keyD ) {
-								if ( Object.prototype.toString.call( valF ) === '[object Array]' ) {
-                                    console.log(valF.toString() + ', ' + valD);
-									return inArray(valD, valF) > -1;
-								} else {
-									return valF == valD;
+	            		var paramF = params.filter()[keyD];
+						if ( angular.isDefined(paramF) && paramF != '' ) {
+							if ( Object.prototype.toString.call( paramF ) === '[object Array]' ) {
+								if ( paramF.indexOf(valD) == -1 && paramF.indexOf(parseInt(valD)) == -1 ) { 
+									result = false;
 								}
+							} else if (typeof(paramF) == 'string') {
+								if( valD.toLowerCase().indexOf(paramF.toLowerCase()) == -1) {
+									result = false;
+								}
+							} else if (paramF != valD){
+								result = false;
 							}
-						});
+						}
 	            	});
-                    return false;
+                    return result;
                 }) : data;
 	            // var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
 				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
 	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
 	            params.total(orderedData.length); // set total for recalc pagination
 	            $defer.resolve($scope.filteredInstruments);
-	            // $scope.apply();
-	            return $defer.promise;
 	        }
 	    });
 	});
 
-    var inArray = Array.prototype.indexOf ?
-        function (val, arr) {
-            return arr.indexOf(val)
-        } :
-        function (val, arr) {
-            var i = arr.length;
-            while (i--) {
-                if (arr[i] === val) return i;
-            }
-            return -1;
-        };
-
-    $scope.selectlist = function(column) {
-        var def = $q.defer(),
-            arr = [],
-            selectlist = [];
-        angular.forEach($scope.filteredInstruments, function(item){
-        	console.log(item);
-            if (inArray(item.marque_nom, arr) === -1) {
-                arr.push(item.marque_nom);
-                selectlist.push({
-                    'id': item.marque_nom,
-                    'title': item.marque_nom
-                });
-            }
-        });
-        def.resolve(selectlist);
-        return def.promise;
-    };
-
     $scope.toggleDispo = function(value){
-    	var actual = $scope.tableInstrumentsParams.filter().instru_dispo;
-    	if (value === actual) { $scope.tableInstrumentsParams.filter().instru_dispo = ''; }
-    	else { $scope.tableInstrumentsParams.filter().instru_dispo = value; }
+    	var actual = $scope.tiParams.filter().instru_dispo;
+    	if (value === actual) { $scope.tiParams.filter().instru_dispo = ''; }
+    	var pos = -1;
+    	if ( angular.isDefined(actual) && actual.length ) { 
+	    	pos = actual.indexOf(value);
+    	} else {
+    		$scope.tiParams.filter().instru_dispo = [];
+    	}
+
+    	if (pos == -1) {
+			$scope.tiParams.filter().instru_dispo.push(value);
+    	} else {
+			$scope.tiParams.filter().instru_dispo.splice(pos, 1);
+    	}
     }
 
     $scope.toggleEtat = function(value){
-    	var actual = $scope.tableInstrumentsParams.filter().instru_etat;
-    	// if (value === actual) { $scope.tableInstrumentsParams.filter().instru_etat = ''; }
-    	// else { $scope.tableInstrumentsParams.filter().instru_etat = value; }
-    	var pos = inArray(value, actual);
-    	if (pos == -1) { $scope.tableInstrumentsParams.filter().instru_etat.push(value); }
-    	else { $scope.tableInstrumentsParams.filter().instru_etat.splice(pos, 1); }
-    	console.log($scope.tableInstrumentsParams.filter().instru_etat);
+    	var actual = $scope.tiParams.filter().instru_etat;
+    	var pos = -1;
+    	if ( angular.isDefined(actual) && actual.length ) { 
+	    	pos = actual.indexOf(value);
+    	} else {
+    		$scope.tiParams.filter().instru_etat = [];
+    	}
+
+    	if (pos == -1) {
+			$scope.tiParams.filter().instru_etat.push(value);
+    	} else {
+			$scope.tiParams.filter().instru_etat.splice(pos, 1);
+    	}
     }
-
-    // var promise2 = $scope.selectlist();
-
-    // promise2.then(function(data){
-    // 	$scope.selectlist = data;
-    // });
-
-    // $scope.$watch('filteredInstruments', function(){
-    // 	$scope.selectmarque = $scope.getMarques();
-    // });
 
 }]);

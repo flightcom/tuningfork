@@ -19,6 +19,7 @@ class Instrument_model extends CI_Model {
         $this->db->from('instruments');
         $this->db->join('marques', 'marques.marque_id = instruments.instru_marque_id');
         $this->db->join('categories_extended', 'categories_extended.categ_id = instruments.instru_categ_id');
+        $this->db->order_by('instruments.instru_id', 'asc');
         $query = $this->db->get();
         return $query->result();
     }
