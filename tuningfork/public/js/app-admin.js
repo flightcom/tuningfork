@@ -111,18 +111,20 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 
 }]);
 
-tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
+tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
-    $scope.categories = []
+    $scope.categories = [];
+    $scope.categoriesPath = [];
 
-    $scope.loadCategories = function(parent = null) {
+    $scope.loadCategories = function(parent) {
 
-        $http.get('/admin/instruments/getCategories/'+parent+'/ajax').success(function(data){
-            $scope.categories.push(data);
+        $http.get('/admin/instruments/getCategories/'+(parent||null)+'/ajax').success(function(data){
+            $scope.categories.push(data.categories);
+            console.debug($scope.categories);
         },true);
 
     }
 
-
+    $scope.loadCategories();
 
 });

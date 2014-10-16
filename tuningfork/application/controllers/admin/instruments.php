@@ -83,17 +83,6 @@ class Instruments extends Admin_Controller {
 		$this->load->view('admin/master', array('title' => 'Liste d\'instruments', 'content' => $content));
 	}
 
-	public function getInstruments($method = null)
-	{
-		$data = $this->Instrument_model->get_all_entries();
-		switch( $method ) {
-			case 'ajax' : echo json_encode($data); break;
-			default: return $data;
-		}
-
-		return;
-	}
-
 	public function add()
 	{
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
@@ -126,6 +115,27 @@ class Instruments extends Admin_Controller {
 
 	}
 
+	public function categories()
+	{
+		$data = array(
+			'title' => 'Liste des catégories'
+		);
+
+		$content = $this->load->view('admin/instruments/categories', $data, TRUE);
+		$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+	}
+
+	public function getInstruments($method = null)
+	{
+		$data = $this->Instrument_model->get_all_entries();
+		switch( $method ) {
+			case 'ajax' : echo json_encode($data); break;
+			default: return $data;
+		}
+
+		return;
+	}
+
 	public function addMarque()
 	{
 		$this->form_validation->set_rules('newmarque', 'Marque', 'strtolower|ucfirst|is_unique[marques.marque_nom]');
@@ -153,9 +163,13 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	public function getCategories($parent = null, $method = null;)
+	public function getCategories($parent = null, $method = null)
 	{
-		$categs = $this->Instrument_model->get_children_categories($parent);
+		if(!(int)$parent == $parent) $parent = null;
+		$data = array(
+			'categories' =>$this->Instrument_model->get_children_categories($parent),
+			'info' => $parent
+		);
 		switch( $method ) {
 			case 'ajax' : echo json_encode($data); break;
 			default: return $data;
@@ -239,6 +253,11 @@ class Instruments extends Admin_Controller {
 
 	}
 
-	private function generateCode() {}
+	// private function getCategoriesTree()
+	// {
+	// 	$tree = array();
+	// 	$parent = null;
+	// 	while($levelCategs = $this->getCategories($parent))
+	// }
 
 }

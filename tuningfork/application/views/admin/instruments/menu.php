@@ -12,7 +12,7 @@
             <ul class="nav navbar-nav">
 			    <li><a href="/admin/instruments"><span class="glyphicon glyphicon-th-list"></span> Liste</a></li>
 			    <li><a href="/admin/instruments/add"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
-                <li><a href="/admin/instruments/add"><span class="glyphicon glyphicon-tree-conifer"></span> Gestion des catégories</a></li>
+                <li><a href="/admin/instruments/categories"><span class="glyphicon glyphicon-tree-conifer"></span> Gestion des catégories</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
