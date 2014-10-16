@@ -118,13 +118,33 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
     $scope.loadCategories = function(parent) {
 
-        $http.get('/admin/instruments/getCategories/'+(parent||null)+'/ajax').success(function(data){
-            $scope.categories.push(data.categories);
-            console.debug($scope.categories);
-        },true);
+        console.log($scope.categoriesPath);
+
+        if ( $scope.categoriesPath.length ) {
+            angular.forEach($scope.categoriesPath, function(item, index){
+                console.log(item);
+                if ( item.parent_id == parent.parent_id ) {
+                    $scope.categoriesPath.splice(index, $scope.categoriesPath.length-pos);
+                    $scope.categories.splice(index, $scope.categories.length-pos);
+                }
+            });
+        }
+
+        var pos = $scope.categoriesPath.indexOf(parent);
+        if ( pos > -1 ) {
+            $scope.categoriesPath.splice(pos, $scope.categoriesPath.length-pos);
+            $scope.categories.splice(pos, $scope.categories.length-pos);
+        } else {
+            $scope.categoriesPath.push(parent);
+             $http.get('/admin/instruments/getCategories/'+(parent||null)+'/ajax').success(function(data){
+                $scope.categories.push(data.categories);
+                console.debug($scope.categories);
+            },true);
+       }
 
     }
 
+        console.log($scope.categoriesPath);
     $scope.loadCategories();
 
 });

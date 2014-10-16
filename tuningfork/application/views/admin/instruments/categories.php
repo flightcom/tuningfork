@@ -5,7 +5,7 @@
 		<button class="btn" 
 			ng-class="{'btn-default': categoriesPath.indexOf(categorie.categ_id) == -1,
 				'btn-primary': categoriesPath.indexOf(categorie.categ_id) > -1}"
-			ng-click="loadCategories(categorie.categ_id)">{{categorie.categ_nom}}</button>
+			ng-click="loadCategories(categorie)">{{categorie.categ_nom}}</button>
 	</li>
 </ul>
 
