@@ -3,12 +3,14 @@
 <!-- <p>Categories Path : {{categoriesPath|json}}</p> -->
 <!-- <p>Categories : {{categories|json}}</p> -->
 
+<h3><?php echo $title; ?></h3>
+
 <ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories">
 	<li><span>[ Niveau {{$index+1}} ]</span></li>
 	<li class="form-inline">
-		<input ng-show="showNewCategField" class="form-control form-inline" type="text" placeholder="Nouvelle catégorie..." ng-model="newcateg">
+		<input ng-show="showNewCategField" class="form-control form-inline" type="text" placeholder="Nouvelle catégorie..." ng-model="newcateg_$index">
 		<button ng-hide="showNewCategField" ng-click="showNewCategField = !showNewCategField" class="btn btn-primary glyphicon glyphicon-plus"></button>
-		<button ng-show="showNewCategField" ng-click="addCateg($index);" class="btn btn-success glyphicon glyphicon-ok"></button>
+		<button ng-show="showNewCategField" ng-click="addCateg(newcateg_$index, $index);" class="btn btn-success glyphicon glyphicon-ok"></button>
 		<button ng-show="showNewCategField" ng-click="showNewCategField = !showNewCategField" class="btn btn-danger glyphicon glyphicon-remove"></button>
 	</li>
 	<li ng-hide="" ng-show></li>

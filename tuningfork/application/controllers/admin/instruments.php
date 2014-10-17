@@ -182,9 +182,9 @@ class Instruments extends Admin_Controller {
 		echo json_encode($marques);
 	}
 
-	public function addCategorie($parent = null)
+	public function addCategorie()
 	{
-		$this->form_validation->set_rules('newcateg', 'Catégorie', 'strtolower|ucfirst|is_unique[categories.categ_nom]');
+		$this->form_validation->set_rules('newcateg', 'Catégorie', 'strtolower|ucfirst');
 
 		$data = array();
 		$data['errors'] = array();
@@ -196,7 +196,7 @@ class Instruments extends Admin_Controller {
 		else
 		{
 			$categorie = $this->input->post('newcateg');
-			$parent = $this->input->post('parent');
+			$parent = !empty($this->input->post('parent')) ? $this->input->post('parent') : null;
 			$res = $this->Instrument_model->insert_categorie($categorie, $parent);
 			if($res){
 				$data['success'] = 1;

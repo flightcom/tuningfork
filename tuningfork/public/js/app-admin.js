@@ -1,4 +1,4 @@
-tfApp.controller('AdminAddInstrumentCtrl', ['$scope', 'utilities', function ($scope, $http){
+tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope, $http){
 
 	$scope.instru = {
 		categpath: []
@@ -219,6 +219,15 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
     	var categid = parent ? parent.categ_id : null;
         $http.get('/admin/instruments/getCategories/'+categid+'/ajax').success(function(data){
+            var niveau;
+            angular.forEach($scope.categories, function(level, index){
+                if ( level.indexOf(parent) > -1) { niveau = index; }
+            });
+
+            if ( niveau !== undefined && niveau <= $scope.categories.length) {
+                $scope.categoriesPath.splice(niveau, $scope.categoriesPath.length-niveau);
+                $scope.categories.splice(niveau+1, $scope.categories.length-niveau);
+            }
             $scope.categories.push(data.categories);        		
         },true);
 
@@ -229,18 +238,6 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
     	$scope.showNewCategField = false;
 
         var pos = $scope.categoriesPath.indexOf(parent);
-        var niveau;
-        angular.forEach($scope.categories, function(level, index){
-        	if ( level.indexOf(parent) > -1) {
-        		niveau = index;
-        	}
-        });
-
-        if ( niveau !== undefined && niveau <= $scope.categories.length) {
-            $scope.categoriesPath.splice(niveau, $scope.categoriesPath.length-niveau);
-            $scope.categories.splice(niveau+1, $scope.categories.length-niveau);
-        }
-
         if ( pos > -1 ) {
             $scope.categoriesPath.splice(pos, $scope.categoriesPath.length-pos);
             $scope.categories.splice(pos+1, $scope.categories.length-pos);
@@ -250,21 +247,24 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 	    }
     }
 
-	$scope.addCateg = function(level){
+	$scope.addCateg = function(categorie, level){
 
-		console.log($scope.newcateg);
-		return;
+        var parent = $scope.categoriesPath.length ? $scope.categoriesPath[level-1] : null;
+		// console.log(categorie + ' in level ' + level + ', parent : ' + parent;
+		// return;
 
 		$http({
 			method: 'post',
 			url: '/admin/instruments/addCategorie/',
-			data: 'newcateg=' + $scope.newcateg + '&parent=' + $scope.categoriesPath[level-1].categ_id,
+			data: 'newcateg=' + categorie + '&parent=' + (parent ? parent.categ_id:''),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
 			$scope.results = data;
+            console.log(data);
 			if($scope.results.success) {
 				$scope.showNewCategField = false;
-				$scope.newcateg = '';
+                categorie = '';
+                $scope.loadCategories(parent);
 			}
 		});
 	}

@@ -28,7 +28,7 @@
 
 	<!-- <p>Filter : {{tiParams.filter() | json}}</p> -->
 
-	<h3><b><?php echo $title; ?></b></h3>
+	<h3><?php echo $title; ?></h3>
 
 	<br>
 

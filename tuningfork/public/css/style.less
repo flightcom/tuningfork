@@ -236,16 +236,16 @@ body {
 						padding: 20px;
 						margin-top: -10px;
 						&:not(:last-child) {
-							border-bottom: 1px solid #bbb;
+							border-bottom: 1px solid #ccc;
 						}
-						&:not(:first-child)::before {
+						&:not(:first-of-type)::before {
 							content: '';
 							width: 0px;
 							height: 0px;
 							position: absolute;
 							left: 50%;
 							border: 10px solid transparent;
-							border-top-color: #bbb;
+							border-top-color: #ccc;
 							margin-top: -21px;
 							// bottom: 100%;
 						}
