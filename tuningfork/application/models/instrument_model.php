@@ -162,6 +162,13 @@ class Instrument_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function update_categorie($categ_id, $data)
+    {
+        $this->db->where('categ_id', $categ_id);
+        $res = $this->db->update('categories', $data);
+        return $res;
+    }
+
     function get_categ_id_of($id)
     {
         $this->db->select('categ_id');

@@ -157,26 +157,6 @@ function loadAddMemberView(){
 
 }
 
-function addType(categorie){
-
-    $('#add-type button').hide();
-    $.ajax({
-        type: 'GET', 
-        url: '/admin/instruments/ajouter_type/'+categorie,
-        success: function(data){
-            $('#add-type').append(data);
-        }
-    });
-}
-
-function cancelAddType(){
-
-    $('#add-type form').remove();
-    $('#add-type button').show();
-    return false;
-
-}
-
 function editForm(id){
 
     $('#'+id+' .editable').removeAttr('readonly');
@@ -191,4 +171,36 @@ function uneditForm(id){
     $('button.editable').attr('data-toggle', '').find('span:last-child').removeClass('caret');
     $('.no-edition').removeClass('hidden');
     $('.edition').addClass('hidden');
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("dragndrop", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("dragndrop");
+    var droppedElement = $('#'+data);
+    droppedElement.remove();
+    $(ev.target).append(droppedElement);
+}
+
+function dropcateg(ev) {
+    drop(ev);
+    var categid = ev.dataTransfer.getData("dragndrop").split('_')[1];
+    var index = $('.list-categories').index($(ev.target));
+    var parentid = index == 0 ? null : '';
+    console.log('categid = '+categid+', parentid = '+);
+    // $.ajax({
+    //     type: 'post', 
+    //     url: '/admin/editCategorie',
+    //     data: 'categid='+ev.dataTransfer.getData("dragndrop").split('_')[1]+'&categparentid=';
+    //     success: function(data){
+    //         $('#add').append(data);
+    //     }
+    // });
 }

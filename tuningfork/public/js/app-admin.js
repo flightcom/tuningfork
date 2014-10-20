@@ -212,21 +212,20 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
     $scope.categories = [];
     $scope.categoriesPath = [];
-
-    $scope.showNewCategField = false;
+    $scope.showNewCategField = [];
 
     $scope.loadCategories = function(parent) {
 
     	var categid = parent ? parent.categ_id : null;
         $http.get('/admin/instruments/getCategories/'+categid+'/ajax').success(function(data){
-            var niveau;
+            var niveau = null;
             angular.forEach($scope.categories, function(level, index){
                 if ( level.indexOf(parent) > -1) { niveau = index; }
             });
 
-            if ( niveau !== undefined && niveau <= $scope.categories.length) {
-                $scope.categoriesPath.splice(niveau, $scope.categoriesPath.length-niveau);
-                $scope.categories.splice(niveau+1, $scope.categories.length-niveau);
+            if ( niveau !== null && niveau <= $scope.categories.length) {
+                $scope.categoriesPath.splice(niveau, $scope.categoriesPath.length-niveau-1);
+                $scope.categories.splice(niveau+1, $scope.categories.length-niveau-1);
             }
             $scope.categories.push(data.categories);        		
         },true);
@@ -250,7 +249,7 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 	$scope.addCateg = function(categorie, level){
 
         var parent = $scope.categoriesPath.length ? $scope.categoriesPath[level-1] : null;
-		// console.log(categorie + ' in level ' + level + ', parent : ' + parent;
+		console.log(categorie + ' in level ' + level + ', parent : ' + parent);
 		// return;
 
 		$http({
@@ -259,20 +258,21 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 			data: 'newcateg=' + categorie + '&parent=' + (parent ? parent.categ_id:''),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
-			$scope.results = data;
             console.log(data);
-			if($scope.results.success) {
+			if(data.success) {
 				$scope.showNewCategField = false;
                 categorie = '';
+                $scope.categoriesPath.splice(level, $scope.categoriesPath.length-level);
+                $scope.categories.splice(level, $scope.categories.length-level);
                 $scope.loadCategories(parent);
 			}
 		});
 	}
 
-    // $scope.addCateg = function(newcateg, level) {
-    // 	console.log(newcateg + ' in level '+level+' with parent ' + $scope.categoriesPath[level-1].categ_id);
-    // }
-
     $scope.loadCategories();
+
+    $scope.dropcateg = function(event) {
+    	console.log('test');
+    }
 
 });

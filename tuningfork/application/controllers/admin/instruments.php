@@ -210,6 +210,34 @@ class Instruments extends Admin_Controller {
 
 	}
 
+	public function editCategorie()
+	{
+		$data = array();
+		$updateData = [];
+		$data['errors'] = array();
+
+		if(null !== $this->input->post('categid')) return;
+
+		$categid = $this->input->post('categid');
+		$key = '';
+		$value = '';
+		if(null !== $this->input->post('categnom')) {
+			$updateData['categ_nom'] = $this->input->post('categnom');
+		} else if(null !== $this->input->post('categparentid')) {
+			$updateData['categ_parent_id'] = $this->input->post('categparentid');
+		}
+		$res = $this->Instrument_model->update_categorie($categ_id, $updateData);
+
+		if($res){
+			$data['success'] = 1;
+			$data['categid'] = $res;
+		}
+		else {
+			$data['success'] = 0;
+		}
+		echo json_encode($data);
+	}
+
 	public function edit($id)
 	{
 		$this->Instrument_model->update($id);
