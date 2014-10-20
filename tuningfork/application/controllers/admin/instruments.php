@@ -212,9 +212,8 @@ class Instruments extends Admin_Controller {
 
 	public function editCategorie()
 	{
-		$data = array();
+		$data = [];
 		$updateData = [];
-		$data['errors'] = array();
 
 		if(null !== $this->input->post('categid')) return;
 
@@ -235,6 +234,14 @@ class Instruments extends Admin_Controller {
 		else {
 			$data['success'] = 0;
 		}
+		echo json_encode($data);
+	}
+
+	public function deleteCategorie()
+	{
+		$categid = $this->input->post('categid');
+		$res = $this->Instrument_model->delete_categorie($categid);
+		$data['success'] = $res;
 		echo json_encode($data);
 	}
 

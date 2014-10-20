@@ -169,6 +169,13 @@ class Instrument_model extends CI_Model {
         return $res;
     }
 
+    function delete_categorie($categ_id)
+    {
+        $this->db->where('categ_id', $categ_id);
+        $res = $this->db->delete('categories');
+        return $res;
+    }
+
     function get_categ_id_of($id)
     {
         $this->db->select('categ_id');

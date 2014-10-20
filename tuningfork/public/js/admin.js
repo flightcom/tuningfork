@@ -190,17 +190,45 @@ function drop(ev) {
 }
 
 function dropcateg(ev) {
-    drop(ev);
+    ev.preventDefault();
     var categid = ev.dataTransfer.getData("dragndrop").split('_')[1];
     var index = $('.list-categories').index($(ev.target));
-    var parentid = index == 0 ? null : '';
-    console.log('categid = '+categid+', parentid = '+);
-    // $.ajax({
-    //     type: 'post', 
-    //     url: '/admin/editCategorie',
-    //     data: 'categid='+ev.dataTransfer.getData("dragndrop").split('_')[1]+'&categparentid=';
-    //     success: function(data){
-    //         $('#add').append(data);
-    //     }
-    // });
+    var parentid = index == 0 ? null : angular.element('[ng-controller=AdminListCategCtrl]').scope().categoriesPath[index-1].categ_id;
+    var data = ev.dataTransfer.getData("dragndrop");
+    console.log('categid = ' + categid + ', parentid = '+parentid);
+    if ( categid == parentid ) { return false; }
+
+    // drop(ev);
+    $.ajax({
+        type: 'post', 
+        url: '/admin/instruments/editCategorie',
+        data: 'categid='+categid+'&categparentid='+parentid,
+        success: function(result){
+            console.log(data);
+            var droppedElement = $('#'+data);
+            droppedElement.remove();
+            $(ev.target).append(droppedElement);
+            console.log(result);
+        }
+    });
+}
+
+function deletecateg(ev) {
+    ev.preventDefault();
+    var categid = ev.dataTransfer.getData("dragndrop").split('_')[1];
+    console.log('delete categ ' + categid);
+    // return;
+    // drop(ev);
+
+    $.ajax({
+        type: 'post', 
+        url: '/admin/instruments/deleteCategorie',
+        data: 'categid='+categid,
+        success: function(result){
+            var data = ev.dataTransfer.getData("dragndrop");
+            var droppedElement = $('#'+data);
+            droppedElement.remove();
+            console.log(result);
+        }
+    });
 }

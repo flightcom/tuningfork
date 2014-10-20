@@ -2,10 +2,12 @@
 
 <!-- <p>Categories Path : {{categoriesPath|json}}</p> -->
 <!-- <p>Categories : {{categories|json}}</p> -->
+<span class="glyphicon glyphicon-trash fs24 pull-right" ondrop="deletecateg(event)" ondragover="allowDrop(event)"></span>
 
 <h3><?php echo $title; ?></h3>
 
-<ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories" ondrop="$scope.dropcateg(event)" ondragover="allowDrop(event)">
+
+<ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories" ondrop="dropcateg(event)" ondragover="allowDrop(event)">
 	<li><span>[ Niveau {{$index+1}} ]</span></li>
 	<li class="form-inline">
 		<input ng-show="showNewCategField[$index]" class="form-control form-inline" type="text" placeholder="Nouvelle catégorie..." ng-model="newcateg_$index">
