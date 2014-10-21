@@ -249,7 +249,7 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 	$scope.addCateg = function(categorie, level){
 
         var parent = $scope.categoriesPath.length ? $scope.categoriesPath[level-1] : null;
-		console.log(categorie + ' in level ' + level + ', parent : ' + parent);
+		// console.log(categorie + ' in level ' + level + ', parent : ' + parent);
 		// return;
 
 		$http({
@@ -258,7 +258,7 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 			data: 'newcateg=' + categorie + '&parent=' + (parent ? parent.categ_id:''),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		}).success(function(data){
-            console.log(data);
+            // console.log(data);
 			if(data.success) {
 				$scope.showNewCategField = false;
                 categorie = '';
@@ -275,4 +275,64 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
     	console.log('test');
     }
 
+});
+
+tfApp.controller('AdminListMembresCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
+
+	$scope.membres = [];
+
+	$scope.columns = [
+		{ title: 'Identifiant', field: 'membre_id', visible: true, classes: "col-xs-1", filter: { 'membre_id': 'text' } },
+		{ title: 'Nom', field: 'membre_nom', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
+		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-2", filter: { 'membre_prenom': 'text' } },
+		{ title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-2", filter: { 'membre_tel': 'text' } },
+		{ title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
+		{ title: 'Adresse', field: 'membre_voie', visible: true, classes: "col-xs-2", filter: { 'membre_voie': 'text' } },
+		{ title: 'Ville', field: 'ville_nom', visible: true, classes: "col-xs-2", filter: { 'ville_nom': 'text' } }
+	];
+
+	$scope.go = function(path){
+		location.href = path;
+	}
+
+	$scope.loadMembres = function(){
+
+		var defer = $q.defer();
+		$http.get('/admin/membres/getMembres/ajax').success(function(data){
+			defer.resolve(data);
+		},true);
+
+		return defer.promise;
+
+	}
+
+	var promise = $scope.loadMembres();
+
+	promise.then(function(data){
+
+		$scope.membres = data.membres;
+
+		$scope.tmParams = new ngTableParams({
+	        page: 1,            // show first page
+	        count: 10,          // count per page
+	        filter: {
+	        	// instru_dispo: [0,1],
+	        	// instru_etat: [0,1,2,3,4,5]
+	        },
+	        sorting: {
+	        	membre_id: 'asc'
+	        }
+	    }, {
+	    	filterDelay: 0,
+	        total: $scope.membres.length, // length of data
+	        getData: function($defer, params) {
+	            // use build-in angular filter
+	            var orderedData = params.filter() ? $filter('filter')($scope.membres, params.filter()) : $scope.membres;
+				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+	            $scope.filteredMembres = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	            params.total(orderedData.length); // set total for recalc pagination
+	            $defer.resolve($scope.filteredMembres);
+	        }
+	    });
+	});
 });

@@ -55,6 +55,18 @@ class Membres extends Admin_Controller {
 		$this->load->view('admin/master', array('title' => 'Liste des membres', 'content' => $content));
 	}
 
+	public function getMembres($method)
+	{
+		$data = array(
+			'membres' => $this->Membre_model->get_all_entries(),
+			'title' => 'Liste des membres',
+			);
+		switch( $method ) {
+			case 'ajax' : echo json_encode($data); break;
+			default: return $data;
+		}
+	}
+
 	public function infos_membre($membre_id)
 	{
 		$data = array(

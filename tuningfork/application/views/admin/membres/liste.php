@@ -1,62 +1,48 @@
-<button type="button" class="reset btn btn-default pull-right">RàZ filtres</button>
-<h3><?php echo $title; ?></h3>
+<div ng-controller="AdminListMembresCtrl">
 
-<br>
+	<div class="btn-group pull-right">
+		<button ng-click="tmParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
+	</div>
 
-<table class="table table-bordered table-striped tablesorter">
+	<h3><?php echo $title; ?> ({{membres.length}})</h3>
 
-	<thead>
+	<br>
 
-		<tr>
-			<th>Nom</th>
-			<th>Prénom</th>
-			<th>Téléphone</th>
-			<th>Email</th>
-			<th>Adresse</th>
-			<th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Ville</th>
-		</tr>
+	<table ng-table="tmParams" show-filter="true" class="table table-hover col-xs-12 table-list-membres">
 
-	</thead>
+	    <thead>
+	        <tr>
+	            <th ng-repeat="column in columns" ng-show="column.visible"
+	                class="text-center sortable {{column.classes}}" 
+	                ng-class="{
+	                    'sort-asc': tmParams.isSortBy(column.field, 'asc'),
+	                    'sort-desc': tmParams.isSortBy(column.field, 'desc')
+	                  }"
+	                ng-click="tmParams.sorting(column.field, tmParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
+					<div ng-if="!template" ng-show="!template" class="ng-scope ng-binding">{{column.title}}</div>
+	            </th>
+	        </tr>
 
-	<tbody>
+	        <tr class="ng-table-filters" ng-init="tmParams">
+	            <th ng-repeat="column in columns" ng-show="column.visible" class="filter">
+	                <div ng-repeat="(name, filter) in column.filter">
+	                    <div ng-if="!column.filterTemplateURL" ng-show="!column.filterTemplateURL">
+	                        <div ng-include="'ng-table/filters/' + filter + '.html'"></div>
+	                    </div>
+	                </div>
+	            </th>
+	        </tr>
 
-		<?php foreach ($membres as $m){ ?>
-		<tr onclick="location.href='/admin/membres/<?php echo $m->membre_id; ?>'" style="cursor:pointer;">
-		    <td><?php echo $m->membre_nom; ?></td>
-		    <td><?php echo $m->membre_prenom; ?></td>
-		    <td><?php echo $m->membre_tel; ?></td>
-		    <td><?php echo $m->membre_email; ?></td>
-		    <td><?php echo Membre_model::format_address($m); ?></td>
-		    <td><?php echo $m->ville_nom; ?></td>
-		</tr>
-		<?php } ?>
+	    </thead>
 
-	</tbody>
+	    <tbody>
 
-	<tfoot>
+			<tr ng-repeat="membre in filteredMembres" ng-click="go('/admin/membres/' + membre.membre_id)" style="cursor:pointer;" ng-class="membre.prets_en_cours =='0' ? 'border-left-ko' : 'border-left-ok'">
+	 		    <td ng-repeat="column in columns" data-title="column.title" ng-show="column.visible" sortable="column.field" ng-class="column.classes">{{membre[column.field]}}</td>
+			</tr>
 
-        <tr>
-            <th colspan="10" class="ts-pager form-horizontal">
-                <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i>
-                </button>
-                <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i>
-                </button>	<span class="pagedisplay"></span> 
-                <!-- this can be any element, including an input -->
-                <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i>
-                </button>
-                <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i>
-                </button>
-                <select class="pagesize input-mini" title="Select page size">
-                    <option selected="selected" value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                </select>
-                <select class="pagenum input-mini" title="Select page number"></select>
-            </th>
-        </tr>
+		</tbody>
 
-    </tfoot>
+	</table>
 
-
-</table>
+</div>

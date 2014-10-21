@@ -215,17 +215,23 @@ class Instruments extends Admin_Controller {
 		$data = [];
 		$updateData = [];
 
-		if(null !== $this->input->post('categid')) return;
+		$data['test'] = 1;
 
 		$categid = $this->input->post('categid');
+		$categnom = $this->input->post('categnom');
+		$parentid = $this->input->post('categparentid');
+
+		if(empty($categid)) return;
+
 		$key = '';
 		$value = '';
-		if(null !== $this->input->post('categnom')) {
-			$updateData['categ_nom'] = $this->input->post('categnom');
-		} else if(null !== $this->input->post('categparentid')) {
-			$updateData['categ_parent_id'] = $this->input->post('categparentid');
+		if(!empty($categnom)) {
+			$updateData['categ_nom'] = $categnom;
+		} else if(!empty($parentid)) {
+			if ( $parentid == -1 ) $parentid = null;
+			$updateData['categ_parent_id'] = $parentid;
 		}
-		$res = $this->Instrument_model->update_categorie($categ_id, $updateData);
+		$res = $this->Instrument_model->update_categorie($categid, $updateData);
 
 		if($res){
 			$data['success'] = 1;
