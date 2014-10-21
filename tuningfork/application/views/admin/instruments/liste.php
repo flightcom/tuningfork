@@ -1,4 +1,4 @@
-<div ng-controller="AdminListInstruCtrl">
+<div class="pd20" ng-controller="AdminListInstruCtrl">
 	
 	<div class="btn-group pull-right">
 		<div class="btn-group">

@@ -80,4 +80,13 @@ class Membres extends Admin_Controller {
 		$this->load->view('admin/master', array( 'content' => $content));
 	}
 
+	public function map()
+	{
+		$data = [
+			'title' => 'Localisation des membres'
+		];
+		$content = $this->load->view('admin/membres/map', $data, TRUE);
+		$this->load->view('admin/master', array( 'content' => $content));
+	}
+
 }
