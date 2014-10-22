@@ -1,4 +1,4 @@
-<div ng-controller="AdminListCategCtrl">
+<div class="pd20" ng-controller="AdminListCategCtrl">
 
 <!-- <p>Categories Path : {{categoriesPath|json}}</p> -->
 <!-- <p>Categories : {{categories|json}}</p> -->

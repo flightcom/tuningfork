@@ -5,11 +5,19 @@
 // prompted by your browser. If you see a blank space instead of the map, this
 // is probably because you have denied permission for location sharing.
 
+$(function(){
+
+  $.get('getMembresLocation/ajax', function(data){
+    console.log(data);
+  });
+
+});
+
 var map;
 
 function initialize() {
   var mapOptions = {
-    zoom: 6
+    zoom: 10
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
@@ -23,7 +31,7 @@ function initialize() {
       var infowindow = new google.maps.InfoWindow({
         map: map,
         position: pos,
-        content: 'Location found using HTML5.'
+        // content: 'Location found using HTML5.'
       });
 
       map.setCenter(pos);

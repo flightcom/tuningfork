@@ -86,6 +86,10 @@ class Membre_model extends CI_Model {
 
     }
 
+    static function merge_address($m){
+        return $m->adr_voie . " " .$m->ville_code_postal . " " .$m->ville_nom;
+    }
+
     static function get_genders(){
         $enums = field_enums('membres', 'membre_genre');
         return $enums;

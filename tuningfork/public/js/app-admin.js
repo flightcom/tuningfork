@@ -287,7 +287,7 @@ tfApp.controller('AdminListMembresCtrl', function ($scope, $http, $filter, $q, n
 		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-2", filter: { 'membre_prenom': 'text' } },
 		{ title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-2", filter: { 'membre_tel': 'text' } },
 		{ title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
-		{ title: 'Adresse', field: 'membre_voie', visible: true, classes: "col-xs-2", filter: { 'membre_voie': 'text' } },
+		{ title: 'Adresse', field: 'adr_voie', visible: true, classes: "col-xs-2", filter: { 'adr_voie': 'text' } },
 		{ title: 'Ville', field: 'ville_nom', visible: true, classes: "col-xs-2", filter: { 'ville_nom': 'text' } }
 	];
 

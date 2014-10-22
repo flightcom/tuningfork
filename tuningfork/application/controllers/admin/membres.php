@@ -41,8 +41,41 @@ class Membres extends Admin_Controller {
 		}
 		else if(is_numeric($membre_id) && !is_null($action))
 		{
-			show_404();
+			switch($action) {
+				case 'edit':
+					$this->edit();
+					break;
+				default: show_404();
+			}
 		}
+	}
+
+	public function edit()
+	{
+		$this->form_validation->set_rules('voie', 'Voie', 'required');
+		$this->form_validation->set_rules('telephone', 'Téléphone', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|is_unique');
+
+		$data = array();
+		$data['errors'] = array();
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['errors']['newmarque'] = form_error('newmarque');
+		}
+		else
+		{
+			$marque = $this->input->post('newmarque');
+			$res = $this->Instrument_model->insert_marque($marque);
+			if($res){
+				$data['success'] = 1;
+				$data['marqueid'] = $res;
+			}
+			else {
+				$data['success'] = 0;
+			}
+		}
+		echo json_encode($data);
 	}
 
 	public function lister_membres()
@@ -87,6 +120,26 @@ class Membres extends Admin_Controller {
 		];
 		$content = $this->load->view('admin/membres/map', $data, TRUE);
 		$this->load->view('admin/master', array( 'content' => $content));
+	}
+
+	public function getMembresLocation($method = null)
+	{
+		$data = [];
+		$membres = $this->Membre_model->get_all_entries();
+		foreach($membres as $k => $membre) {
+			$data['membres'][$k] = $membre;
+			$adresse = str_replace(' ', '+', Membre_model::merge_address($membre));
+			$data['membres'][$k]['adresse'] = $adresse;
+			// $data['membres'][$k]['location'] = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$adresse);
+		}
+		switch($method)
+		{
+			case 'ajax':
+				echo json_encode($data);
+				break;
+			default: return $data;
+		}
+		return;
 	}
 
 }
