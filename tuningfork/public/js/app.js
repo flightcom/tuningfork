@@ -36,6 +36,34 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
             });
         }
    }
+}).directive('resize', function ($window) {
+    return function (scope, element) {
+        var w = angular.element($window);
+        scope.getWindowDimensions = function () {
+            return {
+                'h': w.height(),
+                'w': w.width()
+            };
+        };
+        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+            scope.windowHeight = newValue.h;
+            scope.windowWidth = newValue.w;
+
+            scope.style = function () {
+			    var menusHeight = $('[role=navigation]').map(function(index, element){ return $(this).outerHeight(); }).get().sum();
+			    var menusWidth = $('.sidebar').map(function(index, element){ return $(this).outerWidth(); }).get().sum();
+                return {
+                    'height': (newValue.h - menusHeight) + 'px',
+                    'width': (newValue.w - menusWidth) + 'px'
+                };
+            };
+
+        }, true);
+
+        w.bind('resize', function () {
+            scope.$apply();
+        });
+    }
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();
@@ -93,7 +121,8 @@ tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 	$scope.$watch('membre.ville_id', function(){
 		if(!angular.isUndefined($scope.membre.ville_code_postal)) {
 			var found = $filter('filter')($scope.villes, {ville_id: $scope.membre.ville_id}, true);
-			if(found.length) {
+			console.log(found)
+			if(angular.isDefined(found)) {
 				$scope.membre.ville_code_postal = found[0].ville_code_postal;
 			}
 		}

@@ -2,8 +2,6 @@
 
 class Membre_model extends CI_Model {
 
-    var $adresse = "";
-
     function __construct()
     {
         // Call the Model constructor
@@ -52,29 +50,22 @@ class Membre_model extends CI_Model {
         return $query->row();
     }
 
-    function insert()
+    function insert($userdata)
     {
-        $adrid = !is_null($this->input->post('adresse')) ? $this->insert_address($this->input->post('adresse'), $this->input->post('ville'), $this->input->post('pays')) : 0;
-        $this->membre_genre          = $this->input->post('genre');
-        $this->membre_nom            = $this->input->post('nom');
-        $this->membre_prenom         = $this->input->post('prenom');
-        $this->membre_date_naissance = $this->input->post('dob');
-        $this->membre_email          = $this->input->post('email');
-        $this->membre_tel            = $this->input->post('tel');
-        $this->membre_adr_id         = $adrid;
-        $this->membre_login          = $this->input->post('login');
-        $this->membre_password       = $this->input->post('passwd');
-
-        $this->db->insert('membres', $this);
+        $adrid = !is_null($userdata['adresse']) ? $this->insert_address($userdata['adresse']) : 0;
+        $this = $userdata['membre'];
+        $this->membre_adr_id = $adrid ? $adrid : null;
+        $res = $this->db->insert('membres', $this);
+        return $res;
     }
 
-    private function insert_address($adr, $ville_id, $pays_id)
+    private function insert_address($data)
     {
         $this->adr_voie     = $adr;
         $this->adr_ville_id = $ville_id;
         $this->adr_pays_id  = $pays_id;
 
-        $adr_id = $this->db->insert('adresses', $this);
+        $adr_id = $this->db->insert('adresses', $data);
 
         return $adr_id;
     }

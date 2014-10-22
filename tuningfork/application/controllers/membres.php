@@ -44,8 +44,8 @@ class Membres extends MY_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[membres.membre_email]');
 		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
 		$this->form_validation->set_rules('dob', 'Date de naissance', 'required');
-		$this->form_validation->set_rules('cp', 'CP', 'required|exact_length[5]');
-		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
+		// $this->form_validation->set_rules('cp', 'CP', 'required|exact_length[5]');
+		$this->form_validation->set_rules('adr_voie', 'Adresse', 'required');
 		$this->form_validation->set_rules('ville', 'Ville', 'required');
 		$this->form_validation->set_rules('passwd', 'Mot de passe', 'required');
 		$this->form_validation->set_rules('passwdconf', 'Confirmation mot de passe', 'required|matches[passwd]');
@@ -70,13 +70,33 @@ class Membres extends MY_Controller {
 
 	public function create_account()
 	{
-		$userdata = $this->input->post();
+		$userdata = [
+			'membre' => [
+				'membre_nom' => $this->input->post('membre_nom'),
+				'membre_prenom' => $this->input->post('membre_prenom'),
+				'membre_date_naissance' => $this->input->post('membre_date_naissance'),
+				'membre_email' => $this->input->post('membre_email'),
+				'membre_tel' => $this->input->post('membre_tel'),
+				'membre_password' => $this->input->post('membre_password'),
+				'membre_genre' => $this->input->post('membre_genre')
+			],
+			'adresse' => [
+				'adr_voie' => $this->input->post('adr_voie'),
+				'adr_ville_id' => $this->input->post('adr_ville_id'),
+				'adr_pays_id' => $this->input->post('adr_pays_id'),
+			]
+		];
+		$res = $this->Membre_model->insert($userdata);
+		if ($res) {
+			$content = $this->load->view('membres/new_account_success', NULL, TRUE);
+			$this->load->view('master', array('title' => 'Compte créé', 'content' => $content));							
+		}
 	}
 
 	/* Password oublié */
 	public function password()
 	{
-		$content = $this->load->view('account/password_forgotten', NULL, TRUE);
+		$content = $this->load->view('membres/password_forgotten', NULL, TRUE);
 		$this->load->view('master', array('title' => 'Mot de passe oublié', 'content' => $content));				
 	}
 

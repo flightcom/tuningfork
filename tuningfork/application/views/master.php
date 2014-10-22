@@ -12,6 +12,8 @@
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'calendar.public.css'); ?>" rel="stylesheet" type="text/css"></script>
+
+		<script src="<?php echo (JS.'utils.js'); ?>"></script>
 		<script src="<?php echo (JS.'jquery/jquery-1.11.0.min.js'); ?>"></script> 
 
 	</head>

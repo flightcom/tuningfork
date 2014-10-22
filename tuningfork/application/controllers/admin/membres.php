@@ -52,7 +52,7 @@ class Membres extends Admin_Controller {
 
 	public function edit()
 	{
-		$this->form_validation->set_rules('voie', 'Voie', 'required');
+		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
 		$this->form_validation->set_rules('telephone', 'Téléphone', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required|is_unique');
 
@@ -122,6 +122,15 @@ class Membres extends Admin_Controller {
 		$this->load->view('admin/master', array( 'content' => $content));
 	}
 
+	public function add()
+	{
+		$data = [
+			'title' => 'Ajouter un membre'
+		];
+		$content = $this->load->view('membres/new', $data, TRUE);
+		$this->load->view('admin/master', array( 'content' => $content));
+	}
+
 	public function getMembresLocation($method = null)
 	{
 		$data = [];
@@ -129,8 +138,8 @@ class Membres extends Admin_Controller {
 		foreach($membres as $k => $membre) {
 			$data['membres'][$k] = $membre;
 			$adresse = str_replace(' ', '+', Membre_model::merge_address($membre));
-			$data['membres'][$k]['adresse'] = $adresse;
-			// $data['membres'][$k]['location'] = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$adresse);
+			// $data['membres'][$k]->adresse = $adresse;
+			$data['membres'][$k]->location = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$adresse));
 		}
 		switch($method)
 		{

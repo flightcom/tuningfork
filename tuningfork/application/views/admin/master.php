@@ -12,6 +12,7 @@
 		<link href="<?php echo (CSS.'calendar.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
 
+		<script src="<?php echo (JS.'utils.js'); ?>"></script> 
 		<script src="<?php echo (JS.'jquery/jquery-1.11.0.min.js'); ?>"></script>
 
 	</head>

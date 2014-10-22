@@ -1,0 +1,1 @@
+<h1 class="center"><span class="glyphicon glyphicon-ok"></span>Votre compte a bien été créé</h1>

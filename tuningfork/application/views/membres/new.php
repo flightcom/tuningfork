@@ -1,5 +1,7 @@
 <h3 class="center">Création de mon compte</h3>
 
+<?php echo validation_errors(); ?>
+
 <br>
 
 <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
@@ -75,7 +77,7 @@
         <div class="form-group">
             <label for="tel" class="control-label col-md-2 col-xs-12 pull-left">Adresse</label>
             <div class="col-xs-6 col-md-5 has-feedback" ng-class="{'has-success' : newaccount.adresse.$valid, 'has-error': newaccount.adresse.$invalid && newaccount.adresse.$dirty}">
-                <input type="text" class="form-control" name="adresse" placeholder="Adresse" required ng-model="membre.adresse" ng-init="membre.adresse='<?php echo set_value('adresse'); ?>'">
+                <input type="text" class="form-control" name="adr_voie" placeholder="Adresse" required ng-model="membre.adresse" ng-init="membre.adresse='<?php echo set_value('adresse'); ?>'">
                 <span class="helper-block text-danger" ng-show="newaccount.adresse.$invalid"><?php echo form_error('adresse'); ?></span>
                 <span ng-show="newaccount.adresse.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                 <span ng-show="newaccount.adresse.$invalid && newaccount.adresse.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>

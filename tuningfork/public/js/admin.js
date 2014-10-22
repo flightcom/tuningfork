@@ -128,7 +128,7 @@ $(document).ready(function(){
             e.stopPropagation();
             $(this).closest('form').submit();
         }
-    });
+    });    
 
 });
 
