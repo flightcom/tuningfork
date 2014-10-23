@@ -9,7 +9,7 @@
     <form method="post" action="/membres/create" name='newaccount' class='form-horizontal' autocomplete='off' novalidate ng-controller='AddMembreCtrl'>
 
         <div class="form-group ">
-            <label for="genre" class="control-label col-md-2">Genre</label>
+            <label for="genre" class="control-label col-md-2">Civilité</label>
             <div class="col-xs-12 col-md-10 has-feedback" ng-class="{'has-success' : newaccount.genre.$valid, 'has-error': newaccount.genre.$invalid && newaccount.genre.$dirty}">
                 <?php $i = 0; foreach ( $genres = Membre_model::get_genders() as $g) { ?>
                 <div>

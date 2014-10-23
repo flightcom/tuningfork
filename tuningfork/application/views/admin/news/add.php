@@ -1,35 +1,47 @@
-<h3><?php echo $title; ?></h3>
+<link href="<?php echo (CSS.'bootstrap-wysihtml5.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+<!-- <script src="<?php echo (JS.'wysihtml.min.js'); ?>"></script> -->
+<script src="<?php echo (JS.'bootstrap/bootstrap-wysihtml5.min.js'); ?>"></script>
+<script src="<?php echo (JS.'bootstrap/bootstrap-wysihtml5.all.min.js'); ?>"></script>
 
-<br>
+<div class="pd20">
 
-<?php echo form_open('admin/news/add', array('id' =>'add-news', 'class' => 'form-horizontal')); ?>
+	<h3><?php echo $title; ?></h3>
 
-	<div class="form-group">
-        <label for="titre" class="control-label col-sm-1 hidden-xs">Titre</label>
-        <div class="col-sm-11 col-xs-12">
-            <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" required>
-        </div>
-    </div>
+	<br>
 
-	<div class="form-group">
-        <label for="texte" class="control-label col-sm-1 hidden-xs">Texte</label>
-        <div class="col-xs-12 col-sm-11">
-        	<?php echo $toolbox; ?>
-            <textarea type="text" class="col-xs-12 hidden" id="texte" name="texte" rows="20"></textarea>
-            <div class="col-xs-12" style="padding:5px;clear:both;min-height:200px;border:1px solid #ccc;" contenteditable="true"></div>
-        </div>
-    </div>
+	<?php echo form_open('admin/news/add', array('id' =>'add-news', 'class' => 'form-horizontal')); ?>
 
-    <button class="btn btn-primary" onclick="return false;" id="preview"><span class="glyphicon glyphicon-eye-open"> Aperçu</span></button>
-    <button class="btn btn-success" type="submit" id="preview"><span class="glyphicon glyphicon-ok"> Valider</span></button>
+		<div class="form-group">
+	        <label for="titre" class="control-label col-sm-1 hidden-xs">Titre</label>
+	        <div class="col-sm-11 col-xs-12">
+	            <input type="text" class="form-control" id="titre" name="titre" placeholder="Titre" required>
+	        </div>
+	    </div>
 
-</form>
+		<div class="form-group">
+	        <label for="texte" class="control-label col-sm-1 hidden-xs">Texte</label>
+	        <div class="col-xs-12 col-sm-11">
+				<textarea id="editor"></textarea>
+<!-- 	        	<?php echo $toolbox; ?>
+	            <textarea type="text" class="col-xs-12 hidden" id="texte" name="texte" rows="20"></textarea>
+	            <div class="col-xs-12" style="padding:5px;clear:both;min-height:200px;border:1px solid #ccc;" contenteditable="true"></div>
+ -->	        </div>
+	    </div>
+
+	    <button class="btn btn-primary" onclick="return false;" id="preview"><span class="glyphicon glyphicon-eye-open"> Aperçu</span></button>
+	    <button class="btn btn-success" type="submit" id="preview"><span class="glyphicon glyphicon-ok"> Valider</span></button>
+
+	</form>
+
+</div>
 
 <script>
 
 var win;
 
 $(function(){
+
+	$('#editor').wysihtml5();
 
 	$('#preview').on('click', function(event){
 
@@ -55,15 +67,15 @@ $(function(){
 
 	});
 
-	$('div[contenteditable]').keydown(function(e) {
-	    // trap the return key being pressed
-	    if (e.keyCode === 13) {
-	      // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
-	      document.execCommand('insertHTML', false, '<br><br>');
-	      // prevent the default behaviour of return key pressed
-	      return false;
-	    }
-	  });
+	// $('div[contenteditable]').keydown(function(e) {
+	//     // trap the return key being pressed
+	//     if (e.keyCode === 13) {
+	//       // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
+	//       document.execCommand('insertHTML', false, '<br><br>');
+	//       // prevent the default behaviour of return key pressed
+	//       return false;
+	//     }
+	// });
 
 });
 

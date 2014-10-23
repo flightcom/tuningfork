@@ -53,21 +53,25 @@ class Membre_model extends CI_Model {
     function insert($userdata)
     {
         $adrid = !is_null($userdata['adresse']) ? $this->insert_address($userdata['adresse']) : 0;
-        $this = $userdata['membre'];
+        foreach($userdata['membre'] as $key => $value) :
+            $this->$key = $value;
+        endforeach;
         $this->membre_adr_id = $adrid ? $adrid : null;
         $res = $this->db->insert('membres', $this);
+        if (!$res ) $this->delete_address($adrid);
         return $res;
     }
 
     private function insert_address($data)
     {
-        $this->adr_voie     = $adr;
-        $this->adr_ville_id = $ville_id;
-        $this->adr_pays_id  = $pays_id;
-
         $adr_id = $this->db->insert('adresses', $data);
+        return $adr_id ? $this->db->insert_id() : false;
+    }
 
-        return $adr_id;
+    private function delete_address($id)
+    {
+        $this->db->where('adr_id', $id);
+        $this->db->delete('adresses');
     }
 
     static function format_address($m){

@@ -68,29 +68,35 @@ class Membres extends MY_Controller {
 		$this->load->view('master', array('title' => 'Mon compte', 'content' => $content));				
 	}
 
-	public function create_account()
+	private function create_account()
 	{
 		$userdata = [
 			'membre' => [
-				'membre_nom' => $this->input->post('membre_nom'),
-				'membre_prenom' => $this->input->post('membre_prenom'),
-				'membre_date_naissance' => $this->input->post('membre_date_naissance'),
-				'membre_email' => $this->input->post('membre_email'),
-				'membre_tel' => $this->input->post('membre_tel'),
-				'membre_password' => $this->input->post('membre_password'),
-				'membre_genre' => $this->input->post('membre_genre')
+				'membre_nom' => $this->input->post('nom'),
+				'membre_prenom' => $this->input->post('prenom'),
+				'membre_date_naissance' => $this->input->post('dob'),
+				'membre_email' => $this->input->post('email'),
+				'membre_tel' => $this->input->post('tel'),
+				'membre_password' => md5($this->input->post('passwd')),
+				'membre_genre' => $this->input->post('genre')
 			],
 			'adresse' => [
-				'adr_voie' => $this->input->post('adr_voie'),
-				'adr_ville_id' => $this->input->post('adr_ville_id'),
-				'adr_pays_id' => $this->input->post('adr_pays_id'),
+				'adr_voie' => strtoupper($this->input->post('adr_voie')),
+				'adr_ville_id' => $this->input->post('ville'),
+				'adr_pays_id' => $this->input->post('pays'),
 			]
 		];
 		$res = $this->Membre_model->insert($userdata);
 		if ($res) {
+			$this->create_account_success();
+		}
+	}
+
+	/* A repasser en private après tests */
+	public function create_account_success()
+	{
 			$content = $this->load->view('membres/new_account_success', NULL, TRUE);
 			$this->load->view('master', array('title' => 'Compte créé', 'content' => $content));							
-		}
 	}
 
 	/* Password oublié */
