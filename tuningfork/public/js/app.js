@@ -64,6 +64,19 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
             scope.$apply();
         });
     }
+}).directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    // console.log(attrs.ngEnter);
+                    eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();

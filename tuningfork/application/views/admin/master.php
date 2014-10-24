@@ -6,6 +6,7 @@
 
 		<title><?php echo $title; ?></title>
 
+		<link href="<?php echo (CSS.'font-awesome.min.css'); ?>" rel="stylesheet">
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'ng-table.min.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -69,6 +70,7 @@
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app-admin.js'); ?>"></script> 
+		<script src="<?php echo (JS.'summernote.min.js'); ?>"></script>
 	</body>
 
 </html>

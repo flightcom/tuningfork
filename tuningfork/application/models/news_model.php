@@ -13,6 +13,7 @@ class News_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('news');
+        $this->db->join('membres', 'membres.membre_id = news.news_auteur_id');
         $this->db->order_by('news_date_creation', 'desc');
         $query = $this->db->get();
         return $query->result();
@@ -36,6 +37,25 @@ class News_model extends CI_Model {
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();
+    }
+
+    function insert($titre, $texte, $tags = null)
+    {
+        $this->news_titre = $titre;
+        $this->news_contenu = $texte;
+        $this->news_auteur_id = $this->session->userdata('user_id');
+        $res = $this->db->insert('news', $this);
+        if ($res) $newsid = $this->db->insert_id();
+        if ($res && $tags) $res = $this->insert_tags($newsid, $tags);
+        return $res;
+    }
+
+    function insert_tags($newsid, $tags)
+    {
+        $this->nt_news_id = $newsid;
+        $this->nt_tags = serialize($tags);
+        $res = $this->db->insert('news_tags', $this);
+        return $res;
     }
 
 }

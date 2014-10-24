@@ -44,28 +44,24 @@ class News extends Admin_Controller {
 	{
 		/* Check if admin */
 		$data = array(
-			// 'marques' => $this->Instrument_model->get_all_marques(),
-			// 'categories' => $this->Instrument_model->get_all_categories(),
-			// 'types' => array()
 			'title' => 'Nouvel article',
-			'toolbox' => $this->load->view('admin/news/toolbox', NULL, TRUE)
 		);
 
 		$this->form_validation->set_rules('titre', 'Titre', 'required');
+		$this->form_validation->set_rules('texte', 'Texte', 'required');
 
-		if ($this->form_validation->run() == FALSE)
+		if ($this->form_validation->run() === FALSE)
 		{
 			$content = $this->load->view('admin/news/add', $data, TRUE);
 			$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));		
 		}
 		else
 		{
-			$marque = $this->input->post('marque');
-			$modele = $this->input->post('modele');
-			$code = $this->input->post('code');
-			$numero = $this->input->post('numero');
-			$query = $this->News_model->insert();
-			redirect('/admin/news/list');
+			$titre = $this->input->post('titre');
+			$texte = $this->input->post('texte');
+			$tags = $this->input->post('tag');
+			$res = $this->News_model->insert($titre, $texte, $tags);
+			if ($res) redirect('/admin/news');
 		}
 
 	}
@@ -76,7 +72,7 @@ class News extends Admin_Controller {
 			'articles' => $this->News_model->get_all_entries(),
 			'title' => 'Liste des articles',
 			);
-		$content = $this->load->view('admin/news/news', $data, TRUE);
+		$content = $this->load->view('admin/news/liste', $data, TRUE);
 		$this->load->view('admin/master', array('title' => 'Liste des news', 'content' => $content));
 	}
 

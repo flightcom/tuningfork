@@ -17,6 +17,12 @@ class Blog extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+    public function __construct()
+    {
+    	parent::__construct();
+		$this->load->model('News_model');
+    }
+
 	public function index()
 	{
 		$this->liste();
@@ -24,8 +30,11 @@ class Blog extends CI_Controller {
 
 	public function liste()
 	{
-		$content = $this->load->view('blog/list_news', NULL, TRUE);
-		$this->load->view('master', array('title' => 'Home', 'content' => $content));
+		$data = [
+			'articles' => $this->News_model->get_all_entries()
+		];
+		$content = $this->load->view('blog/liste', $data, TRUE);
+		$this->load->view('master', array('title' => 'Blog', 'content' => $content));
 	}
 
 
