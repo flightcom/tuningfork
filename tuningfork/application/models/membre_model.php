@@ -71,6 +71,12 @@ class Membre_model extends CI_Model {
         return $res;
     }
 
+    function delete($id)
+    {
+        $this->db->where('membre_id', $id);
+        $this->db->delete('membres');        
+    }
+
     private function insert_address($data)
     {
         $adr_id = $this->db->insert('adresses', $data);

@@ -83,7 +83,7 @@
             			<button onclick="editForm('<?php echo $formid;?>');return false;" class="btn btn-warning no-edition">Modifier</button>
             			<button type="submit" class="btn btn-success edition hidden">Valider</button>
             			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>
-            			<button onclick="document.location.href='/admin/membre/<?php echo $membre->membre_id; ?>/delete';return false;" class="btn btn-danger pull-right">Supprimer</button>
+            			<button onclick="document.location.href='/admin/membres/<?php echo $membre->membre_id; ?>/delete';return false;" class="btn btn-danger pull-right">Supprimer</button>
                     </div>
                 </div>
 
@@ -103,25 +103,23 @@
 
                     <tr class="">
                         <th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Catégorie</th>
-                        <th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Type</th>
                         <th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
                         <th class="hidden-xs hidden-sm">Modèle</th>
                         <th class="hidden-xs">Numéro de série</th>
                         <th class="col-xs-1 visible-lg">Date de prêt</th>
-                        <th class="col-xs-1 visible-lg">Date de remise</th>
+                        <th class="col-xs-1 visible-lg">Date de remise prévue</th>
                     </tr>
 
                 </thead>
                 <tbody>
                 <?php foreach ($emprunts as $e){ ?>
-                    <tr onclick="location.href='/admin/instruments/<?php echo $i->instru_id; ?>'" style="cursor:pointer;">
+                    <tr onclick="location.href='/admin/instruments/<?php echo $e->instru_id; ?>'" style="cursor:pointer;">
                         <td><?php echo $e->categ_nom; ?></td>
-                        <td><?php echo $e->type_nom; ?></td>
                         <td><?php echo $e->marque_nom; ?></td>
                         <td class="hidden-xs hidden-sm"><?php echo $e->instru_modele; ?></td>
                         <td class="hidden-xs"><?php echo $e->instru_numero_serie; ?></td>
                         <td class="visible-lg"><?php echo $e->emp_date_debut; ?></td>
-                        <td class="visible-lg"><?php echo $e->emp_date_fin; ?></td>
+                        <td class="visible-lg"><?php echo $e->emp_date_fin_prevue; ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>

@@ -41,20 +41,21 @@ class Membres extends Admin_Controller {
 		}
 		else if(is_numeric($membre_id) && !is_null($action))
 		{
-			switch($action) {
-				case 'edit':
-					$this->edit();
-					break;
-				default: show_404();
+			if(method_exists($this, $action)) {
+				$this->$action($membre_id);
+			} else {
+				show_404();
 			}
 		}
 	}
 
-	public function edit($method = null)
+	public function edit($membre_id, $method = null)
 	{
+		$id = $membre_id;
+
 		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
 		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required|is_unique');
+		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('ville', 'Téléphone', 'required');
 
 		$data = array();
@@ -69,7 +70,6 @@ class Membres extends Admin_Controller {
 		}
 		else
 		{
-			$id = $this->input->post('id');
 			$editdata = [
 				'adr_voie'     => $this->input->post('adresse'),
 				'membre_tel'   => $this->input->post('tel'),
@@ -85,6 +85,12 @@ class Membres extends Admin_Controller {
 			default: $this->index($id);
 		}
 
+	}
+
+	public function delete($id)
+	{
+		$this->Membre_model->delete($id);
+		$this->index();
 	}
 
 	public function lister_membres()

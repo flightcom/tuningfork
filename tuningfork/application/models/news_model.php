@@ -52,9 +52,11 @@ class News_model extends CI_Model {
 
     function insert_tags($newsid, $tags)
     {
-        $this->nt_news_id = $newsid;
-        $this->nt_tags = serialize($tags);
-        $res = $this->db->insert('news_tags', $this);
+        $data = [
+            'nt_news_id' => $newsid,
+            'nt_tags' => serialize($tags)
+        ];
+        $res = $this->db->insert('news_tags', $data);
         return $res;
     }
 
