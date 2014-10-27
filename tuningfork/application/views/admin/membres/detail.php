@@ -1,4 +1,4 @@
-<div class="pd20">
+<div class="pd20" ng-controller="AdminEditMembreCtrl">
 
     <h3><?php echo $membre->membre_prenom . " " . $membre->membre_nom; ?></h3>
 
@@ -17,6 +17,8 @@
 
             	<br>
 
+                    <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $membre->membre_id; ?>" readonly />
+
             	<div class="form-group">
                     <label for="categorie" class="control-label col-xs-1">Nom</label>
                     <div class="col-xs-11">
@@ -32,6 +34,20 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="tel" class="control-label col-xs-1">Téléphone</label>
+                    <div class="col-xs-11">
+                        <input type="text" class="form-control editable" id="tel" name="tel" value="<?php echo $membre->membre_tel; ?>" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="control-label col-xs-1">Email</label>
+                    <div class="col-xs-11">
+                        <input type="text" class="form-control editable" id="email" name="email" value="<?php echo $membre->membre_email; ?>" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="adresse" class="control-label col-xs-1">Adresse</label>
                     <div class="col-xs-11">
                         <input type="text" class="form-control editable" id="adresse" name="adresse" value="<?php echo $membre->adr_voie; ?>" readonly />
@@ -41,14 +57,22 @@
                 <div class="form-group">
                     <label for="cp" class="control-label col-xs-1">Code Postal</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control editable" id="cp" name="cp" value="<?php echo $membre->ville_code_postal; ?>" readonly />
+                        <input type="text" class="form-control editable" id="cp" name="cp" pattern="^\d{5}$" ng-model="membre.ville_code_postal" ng-init="membre.ville_code_postal='<?php echo $membre->ville_code_postal; ?>'" readonly />
                     </div>
                 </div>
 
-                <div class="form-group">
+<!--                 <div class="form-group">
                     <label for="ville" class="control-label col-xs-1">Ville</label>
                     <div class="col-xs-11">
                         <input type="text" class="form-control " id="ville" name="ville" value="<?php echo $membre->ville_nom; ?>" readonly />
+                    </div>
+                </div>
+ -->
+                <div class="form-group">
+                    <label for="ville" class="control-label col-xs-1">Ville</label>
+                    <div class="col-xs-11">
+                        <select class="form-control editable" name="selectville" placeholder="Ville" ng-options="ville.ville_id as ville.ville_nom for ville in villes" ng-init="membre.ville_id='<?php echo $membre->ville_id; ?>'" required ng-model="membre.ville_id" readonly></select>
+                        <input type="hidden" name="ville" value="{{membre.ville_id}}" required>
                     </div>
                 </div>
 
@@ -83,7 +107,6 @@
                         <th class="filter-select filter-exact filter-onlyAvail" data-placeholder="Sélectionner">Marque</th>
                         <th class="hidden-xs hidden-sm">Modèle</th>
                         <th class="hidden-xs">Numéro de série</th>
-                        <th>Code barre</th>
                         <th class="col-xs-1 visible-lg">Date de prêt</th>
                         <th class="col-xs-1 visible-lg">Date de remise</th>
                     </tr>
@@ -97,7 +120,6 @@
                         <td><?php echo $e->marque_nom; ?></td>
                         <td class="hidden-xs hidden-sm"><?php echo $e->instru_modele; ?></td>
                         <td class="hidden-xs"><?php echo $e->instru_numero_serie; ?></td>
-                        <td><?php echo $e->instru_code; ?></td>
                         <td class="visible-lg"><?php echo $e->emp_date_debut; ?></td>
                         <td class="visible-lg"><?php echo $e->emp_date_fin; ?></td>
                     </tr>
@@ -145,9 +167,9 @@
             <?php echo form_open('admin/membres/' . $membre->membre_id . '/emprunter', array('id' =>'emprunt-membre', 'class' => 'hidden form-horizontal')); ?>
 
                 <div class="form-group has-feedback">
-                    <label for="instru_code" class="control-label col-xs-1">Code instrument</label>
+                    <label for="instru_id" class="control-label col-xs-1">Code instrument</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control" id="instru_code" name="instru_code" value="">
+                        <input type="text" class="form-control" id="instru_id" name="instru_id" value="">
                         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                     </div>
                 </div>
@@ -176,7 +198,7 @@ $(function(){
         }
     });
 
-    $("#instru_code").keyup(function(){
+    $("#instru_id").keyup(function(){
 
         $.ajax({
             url: 'admin/check_instru_code/'+$(this).val(),

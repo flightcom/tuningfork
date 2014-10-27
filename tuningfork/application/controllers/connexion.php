@@ -45,7 +45,7 @@ class Connexion extends MY_Controller {
 				$username = $this->input->post('username');
 				$password = md5($this->input->post('password'));
 				if($user = $this->Membre_model->get_entry($username, $password)){
-					$this->Membre_model->set_date_last_connection($user->membre_id, 'NOW()');
+					$this->Membre_model->update_date_last_connection($user->membre_id);
 					$this->session->set_userdata('logged_in', true);
 					$this->session->set_userdata('user_isAdmin', $user->membre_admin);
 					$this->session->set_userdata('user_id', $user->membre_id);

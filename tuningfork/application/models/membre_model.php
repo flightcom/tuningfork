@@ -52,13 +52,22 @@ class Membre_model extends CI_Model {
 
     function insert($userdata)
     {
+        $this->db->trans_start();
         $adrid = !is_null($userdata['adresse']) ? $this->insert_address($userdata['adresse']) : 0;
         foreach($userdata['membre'] as $key => $value) :
             $this->$key = $value;
         endforeach;
         $this->membre_adr_id = $adrid ? $adrid : null;
         $res = $this->db->insert('membres', $this);
-        if (!$res ) $this->delete_address($adrid);
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+    }
+
+    function update($id, $userdata)
+    {
+        $this->db->where('m.membre_id', $id);
+        $this->db->where('m.membre_adr_id = a.adr_id');
+        $res = $this->db->update('membres as m, adresses as a', $userdata);
         return $res;
     }
 
@@ -90,9 +99,9 @@ class Membre_model extends CI_Model {
         return $enums;
     }
 
-    function set_date_last_connection($id, $date) 
+    function update_date_last_connection($id) 
     {
-        $data = array('membre_date_last_connection'=> $date);
+        $data = array('membre_date_last_connection'=> 'NOW');
         $this->db->where('membre_id', $id);
         $this->db->update('membres', $data);
     }

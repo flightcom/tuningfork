@@ -50,32 +50,41 @@ class Membres extends Admin_Controller {
 		}
 	}
 
-	public function edit()
+	public function edit($method = null)
 	{
 		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
-		$this->form_validation->set_rules('telephone', 'Téléphone', 'required');
+		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required|is_unique');
+		$this->form_validation->set_rules('ville', 'Téléphone', 'required');
 
 		$data = array();
 		$data['errors'] = array();
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data['errors']['newmarque'] = form_error('newmarque');
+			$data['errors']['adresse'] = form_error('adresse');
+			$data['errors']['tel']     = form_error('tel');
+			$data['errors']['email']   = form_error('email');
+			$data['errors']['ville']   = form_error('ville');
 		}
 		else
 		{
-			$marque = $this->input->post('newmarque');
-			$res = $this->Instrument_model->insert_marque($marque);
-			if($res){
-				$data['success'] = 1;
-				$data['marqueid'] = $res;
-			}
-			else {
-				$data['success'] = 0;
-			}
+			$id = $this->input->post('id');
+			$editdata = [
+				'adr_voie'     => $this->input->post('adresse'),
+				'membre_tel'   => $this->input->post('tel'),
+				'membre_email' => $this->input->post('email'),
+				'adr_ville_id' => $this->input->post('ville')
+			];
+			$res = $this->Membre_model->update($id, $editdata);
+			$data['success'] = $res ? 1 : 0;
 		}
-		echo json_encode($data);
+
+		switch($method) {
+			case 'ajax' : echo json_encode($data); break;
+			default: $this->index($id);
+		}
+
 	}
 
 	public function lister_membres()
