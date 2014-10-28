@@ -80,7 +80,7 @@ class Ajax extends Admin_Controller {
 			'title' => $title,
 			'text' => $text
 			);
-		$preview = $this->load->view('admin/news/preview', $data, TRUE);
+		$preview = $this->load->view('admin/blog/preview', $data, TRUE);
 		$content = $this->load->view('master', array('title' => $data['title'], 'content' => $preview));
 		echo $content;
 

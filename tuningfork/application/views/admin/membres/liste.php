@@ -1,4 +1,4 @@
-<div class="pd20" ng-controller="AdminListMembresCtrl">
+<div class="pdl20 pdr20" ng-controller="AdminListMembresCtrl">
 
 	<div class="btn-group pull-right">
 		<button ng-click="tmParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>

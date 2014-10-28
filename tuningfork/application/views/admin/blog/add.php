@@ -9,7 +9,7 @@
 
 	<br>
 
-	<?php echo form_open('admin/news/add', array('id' =>'add-news', 'class' => 'form-horizontal')); ?>
+	<?php echo form_open('admin/blog/add', array('id' =>'add-article', 'class' => 'form-horizontal')); ?>
 
 		<div class="form-group">
 	        <label for="titre" class="control-label col-md-1 hidden-sm">Titre</label>
@@ -64,7 +64,7 @@ $(function(){
 		$.ajax({
 			url: '/admin/ajax/preview',
 			type: 'post',
-			data: $('#add-news').serialize(),
+			data: $('#add-article').serialize(),
 			async: false,
 			success: function(data) {
 				if ( typeof(win) != 'undefined') {

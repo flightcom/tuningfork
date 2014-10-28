@@ -1,5 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+setlocale(LC_TIME, 'fr_FR');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

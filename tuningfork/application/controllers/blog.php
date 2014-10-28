@@ -20,7 +20,7 @@ class Blog extends CI_Controller {
     public function __construct()
     {
     	parent::__construct();
-		$this->load->model('News_model');
+		$this->load->model('Blog_model');
     }
 
 	public function index()
@@ -31,10 +31,10 @@ class Blog extends CI_Controller {
 	public function liste()
 	{
 		$data = [
-			'articles' => $this->News_model->get_all_entries()
+			'articles' => $this->Blog_model->get_all_entries()
 		];
 		$content = $this->load->view('blog/liste', $data, TRUE);
-		$this->load->view('master', array('title' => 'Blog', 'content' => $content));
+		$this->load->view('master', array('title' => 'Articles', 'content' => $content));
 	}
 
 

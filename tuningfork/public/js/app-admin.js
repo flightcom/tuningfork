@@ -362,3 +362,62 @@ tfApp.controller('AdminEditMembreCtrl', function ($scope, $http, $filter){
 	}, true);
 
 });
+
+tfApp.controller('AdminListArticlesCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
+
+	$scope.articles = [];
+
+	$scope.columns = [
+		{ title: 'Identifiant', field: 'article_id', visible: true, classes: "col-xs-1", filter: { 'article_id': 'text' } },
+		{ title: 'Auteur', field: 'membre_nom', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
+		{ title: 'Titre', field: 'article_titre', visible: true, classes: "col-xs-2", filter: { 'article_titre': 'text' } },
+		{ title: 'Date d\'ajout', field: 'article_date_creation', visible: true, classes: "col-xs-2", filter: { 'article_date_creation': 'text' } },
+		{ title: 'Dernière mise à jour', field: 'article_date_last_update', visible: true, classes: "col-xs-2", filter: { 'article_date_last_update': 'text' } }
+	];
+
+	$scope.go = function(path){
+		location.href = path;
+	}
+
+	$scope.loadArticles = function(){
+
+		var defer = $q.defer();
+		$http.get('/admin/blog/get_articles/ajax').success(function(data){
+			defer.resolve(data);
+		},true);
+
+		return defer.promise;
+
+	}
+
+	var promise = $scope.loadArticles();
+
+	promise.then(function(data){
+
+		$scope.articles = data.articles;
+
+		$scope.tbParams = new ngTableParams({
+	        page: 1,            // show first page
+	        count: 10,          // count per page
+	        filter: {
+	        	// instru_dispo: [0,1],
+	        	// instru_etat: [0,1,2,3,4,5]
+	        },
+	        sorting: {
+	        	article_id: 'asc'
+	        }
+	    }, {
+	    	filterDelay: 0,
+	        total: $scope.articles.length, // length of data
+	        getData: function($defer, params) {
+	            // use build-in angular filter
+	            var orderedData = params.filter() ? $filter('filter')($scope.articles, params.filter()) : $scope.articles;
+				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+	            $scope.filteredArticles = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	            params.total(orderedData.length); // set total for recalc pagination
+	            $defer.resolve($scope.filteredArticles);
+	        }
+	    });
+	});
+
+});

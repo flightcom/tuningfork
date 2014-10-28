@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends Admin_Controller {
+class Blog extends Admin_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -23,20 +23,20 @@ class News extends Admin_Controller {
         $this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->load->model('News_model');
+		$this->load->model('Blog_model');
 
-		$this->menu = $this->load->view('admin/news/menu', NULL, TRUE);
+		$this->menu = $this->load->view('admin/blog/menu', NULL, TRUE);
     }
 
-	public function index($news_id = null, $action = null)
+	public function index($article_id = null, $action = null)
 	{
-		if(is_null($news_id))
+		if(is_null($article_id))
 		{
-			$this->lister_news();
+			$this->lister_articles();
 		} 
 		else
 		{
-			$this->get_news($news_id);
+			$this->get_article($article_id);
 		}
 	}
 
@@ -52,7 +52,7 @@ class News extends Admin_Controller {
 
 		if ($this->form_validation->run() === FALSE)
 		{
-			$content = $this->load->view('admin/news/add', $data, TRUE);
+			$content = $this->load->view('admin/blog/add', $data, TRUE);
 			$this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));		
 		}
 		else
@@ -60,30 +60,43 @@ class News extends Admin_Controller {
 			$titre = $this->input->post('titre');
 			$texte = $this->input->post('texte');
 			$tags = $this->input->post('tag');
-			$res = $this->News_model->insert($titre, $texte, $tags);
-			if ($res) redirect('/admin/news');
+			$res = $this->Blog_model->insert($titre, $texte, $tags);
+			if ($res) redirect('/admin/blog');
 		}
 
 	}
 
-	public function lister_news()
+	public function lister_articles()
 	{
 		$data = array(
-			'articles' => $this->News_model->get_all_entries(),
+			'articles' => $this->Blog_model->get_all_entries(),
 			'title' => 'Liste des articles',
 			);
-		$content = $this->load->view('admin/news/liste', $data, TRUE);
-		$this->load->view('admin/master', array('title' => 'Liste des news', 'content' => $content));
+		$content = $this->load->view('admin/blog/liste', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste des articles', 'content' => $content));
 	}
 
-	public function get_news($news_id)
+	public function get_article($article_id)
 	{
-		$data = array(
-			'article' => $this->News_model->get_entry($news_id)
-			);
-		$content = $this->load->view('admin/news/news', $data, TRUE);
-		$this->load->view('admin/master', array('title' => 'Liste des news', 'content' => $content));
+		$data = [
+			'article' => $this->Blog_model->get_entry($article_id)
+		];
+		$content = $this->load->view('admin/blog/liste', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Liste des articles', 'content' => $content));
+	}
 
+	public function get_articles($method = null)
+	{
+		$data = [
+			'articles' => $this->Blog_model->get_all_entries()
+		];
+
+		switch($method) {
+			case 'ajax': echo json_encode($data); break;
+			default: return $data;
+		}
+
+		return;
 	}
 
 }

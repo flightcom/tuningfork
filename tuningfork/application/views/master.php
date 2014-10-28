@@ -32,14 +32,9 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-<!-- 						<li><a href="/">Home</a></li>
-					<li><a onclick="$(this).closest('li').addClass('bold');" href="/instruments/">Instruments</a></li>
-					<li><a href="/news/liste">News</a></li>
-					<li><a href="/contact/form">Contact</a></li>
--->
-						<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
+					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
 					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/instruments'">Instruments</button></li>
-					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/news'">News</button></li>
+					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/blog'">Blog</button></li>
 					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/contact'">Contact</button></li>
 				</ul>
 
