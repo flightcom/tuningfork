@@ -26,9 +26,7 @@
 		<button ng-click="tiParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
 	</div>
 
-	<!-- <p>Filter : {{tiParams.filter() | json}}</p> -->
-
-	<h3><?php echo $title; ?></h3>
+	<h3><?php echo $title; ?> ({{instruments.length}})</h3>
 
 	<br>
 

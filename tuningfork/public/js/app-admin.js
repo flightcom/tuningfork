@@ -127,7 +127,7 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 
 	promise.then(function(data){
 
-		$scope.instruments = data.instruments;
+		$scope.instruments = data;
 
 		$scope.tiParams = new ngTableParams({
 	        page: 1,            // show first page

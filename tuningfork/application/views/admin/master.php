@@ -30,8 +30,6 @@
 				<a class="navbar-brand" href="/">Tuning Fork</a>
 			</div>
 			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-				</ul>
 
 				<?php echo $this->session->userdata('account'); ?>
 
@@ -39,17 +37,16 @@
 					<div class="form-group">
 						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
 					</div>
-					<!-- <button type="submit" class="btn btn-default">Valider</button> -->
 				</form>
 
-			</div><!--/.nav-collapse -->
+			</div>
 		</div>
 
 		<div style="height:48px;" id="spacer"></div>
 
 		<div class="col-xs-2 col-lg-1 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
 
-		<div id="wrap" class="col-xs-10 col-lg-11 col-centered pull-right" role="main">
+		<div id="wrap" class="col-xs-12 col-sm-10 col-lg-11 col-centered pull-right" role="main">
 
 			<?php echo $this->menu; ?>
 
@@ -70,7 +67,6 @@
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app-admin.js'); ?>"></script> 
-		<script src="<?php echo (JS.'summernote.min.js'); ?>"></script>
 	</body>
 
 </html>

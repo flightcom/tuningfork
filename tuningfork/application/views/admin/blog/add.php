@@ -1,5 +1,7 @@
 <link href="<?php echo (CSS.'summernote.css'); ?>" rel="stylesheet" type="text/css"></script>
 <link href="<?php echo (CSS.'summernote-bs3.css'); ?>" rel="stylesheet" type="text/css"></script>
+<link href="<?php echo (CSS.'codemirror/codemirror.css'); ?>" rel="stylesheet" type="text/css"></script>
+<link href="<?php echo (CSS.'codemirror/monokai.css'); ?>" rel="stylesheet" type="text/css"></script>
 
 <?php echo validation_errors(); ?>
 
@@ -44,6 +46,10 @@
 
 </div>
 
+<script src="<?php echo (JS.'codemirror/codemirror.js'); ?>"></script>
+<!-- <script src="<?php echo (JS.'codemirror/xml.js'); ?>"></script> -->
+<!-- <script src="<?php echo (JS.'codemirror/htmlmixed.js'); ?>"></script> -->
+<script src="<?php echo (JS.'summernote.min.js'); ?>"></script>
 <script>
 
 var win;
@@ -52,6 +58,10 @@ $(function(){
 
 	$('#editor').summernote({
 		height: 300,
+		codemirror: {
+			theme: 'monokai',
+			lineNumbers: true
+		},
 		onChange: function(content) {
 			$('#texte').html(content);
 		}

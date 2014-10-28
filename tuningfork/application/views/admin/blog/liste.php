@@ -2,6 +2,8 @@
 	
 	<h3><?php echo $title; ?></h3>
 
+	<br>
+
 	<table ng-table="tbParams" show-filter="true" class="table table-hover col-xs-12 table-list-articles">
 
 	    <thead>

@@ -85,6 +85,7 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 .breadcrumb>li+li:before{content:"\203A\00a0"!important;}
 .nav-sidebar {margin-right: -21px;margin-bottom: 20px;margin-left: -20px;}
 .nav-sidebar ul{ overflow-x:hidden;}
+.nav-sidebar span.glyphicon + span { margin-left: 5px; }
 /*.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}*/
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: @color-menu-active;}
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
@@ -646,4 +647,32 @@ color: #444;
 	.infos {
 		font-style: italic;
 	}
+}
+
+@media (max-width: 767px) {
+
+	#left-sidebar {
+		position: fixed;
+		bottom:0!important;
+		top: inherit!important;
+		width: 100%;
+		padding: 0 20px!important;
+
+		.nav {
+			width: 100%;
+			display: table;
+			margin: 0;
+			li {
+				display: table-cell;
+				text-align: center;
+				&.active a::after {
+					content: none;
+				}
+			}
+			span.glyphicon {
+				& + span { display: none; }
+			}
+		}
+	}
+
 }
