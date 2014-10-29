@@ -3,33 +3,33 @@
 <link href="<?php echo (CSS.'codemirror/codemirror.css'); ?>" rel="stylesheet" type="text/css"></script>
 <link href="<?php echo (CSS.'codemirror/monokai.css'); ?>" rel="stylesheet" type="text/css"></script>
 
-<div class="pdr20 pdl20" ng-controller="AdminEditArticleCtrl">
+<div class="pdr20 pdl20" ng-controller="AdminEditArticleCtrl" ng-init="article=<?php echo htmlspecialchars(json_encode($article)); ?>">
 
-	<!-- <div class="form-group"> -->
+	<div class="form-group">
 		<div class="col-xs-10">
 		    <div ng-hide="editorEnabled">
 		    	<h3>{{article.article_titre}}</h3><a href="#" ng-click="editorEnabled=!editorEnabled">Editer</a>
 		    </div>
 		    <div ng-show="editorEnabled">
-				<input class="h3 form-control" type="text" ng-model="article.article_titre" ng-init="article.article_titre='<?php echo $article->article_titre; ?>'">
+				<input class="h3 form-control" type="text" ng-model="article.article_titre">
 				<a href="#" ng-click="editorEnabled=!editorEnabled">Valider</a>
 		    </div>
 		</div>
-	<!-- </div> -->
+	</div>
 
 	<div class="form-group">
 		<div class="col-xs-2">
 			<div class="btn-group">
-				<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Publié</button>
+				<button type="button" class="btn btn-default" ng-class="{active: article.article_published}" ng-click="updateArticle('article_published', !article.article_published)">{{article.article_published ? 'Publié' : 'Publier'}}</button>
 			</div>
 		</div>
 	</div>
 
-	<div class="form-group">
+<!-- 	<div class="form-group">
 		<textarea id="editor" name="editor" class="form-control"><?php echo $article->article_contenu; ?></textarea>
 		<textarea id="texte" name="texte" class="hidden" ng-model="article.article_contenu"></textarea>
 	</div>
-
+ -->
 </div>
 
 <script src="<?php echo (JS.'codemirror/codemirror.js'); ?>"></script>

@@ -21,8 +21,6 @@ class Blog extends Admin_Controller {
     {
     	parent::__construct();
         $this->load->helper('url');
-		$this->load->helper('form');
-		$this->load->library('form_validation');
 		$this->load->model('Blog_model');
 
 		$this->menu = $this->load->view('admin/blog/menu', NULL, TRUE);
@@ -42,6 +40,9 @@ class Blog extends Admin_Controller {
 
 	public function add()
 	{
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
 		/* Check if admin */
 		$data = array(
 			'title' => 'Nouvel article',
@@ -104,6 +105,26 @@ class Blog extends Admin_Controller {
 		}
 
 		return;
+	}
+
+	public function update($method = null)
+	{
+		// $article_id = $this->input->post('id');
+		// if(empty($article_id)) {
+		// 	if ($this->isAjaxCall) echo 0;
+		// 	else return false;
+		// }
+
+		// $data = [
+		// 	$this->input->post('field') => $this->input->post('value')
+		// ];
+
+		// $res = $this->Blog_model->update($article_id, $data);
+		// call_user_func($this->return, $res);
+		if (!$this->input->is_ajax_request()) echo 1;
+		else return true;
+
+		// echo 1;
 	}
 
 }

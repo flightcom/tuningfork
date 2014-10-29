@@ -426,4 +426,22 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
 
 	$scope.editorEnabled = false;
 
+    $scope.updateArticle = function(field, data){
+
+        console.log($scope.article[field]);
+        $http.post('update', 
+            { 
+                id: $scope.article.article_id,
+                field: field,
+                value: data
+            }
+        ).success(function(result){
+            console.log(result);
+            if ( result == 1 ) { $scope.article[field] = data; }
+        }).error(function(result){
+            console.log('error ' + result);
+        });
+
+    }
+
 });

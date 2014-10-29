@@ -59,6 +59,13 @@ class Blog_model extends CI_Model {
         return $res;
     }
 
+    function update($id, $data)
+    {
+        $this->db->where('article_id', $id);
+        $res = $this->db->update('articles', $data);
+        return $res;
+    }
+
 }
 
 ?>
