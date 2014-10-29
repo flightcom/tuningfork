@@ -421,3 +421,9 @@ tfApp.controller('AdminListArticlesCtrl', function ($scope, $http, $filter, $q, 
 	});
 
 });
+
+tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
+
+	$scope.editorEnabled = false;
+
+});

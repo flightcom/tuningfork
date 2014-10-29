@@ -15,6 +15,7 @@
 
 		<script src="<?php echo (JS.'utils.js'); ?>"></script> 
 		<script src="<?php echo (JS.'jquery/jquery-1.11.0.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
 
 	</head>
 
@@ -60,7 +61,6 @@
 		<script src="<?php echo (JS.'bootstrap/bootstrap.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-rating-input.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
-		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 

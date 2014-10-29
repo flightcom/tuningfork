@@ -76,13 +76,20 @@ class Blog extends Admin_Controller {
 		$this->load->view('admin/master', array('title' => 'Liste des articles', 'content' => $content));
 	}
 
-	public function get_article($article_id)
+	public function get_article($article_id, $method = null)
 	{
 		$data = [
 			'article' => $this->Blog_model->get_entry($article_id)
 		];
-		$content = $this->load->view('admin/blog/liste', $data, TRUE);
-		$this->load->view('admin/master', array('title' => 'Liste des articles', 'content' => $content));
+
+		switch($method) {
+			case 'ajax': 
+				echo json_encode($data); break;
+			default: 
+				$content = $this->load->view('admin/blog/detail', $data, TRUE);
+				$this->load->view('admin/master', array('title' => 'Liste des articles', 'content' => $content));
+		}
+
 	}
 
 	public function get_articles($method = null)

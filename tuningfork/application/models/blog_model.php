@@ -33,7 +33,6 @@ class Blog_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('articles');
         $this->db->where('article_id', $id);
-        $this->db->where('membre_password', $md5pass);
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();
