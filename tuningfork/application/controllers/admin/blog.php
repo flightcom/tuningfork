@@ -109,22 +109,20 @@ class Blog extends Admin_Controller {
 
 	public function update($method = null)
 	{
-		// $article_id = $this->input->post('id');
-		// if(empty($article_id)) {
-		// 	if ($this->isAjaxCall) echo 0;
-		// 	else return false;
-		// }
+		$article_id = $this->input->post('id');
+		if(is_null($article_id)) {
+			if ($method == 'ajax') echo 0;
+			else return false;
+		}
 
-		// $data = [
-		// 	$this->input->post('field') => $this->input->post('value')
-		// ];
+		$data = [
+			$this->input->post('field') => $this->input->post('value')
+		];
 
-		// $res = $this->Blog_model->update($article_id, $data);
-		// call_user_func($this->return, $res);
-		if (!$this->input->is_ajax_request()) echo 1;
+		$res = $this->Blog_model->update($article_id, $data);
+
+		if ($method == 'ajax') echo $article_id;
 		else return true;
-
-		// echo 1;
 	}
 
 }

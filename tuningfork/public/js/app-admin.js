@@ -428,8 +428,8 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
 
     $scope.updateArticle = function(field, data){
 
-        console.log($scope.article[field]);
-        $http.post('update', 
+        console.log(field + ', ' + data + ', ' + $scope.article.article_id);
+        $http.post('update/ajax', 
             { 
                 id: $scope.article.article_id,
                 field: field,

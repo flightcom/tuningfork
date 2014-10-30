@@ -106,9 +106,7 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
 	    }
         return true;
     };
-}).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-}]);
+});
 
 tfApp.factory('utilities', function() {
     return {
