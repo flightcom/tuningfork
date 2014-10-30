@@ -429,7 +429,7 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
     $scope.updateArticle = function(field, data){
 
         console.log($scope.article[field]);
-        $http.post('update', 
+        $http.post('update/ajax', 
             { 
                 id: $scope.article.article_id,
                 field: field,
@@ -438,8 +438,6 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
         ).success(function(result){
             console.log(result);
             if ( result == 1 ) { $scope.article[field] = data; }
-        }).error(function(result){
-            console.log('error ' + result);
         });
 
     }
