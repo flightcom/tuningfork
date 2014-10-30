@@ -20,7 +20,6 @@ class Blog extends Admin_Controller {
     public function __construct()
     {
     	parent::__construct();
-        $this->load->helper('url');
 		$this->load->model('Blog_model');
 
 		$this->menu = $this->load->view('admin/blog/menu', NULL, TRUE);
@@ -120,9 +119,8 @@ class Blog extends Admin_Controller {
 		];
 
 		$res = $this->Blog_model->update($article_id, $data);
-
-		if ($method == 'ajax') echo $article_id;
-		else return true;
+		if ($method == 'ajax') echo $res;
+		else return $res;
 	}
 
 }

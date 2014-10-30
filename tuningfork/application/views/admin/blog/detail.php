@@ -3,7 +3,9 @@
 <link href="<?php echo (CSS.'codemirror/codemirror.css'); ?>" rel="stylesheet" type="text/css"></script>
 <link href="<?php echo (CSS.'codemirror/monokai.css'); ?>" rel="stylesheet" type="text/css"></script>
 
-<div class="pdr20 pdl20" ng-controller="AdminEditArticleCtrl" ng-init="article=<?php echo htmlspecialchars(json_encode($article)); ?>">
+<div class="pdr20 pdl20" ng-controller="AdminEditArticleCtrl" ng-init="article=<?php echo hscje($article); ?>">
+
+	<p>{{article | json}}</p>
 
 	<div class="form-group">
 		<div class="col-xs-10">
@@ -12,7 +14,7 @@
 		    </div>
 		    <div ng-show="editorEnabled">
 				<input class="h3 form-control" type="text" ng-model="article.article_titre">
-				<a href="#" ng-click="editorEnabled=!editorEnabled">Valider</a>
+				<a href="#" ng-click="editorEnabled=!editorEnabled; updateArticle('article_titre', article.article_titre)">Valider</a>
 		    </div>
 		</div>
 	</div>
