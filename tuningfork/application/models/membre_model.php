@@ -20,6 +20,14 @@ class Membre_model extends CI_Model {
         return $query->result();
     }
 
+    function get_all_entries_extended()
+    {
+        $this->db->select('*');
+        $this->db->from('membres_extended');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function get_last_ten_entries()
     {
         $query = $this->db->get('membres', 10);

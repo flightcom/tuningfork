@@ -31,7 +31,7 @@ class Blog extends CI_Controller {
 	public function liste()
 	{
 		$data = [
-			'articles' => $this->Blog_model->get_all_entries()
+			'articles' => $this->Blog_model->get_all_published_entries()
 		];
 		$content = $this->load->view('blog/liste', $data, TRUE);
 		$this->load->view('master', array('title' => 'Articles', 'content' => $content));

@@ -17,7 +17,26 @@ class Blog_model extends CI_Model {
         $this->db->order_by('article_date_creation', 'desc');
         $query = $this->db->get();
         return $query->result();
+    }
 
+    function get_all_entries_extended()
+    {
+        $this->db->select('*');
+        $this->db->from('articles_extended');
+        $this->db->order_by('article_date_creation', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_all_published_entries()
+    {
+        $this->db->select('*');
+        $this->db->from('articles');
+        $this->db->join('membres', 'membres.membre_id = articles.article_auteur_id');
+        $this->db->where('article_published', true);
+        $this->db->order_by('article_date_creation', 'desc');
+        $query = $this->db->get();
+        return $query->result();
     }
 
     function get_last_ten_entries()
@@ -32,6 +51,7 @@ class Blog_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->from('articles');
+        // $this->db->join('membres', 'membres.membre_id = articles.article_auteur_id');
         $this->db->where('article_id', $id);
         $this->db->limit(1);
         $query = $this->db->get();

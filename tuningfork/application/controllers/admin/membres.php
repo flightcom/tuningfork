@@ -96,7 +96,7 @@ class Membres extends Admin_Controller {
 	public function lister_membres()
 	{
 		$data = array(
-			'membres' => $this->Membre_model->get_all_entries(),
+			'membres' => $this->Membre_model->get_all_entries_extended(),
 			'title' => 'Liste des membres',
 			);
 		$content = $this->load->view('admin/membres/liste', $data, TRUE);
@@ -106,7 +106,7 @@ class Membres extends Admin_Controller {
 	public function getMembres($method)
 	{
 		$data = array(
-			'membres' => $this->Membre_model->get_all_entries(),
+			'membres' => $this->Membre_model->get_all_entries_extended(),
 			'title' => 'Liste des membres',
 			);
 		switch( $method ) {

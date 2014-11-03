@@ -31,7 +31,7 @@
 		<div class="form-group">
 	        <label for="titre" class="control-label col-md-1 hidden-sm">Tags</label>
 	        <div class="col-md-11 col-xs-12">
-	            <input type="text" class="form-control" id="tag" name="tag" placeholder="Tags" ng-enter="addTag();">
+	            <input type="text" class="form-control" id="tag" name="tag" placeholder="Tags">
 	        </div>
 	    </div>
 
@@ -92,14 +92,14 @@ $(function(){
 
 });
 
-function addTag() {
-
-	var nbTags = $('input[type=button]').size();
-	var newtag = '<input type="button" onclick="$(this).remove();" name="tag['+nbTags+']" class="tag form-input btn btn-primary mgr5" value="' + $('#tag').val() + '" />';
-	$('#tags-list').append(newtag);
-	$('#tag').val('');
-	return false;
-
-}
+$("#tag").keypress(function(e) {
+    if(e.which == 13) {
+		var nbTags = $('input[type=button]').size();
+		var newtag = '<input type="button" onclick="$(this).remove();" name="tag['+nbTags+']" class="tag form-input btn btn-primary mgr5" value="' + $('#tag').val() + '" />';
+		$('#tags-list').append(newtag);
+		$('#tag').val('');
+		return false;
+    }
+});
 
 </script>

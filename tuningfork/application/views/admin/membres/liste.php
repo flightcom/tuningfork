@@ -37,7 +37,7 @@
 
 	    <tbody>
 
-			<tr ng-repeat="membre in filteredMembres" ng-click="go('/admin/membres/' + membre.membre_id)" style="cursor:pointer;" ng-class="membre.prets_en_cours =='0' ? 'border-left-ko' : 'border-left-ok'">
+			<tr ng-repeat="membre in filteredMembres" ng-click="go('/admin/membres/' + membre.membre_id)" style="cursor:pointer;" ng-class="membre.membre_is_adherent == '0' ? 'border-left-ko' : 'border-left-ok'">
 	 		    <td ng-repeat="column in columns" data-title="column.title" ng-show="column.visible" sortable="column.field" ng-class="column.classes">{{membre[column.field]}}</td>
 			</tr>
 

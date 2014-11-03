@@ -368,9 +368,8 @@ tfApp.controller('AdminListArticlesCtrl', function ($scope, $http, $filter, $q, 
 	$scope.articles = [];
 
 	$scope.columns = [
-		{ title: 'Identifiant', field: 'article_id', visible: true, classes: "col-xs-1", filter: { 'article_id': 'text' } },
-		{ title: 'Auteur', field: 'membre_nom', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
 		{ title: 'Titre', field: 'article_titre', visible: true, classes: "col-xs-2", filter: { 'article_titre': 'text' } },
+		{ title: 'Auteur', field: 'membre_nom_complet', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
 		{ title: 'Date d\'ajout', field: 'article_date_creation', visible: true, classes: "col-xs-2", filter: { 'article_date_creation': 'text' } },
 		{ title: 'Dernière mise à jour', field: 'article_date_last_update', visible: true, classes: "col-xs-2", filter: { 'article_date_last_update': 'text' } }
 	];
@@ -401,10 +400,10 @@ tfApp.controller('AdminListArticlesCtrl', function ($scope, $http, $filter, $q, 
 	        count: 10,          // count per page
 	        filter: {
 	        	// instru_dispo: [0,1],
-	        	// instru_etat: [0,1,2,3,4,5]
+	        	// instru_etat: [0,1,2,3,4,5]*
 	        },
 	        sorting: {
-	        	article_id: 'asc'
+	        	article_date_last_update: 'desc'
 	        }
 	    }, {
 	    	filterDelay: 0,
@@ -426,18 +425,24 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
 
 	$scope.editorEnabled = false;
 
-    $scope.updateArticle = function(field, data){
+	$scope.$watch('article', function(oldvalues, newvalues){
+		$scope.update();
+	}, true);
 
-        console.log($scope.article[field]);
+	$scope.$watch('isEditingContent', function(){
+		if ( $scope.isEditingContent == false ) {
+			console.log($scope.article_contenu_temp);
+			$scope.article.article_contenu = $scope.article_contenu_temp;
+		}
+	})
+
+    $scope.update = function(){
+
         $http.post('update/ajax', 
-            { 
-                id: $scope.article.article_id,
-                field: field,
-                value: data
-            }
-        ).success(function(result){
-            console.log(result);
-            if ( result == 1 ) { $scope.article[field] = data; }
+        	{ article: $scope.article }
+        ).success(function(data){
+        	console.log('ok');
+        	$scope.article = data.article;
         });
 
     }

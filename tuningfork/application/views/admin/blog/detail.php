@@ -6,36 +6,50 @@
 <div class="pdr20 pdl20" ng-controller="AdminEditArticleCtrl" ng-init="article=<?php echo hscje($article); ?>">
 
 	<p>{{article | json}}</p>
+	<article class="article">
 
-	<div class="form-group">
-		<div class="col-xs-10">
-		    <div ng-hide="editorEnabled">
-		    	<h3>{{article.article_titre}}</h3><a href="#" ng-click="editorEnabled=!editorEnabled">Editer</a>
-		    </div>
-		    <div ng-show="editorEnabled">
-				<input class="h3 form-control" type="text" ng-model="article.article_titre">
-				<a href="#" ng-click="editorEnabled=!editorEnabled; updateArticle('article_titre', article.article_titre)">Valider</a>
-		    </div>
-		</div>
-	</div>
+		<input style="display:none;" type="checkbox" name="article_published" ng-true-value="1" ng-false-value="0" ng-model="article.article_published">
+		<input style="display:none;" type="text" name="article_titre" ng-model="article.article_titre">
 
-	<div class="form-group">
-		<div class="col-xs-2">
-			<div class="btn-group">
-				<button type="button" class="btn btn-default" ng-class="{active: article.article_published}" ng-click="updateArticle('article_published', !article.article_published)">{{article.article_published ? 'Publié' : 'Publier'}}</button>
+		<div class="form-group">
+			<div class="col-xs-10">
+			    <div ng-hide="isEditingTitle">
+			    	<h3 ng-click="isEditingTitle=true">{{article.article_titre}}</h3>
+			    </div>
+			    <div ng-show="isEditingTitle">
+	 				<input class="h3 form-control" type="text" ng-escape="isEditingTitle=false;" ng-init="article_titre_temp=article.article_titre" ng-model="article_titre_temp" ng-enter="article.article_titre=article_titre_temp;isEditingTitle=false;">
+			    </div>
+			</div>
+			<div class="col-xs-2">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" ng-class="{active: article.article_published == 1}" onclick="$('[name=article_published]').click();">{{article.article_published == 1 ? 'Publié' : 'Publier'}}</button>
+				</div>
 			</div>
 		</div>
-	</div>
 
-<!-- 	<div class="form-group">
-		<textarea id="editor" name="editor" class="form-control"><?php echo $article->article_contenu; ?></textarea>
-		<textarea id="texte" name="texte" class="hidden" ng-model="article.article_contenu"></textarea>
-	</div>
- -->
+		<div class="form-group">
+			<div class="col-xs-12">
+				<p class="infos">Par {{article.membre_prenom + ' ' + article.membre_nom}} le {{article.article_date_creation}} (dernière mise à jour le {{article.article_date_last_update}})</p>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+
+	        <div class="col-xs-12">
+				<button class="btn btn-primary mgb10" ng-click="isEditingContent=!isEditingContent">{{isEditingContent ? 'Valider' : 'Éditer'}}</button>
+	        	<div ng-hide="isEditingContent" ng-bind-html="article.article_contenu"></div>
+	        	<div ng-show="isEditingContent">
+					<textarea id="editor" name="editor" class="form-control">{{article.article_contenu}}</textarea>
+					<textarea id="texte" name="texte" class="hidden" ng-model="article.article_contenu"></textarea>
+	        	</div>
+		    </div>
+	    </div>
+
+	</article>
 </div>
 
 <script src="<?php echo (JS.'codemirror/codemirror.js'); ?>"></script>
-<!-- <script src="<?php echo (JS.'codemirror/xml.js'); ?>"></script> -->
 <script src="<?php echo (JS.'summernote.min.js'); ?>"></script>
 <script>
 

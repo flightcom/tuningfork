@@ -1,4 +1,4 @@
-var tfApp = angular.module('tuningfork', ['ngTable'])
+var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize'])
 .directive('ngFocusOn', function($timeout) {
     return {
         link: function(scope, element, attrs) {
@@ -70,7 +70,20 @@ var tfApp = angular.module('tuningfork', ['ngTable'])
             if(event.which === 13) {
                 scope.$apply(function (){
                     // console.log(attrs.ngEnter);
-                    eval(attrs.ngEnter);
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+}).directive('ngEscape', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 27) {
+                scope.$apply(function (){
+                    // console.log(attrs.ngEnter);
+                    scope.$eval(attrs.ngEscape);
                 });
 
                 event.preventDefault();

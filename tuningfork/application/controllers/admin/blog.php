@@ -95,7 +95,7 @@ class Blog extends Admin_Controller {
 	public function get_articles($method = null)
 	{
 		$data = [
-			'articles' => $this->Blog_model->get_all_entries()
+			'articles' => $this->Blog_model->get_all_entries_extended()
 		];
 
 		switch($method) {
@@ -108,19 +108,16 @@ class Blog extends Admin_Controller {
 
 	public function update($method = null)
 	{
-		$article_id = $this->input->post('id');
-		if(is_null($article_id)) {
+		$article = $this->input->post('article');
+		$id = $article['article_id'];
+		if(is_null($id)) {
 			if ($method == 'ajax') echo 0;
 			else return false;
 		}
 
-		$data = [
-			$this->input->post('field') => $this->input->post('value')
-		];
-
-		$res = $this->Blog_model->update($article_id, $data);
-		if ($method == 'ajax') echo $res;
-		else return $res;
+		$res = $this->Blog_model->update($id, $article);
+		if ($method == 'ajax') echo $this->get_article($id, $method);
+		else return $this->get_article($id, $method);
 	}
 
 }
