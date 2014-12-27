@@ -12,9 +12,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="/admin/prets"><span class="glyphicon glyphicon-th-list"></span> Liste</a></li>
                 <!-- <li><a href="/admin/prets/new"><span class="glyphicon glyphicon-plus"></span> Nouveau</a></li> -->
-                <li><a href="/admin/prets/now"><span class="glyphicon glyphicon-new-window"></span> Prêts en cours</a></li>
+<!--                 <li><a href="/admin/prets/now"><span class="glyphicon glyphicon-new-window"></span> Prêts en cours</a></li>
                 <li><a href="/admin/prets/retards"><span class="glyphicon glyphicon-time"></span> Retards</a></li>
-            </ul>
+ -->            </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
 </div>

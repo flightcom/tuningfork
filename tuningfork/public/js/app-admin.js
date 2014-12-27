@@ -50,12 +50,9 @@ tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope,
 	}
 
 	$scope.loadCategs = function(){
-		// categ = $scope.instru.categpath.slice(-1)[0].categ_id;
 		categ = $scope.instru.categpath.length > 0 ? $scope.instru.categpath[0].categ_id:'';
-		// console.log(categ);
 		$http.get('/admin/instruments/getCategories/' + categ + '/ajax').success(function(data){
-			// console.log(data);
-			$scope.categories = data;
+			$scope.categories = data.categories;
 		},true);
 	}
 
@@ -216,8 +213,9 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
     $scope.loadCategories = function(parent) {
 
-    	var categid = parent ? parent.categ_id : null;
+    	var categid = parent ? parent.categ_id : '';
         $http.get('/admin/instruments/getCategories/'+categid+'/ajax').success(function(data){
+        	console.log(categid);
             var niveau = null;
             angular.forEach($scope.categories, function(level, index){
                 if ( level.indexOf(parent) > -1) { niveau = index; }
@@ -227,7 +225,7 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
                 $scope.categoriesPath.splice(niveau, $scope.categoriesPath.length-niveau-1);
                 $scope.categories.splice(niveau+1, $scope.categories.length-niveau-1);
             }
-            $scope.categories.push(data.categories);        		
+            $scope.categories.push(data.categories);
         },true);
 
     }
@@ -448,3 +446,103 @@ tfApp.controller('AdminEditArticleCtrl', function ($scope, $http){
     }
 
 });
+
+tfApp.controller('AdminListPretsCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
+
+	$scope.prets = [];
+
+	$scope.columns = [
+		{ title: 'Nom', field: 'membre_nom', visible: true, classes: "col-xs-1", filter: { 'membre_nom': 'text' } },
+		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-1", filter: { 'membre_prenom': 'text' } },
+		// { title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-1", filter: { 'membre_tel': 'text' } },
+		// { title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
+		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
+		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-1", filter: { 'marque_nom': 'text' } },
+		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-1", filter: { 'instru_modele': 'text' } },
+		{ title: 'Date d\'emprunt', field: 'emp_date_debut', visible: true, classes: "col-xs-1", filter: { 'emp_date_debut': 'text' } },
+		{ title: 'Date de remise prévue', field: 'emp_date_fin_prevue', visible: true, classes: "col-xs-1", filter: { 'emp_date_fin_prevue': 'text' } },
+		{ title: 'Date de remise effective', field: 'emp_date_fin_effective', visible: true, classes: "col-xs-1", filter: { 'emp_date_fin_effective': 'text' } }
+	];
+
+	$scope.go = function(path){
+		location.href = path;
+	}
+
+	$scope.loadPrets = function(){
+
+		var defer = $q.defer();
+		$http.get('/admin/prets/getList/ajax').success(function(data){
+			defer.resolve(data.emprunts);
+		},true);
+
+		return defer.promise;
+
+	}
+
+	var promise = $scope.loadPrets();
+
+	promise.then(function(data){
+
+		$scope.prets = data;
+
+		$scope.tpParams = new ngTableParams({
+	        page: 1,            // show first page
+	        count: 10,          // count per page
+	        filter: {
+	        	// instru_dispo: [0,1],
+	        	// instru_etat: [0,1,2,3,4,5]
+	        },
+	        sorting: {
+	        	emp_id: 'asc'
+	        }
+	    }, {
+	    	filterDelay: 0,
+	        total: data.length, // length of data
+	        getData: function($defer, params) {
+	            // use build-in angular filter
+	            var orderedData = params.filter() ? $filter('filter')(data, function(value, index){
+	            	var result = true;
+	            	angular.forEach(value, function(valD, keyD){
+	            		var paramF = params.filter()[keyD];
+						if ( angular.isDefined(paramF) && paramF != '' ) {
+							if ( Object.prototype.toString.call( paramF ) === '[object Array]' ) {
+								if ( paramF.indexOf(valD) == -1 && paramF.indexOf(parseInt(valD)) == -1 ) { 
+									result = false;
+								}
+							} else if (typeof(paramF) == 'string') {
+								if( valD.toLowerCase().indexOf(paramF.toLowerCase()) == -1) {
+									result = false;
+								}
+							} else if (paramF != valD){
+								result = false;
+							}
+						}
+	            	});
+                    return result;
+                }) : data;
+	            // var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
+				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+	            $scope.filteredPrets = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	            params.total(orderedData.length); // set total for recalc pagination
+	            $defer.resolve($scope.filteredPrets);
+	        }
+	    });
+	});
+
+    $scope.toggleClosed = function(value){
+    	var actual = $scope.tpParams.filter().emprunt_is_closed;
+    	var pos = -1;
+    	if ( angular.isDefined(actual) && actual.length ) { 
+	    	pos = actual.indexOf(value);
+    	} else {
+    		$scope.tpParams.filter().emprunt_is_closed = [];
+    	}
+
+    	if (pos == -1) {
+			$scope.tpParams.filter().emprunt_is_closed.push(value);
+    	} else {
+			$scope.tpParams.filter().emprunt_is_closed.splice(pos, 1);
+    	}
+    }
+
+}]);

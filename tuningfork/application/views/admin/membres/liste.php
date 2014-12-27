@@ -4,11 +4,11 @@
 		<button ng-click="tmParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
 	</div>
 
-	<h3><?php echo $title; ?> ({{membres.length}})</h3>
+	<h3><?php echo $title; ?><br><small>{{membres.length}} résultats</small></h3>
 
 	<br>
 
-	<table ng-table="tmParams" show-filter="true" class="table table-hover col-xs-12 table-list-membres">
+	<table ng-table="tmParams" show-filter="true" class="table table-hover col-xs-12 table-list-bordered">
 
 	    <thead>
 	        <tr>

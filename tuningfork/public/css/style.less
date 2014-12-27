@@ -24,6 +24,8 @@
 @color-state-4 : #0000ff;
 @color-state-5 : #00ff00;
 
+@color-archived : #aaa;
+
 // Menu selected
 @color-menu-active : #0074a2;
 
@@ -75,6 +77,8 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 
 .border-left-ok { border-left-color: @green-soft!important;}
 .border-left-ko { border-left-color: @red-soft!important;}
+.border-left-closed { border-left-color: @color-archived!important;}
+.border-left-opened { .border-left-ok }
 .bg-red-soft {	background-color: @red-soft!important;}
 .bg-green-soft {	background-color: @green-soft!important;}
 
@@ -203,7 +207,7 @@ body {
 
 				&.admin {
 
-					.table-list-instru, .table-list-membres {
+					.table-list-bordered {
 						th {
 							// white-space: nowrap;
 						}

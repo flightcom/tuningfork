@@ -24,6 +24,12 @@ class Emprunt_model extends CI_Model {
         return $query->result();
     }
 
+    function get_all_entries_extended()
+    {
+        $query = $this->db->get('emprunts_extended');
+        return $query->result();
+    }
+
     function get_entry($id)
     {
         $this->db->select('*');

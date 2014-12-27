@@ -13,7 +13,7 @@
 			    <li><a href="/admin/instruments"><span class="glyphicon glyphicon-th-list"></span> Liste</a></li>
 			    <li><a href="/admin/instruments/add"><span class="glyphicon glyphicon-plus"></span> Ajouter</a></li>
                 <li><a href="/admin/instruments/categories"><span class="glyphicon glyphicon-tree-conifer"></span> Gestion des catégories</a></li>
-                <li><a href="/admin/instruments/storages"><span class="glyphicon glyphicon-pushpin"></span> Entrepôts</a></li>
+                <li><a href="/admin/instruments/storages"><span class="glyphicon glyphicon-pushpin"></span> Dépôts</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->

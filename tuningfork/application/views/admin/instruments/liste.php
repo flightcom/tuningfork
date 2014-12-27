@@ -26,11 +26,11 @@
 		<button ng-click="tiParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
 	</div>
 
-	<h3><?php echo $title; ?> ({{instruments.length}})</h3>
+	<h3><?php echo $title; ?><br><small>{{tiParams.total()}} résultats</small></h3>
 
 	<br>
 
-	<table ng-table="tiParams" show-filter="true" class="table table-hover col-xs-12 table-list-instru">
+	<table ng-table="tiParams" show-filter="true" class="table table-hover col-xs-12 table-list-bordered">
 
         <thead>
 	        <tr>

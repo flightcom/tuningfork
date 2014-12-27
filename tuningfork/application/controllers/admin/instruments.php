@@ -165,7 +165,10 @@ class Instruments extends Admin_Controller {
 
 	public function getCategories($parent = null, $method = null)
 	{
-		if(!(int)$parent == $parent) $parent = null;
+		if(!(int)$parent == $parent) {
+			$method = $parent;
+			$parent = null;
+		}
 		$data = array(
 			'categories' =>$this->Instrument_model->get_children_categories($parent),
 			'info' => $parent

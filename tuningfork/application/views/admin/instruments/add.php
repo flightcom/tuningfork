@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form action='/admin/instruments/add' method='post' id='newinstrument' name='newinstrument' class='form-horizontal' ng-controller='AdminAddInstrumentCtrl' novalidate>
+<form action='/admin/instruments/add' method='post' id='newinstrument' name='newinstrument' class='form-horizontal pdl20 pdr20' ng-controller='AdminAddInstrumentCtrl' novalidate>
 
 	<h3>Ajout d'un nouvel instrument</h3>
 

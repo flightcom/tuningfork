@@ -68,7 +68,7 @@ class Prets extends Admin_Controller {
 
     }
 
-    public function liste()
+    public function liste($method = null)
     {
         $data = array(
             'emprunts' => $this->Emprunt_model->get_all_entries(),
@@ -76,6 +76,19 @@ class Prets extends Admin_Controller {
             );
         $content = $this->load->view('admin/prets/liste', $data, TRUE);
         $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+    }
+
+    public function getList($method = null)
+    {
+        $data = array(
+            'emprunts' => $this->Emprunt_model->get_all_entries_extended()
+        );
+
+        switch( $method ) {
+            case 'ajax' : echo json_encode($data); break;
+            default: return $data;
+        }
+
     }
 
     public function add()
