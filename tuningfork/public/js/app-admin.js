@@ -456,7 +456,7 @@ tfApp.controller('AdminListPretsCtrl', ['$scope', '$http', '$filter', '$q', 'ngT
 		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-1", filter: { 'membre_prenom': 'text' } },
 		// { title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-1", filter: { 'membre_tel': 'text' } },
 		// { title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
-		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
+		{ title: 'Catégorie', field: 'categ_path_name', visible: true, classes: "col-xs-2", filter: { 'categ_path_name': 'text' } },
 		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-1", filter: { 'marque_nom': 'text' } },
 		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-1", filter: { 'instru_modele': 'text' } },
 		{ title: 'Date d\'emprunt', field: 'emp_date_debut', visible: true, classes: "col-xs-1", filter: { 'emp_date_debut': 'text' } },
@@ -543,6 +543,10 @@ tfApp.controller('AdminListPretsCtrl', ['$scope', '$http', '$filter', '$q', 'ngT
     	} else {
 			$scope.tpParams.filter().emprunt_is_closed.splice(pos, 1);
     	}
+    }
+
+    $scope.toggleRetard = function(){
+    	$scope.tpParams.filter().emprunt_is_delayed = !$scope.tpParams.filter().emprunt_is_delayed;
     }
 
 }]);

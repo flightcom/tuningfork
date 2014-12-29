@@ -4,13 +4,13 @@
         <div class="btn-group">
             <button type="button" class="btn dropdown-toggle"
                 ng-class="{'btn-default': (tiParams.filter().instru_dispo | isEmpty), 'btn-primary': !(tiParams.filter().instru_dispo | isEmpty)}" 
-                data-toggle="dropdown">Status <span class="caret"></span></button>
+                data-toggle="dropdown">{{statusSelected ? statusSelected : 'Status'}} <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-                <li ng-click="toggleClosed(0)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(0) > -1}"><a href="#">En cours</a></li>
-                <li ng-click="toggleClosed(1)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(1) > -1}"><a href="#">Cloturé</a></li>
+                <li ng-model="statusClosed[0]" ng-click="toggleClosed(0)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(0) > -1}"><a href="#">En cours</a></li>
+                <li ng-model="statusClosed[1]" ng-click="toggleClosed(1)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(1) > -1}"><a href="#">Cloturé</a></li>
             </ul>
         </div>
-        <button ng-click="tpParams.filter({}).sorting({})" class="btn btn-default">Retards</button>
+        <button ng-click="toggleRetard()" ng-class="{active : tpParams.filter().emprunt_is_delayed}" class="btn btn-default">Retards</button>
         <button ng-click="tpParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
     </div>
 
@@ -45,7 +45,8 @@
 
         <tbody>
 
-            <tr ng-repeat="pret in filteredPrets" ng-click="go('/admin/prete/' + pret.emp_id)" style="cursor:pointer;" class="" ng-class="pret.emprunt_is_closed == 1 ? 'border-left-closed' : 'border-left-opened'">
+            <tr ng-repeat="pret in filteredPrets" ng-click="go('/admin/prets/' + pret.emp_id)" style="cursor:pointer;" class="" ng-class="pret.emprunt_is_closed == 1 ? 'border-left-closed' : (pret.emprunt_is_delayed == 1 ? 'border-left-delayed' : 'border-left-opened')">
+            <!-- <tr ng-repeat="pret in filteredPrets" onclick="$(this).next().toggle();" style="cursor:pointer;" class="" ng-class="pret.emprunt_is_closed == 1 ? 'border-left-closed' : (pret.emprunt_is_delayed == 1 ? 'border-left-delayed' : 'border-left-opened')"> -->
                 <td ng-repeat="column in columns" data-title="column.title" ng-show="column.visible" sortable="column.field" ng-class="column.classes">{{pret[column.field]}}</td>
             </tr>
 

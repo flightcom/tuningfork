@@ -90,6 +90,16 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize'])
             }
         });
     };
+}).directive('ngColspan', function () {
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngColspan , function (col) {
+                console.log(col);
+                $(element).attr('colspan', col);
+            });
+        }
+   }
 }).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();

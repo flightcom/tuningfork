@@ -1,7 +1,5 @@
-<div class="pd20" ng-controller="AdminListCategCtrl">
+<div class="pdl20 pdr20" ng-controller="AdminListCategCtrl">
 
-<!-- <p>Categories Path : {{categoriesPath|json}}</p> -->
-<!-- <p>Categories : {{categories|json}}</p> -->
 <span class="glyphicon glyphicon-trash fs24 pull-right" ondrop="deletecateg(event)" ondragover="allowDrop(event)"></span>
 
 <h3><?php echo $title; ?></h3>

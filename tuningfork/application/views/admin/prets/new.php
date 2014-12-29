@@ -1,4 +1,4 @@
-<?php echo form_open('admin/prets/add', array('id' => $formid, 'class' => 'form-horizontal')); ?>
+<?php echo form_open('admin/prets/add', array('id' => $formid, 'class' => 'form-horizontal pdl20 pdr20')); ?>
 
 	<input type="hidden" name="instru-id" value="<?php echo $instrument->instru_id; ?>">
 
