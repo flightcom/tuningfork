@@ -7,8 +7,8 @@
             <ul class="dropdown-menu" role="menu">
                 <li onclick="location.href='/admin/membres/<?php echo $pret->membre_id; ?>'"><a href="#">Fiche membre</a></li>
                 <li onclick="location.href='/admin/instruments/<?php echo $pret->instru_id; ?>'"><a href="#">Fiche instrument</a></li>
-                <li><a href="#">Clôturer</a></li>
-                <li><a href="#">Imprimer contrat</a></li>
+                <li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/close'"><a href="#">Clôturer</a></li>
+                <li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/pdf'"><a href="#">Imprimer contrat</a></li>
                 <li><a href="#">Supprimer</a></li>
             </ul>
 

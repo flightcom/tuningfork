@@ -47,12 +47,15 @@ class Prets extends Admin_Controller {
         }
         else if(is_numeric($param1) && !is_null($param2))
         {
-            $instru_id = $param1;
+            $emp_id = $param1;
             $action = $param2;
 
             switch($action){
-                case 'delete'   : $this->delete($instru_id); break;
-                case 'edit'     : $this->edit($instru_id); break;
+                case 'contrat'  : $this->contrat($emp_id); break;
+                case 'pdf'      : $this->pdf($emp_id); break;
+                case 'close'    : $this->close($emp_id); break;
+                case 'delete'   : $this->delete($emp_id); break;
+                case 'edit'     : $this->edit($emp_id); break;
                 default         : break;
             }
         }
@@ -158,6 +161,25 @@ class Prets extends Admin_Controller {
         // $this->pdf->stream("contrat.pdf");
         $content = $this->load->view('admin/prets/contrat', $data, TRUE);
         $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+    }
+
+    public function pdf($emp_id)
+    {
+        require_once(BASEPATH . "libraries/dompdf/dompdf_config.inc.php");
+
+        // Convert to PDF
+        $data = array(
+            'pret' => $this->Emprunt_model->get_entry($emp_id),
+            'title' => "Contrat de prêt"
+        );
+        $content = $this->load->view('admin/prets/contrat', $data, TRUE);
+
+        $name = 'contrat_pret_' . $emp_id;
+
+        $dompdf = new DOMPDF(); // this is the line that fails
+        $dompdf->load_html($content);
+        $dompdf->render();
+        $dompdf->stream($name . '.pdf');
     }
 
 }
