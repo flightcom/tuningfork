@@ -1,4 +1,4 @@
-<div class="pdl20 pdr20" ng-controller="AdminListInstruCtrl">
+<div class="pdl20 pdr20" ng-controller="AdminListInstruCtrl" ng-cloak>
 	
 	<div class="btn-group pull-right">
 		<div class="btn-group">

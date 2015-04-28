@@ -2,7 +2,8 @@
 <html lang="fr">
 
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8">
+		<base href="/">
 
 		<title><?php echo $title; ?></title>
 

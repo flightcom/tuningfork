@@ -3,52 +3,52 @@ var activeMenu = 0;
 
 $(document).ready(function(){
 
-    // Pour la selection de la page
-    if(document.referrer.indexOf('admin') == -1) {
-        localStorage.removeItem('activePage');        
-    }
+    // // Pour la selection de la page
+    // if(document.referrer.indexOf('admin') == -1) {
+    //     localStorage.removeItem('activePage');        
+    // }
 
-    if ( localStorage.activePage != undefined ) {
-        activePage = $.parseJSON(localStorage.getItem('activePage'));
-    } else {
-        activePage = 0;
-    }
+    // if ( localStorage.activePage != undefined ) {
+    //     activePage = $.parseJSON(localStorage.getItem('activePage'));
+    // } else {
+    //     activePage = 0;
+    // }
 
-    $('.nav-sidebar li').eq(activePage).addClass('active');
+    // $('.nav-sidebar li').eq(activePage).addClass('active');
 
-    $('.nav-sidebar li').click(function(){
-        var index = $(this).index();
-        localStorage.removeItem('activePage');
-        localStorage.setItem('activePage', index);
-        $('.nav-sidebar').removeClass('active');
-    });
+    // $('.nav-sidebar li').click(function(){
+    //     var index = $(this).index();
+    //     localStorage.removeItem('activePage');
+    //     localStorage.setItem('activePage', index);
+    //     $('.nav-sidebar').removeClass('active');
+    // });
 
-    // Pour la selection du menu
-    if(document.referrer.indexOf('admin') == -1) {
-        localStorage.removeItem('activeMenu');        
-    }
+    // // Pour la selection du menu
+    // if(document.referrer.indexOf('admin') == -1) {
+    //     localStorage.removeItem('activeMenu');        
+    // }
 
 
-    if ( localStorage.activeMenu != undefined ) {
-        var tmpMenu1 = localStorage.getItem('activeMenu');
-        console.log(tmpMenu1);
-        var tmpMenu2 = tmpMenu1.split('-');
-        activePageMenu = tmpMenu2[0];
-        if ( activePageMenu != activePage )  { 
-            localStorage.removeItem('activeMenu');
-        } else {
-            activeMenu = tmpMenu2[1];
-        }
-    }
+    // if ( localStorage.activeMenu != undefined ) {
+    //     var tmpMenu1 = localStorage.getItem('activeMenu');
+    //     console.log(tmpMenu1);
+    //     var tmpMenu2 = tmpMenu1.split('-');
+    //     activePageMenu = tmpMenu2[0];
+    //     if ( activePageMenu != activePage )  { 
+    //         localStorage.removeItem('activeMenu');
+    //     } else {
+    //         activeMenu = tmpMenu2[1];
+    //     }
+    // }
 
-    $('.nav-menu li').eq(activeMenu).addClass('active');
+    // $('.nav-menu li').eq(activeMenu).addClass('active');
 
-    $('.nav-menu li').click(function(){
-        var index = $(this).index();
-        localStorage.removeItem('activeMenu');
-        localStorage.setItem('activeMenu', activePage + '-' + index);
-        $('.nav-menu').removeClass('active');
-    });
+    // $('.nav-menu li').click(function(){
+    //     var index = $(this).index();
+    //     localStorage.removeItem('activeMenu');
+    //     localStorage.setItem('activeMenu', activePage + '-' + index);
+    //     $('.nav-menu').removeClass('active');
+    // });
 
     // Instantiate the Bloodhound suggestion engine
     var membres = new Bloodhound({
