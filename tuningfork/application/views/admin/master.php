@@ -21,41 +21,49 @@
 	</head>
 
 	<body role="document" data-app="admin" ng-app="tuningfork">
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">Tuning Fork</a>
-			</div>
-			<div class="collapse navbar-collapse">
 
-				<?php echo $this->session->userdata('account'); ?>
+		<div class="col-xs-12 col-lg-1 sidebar" id="left-sidebar" ng-controller="MenuCtrl" ng-show="$root.showMenu" ng-init="$root.showMenu=false"><?php echo $this->dashboard; ?></div>
 
-				<form action="/admin/recherche/" method="post" class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
-					</div>
-				</form>
+		<div style="widht:100%">
 
-			</div>
-		</div>
+			<div class="navbar navbar-inverse" role="navigation">
 
-		<div style="height:48px;" id="spacer"></div>
+				
 
-		<div class="col-xs-2 col-lg-1 sidebar" id="left-sidebar"><?php echo $this->dashboard; ?></div>
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click="$root.showMenu=!$root.showMenu;return true;"></span> Tuning Fork</a>
+				</div>
+				<div class="collapse navbar-collapse pull-right">
 
-		<div id="wrap" class="col-xs-12 col-sm-10 col-lg-11 col-centered pull-right" role="main">
+					<?php echo $this->session->userdata('account'); ?>
 
-			<?php echo $this->menu; ?>
+					<form action="/admin/recherche/" method="post" class="navbar-form navbar-right" role="search">
+						<div class="form-group">
+							<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+						</div>
+					</form>
 
-			<div id="content" class="admin">
-				<?php echo $content; ?>
+				</div>
 			</div>
 
+			<div style="height:48px;" id="spacer"></div>
+
+			<div id="wrap" class="col-xs-12 col-sm-10 col-lg-11 col-centered pull-right" role="main">
+
+				<?php echo $this->menu; ?>
+
+				<div id="content" class="admin">
+					<?php echo $content; ?>
+				</div>
+
+			</div>
+			
 		</div>
 
 		<script src="<?php echo (JS.'jquery/jquery.extend.js'); ?>"></script> 
@@ -64,6 +72,7 @@
 		<script src="<?php echo (JS.'bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-sanitize.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'angularjs/ng-route.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 

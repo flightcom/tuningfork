@@ -172,7 +172,6 @@ body {
 
 					&.active button{
 						background-color: @sweet-green-dark-more;
-						box-shadow: 0 0 5px 1px rgba(0,0,0,.2) inset;
 					}
 				}
 
@@ -331,8 +330,8 @@ body {
 {font-style: italic;}
 
 .sidebar {
-	position: fixed;
-	top: 50px;
+	// position: fixed;
+	top: 0px;
 	bottom: 0;
 	left: 0;
 	z-index: 100;
@@ -341,6 +340,10 @@ body {
 	overflow-x: hidden;
 	overflow-y: auto;
 	background-color: #222;
+
+	ul {
+		margin-top: 50px;
+	}
 }
 
 .nav-menu {
@@ -686,4 +689,18 @@ color: #444;
 	font-size: 24px;
 	margin-top: 20px;
 	margin-bottom: 10px;
+}
+
+
+.glyphicon {
+
+	&.btn-back {
+		cursor: pointer;
+		top: 3px;
+	}	
+
+}
+
+.navbar {
+	border-radius: 0!important;
 }

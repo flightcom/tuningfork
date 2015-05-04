@@ -1,6 +1,6 @@
-<div class="pd20">
+<div class="pdl20 pdr20">
 
-    <h3><?php echo $instrument->categ_nom . " " . $instrument->marque_nom. " " . $instrument->instru_modele. " " . $instrument->instru_numero_serie; ?></h3>
+    <h3><span class="glyphicon glyphicon-chevron-left btn-back" onclick="document.location.href='/admin/instruments/';return false;"></span> <?php echo $instrument->categ_nom . " " . $instrument->marque_nom. " " . $instrument->instru_modele. " " . $instrument->instru_numero_serie; ?></h3>
 
     <br>
 
@@ -89,7 +89,6 @@
             	<div class="form-group">
                     <label for="date-entree" class="control-label col-xs-1"></label>
                     <div class="col-xs-11">
-            			<button onclick="document.location.href='/admin/instruments/';return false;" class="btn btn-default no-edition">Retour</button>
             			<button onclick="editForm('<?php echo $formid; ?>');return false;" class="btn btn-warning no-edition">Modifier</button>
                         <?php if ($instrument->instru_dispo && ! $instrument->instru_a_verifier) : ?><button onclick="location.href='/admin/instruments/<?php echo $instrument->instru_id; ?>/preter';return false;" class="btn btn-success no-edition">Prêter</button><?php endif; ?>
             			<button type="submit" class="btn btn-success edition hidden">Valider</button>

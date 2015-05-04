@@ -1,6 +1,6 @@
-<div class="pd20" ng-controller="AdminEditMembreCtrl">
+<div class="pdl20 pdr20" ng-controller="AdminEditMembreCtrl">
 
-    <h3><?php echo $membre->membre_prenom . " " . $membre->membre_nom; ?></h3>
+    <h3><span class="glyphicon glyphicon-chevron-left btn-back" onclick="document.location.href='/admin/membres/';return false;"></span> <?php echo $membre->membre_prenom . " " . $membre->membre_nom; ?></h3>
 
     <br>
 
@@ -79,7 +79,6 @@
             	<div class="form-group">
                     <label for="date-entree" class="control-label col-xs-1"></label>
                     <div class="col-xs-11">
-            			<button onclick="document.location.href='/admin/membres/';return false;" class="btn btn-default no-edition">Retour</button>
             			<button onclick="editForm('<?php echo $formid;?>');return false;" class="btn btn-warning no-edition">Modifier</button>
             			<button type="submit" class="btn btn-success edition hidden">Valider</button>
             			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>

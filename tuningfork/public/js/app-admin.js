@@ -1,3 +1,25 @@
+tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParams', function($rootScope, $location, $route, $routeParams) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var url = $location.$$absUrl;
+            var clazz = attrs.activeLink;
+            var path = element.find('a').attr('href');
+            if ( url.indexOf(path) > -1 ) {
+                element.addClass(clazz);
+            } else {
+                element.removeClass(clazz);
+            }
+        }
+    };
+}]);
+
+tfApp.controller('MenuCtrl', function ($scope) {
+
+	
+
+});
+
 tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope, $http){
 
 	$scope.instru = {
@@ -94,37 +116,7 @@ tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope,
 
 tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
 
-	$scope.instruments = [];
-
-	$scope.columns = [
-		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru_id': 'text' } },
-		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
-		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-2", filter: { 'marque_nom': 'text' } },
-		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-2", filter: { 'instru_modele': 'text' } },
-		{ title: 'Numéro de série', field: 'instru_numero_serie', visible: true, classes: "col-xs-2", filter: { 'instru_numero_serie': 'text' } },
-		{ title: 'Date d\'entrée', field: 'instru_date_entree', visible: true, classes: "col-xs-2", filter: { 'instru_date_entree': 'text' } }
-	];
-
-	$scope.go = function(path){
-		location.href = path;
-	}
-
-	$scope.loadInstruments = function(){
-
-		var defer = $q.defer();
-		$http.get('/admin/instruments/getInstruments/ajax').success(function(data){
-			defer.resolve(data);
-		},true);
-
-		return defer.promise;
-
-	}
-
-	var promise = $scope.loadInstruments();
-
-	promise.then(function(data){
-
-		$scope.instruments = data;
+	$scope.$watch('instruments', function(value) {
 
 		$scope.tiParams = new ngTableParams({
 	        page: 1,            // show first page
@@ -138,10 +130,10 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 	        }
 	    }, {
 	    	filterDelay: 0,
-	        total: data.length, // length of data
+	        total: $scope.instruments.length, // length of data
 	        getData: function($defer, params) {
 	            // use build-in angular filter
-	            var orderedData = params.filter() ? $filter('filter')(data, function(value, index){
+	            var orderedData = params.filter() ? $filter('filter')($scope.instruments, function(value, index){
 	            	var result = true;
 	            	angular.forEach(value, function(valD, keyD){
 	            		var paramF = params.filter()[keyD];
@@ -168,7 +160,21 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 	            $defer.resolve($scope.filteredInstruments);
 	        }
 	    });
+
 	});
+
+	$scope.columns = [
+		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru_id': 'text' } },
+		{ title: 'Catégorie', field: 'categ_pathname', visible: true, classes: "col-xs-2", filter: { 'categ_pathname': 'text' } },
+		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-2", filter: { 'marque_nom': 'text' } },
+		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-2", filter: { 'instru_modele': 'text' } },
+		{ title: 'Numéro de série', field: 'instru_numero_serie', visible: true, classes: "col-xs-2", filter: { 'instru_numero_serie': 'text' } },
+		{ title: 'Date d\'entrée', field: 'instru_date_entree', visible: true, classes: "col-xs-2", filter: { 'instru_date_entree': 'text' } }
+	];
+
+	$scope.go = function(path){
+		location.href = path;
+	}
 
     $scope.toggleDispo = function(value){
     	var actual = $scope.tiParams.filter().instru_dispo;
@@ -277,38 +283,7 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
 tfApp.controller('AdminListMembresCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
 
-	$scope.membres = [];
-
-	$scope.columns = [
-		{ title: 'Identifiant', field: 'membre_id', visible: true, classes: "col-xs-1", filter: { 'membre_id': 'text' } },
-		{ title: 'Nom', field: 'membre_nom', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
-		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-2", filter: { 'membre_prenom': 'text' } },
-		{ title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-2", filter: { 'membre_tel': 'text' } },
-		{ title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
-		{ title: 'Adresse', field: 'adr_voie', visible: true, classes: "col-xs-2", filter: { 'adr_voie': 'text' } },
-		{ title: 'Ville', field: 'ville_nom', visible: true, classes: "col-xs-2", filter: { 'ville_nom': 'text' } }
-	];
-
-	$scope.go = function(path){
-		location.href = path;
-	}
-
-	$scope.loadMembres = function(){
-
-		var defer = $q.defer();
-		$http.get('/admin/membres/getMembres/ajax').success(function(data){
-			defer.resolve(data);
-		},true);
-
-		return defer.promise;
-
-	}
-
-	var promise = $scope.loadMembres();
-
-	promise.then(function(data){
-
-		$scope.membres = data.membres;
+	$scope.$watch('membres', function(value) {
 
 		$scope.tmParams = new ngTableParams({
 	        page: 1,            // show first page
@@ -332,7 +307,22 @@ tfApp.controller('AdminListMembresCtrl', function ($scope, $http, $filter, $q, n
 	            $defer.resolve($scope.filteredMembres);
 	        }
 	    });
+
 	});
+
+	$scope.columns = [
+		{ title: 'Identifiant', field: 'membre_id', visible: true, classes: "col-xs-1", filter: { 'membre_id': 'text' } },
+		{ title: 'Nom', field: 'membre_nom', visible: true, classes: "col-xs-2", filter: { 'membre_nom': 'text' } },
+		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-2", filter: { 'membre_prenom': 'text' } },
+		{ title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-2", filter: { 'membre_tel': 'text' } },
+		{ title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
+		{ title: 'Adresse', field: 'adr_voie', visible: true, classes: "col-xs-2", filter: { 'adr_voie': 'text' } },
+		{ title: 'Ville', field: 'ville_nom', visible: true, classes: "col-xs-2", filter: { 'ville_nom': 'text' } }
+	];
+
+	$scope.go = function(path){
+		location.href = path;
+	}
 
 });
 

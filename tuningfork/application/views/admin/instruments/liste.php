@@ -1,4 +1,4 @@
-<div class="pdl20 pdr20" ng-controller="AdminListInstruCtrl" ng-cloak>
+<div class="pdl20 pdr20" ng-controller="AdminListInstruCtrl" ng-cloak ng-init="instruments=<?php echo htmlspecialchars(json_encode($instruments)); ?>">
 	
 	<div class="btn-group pull-right">
 		<div class="btn-group">
@@ -6,12 +6,12 @@
 				ng-class="{'btn-default': (tiParams.filter().instru_etat | isEmpty), 'btn-primary': !(tiParams.filter().instru_etat | isEmpty)}" 
 				data-toggle="dropdown">État <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
-				<li ng-click="toggleEtat(0)" ng-class="{active : tiParams.filter().instru_etat.indexOf(0) > -1}"><a href="#">Très mauvais</a></li>
-				<li ng-click="toggleEtat(1)" ng-class="{active : tiParams.filter().instru_etat.indexOf(1) > -1}"><a href="#">Mauvais</a></li>
-				<li ng-click="toggleEtat(2)" ng-class="{active : tiParams.filter().instru_etat.indexOf(2) > -1}"><a href="#">Moyen</a></li>
-				<li ng-click="toggleEtat(3)" ng-class="{active : tiParams.filter().instru_etat.indexOf(3) > -1}"><a href="#">Bon</a></li>
-				<li ng-click="toggleEtat(4)" ng-class="{active : tiParams.filter().instru_etat.indexOf(4) > -1}"><a href="#">Très bon</a></li>
-				<li ng-click="toggleEtat(5)" ng-class="{active : tiParams.filter().instru_etat.indexOf(5) > -1}"><a href="#">Comme neuf</a></li>
+				<li ng-click="toggleEtat(0)" ng-class="{active : tiParams.filter().instru_etat.indexOf(0) > -1}"><a href="">Très mauvais</a></li>
+				<li ng-click="toggleEtat(1)" ng-class="{active : tiParams.filter().instru_etat.indexOf(1) > -1}"><a href="">Mauvais</a></li>
+				<li ng-click="toggleEtat(2)" ng-class="{active : tiParams.filter().instru_etat.indexOf(2) > -1}"><a href="">Moyen</a></li>
+				<li ng-click="toggleEtat(3)" ng-class="{active : tiParams.filter().instru_etat.indexOf(3) > -1}"><a href="">Bon</a></li>
+				<li ng-click="toggleEtat(4)" ng-class="{active : tiParams.filter().instru_etat.indexOf(4) > -1}"><a href="">Très bon</a></li>
+				<li ng-click="toggleEtat(5)" ng-class="{active : tiParams.filter().instru_etat.indexOf(5) > -1}"><a href="">Comme neuf</a></li>
 			</ul>
 		</div>
 		<div class="btn-group">

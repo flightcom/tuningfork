@@ -1,4 +1,4 @@
-var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize'])
+var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
 .directive('ngFocusOn', function($timeout) {
     return {
         link: function(scope, element, attrs) {
@@ -100,26 +100,7 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize'])
             });
         }
    }
-}).directive('activeLink', ['$location', function(location) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var clazz = attrs.activeLink;
-            var path = element.find('a').attr('href');
-            scope.location = location;
-            scope.$watch('location.path()', function(newPath) {
-                // console.log(location);
-                // console.log(path + ' : ' + newPath);
-                // newPath = newPath.substring(1);
-                if ( newPath.indexOf(path) > -1 ) {
-                    element.addClass(clazz);
-                } else {
-                    element.removeClass(clazz);
-                }
-            });
-        }
-    };
-}]).filter('reverse', function() {
+}).filter('reverse', function() {
     return function(items) {
     	return items.slice().reverse();
   	};
@@ -150,13 +131,6 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize'])
     };
 });
 
-tfApp.config( function($locationProvider) {
-    $locationProvider.html5Mode({
-        enabled: true
-        // requireBase: false
-    });
-});
-
 tfApp.factory('utilities', function() {
     return {
         go: function(path) {
@@ -165,8 +139,6 @@ tfApp.factory('utilities', function() {
         }
     };
 });
-
-tfApp
 
 tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 
