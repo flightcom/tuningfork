@@ -329,8 +329,18 @@ body {
 #banner input:-ms-input-placeholder /* ie */
 {font-style: italic;}
 
+#container-global {
+	float: right;
+}
+
+#topbar {
+	.nomargin;
+}
+
 .sidebar {
-	// position: fixed;
+	position: fixed;
+	height: 100%;
+	float: left;
 	top: 0px;
 	bottom: 0;
 	left: 0;
@@ -521,6 +531,14 @@ overflow: hidden;
 .mgt100 { margin-top: 100px!important; }
 .mgb10 { margin-bottom: 10px!important; }
 .mgb20 { margin-bottom: 20px!important; }
+
+.nopadding {
+	padding: 0!important;
+}
+
+.nomargin {
+	margin: 0!important;
+}
 
 input.rating {
 	font-size: 20px;

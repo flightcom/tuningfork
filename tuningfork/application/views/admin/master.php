@@ -22,17 +22,18 @@
 
 	<body role="document" data-app="admin" ng-app="tuningfork">
 
-		<div class="sidebar" id="left-sidebar" 
+		<div class="sidebar col-xs-12 col-sm-1 " id="left-sidebar" 
+			ng-class="{'hidden-xs': !showMenu}"
 			ng-controller="MenuCtrl" 
 			ng-show="$root.showMenu" 
-			ng-init="$root.showMenu=false">
-			<a class="navbar-brand" href="/">Tuning Fork</a>
+			ng-init="$root.showMenu=true">
+			<a class="navbar-brand" href="/">tuningfork</a>
 			<?php echo $this->dashboard; ?>
 		</div>
 
-		<div style="width:100%;display:inline-block;">
+		<div id="container-global" class="nopadding" ng-class="{'col-xs-12': !showMenu, 'col-xs-11': showMenu}">
 
-			<div class="navbar navbar-inverse" role="navigation">
+			<div id="topbar" class="navbar navbar-inverse" role="navigation">
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
