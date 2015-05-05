@@ -22,13 +22,17 @@
 
 	<body role="document" data-app="admin" ng-app="tuningfork">
 
-		<div class="col-xs-12 col-lg-1 sidebar" id="left-sidebar" ng-controller="MenuCtrl" ng-show="$root.showMenu" ng-init="$root.showMenu=false"><?php echo $this->dashboard; ?></div>
+		<div class="sidebar" id="left-sidebar" 
+			ng-controller="MenuCtrl" 
+			ng-show="$root.showMenu" 
+			ng-init="$root.showMenu=false">
+			<a class="navbar-brand" href="/">Tuning Fork</a>
+			<?php echo $this->dashboard; ?>
+		</div>
 
-		<div style="widht:100%">
+		<div style="width:100%;display:inline-block;">
 
 			<div class="navbar navbar-inverse" role="navigation">
-
-				
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,7 +41,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click="$root.showMenu=!$root.showMenu;return true;"></span> Tuning Fork</a>
+					<a class="navbar-brand" href=""><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click="$root.showMenu=!$root.showMenu;"></span></a>
 				</div>
 				<div class="collapse navbar-collapse pull-right">
 
@@ -52,9 +56,7 @@
 				</div>
 			</div>
 
-			<div style="height:48px;" id="spacer"></div>
-
-			<div id="wrap" class="col-xs-12 col-sm-10 col-lg-11 col-centered pull-right" role="main">
+			<div id="wrap" class="col-xs-12 col-centered " role="main">
 
 				<?php echo $this->menu; ?>
 

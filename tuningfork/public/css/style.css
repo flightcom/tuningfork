@@ -959,7 +959,7 @@ body[data-app="admin"] #wrap #content.admin .list-categories li{margin-bottom:10
 #banner .form-control{height:inherit}
 #banner input::-webkit-input-placeholder{font-style:italic}
 #banner input::-moz-placeholder,#banner input:-moz-placeholder,#banner input:-ms-input-placeholder{font-style:italic}
-.sidebar{top:0;bottom:0;left:0;z-index:100;display:block;padding:20px;overflow-x:hidden;overflow-y:auto;background-color:#222}.sidebar ul{margin-top:50px}
+.sidebar{top:0;bottom:0;left:0;z-index:100;display:inline-block;padding:20px;overflow-x:hidden;overflow-y:auto;background-color:#222}.sidebar ul{margin-top:50px}
 .nav-menu{width:100%;background-color:#f5f5f5;border:0;border-radius:0;margin-bottom:0;border-right:1px solid #eee}
 @media (min-width:768px){.omb_row-sm-offset-3 div:first-child[class*="col-"]{margin-left:25%}}.omb_login .omb_authTitle{text-align:center;line-height:300%}
 .omb_login .omb_socialButtons a{color:#fff;opacity:.9}
