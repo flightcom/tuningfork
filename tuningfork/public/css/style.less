@@ -341,7 +341,7 @@ body {
 	position: fixed;
 	height: 100%;
 	float: left;
-	top: 0px;
+	top: 50px;
 	bottom: 0;
 	left: 0;
 	z-index: 100;
@@ -349,10 +349,23 @@ body {
 	padding: 20px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	background-color: #222;
-
+	// background-color: #222;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px #555;
 	ul {
 		margin-top: 50px;
+	}
+
+	&.sample-show-hide {
+	}
+
+	&.sample-show-hide {
+	  -webkit-transition:all linear 0.25s;
+	  transition:all linear 0.25s;
+	}
+
+	&.sample-show-hide.ng-hide {
+	  margin-left:0;
 	}
 }
 
@@ -677,7 +690,7 @@ color: #444;
 
 @media (max-width: 767px) {
 
-	#left-sidebar {
+	#sidebar-left {
 		position: fixed;
 		bottom:0!important;
 		top: inherit!important;

@@ -22,16 +22,7 @@
 
 	<body role="document" data-app="admin" ng-app="tuningfork">
 
-		<div class="sidebar col-xs-12 col-sm-1 " id="left-sidebar" 
-			ng-class="{'hidden-xs': !showMenu}"
-			ng-controller="MenuCtrl" 
-			ng-show="$root.showMenu" 
-			ng-init="$root.showMenu=true">
-			<a class="navbar-brand" href="/">tuningfork</a>
-			<?php echo $this->dashboard; ?>
-		</div>
-
-		<div id="container-global" class="nopadding" ng-class="{'col-xs-12': !showMenu, 'col-xs-11': showMenu}">
+		<div id="container-global" class="col-xs-12 nopadding">
 
 			<div id="topbar" class="navbar navbar-inverse" role="navigation">
 
@@ -42,7 +33,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href=""><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click="$root.showMenu=!$root.showMenu;"></span></a>
+					<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click=""></span> tuningfork</a>
 				</div>
 				<div class="collapse navbar-collapse pull-right">
 
@@ -57,7 +48,11 @@
 				</div>
 			</div>
 
-			<div id="wrap" class="col-xs-12 col-centered " role="main">
+			<div class="sidebar col-xs-2 col-sm-1" id="sidebar-left" >
+				<?php echo $this->dashboard; ?>
+			</div>
+
+			<div id="wrap" class="col-xs-12 col-centered" role="main">
 
 				<?php echo $this->menu; ?>
 
@@ -76,6 +71,7 @@
 		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-sanitize.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-route.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'angularjs/ng-animate.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 

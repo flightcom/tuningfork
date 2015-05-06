@@ -961,7 +961,9 @@ body[data-app="admin"] #wrap #content.admin .list-categories li{margin-bottom:10
 #banner input::-moz-placeholder,#banner input:-moz-placeholder,#banner input:-ms-input-placeholder{font-style:italic}
 #container-global{float:right}
 #topbar{margin:0 !important}
-.sidebar{position:fixed;height:100%;float:left;top:0;bottom:0;left:0;z-index:100;display:inline-block;padding:20px;overflow-x:hidden;overflow-y:auto;background-color:#222}.sidebar ul{margin-top:50px}
+.sidebar{position:fixed;height:100%;float:left;top:50px;bottom:0;left:0;z-index:100;display:inline-block;padding:20px;overflow-x:hidden;overflow-y:auto;box-sizing:border-box;box-shadow:0 0 5px #555}.sidebar ul{margin-top:50px}
+.sidebar.sample-show-hide{-webkit-transition:all linear .25s;transition:all linear .25s}
+.sidebar.sample-show-hide.ng-hide{margin-left:0}
 .nav-menu{width:100%;background-color:#f5f5f5;border:0;border-radius:0;margin-bottom:0;border-right:1px solid #eee}
 @media (min-width:768px){.omb_row-sm-offset-3 div:first-child[class*="col-"]{margin-left:25%}}.omb_login .omb_authTitle{text-align:center;line-height:300%}
 .omb_login .omb_socialButtons a{color:#fff;opacity:.9}
@@ -1032,6 +1034,6 @@ body[role="print"]{background-color:#fff !important}
 #holder{margin:0;padding:0;height:160px;width:160px;-webkit-border-radius:80px;-moz-border-radius:80px;border-radius:80px;overflow:hidden;background:#eaeef3}
 .dashboard-score{margin:0;padding:0;height:152px;width:152px;line-height:152px;-webkit-border-radius:76px;-moz-border-radius:76px;border-radius:76px;position:absolute;top:4px;left:4px;font-size:56px;font-weight:300;text-align:center;background:#fff;color:#444}
 .article{padding-bottom:20px !important}.article .infos{font-style:italic}
-@media (max-width:767px){#left-sidebar{position:fixed;bottom:0 !important;top:inherit !important;width:100%;padding:0 20px !important}#left-sidebar .nav{width:100%;display:table;margin:0}#left-sidebar .nav li{display:table-cell;text-align:center}#left-sidebar .nav li.active a::after{content:none} #left-sidebar .nav span.glyphicon+span{display:none}}.h3{font-size:24px;margin-top:20px;margin-bottom:10px}
+@media (max-width:767px){#sidebar-left{position:fixed;bottom:0 !important;top:inherit !important;width:100%;padding:0 20px !important}#sidebar-left .nav{width:100%;display:table;margin:0}#sidebar-left .nav li{display:table-cell;text-align:center}#sidebar-left .nav li.active a::after{content:none} #sidebar-left .nav span.glyphicon+span{display:none}}.h3{font-size:24px;margin-top:20px;margin-bottom:10px}
 .glyphicon.btn-back{cursor:pointer;top:3px}
 .navbar{border-radius:0 !important}
