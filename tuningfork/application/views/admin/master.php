@@ -24,7 +24,7 @@
 
 		<div id="container-global" class="col-xs-12 nopadding">
 
-			<div id="topbar" class="navbar navbar-inverse" role="navigation">
+			<div id="topbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -35,24 +35,25 @@
 					</button>
 					<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click=""></span> tuningfork</a>
 				</div>
+
+				<form action="/admin/recherche/" method="post" class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+					</div>
+				</form>
+
 				<div class="collapse navbar-collapse pull-right">
 
 					<?php echo $this->session->userdata('account'); ?>
 
-					<form action="/admin/recherche/" method="post" class="navbar-form navbar-right" role="search">
-						<div class="form-group">
-							<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
-						</div>
-					</form>
-
 				</div>
 			</div>
 
-			<div class="sidebar col-xs-2 col-sm-1" id="sidebar-left" >
+			<div class="sidebar col-xs-12 col-sm-1 hidden-xs" id="sidebar-left" >
 				<?php echo $this->dashboard; ?>
 			</div>
 
-			<div id="wrap" class="col-xs-12 col-centered" role="main">
+			<div id="wrap" class="col-xs-12 col-sm-11 col-centered pull-right" role="main">
 
 				<?php echo $this->menu; ?>
 

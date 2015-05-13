@@ -27,7 +27,7 @@
 @color-archived : #aaa;
 
 // Menu selected
-@color-menu-active : #222;
+@color-menu-active : #fff;
 
 /** Global settings **/
 body {
@@ -94,14 +94,18 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 /*.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {color: #fff;background-color: #428bca;}*/
 .nav-sidebar > .active > a, .nav-sidebar > .active > a:focus {background-color: @color-menu-active;}
 .nav-sidebar > .active > a::after { right: 0;border: solid 8px transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-right-color: #fff;top: 50%;margin-top: -8px;}
-.nav-sidebar > :not(.active) > a { color: #aaa;}
+.nav-sidebar > :not(.active) > a { color: #555;}
 .nav-sidebar > :not(.active) > a:hover { color: #555;}
+.nav-menu { background-color: white!important; }
 [role="navigation"] .dropdown-menu { min-width: inherit; border: none;}
 [role="navigation"] .dropdown-menu > li > a { padding: 10px 14px; font-size: 16px; background-color: black; color: white;}
 // [role="navigation"] .navbar-nav > li > a { font-size: 14px; color: white;}
 .nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
-.navbar-inverse { border: none; }
+.navbar-inverse { 
+	border: none; 
+	background-color: #ddd;
+}
 .rating-input span { font-size:18px!important;}
 // table td[class*=col-], table th[class*=col-] { box-shadow: none;}
 // .table-bordered{ border: none;}
@@ -128,7 +132,9 @@ body {
 		height: 100%;
 		margin: 0 auto;
 		padding: 0px;
+		margin-top: 50px;
 		box-sizing: border-box;
+		// box-shadow: 0px 5px 5px #555 inset;
 	}
 
 	&[data-app="public"] {
@@ -341,7 +347,6 @@ body {
 	position: fixed;
 	height: 100%;
 	float: left;
-	top: 50px;
 	bottom: 0;
 	left: 0;
 	z-index: 100;
@@ -351,7 +356,7 @@ body {
 	overflow-y: auto;
 	// background-color: #222;
 	box-sizing: border-box;
-	box-shadow: 0 0 5px #555;
+	box-shadow: 0 5px 5px #555;
 	ul {
 		margin-top: 50px;
 	}
