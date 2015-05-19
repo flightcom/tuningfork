@@ -16,7 +16,11 @@ tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParam
 
 tfApp.controller('MenuCtrl', function ($scope) {
 
-	
+	$scope.showMenu = false;
+
+	$scope.$watch('showMenu', function(){
+		console.log('showMenu = ' + $scope.showMenu);
+	});
 
 });
 

@@ -33,7 +33,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/"><span class="glyphicon glyphicon-menu-hamburger" onclick="return false;" ng-click=""></span> tuningfork</a>
+					<a class="navbar-brand" href="/">tuningfork</a>
 				</div>
 
 				<form action="/admin/recherche/" method="post" class="navbar-form navbar-left" role="search">
@@ -49,7 +49,13 @@
 				</div>
 			</div>
 
-			<div class="sidebar col-xs-12 col-sm-1 hidden-xs" id="sidebar-left" >
+			<div id="middlebar" class="navbar col-xs-12 nomargin nopadding" role="navigation" ng-controller="MenuCtrl" ng-init="showMenu=false;">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="" ng-click="showMenu=!showMenu"><span class="glyphicon glyphicon-menu-hamburger"></span> Accueil</a>
+				</div>
+			</div>
+
+			<div class="sidebar col-xs-12 col-sm-1" ng-controller="MenuCtrl" ng-show="showMenu" id="sidebar-left">
 				<?php echo $this->dashboard; ?>
 			</div>
 
