@@ -14,12 +14,31 @@ tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParam
     };
 }]);
 
-tfApp.controller('MenuCtrl', function ($scope) {
+tfApp.factory('menu', function menuFactory() {
 
-	$scope.showMenu = false;
+	var menu = {};
+	var show = false;
 
-	$scope.$watch('showMenu', function(){
-		console.log('showMenu = ' + $scope.showMenu);
+	menu.set = function(what) {
+		show = what;
+	} 
+
+	menu.visible = function() {
+		return show;
+	}
+
+	return menu;
+
+});
+
+tfApp.controller('MenuCtrl', function ($scope, $localStorage, menu) {
+
+	$scope.menu = menu;
+	$scope.menu.set(false || $localStorage.showMenu);
+
+	$scope.$watch('menu.visible()', function(){
+		$localStorage.showMenu = $scope.menu.visible();
+		console.log('menu = ' + $scope.menu.visible());
 	});
 
 });

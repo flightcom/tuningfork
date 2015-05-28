@@ -1,5 +1,5 @@
 <?php if($this->session->userdata('logged_in')) { ?>
-<span><?php echo $this->session->userdata('user_prenom'); ?> <?php echo $this->session->userdata('user_nom'); ?></span>
+<a href=""><span><?php echo $this->session->userdata('user_prenom'); ?> <?php echo $this->session->userdata('user_nom'); ?></span></a>
 <ul class="nav navbar-nav navbar-right">
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home"></a>

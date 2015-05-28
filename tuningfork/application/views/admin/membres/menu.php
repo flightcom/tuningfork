@@ -1,4 +1,4 @@
-<div class="navbar navbar-default nav-menu" role="navigation">
+<div class="" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">

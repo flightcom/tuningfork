@@ -20,20 +20,20 @@
 
 	</head>
 
-	<body role="document" data-app="admin" ng-app="tuningfork">
+	<body role="document" data-app="admin" ng-app="tuningfork" ng-cloak>
 
 		<div id="container-global" class="col-xs-12 nopadding">
 
-			<div id="topbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div id="topbar" class="navbar navbar-fixed-top" role="navigation">
 
-				<div class="navbar-header">
+				<div class="navbar-header col-sm-2 nopadding">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="/">tuningfork</a>
+					<a class="navbar-brand pull-left" href="/">tuningfork</a>
 				</div>
 
 				<form action="/admin/recherche/" method="post" class="navbar-form navbar-left" role="search">
@@ -42,26 +42,29 @@
 					</div>
 				</form>
 
-				<div class="collapse navbar-collapse pull-right">
+				<div class="collapse navbar-header navbar-collapse pull-right">
 
 					<?php echo $this->session->userdata('account'); ?>
 
 				</div>
 			</div>
 
-			<div id="middlebar" class="navbar col-xs-12 nomargin nopadding" role="navigation" ng-controller="MenuCtrl" ng-init="showMenu=false;">
+			<div id="middlebar" class="navbar col-xs-12 nomargin nopadding" role="navigation" ng-controller="MenuCtrl">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="" ng-click="showMenu=!showMenu"><span class="glyphicon glyphicon-menu-hamburger"></span> Accueil</a>
+					<a class="navbar-brand" href="" ng-click="menu.set(!menu.visible())"><span class="glyphicon glyphicon-menu-hamburger"></span> Accueil</a>
 				</div>
+				<div class="navbar-header col-sm-10 pull-right nomargin nopadding">
+					<?php echo $this->menu; ?>
+				</div>
+
 			</div>
 
-			<div class="sidebar col-xs-12 col-sm-1" ng-controller="MenuCtrl" ng-show="showMenu" id="sidebar-left">
-				<?php echo $this->dashboard; ?>
-			</div>
 
-			<div id="wrap" class="col-xs-12 col-sm-11 col-centered pull-right" role="main">
+			<div id="wrap" class="col-xs-12 col-centered pull-right" role="main" ng-controller="MenuCtrl" ng-class="{'col-sm-10': menu.visible(), 'col-sm-12': !menu.visible()}">
 
-				<?php echo $this->menu; ?>
+				<div class="sidebar col-xs-12 col-sm-2" ng-controller="MenuCtrl" ng-show="menu.visible()" id="sidebar-left">
+					<?php echo $this->dashboard; ?>
+				</div>
 
 				<div id="content" class="admin">
 					<?php echo $content; ?>
@@ -79,6 +82,7 @@
 		<script src="<?php echo (JS.'angularjs/ng-sanitize.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-route.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'angularjs/ng-animate.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'angularjs/ng-storage.min.js'); ?>"></script>
 		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
 		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'admin.js'); ?>"></script> 
