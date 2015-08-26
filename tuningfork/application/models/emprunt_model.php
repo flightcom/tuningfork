@@ -102,6 +102,13 @@ class Emprunt_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function close($pret)
+    {
+        $this->db->where('emp_id', $pret->emp_id);
+        $res = $this->db->update('emprunt', $pret);
+        return $res;
+    }
+
 }
 
 ?>

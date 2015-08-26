@@ -50,14 +50,17 @@ class Prets extends Admin_Controller {
             $emp_id = $param1;
             $action = $param2;
 
-            switch($action){
-                case 'contrat'  : $this->contrat($emp_id); break;
-                case 'pdf'      : $this->pdf($emp_id); break;
-                case 'close'    : $this->close($emp_id); break;
-                case 'delete'   : $this->delete($emp_id); break;
-                case 'edit'     : $this->edit($emp_id); break;
-                default         : break;
-            }
+            $this->$action($emp_id);
+
+            // switch($action){
+            //     case 'contrat'  : $this->contrat($emp_id); break;
+            //     case 'pdf'      : $this->pdf($emp_id); break;
+            //     case 'html'     : $this->html($emp_id); break;
+            //     case 'close'    : $this->close($emp_id); break;
+            //     case 'delete'   : $this->delete($emp_id); break;
+            //     case 'edit'     : $this->edit($emp_id); break;
+            //     default         : break;
+            // }
         }
         else if(!is_numeric($param1) && is_null($param2))
         {
@@ -154,13 +157,17 @@ class Prets extends Admin_Controller {
             'pret' => $this->Emprunt_model->get_entry($emp_id),
             'title' => "Contrat de prêt"
         );
-        // $this->load->library('pdf');
-        // $content = $this->load->view('admin/prets/contrat', $data, TRUE);
-        // $this->pdf->load_view('master_simple', array("content" => $content));
-        // $this->pdf->render();
-        // $this->pdf->stream("contrat.pdf");
         $content = $this->load->view('admin/prets/contrat', $data, TRUE);
         $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+    }
+
+    public function html($emp_id)
+    {
+        $data = array(
+            'pret' => $this->Emprunt_model->get_entry($emp_id),
+            'title' => "Contrat de prêt"
+        );
+        $this->load->view('admin/prets/contrat', $data);
     }
 
     public function pdf($emp_id)
@@ -174,12 +181,53 @@ class Prets extends Admin_Controller {
         );
         $content = $this->load->view('admin/prets/contrat', $data, TRUE);
 
-        $name = 'contrat_pret_' . $emp_id;
+        $name = 'fiche_pret_' . $emp_id;
 
         $dompdf = new DOMPDF(); // this is the line that fails
         $dompdf->load_html($content);
         $dompdf->render();
         $dompdf->stream($name . '.pdf');
+    }
+
+    public function close($emp_id)
+    {
+        $data = array('emp_date_fin_effective'=> 'NOW');
+        $res = $this->Emprunt_model->close($emp_id, $data);
+
+        $this->form_validation->set_rules('membre-id', 'Numéro de membre', 'required');
+        $this->form_validation->set_rules('instru-id', 'Numéro d\'instrument', 'required');
+        $this->form_validation->set_rules('date-fin-prevue', 'Date de retour', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            redirect('/admin/prets/'.$this->input->post('pret-id').'/closed');
+            $data = array(
+                'pret' => $this->Emprunt_model->get_entry($emp_id),
+                'title'   => 'Clôture du prêt'
+            );
+
+            $content = $this->load->view('admin/instruments/add', $data, TRUE);
+            $this->load->view('admin/master', array('content' => $content));
+        }
+        else
+        {
+            $this->pret = new stdClass;
+            $this->pret->emp_pret_id         = $this->input->post('pret-id');
+            $this->pret->emp_caution_rendue  = $this->input->post('caution-rendue');
+            $this->pret->emp_etat_final      = $this->input->post('etat-final');
+            $this->pret->emp_date_fin_prevue = 'NOW';
+
+            $res = $this->Emprunt_model->close($this->pret);
+
+            $data = array(
+                'pret' => $this->Emprunt_model->get_entry($this->pret->id),
+                'title' => 'Clôture du prêt'
+            );
+
+            $content = $this->load->view('admin/prets/close', $data, TRUE);
+            $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
+        }
+
     }
 
 }

@@ -467,11 +467,11 @@ tfApp.controller('AdminListPretsCtrl', ['$scope', '$http', '$filter', '$q', 'ngT
 	$scope.columns = [
 		{ title: 'Nom', field: 'membre_nom', visible: true, classes: "col-xs-1", filter: { 'membre_nom': 'text' } },
 		{ title: 'Prénom', field: 'membre_prenom', visible: true, classes: "col-xs-1", filter: { 'membre_prenom': 'text' } },
-		// { title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-1", filter: { 'membre_tel': 'text' } },
-		// { title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
-		{ title: 'Catégorie', field: 'categ_path_name', visible: true, classes: "col-xs-2", filter: { 'categ_path_name': 'text' } },
-		{ title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-1", filter: { 'marque_nom': 'text' } },
-		{ title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-1", filter: { 'instru_modele': 'text' } },
+		{ title: 'Téléphone', field: 'membre_tel', visible: true, classes: "col-xs-1", filter: { 'membre_tel': 'text' } },
+		{ title: 'Email', field: 'membre_email', visible: true, classes: "col-xs-2", filter: { 'membre_email': 'text' } },
+		// { title: 'Catégorie', field: 'categ_path_name', visible: true, classes: "col-xs-2", filter: { 'categ_path_name': 'text' } },
+		// { title: 'Marque', field: 'marque_nom', visible: true, classes: "col-xs-1", filter: { 'marque_nom': 'text' } },
+		// { title: 'Modèle', field: 'instru_modele', visible: true, classes: "col-xs-1", filter: { 'instru_modele': 'text' } },
 		{ title: 'Date d\'emprunt', field: 'emp_date_debut', visible: true, classes: "col-xs-1", filter: { 'emp_date_debut': 'text' } },
 		{ title: 'Date de remise prévue', field: 'emp_date_fin_prevue', visible: true, classes: "col-xs-1", filter: { 'emp_date_fin_prevue': 'text' } },
 		{ title: 'Date de remise effective', field: 'emp_date_fin_effective', visible: true, classes: "col-xs-1", filter: { 'emp_date_fin_effective': 'text' } }

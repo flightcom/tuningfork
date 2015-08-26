@@ -19,8 +19,8 @@
 				ng-class="{'btn-default': (tiParams.filter().instru_dispo | isEmpty), 'btn-primary': !(tiParams.filter().instru_dispo | isEmpty)}" 
 				data-toggle="dropdown">Disponibilité <span class="caret"></span></button>
 			<ul class="dropdown-menu" role="menu">
-				<li ng-click="toggleDispo(1)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(1) > -1}"><a href="#">Oui</a></li>
-				<li ng-click="toggleDispo(0)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(0) > -1}"><a href="#">Non</a></li>
+				<li ng-click="toggleDispo(1)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(1) > -1}"><a href="">Oui</a></li>
+				<li ng-click="toggleDispo(0)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(0) > -1}"><a href="">Non</a></li>
 			</ul>
 		</div>
 		<button ng-click="tiParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>

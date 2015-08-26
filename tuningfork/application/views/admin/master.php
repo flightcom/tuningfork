@@ -24,32 +24,48 @@
 
 		<div id="container-global" class="col-xs-12 nopadding">
 
-			<div id="topbar" class="navbar navbar-fixed-top" role="navigation">
+			<nav id="topbar" class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 
-				<div class="navbar-header col-sm-2 nopadding">
+				<div class="navbar-header col-sm-2 nopadding col-xs-hidden">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand pull-left" href="/">tuningfork</a>
+					<a class="navbar-brand pull-left color-sweet-green" href="/">tuningfork</a>
 				</div>
 
-				<form action="/admin/recherche/" method="post" class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
-					</div>
-				</form>
+				<div class="navbar-form col-xs-10">
 
-				<div class="collapse navbar-header navbar-collapse pull-right">
+					<form action="/admin/recherche/" method="post" class="navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+						</div>
+					</form>
+
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary dropdown-toggle mgl-10"
+							data-toggle="dropdown"><span class="glyphicon glyphicon-plus"></span>
+						</button>
+			            <ul class="dropdown-menu" role="menu">
+			                <li><a href="/admin/prets/add">Prêt</a></li>
+			                <li><a href="/admin/membres/add">Membre</a></li>
+			                <li><a href="/admin/instruments/add">Instrument</a></li>
+			            </ul>						
+					</div>
+				</div>
+
+				<!-- <div class="navbar-header pull-right col-xs-2"> -->
 
 					<?php echo $this->session->userdata('account'); ?>
 
-				</div>
-			</div>
+				<!-- </div> -->
+
+			</nav>
 
 			<div id="middlebar" class="navbar col-xs-12 nomargin nopadding" role="navigation" ng-controller="MenuCtrl">
+
 				<div class="navbar-header">
 					<a class="navbar-brand" href="" ng-click="menu.set(!menu.visible())"><span class="glyphicon glyphicon-menu-hamburger"></span> Accueil</a>
 				</div>
@@ -60,13 +76,13 @@
 			</div>
 
 
-			<div id="wrap" class="col-xs-12 col-centered pull-right" role="main" ng-controller="MenuCtrl" ng-class="{'col-sm-10': menu.visible(), 'col-sm-12': !menu.visible()}">
+			<div id="wrap" class="col-xs-12 col-centered pull-right" role="main" ng-controller="MenuCtrl">
 
-				<div class="sidebar col-xs-12 col-sm-2" ng-controller="MenuCtrl" ng-show="menu.visible()" id="sidebar-left">
+				<div class="sidebar col-xs-12 col-sm-2 navbar-collapse" ng-controller="MenuCtrl" ng-show="menu.visible()" id="sidebar-left">
 					<?php echo $this->dashboard; ?>
 				</div>
 
-				<div id="content" class="admin">
+				<div id="content" class="admin pull-right" ng-class="{'col-sm-11': menu.visible(), 'col-sm-12': !menu.visible()}">
 					<?php echo $content; ?>
 				</div>
 

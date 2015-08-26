@@ -6,8 +6,8 @@
                 ng-class="{'btn-default': (tiParams.filter().instru_dispo | isEmpty), 'btn-primary': !(tiParams.filter().instru_dispo | isEmpty)}" 
                 data-toggle="dropdown">{{statusSelected ? statusSelected : 'Status'}} <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-                <li ng-model="statusClosed[0]" ng-click="toggleClosed(0)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(0) > -1}"><a href="#">En cours</a></li>
-                <li ng-model="statusClosed[1]" ng-click="toggleClosed(1)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(1) > -1}"><a href="#">Cloturé</a></li>
+                <li ng-model="statusClosed[0]" ng-click="toggleClosed(0)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(0) > -1}"><a href="">En cours</a></li>
+                <li ng-model="statusClosed[1]" ng-click="toggleClosed(1)" ng-class="{active : tpParams.filter().emprunt_is_closed.indexOf(1) > -1}"><a href="">Cloturé</a></li>
             </ul>
         </div>
         <button ng-click="toggleRetard()" ng-class="{active : tpParams.filter().emprunt_is_delayed}" class="btn btn-default">Retards</button>
