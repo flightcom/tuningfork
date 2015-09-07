@@ -191,40 +191,39 @@ class Prets extends Admin_Controller {
 
     public function close($emp_id)
     {
-        $data = array('emp_date_fin_effective'=> 'NOW');
-        $res = $this->Emprunt_model->close($emp_id, $data);
-
-        $this->form_validation->set_rules('membre-id', 'Numéro de membre', 'required');
-        $this->form_validation->set_rules('instru-id', 'Numéro d\'instrument', 'required');
-        $this->form_validation->set_rules('date-fin-prevue', 'Date de retour', 'required');
+        $this->form_validation->set_rules('emp-id', 'Numéro de prêt', 'required');
 
         if ($this->form_validation->run() == FALSE)
         {
-            redirect('/admin/prets/'.$this->input->post('pret-id').'/closed');
             $data = array(
                 'pret' => $this->Emprunt_model->get_entry($emp_id),
                 'title'   => 'Clôture du prêt'
             );
 
-            $content = $this->load->view('admin/instruments/add', $data, TRUE);
+            $content = $this->load->view('admin/prets/close', $data, TRUE);
             $this->load->view('admin/master', array('content' => $content));
         }
         else
         {
             $this->pret = new stdClass;
-            $this->pret->emp_pret_id         = $this->input->post('pret-id');
-            $this->pret->emp_caution_rendue  = $this->input->post('caution-rendue');
-            $this->pret->emp_etat_final      = $this->input->post('etat-final');
-            $this->pret->emp_date_fin_prevue = 'NOW';
+            $this->pret->emp_id                 = $this->input->post('emp-id');
+            $this->pret->emp_caution_rendue     = $this->input->post('caution-rendue');
+            $this->pret->emp_etat_final         = $this->input->post('etat-final');
+            $this->pret->emp_date_fin_effective = $this->input->post('date-fin-effective') ? $this->input->post('date-fin-effective') : date('Y-m-d H:i:s');
 
             $res = $this->Emprunt_model->close($this->pret);
 
+            if(!$res) {
+                echo "Erreur lors de la clôture";
+                return;
+            }
+
             $data = array(
-                'pret' => $this->Emprunt_model->get_entry($this->pret->id),
+                'pret' => $this->Emprunt_model->get_entry($this->pret->emp_id),
                 'title' => 'Clôture du prêt'
             );
 
-            $content = $this->load->view('admin/prets/close', $data, TRUE);
+            $content = $this->load->view('admin/prets/closed', $data, TRUE);
             $this->load->view('admin/master', array('title' => $data['title'], 'content' => $content));
         }
 

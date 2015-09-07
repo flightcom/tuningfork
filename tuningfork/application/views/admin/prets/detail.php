@@ -7,7 +7,7 @@
             <ul class="dropdown-menu" role="menu">
                 <li onclick="location.href='/admin/membres/<?php echo $pret->membre_id; ?>'"><a href="">Fiche membre</a></li>
                 <li onclick="location.href='/admin/instruments/<?php echo $pret->instru_id; ?>'"><a href="">Fiche instrument</a></li>
-                <li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/close'"><a href="">Clôturer</a></li>
+                <?php if(empty($pret->emp_date_fin_effective)) : ?><li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/close'"><a href="">Clôturer</a></li><?php endif; ?>
                 <li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/pdf'"><a href="">Télécharger contrat</a></li>
                 <li onclick="location.href='/admin/prets/<?php echo $pret->emp_id; ?>/html'"><a href="">Voir contrat</a></li>
                 <li><a href="">Supprimer</a></li>
@@ -28,6 +28,12 @@
                     <h5>Détail sur le prêt</h5>
                 </div>
                 <div class="col-xs-10">
+                    <div class="form-group">
+                        <label for="status" class="control-label col-xs-2">Statut</label>
+                        <div class="col-xs-10">
+                            <span><?php echo empty($pret->emp_date_fin_effective) ? "En cours" : "Clos"; ?></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="emp_date_debut" class="control-label col-xs-2">Date d'emprunt</label>
                         <div class="col-xs-10">

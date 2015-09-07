@@ -8,6 +8,7 @@
 		<title><?php echo $title; ?></title>
 
 		<link href="<?php echo (CSS.'font-awesome.min.css'); ?>" rel="stylesheet">
+		<link href="<?php echo (CSS.'awesome-bootstrap-checkbox.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'ng-table.min.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -56,33 +57,37 @@
 					</div>
 				</div>
 
-				<!-- <div class="navbar-header pull-right col-xs-2"> -->
+				<?php echo $this->session->userdata('account'); ?>
 
-					<?php echo $this->session->userdata('account'); ?>
-
-				<!-- </div> -->
 
 			</nav>
 
 			<div id="middlebar" class="navbar col-xs-12 nomargin nopadding" role="navigation" ng-controller="MenuCtrl">
 
-				<div class="navbar-header">
+				<div class="navbar-header col-xs-hidden col-sm-2 nopadding">
 					<a class="navbar-brand" href="" ng-click="menu.set(!menu.visible())"><span class="glyphicon glyphicon-menu-hamburger"></span> Accueil</a>
 				</div>
-				<div class="navbar-header col-sm-10 pull-right nomargin nopadding">
+
+				<div class="col-xs-5 col-sm-6 nopadding">
+					<ul class="nav menu navbar-nav breadcrumb">
+						<?php echo $this->breadcrumb->toHTML(); ?>
+					</ul>
+				</div>
+
+				<div class="col-xs-5 col-sm-4 nomargin nopadding text-right">
 					<?php echo $this->menu; ?>
+					<?php if(isset($this->submenu)) echo $this->submenu; ?>
 				</div>
 
 			</div>
 
+			<div id="wrap" class="col-xs-12" role="main" ng-controller="MenuCtrl">
 
-			<div id="wrap" class="col-xs-12 col-centered pull-right" role="main" ng-controller="MenuCtrl">
-
-				<div class="sidebar col-xs-12 col-sm-2 navbar-collapse" ng-controller="MenuCtrl" ng-show="menu.visible()" id="sidebar-left">
+				<div class="sidebar col-xs-12 col-sm-2" ng-show="menu.visible()" id="sidebar-left">
 					<?php echo $this->dashboard; ?>
 				</div>
 
-				<div id="content" class="admin pull-right" ng-class="{'col-sm-11': menu.visible(), 'col-sm-12': !menu.visible()}">
+				<div id="content" class="admin pull-right" class="col-xs-12" ng-class="{'col-sm-10': menu.visible(), 'col-sm-12': !menu.visible()}">
 					<?php echo $content; ?>
 				</div>
 

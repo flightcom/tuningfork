@@ -28,6 +28,7 @@ class Instruments extends Admin_Controller {
 		$this->load->model('Emprunt_model');
 
 		$this->menu = $this->load->view('admin/instruments/menu', NULL, TRUE);
+		$this->breadcrumb->add('Instruments', '/instruments');
     }
 
 	public function index($param1 = null, $param2 = null)
@@ -74,13 +75,15 @@ class Instruments extends Admin_Controller {
 
 	public function liste($format = null)
 	{
+		$this->submenu = $this->load->view('admin/instruments/menus/liste', NULL, true);
+		$this->breadcrumb->add('Liste', '/liste');
 		$data = array(
-			'instruments' => $this->getInstruments(),
-			'title' => 'Liste des instruments'
+			'instruments' => $this->getInstruments()
 		);
 
 		$content = $this->load->view('admin/instruments/liste', $data, TRUE);
-		$this->load->view('admin/master', array('title' => 'Liste d\'instruments', 'content' => $content));
+		// $this->load->view('admin/master', array('breadcrumb' => $data['title'], 'content' => $content));
+		$this->load->view('admin/master', array('title' => 'Liste des instruments', 'content' => $content));
 	}
 
 	public function add()
