@@ -23,14 +23,9 @@
 
 		<div class=" center" role="navigation">
 			<div class="navbar-header">
-<!-- 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
- -->				<a class="navbar-brand" href="/">tuningfork</a>
+				<a class="navbar-brand" href="/">tuningfork</a>
 			</div>
+
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
@@ -47,21 +42,14 @@
 					</div>
 				</form>
 
-			</div><!--/.nav-collapse -->
+			</div>
 		</div>
-
-		<!-- <div style="height:50px;" id="spacer"></div> -->
-
-
-		<!-- <div class="col-lg-2 psidebar visible-lg-inline"></div> -->
 
    		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
    			<div id="content">
 				<?php echo $content; ?>
 			</div>
 		</div>
-
-		<!-- <div class="col-lg-2 psidebar visible-lg"><?php echo $this->session->userdata('sidebar2'); ?></div> -->
 
         <footer></footer>
 

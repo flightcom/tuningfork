@@ -8231,6 +8231,9 @@ body[data-app="admin"] #wrap #content.admin .list-categories li {
 .pdt-20 {
   padding-top: 20px!important;
 }
+.pdbt-8 {
+  padding: 8px 0!important;
+}
 /* margins */
 .mg-10 {
   margin: 10px;

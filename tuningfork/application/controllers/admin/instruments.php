@@ -46,6 +46,7 @@ class Instruments extends Admin_Controller {
 				'instrument' => $this->Instrument_model->get_entry($id),
 				'emprunts' => $this->Emprunt_model->get_history($id)
 				);
+			$this->breadcrumb->add($data['instrument']->categ_nom . " " . $data['instrument']->marque_nom. " " . $data['instrument']->instru_modele. " " . $data['instrument']->instru_numero_serie, '/' . $param1);
 			$content = $this->load->view('admin/instruments/detail', $data, TRUE);
 			$this->load->view('admin/master', array( 'content' => $content));
 		}
@@ -88,6 +89,7 @@ class Instruments extends Admin_Controller {
 
 	public function add()
 	{
+		$this->breadcrumb->add('Nouveau', '/' . $this->router->fetch_method());
 		$this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		$this->form_validation->set_rules('marque', 'Marque', 'required');
 		$this->form_validation->set_rules('modele', 'Modèle', 'required');

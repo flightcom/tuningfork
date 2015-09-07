@@ -1,9 +1,5 @@
 <div class="pdl20 pdr20">
 
-    <h3><span class="glyphicon glyphicon-chevron-left btn-back" onclick="document.location.href='/admin/instruments/';return false;"></span> <?php echo $instrument->categ_nom . " " . $instrument->marque_nom. " " . $instrument->instru_modele. " " . $instrument->instru_numero_serie; ?></h3>
-
-    <br>
-
     <ul id="instru-actions-list" class="nav nav-tabs" role="tablist">
         <li class="active"><a href="#infos" data-toggle="tab">Infos</a></li>
         <li><a href="#emprunts" data-toggle="tab">Emprunts</a></li>

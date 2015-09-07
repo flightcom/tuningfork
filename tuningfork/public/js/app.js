@@ -1,4 +1,4 @@
-var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute', 'ngStorage'])
+var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
 .directive('ngFocusOn', function($timeout) {
     return {
         link: function(scope, element, attrs) {
