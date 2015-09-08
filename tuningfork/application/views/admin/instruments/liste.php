@@ -1,6 +1,6 @@
-<div ng-controller="AdminListInstruCtrl" ng-cloak ng-init="instruments=<?php echo htmlspecialchars(json_encode($instruments)); ?>">
+<div>
 
-	<table ng-table="tiParams" show-filter="true" class="table table-hover col-xs-12 table-list-bordered nopadding">
+	<table ng-table="tiParams" show-filter="true" class="table table-hover col-xs-12 nopadding">
 
         <thead>
 	        <tr>

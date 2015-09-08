@@ -1,6 +1,6 @@
-<ul class="nav navbar-nav submenu pull-right" ng-controller="AdminListInstruCtrl">
-    <li class="dropdown-toggle" data-toggle="dropdown">
-    	<a href="" title="État">
+<ul class="nav navbar-nav submenu pull-right">
+    <li>
+    	<a href="" title="État" class="dropdown-toggle" data-toggle="dropdown" ng-class="{active : tiParams.filter().instru_etat.length > 0}">
     		<span class="glyphicon glyphicon-thumbs-up"></span>
 			<ul class="dropdown-menu" role="menu">
 				<li ng-click="toggleEtat(0)" ng-class="{active : tiParams.filter().instru_etat.indexOf(0) > -1}"><a href="">Très mauvais</a></li>
@@ -13,8 +13,8 @@
     	</a>
     </li>
     <li>
-    	<a href="" title="Disponibilité">
-    		<span class="glyphicon glyphicon-retweet dropdown-toggle" data-toggle="dropdown"></span>
+    	<a href="" title="Disponibilité" class="dropdown-toggle" data-toggle="dropdown" ng-class="{active : tiParams.filter().instru_dispo.length > 0}">
+    		<span class="glyphicon glyphicon-retweet"></span>
 			<ul class="dropdown-menu" role="menu">
 				<li ng-click="toggleDispo(1)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(1) > -1}"><a href="">Oui</a></li>
 				<li ng-click="toggleDispo(0)" ng-class="{active : tiParams.filter().instru_dispo.indexOf(0) > -1}"><a href="">Non</a></li>
@@ -22,7 +22,7 @@
     	</a>
     </li>
     <li>
-    	<a href="" title="RàZ">
+    	<a href="" title="RàZ" ng-click="tiParams.filter({})">
     		<span class="glyphicon glyphicon-filter"></span>
     	</a>
     </li>

@@ -23,7 +23,7 @@
 
 	<body role="document" data-app="admin" ng-app="tuningfork" ng-cloak>
 
-		<div id="container-global" class="col-xs-12 nopadding">
+		<div id="container-global" class="col-xs-12 nopadding" ng-controller="<?php echo $this->breadcrumb->getNgController(); ?>" ng-cloak>
 
 			<nav id="topbar" class="navbar navbar-fixed-top navbar-inverse col-xs-12 nopadding" role="navigation">
 

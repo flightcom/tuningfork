@@ -45,7 +45,7 @@ tfApp.controller('MenuCtrl', function ($scope, $localStorage, menu) {
 
 });
 
-tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope, $http){
+tfApp.controller('AdminInstrumentsAddCtrl', ['$scope', '$http', function ($scope, $http){
 
 	$scope.instru = {
 		categpath: []
@@ -139,54 +139,62 @@ tfApp.controller('AdminAddInstrumentCtrl', ['$scope', '$http', function ($scope,
 
 }]);
 
-tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
+tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
 
-	$scope.$watch('instruments', function(value) {
+	$scope.init = function() {
 
-		$scope.tiParams = new ngTableParams({
-	        page: 1,            // show first page
-	        count: 10,          // count per page
-	        filter: {
-	        	// instru_dispo: [0,1],
-	        	// instru_etat: [0,1,2,3,4,5]
-	        },
-	        sorting: {
-	        	instru_id: 'asc'
-	        }
-	    }, {
-	    	filterDelay: 0,
-	        total: $scope.instruments.length, // length of data
-	        getData: function($defer, params) {
-	            // use build-in angular filter
-	            var orderedData = params.filter() ? $filter('filter')($scope.instruments, function(value, index){
-	            	var result = true;
-	            	angular.forEach(value, function(valD, keyD){
-	            		var paramF = params.filter()[keyD];
-						if ( angular.isDefined(paramF) && paramF != '' ) {
-							if ( Object.prototype.toString.call( paramF ) === '[object Array]' ) {
-								if ( paramF.indexOf(valD) == -1 && paramF.indexOf(parseInt(valD)) == -1 ) { 
+		$http.get('admin/instruments/liste/json').success(function(data, status, headers, config) {
+
+			console.log(data);
+			$scope.instruments = data.instruments;
+
+			$scope.tiParams = new ngTableParams({
+		        page: 1,            // show first page
+		        count: 10,          // count per page
+		        filter: {
+		        	// instru_dispo: [0,1],
+		        	// instru_etat: [0,1,2,3,4,5]
+		        },
+		        sorting: {
+		        	instru_id: 'asc'
+		        }
+		    }, {
+		    	filterDelay: 0,
+		        total: $scope.instruments.length, // length of data
+		        getData: function($defer, params) {
+		            // use build-in angular filter
+		            var orderedData = params.filter() ? $filter('filter')($scope.instruments, function(value, index){
+		            	var result = true;
+		            	angular.forEach(value, function(valD, keyD){
+		            		var paramF = params.filter()[keyD];
+							if ( angular.isDefined(paramF) && paramF != '' ) {
+								if ( Object.prototype.toString.call( paramF ) === '[object Array]' ) {
+									if ( paramF.indexOf(valD) == -1 && paramF.indexOf(parseInt(valD)) == -1 ) { 
+										result = false;
+									}
+								} else if (typeof(paramF) == 'string') {
+									if( valD.toLowerCase().indexOf(paramF.toLowerCase()) == -1) {
+										result = false;
+									}
+								} else if (paramF != valD){
 									result = false;
 								}
-							} else if (typeof(paramF) == 'string') {
-								if( valD.toLowerCase().indexOf(paramF.toLowerCase()) == -1) {
-									result = false;
-								}
-							} else if (paramF != valD){
-								result = false;
 							}
-						}
-	            	});
-                    return result;
-                }) : data;
-	            // var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
-				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
-	            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-	            params.total(orderedData.length); // set total for recalc pagination
-	            $defer.resolve($scope.filteredInstruments);
-	        }
-	    });
+		            	});
+	                    return result;
+	                }) : data;
+		            // var orderedData = params.filter() ? $filter('filter')(data, params.filter()) : data;
+					orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+		            $scope.filteredInstruments = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+		            params.total(orderedData.length); // set total for recalc pagination
+		            $defer.resolve($scope.filteredInstruments);
+		        }
+		    });
 
-	});
+
+		});
+
+	};
 
 	$scope.columns = [
 		{ title: 'Identifiant', field: 'instru_id', visible: true, classes: "col-xs-1", filter: { 'instru_id': 'text' } },
@@ -196,6 +204,8 @@ tfApp.controller('AdminListInstruCtrl', ['$scope', '$http', '$filter', '$q', 'ng
 		{ title: 'Numéro de série', field: 'instru_numero_serie', visible: true, classes: "col-xs-2", filter: { 'instru_numero_serie': 'text' } },
 		{ title: 'Date d\'entrée', field: 'instru_date_entree', visible: true, classes: "col-xs-2", filter: { 'instru_date_entree': 'text' } }
 	];
+
+	$scope.init();
 
 	$scope.go = function(path){
 		location.href = path;

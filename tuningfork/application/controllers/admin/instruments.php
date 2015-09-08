@@ -83,7 +83,9 @@ class Instruments extends Admin_Controller {
 		);
 
 		$content = $this->load->view('admin/instruments/liste', $data, TRUE);
-		// $this->load->view('admin/master', array('breadcrumb' => $data['title'], 'content' => $content));
+		if( $format == 'json' )
+			die(json_encode($data));
+
 		$this->load->view('admin/master', array('title' => 'Liste des instruments', 'content' => $content));
 	}
 

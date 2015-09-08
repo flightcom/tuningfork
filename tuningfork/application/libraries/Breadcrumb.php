@@ -37,6 +37,18 @@ class Breadcrumb {
 		return $output;
 	}
 
+	public function getNgController()
+	{
+		// $tab = $this->tab;
+		// return implode('', array_map(function($item){
+		// 	return ucfirst(str_replace('/', '', $item['path']));
+		// }, $tab));
+
+		return implode('', array_map(function($item){
+			return ucfirst($item);
+		}, explode('/', $this->tab[count($this->tab)-1]['path']))) . 'Ctrl';
+	}
+
 }
 
 ?>
