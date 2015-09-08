@@ -7866,6 +7866,9 @@ body[data-app="public"] [role="navigation"] .navbar-brand {
 body[data-app="admin"] {
   background-color: white;
 }
+body[data-app="admin"] #search {
+  border-radius: 4px 0 0 4px;
+}
 body[data-app="admin"] #wrap #content.admin {
   top: 100px;
   padding: 0!important;
@@ -8055,7 +8058,8 @@ body[data-app="admin"] #wrap #content.admin .list-categories li {
   position: fixed;
   top: 100px;
   z-index: 48;
-  padding: 0!important;
+  padding-left: 0;
+  padding-right: 0;
 }
 .breadcrumb {
   padding: 0!important;
