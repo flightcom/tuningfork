@@ -446,11 +446,22 @@ body {
 .breadcrumb {
 	padding: 0!important;
 	margin-bottom: 0;
-}
 
-.breadcrumb.nav > li > a {
-	// padding: 10px 5px;
-	display: inline-block!important;
+	&>li {
+	    display: inline;
+	    float: none;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+
+		& > a { 
+			color: #555!important;
+		}
+
+	}
+
+	&.nav > li > a {
+		display: inline-block!important;
+	}
 }
 
 .sidebar {
@@ -488,15 +499,9 @@ body {
 	border-right: 1px solid #ddd;
 }
 
-.breadcrumb {
-	& > li > a { 
-		color: #555!important;
-	}
-}
-
 .menu, .submenu {
 	font-size: 18px;
-	& > li > a { 
+    & > li > a { 
 		color: #777;
 		&.active {
 			.color-blue;
@@ -807,3 +812,6 @@ float: right;
 .navbar {
 	border-radius: 0!important;
 }
+
+.ajax-result { position: absolute; top: 0; left: 0; height: 100%; width: 100%; opacity: 0.85; z-index: 1000; }
+.ajax-result span { position: absolute; top: 50%; left: 50%; margin-top: -36px; margin-left: -36px; color: white; font-size: 72px; }

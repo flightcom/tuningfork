@@ -86,6 +86,10 @@
 
 			</div>
 			
+			<div ng-include="'html/success.html'" ng-show="submitSuccess === true"></div>
+			<div ng-include="'html/error.html'" ng-show="submitSuccess === false"></div>
+
+
 		</div>
 
 		<script src="<?php echo (JS.'jquery/jquery.extend.js'); ?>"></script> 
