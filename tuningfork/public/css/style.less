@@ -32,6 +32,8 @@
 // Menu selected
 @color-menu-active : #fff;
 
+.bkg-danger { background-color: red!important; }
+
 /** Global settings **/
 body {
 	background-color: #fff;
@@ -506,6 +508,11 @@ body {
 		&.active {
 			.color-blue;
 		} 
+		& > span.badge {
+			position: absolute;
+			top: 10px;
+			margin-left: -10px;
+		}
 	}
 }
 

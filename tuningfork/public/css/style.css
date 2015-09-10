@@ -6171,6 +6171,9 @@ button.close {
 .color-blue {
   color: #4487fa;
 }
+.bkg-danger {
+  background-color: red!important;
+}
 /** Global settings **/
 body {
   background-color: #fff;
@@ -8214,6 +8217,12 @@ body[data-app="admin"] #wrap #content.admin .list-categories li {
 .menu > li > a.active,
 .submenu > li > a.active {
   color: #4487fa;
+}
+.menu > li > a > span.badge,
+.submenu > li > a > span.badge {
+  position: absolute;
+  top: 10px;
+  margin-left: -10px;
 }
 /** Page de login **/
 @media (min-width: 768px) {

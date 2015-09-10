@@ -124,6 +124,7 @@ class Instruments extends Admin_Controller {
 
 	public function categories()
 	{
+		$this->breadcrumb->add('Catégories', '/categories');
 		$data = array(
 			'title' => 'Liste des catégories'
 		);

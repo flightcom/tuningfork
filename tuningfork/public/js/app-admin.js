@@ -1,5 +1,11 @@
 tfApp.requires.push('ngStorage');
 
+tfApp.run(function($rootScope){
+	$rootScope.Utils = {
+		keys : Object.keys
+	}
+});
+
 tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParams', function($rootScope, $location, $route, $routeParams) {
     return {
         restrict: 'A',
@@ -145,7 +151,6 @@ tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q
 
 		$http.get('admin/instruments/liste/json').success(function(data, status, headers, config) {
 
-			console.log(data);
 			$scope.instruments = data.instruments;
 
 			$scope.tiParams = new ngTableParams({
@@ -190,7 +195,6 @@ tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q
 		            $defer.resolve($scope.filteredInstruments);
 		        }
 		    });
-
 
 		});
 
@@ -246,7 +250,7 @@ tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q
 
 }]);
 
-tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
+tfApp.controller('AdminInstrumentsCategoriesCtrl', function ($scope, $http, $filter) {
 
     $scope.categories = [];
     $scope.categoriesPath = [];
@@ -316,31 +320,34 @@ tfApp.controller('AdminListCategCtrl', function ($scope, $http, $filter) {
 
 });
 
-tfApp.controller('AdminListMembresCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
+tfApp.controller('AdminMembresListeCtrl', function ($scope, $http, $filter, $q, ngTableParams) {
 
 	$scope.$watch('membres', function(value) {
 
-		$scope.tmParams = new ngTableParams({
-	        page: 1,            // show first page
-	        count: 10,          // count per page
-	        filter: {
-	        	// instru_dispo: [0,1],
-	        	// instru_etat: [0,1,2,3,4,5]
-	        },
-	        sorting: {
-	        	membre_id: 'asc'
-	        }
-	    }, {
-	    	filterDelay: 0,
-	        total: $scope.membres.length, // length of data
-	        getData: function($defer, params) {
-	            // use build-in angular filter
-	            var orderedData = params.filter() ? $filter('filter')($scope.membres, params.filter()) : $scope.membres;
-				orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
-	            $scope.filteredMembres = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-	            params.total(orderedData.length); // set total for recalc pagination
-	            $defer.resolve($scope.filteredMembres);
-	        }
+		$http.get('admin/membres/liste/json').success(function(data, status, headers, config) {
+
+			$scope.membres = data.membres;
+
+			$scope.tmParams = new ngTableParams({
+		        page: 1,            // show first page
+		        count: 10,          // count per page
+		        filter: {},
+		        sorting: {
+		        	membre_id: 'asc'
+		        }
+		    }, {
+		    	filterDelay: 0,
+		        total: $scope.membres.length, // length of data
+		        getData: function($defer, params) {
+		            // use build-in angular filter
+		            var orderedData = params.filter() ? $filter('filter')($scope.membres, params.filter()) : $scope.membres;
+					orderedData = params.sorting() ? $filter('orderBy')(orderedData, params.orderBy()) : orderedData;
+		            $scope.filteredMembres = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+		            params.total(orderedData.length); // set total for recalc pagination
+		            $defer.resolve($scope.filteredMembres);
+		        }
+		    });
+
 	    });
 
 	});

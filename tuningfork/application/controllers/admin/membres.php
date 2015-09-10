@@ -27,13 +27,14 @@ class Membres extends Admin_Controller {
 		$this->load->model('Emprunt_model');
 
 		$this->menu = $this->load->view('admin/membres/menu', NULL, TRUE);
+		$this->breadcrumb->add('Membres', '/membres');
     }
 
 	public function index($membre_id = null, $action = null)
 	{
 		if(is_null($membre_id) && is_null($action))
 		{
-			$this->lister_membres();
+			$this->liste();
 		} 
 		else if(is_numeric($membre_id) && is_null($action))
 		{
@@ -93,12 +94,17 @@ class Membres extends Admin_Controller {
 		$this->index();
 	}
 
-	public function lister_membres()
+	public function liste($format = null)
 	{
+		$this->submenu = $this->load->view('admin/membres/menus/liste', NULL, true);
+		$this->breadcrumb->add('Liste', '/liste');
 		$data = array(
 			'membres' => $this->Membre_model->get_all_entries_extended(),
-			'title' => 'Liste des membres',
-			);
+		);
+
+		if( $format == 'json' )
+			die(json_encode($data));
+
 		$content = $this->load->view('admin/membres/liste', $data, TRUE);
 		$this->load->view('admin/master', array('title' => 'Liste des membres', 'content' => $content));
 	}
@@ -130,6 +136,9 @@ class Membres extends Admin_Controller {
 
 	public function map()
 	{
+		// $this->submenu = $this->load->view('admin/membres/menus/liste', NULL, true);
+		$this->breadcrumb->add('Carte', '/map');
+		$this->angular = false;
 		$data = [
 			'title' => 'Localisation des membres'
 		];

@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
         $this->session->set_userdata('account', $account);
 		// $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
         $this->breadcrumb = new Breadcrumb();
+        $this->angular = true;
     }
 }
 

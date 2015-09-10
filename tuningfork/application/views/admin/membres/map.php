@@ -8,7 +8,7 @@
 $(function(){
 
   $.ajax({
-    url: 'getMembresLocation/ajax',
+    url: 'admin/membres/getMembresLocation/ajax',
     method: 'get',
     dataType: 'json',
     success: function(data){

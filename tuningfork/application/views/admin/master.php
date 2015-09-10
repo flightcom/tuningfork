@@ -9,7 +9,7 @@
 
 		<link href="<?php echo (CSS.'font-awesome.min.css'); ?>" rel="stylesheet">
 		<link href="<?php echo (CSS.'awesome-bootstrap-checkbox.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<!-- <link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script> -->
 		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'ng-table.min.css'); ?>" rel="stylesheet" type="text/css"></script>
 		<link href="<?php echo (CSS.'calendar.css'); ?>" rel="stylesheet" type="text/css"></script>
@@ -23,7 +23,7 @@
 
 	<body role="document" data-app="admin" ng-app="tuningfork" ng-cloak>
 
-		<div id="container-global" class="col-xs-12 nopadding" ng-controller="<?php echo $this->breadcrumb->getNgController(); ?>" ng-cloak>
+		<div id="container-global" class="col-xs-12 nopadding" <?php if ($this->angular) : ?> ng-controller="<?php echo $this->breadcrumb->getNgController(); ?>" <?php endif; ?>>
 
 			<nav id="topbar" class="navbar navbar-fixed-top navbar-inverse col-xs-12 nopadding" role="navigation">
 

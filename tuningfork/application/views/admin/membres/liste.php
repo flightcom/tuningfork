@@ -1,12 +1,4 @@
-<div class="pdl20 pdr20" ng-controller="AdminListMembresCtrl" ng-init="membres=<?php echo htmlspecialchars(json_encode($membres)); ?>" ng-cloak>
-
-	<div class="btn-group pull-right">
-		<button ng-click="tmParams.filter({}).sorting({})" class="btn btn-danger">RàZ</button>
-	</div>
-
-	<h3><?php echo $title; ?><br><small>{{membres.length}} résultats</small></h3>
-
-	<br>
+<div class="pdl20 pdr20">
 
 	<table ng-table="tmParams" show-filter="true" class="table table-hover col-xs-12 table-list-bordered">
 
@@ -44,5 +36,7 @@
 		</tbody>
 
 	</table>
+
+	<pre>{{tmParams.filter()}}</pre>
 
 </div>

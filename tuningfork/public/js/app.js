@@ -38,6 +38,7 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
    }
 }).directive('resize', function ($window) {
     return function (scope, element) {
+        console.log('resize');
         var w = angular.element($window);
         scope.getWindowDimensions = function () {
             return {
@@ -51,7 +52,7 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
 
             scope.style = function () {
 			    var menusHeight = $('[role=navigation]').map(function(index, element){ return $(this).outerHeight(); }).get().sum();
-			    var menusWidth = $('.sidebar').map(function(index, element){ return $(this).outerWidth(); }).get().sum();
+			    var menusWidth = $('#sidebar-left').map(function(index, element){ return $(this).outerWidth(); }).get().sum();
                 return {
                     'height': (newValue.h - menusHeight) + 'px',
                     'width': (newValue.w - menusWidth) + 'px'

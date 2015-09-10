@@ -1,26 +1,26 @@
-<div class="pdl20 pdr20" ng-controller="AdminListCategCtrl">
+<div class="pdl20 pdr20">
 
-<span class="glyphicon glyphicon-trash fs24 pull-right" ondrop="deletecateg(event)" ondragover="allowDrop(event)"></span>
+	<span class="glyphicon glyphicon-trash fs24 pull-right" ondrop="deletecateg(event)" ondragover="allowDrop(event)"></span>
 
-<h3><?php echo $title; ?></h3>
+	<h3><?php echo $title; ?></h3>
 
 
-<ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories" ondrop="dropcateg(event)" ondragover="allowDrop(event)">
-	<li><span>[ Niveau {{$index}} ]</span></li>
-	<li ng-hide="" ng-show></li>
-	<li id="categ_{{categorie.categ_id}}" ng-repeat="categorie in level" draggable="true" ondragstart="drag(event)">
-		<button class="btn" 
-			ng-class="{'btn-default': categoriesPath.indexOf(categorie) == -1,
-				'btn-success': categoriesPath.indexOf(categorie) > -1}"
-			ng-click="clickOnCategorie(categorie)"
-			ng-dblclick="dblClickOnCategorie(categorie)">{{categorie.categ_nom}}</button>
-	</li>
-	<li class="form-inline">
-		<input ng-show="showNewCategField[$index]" class="form-control form-inline" type="text" placeholder="Nouvelle catégorie..." ng-model="newcateg_$index">
-		<button ng-hide="showNewCategField[$index]" ng-click="showNewCategField[$index] = !showNewCategField[$index]" class="btn btn-primary glyphicon glyphicon-plus"></button>
-		<button ng-show="showNewCategField[$index]" ng-click="addCateg(newcateg_$index, $index);" class="btn btn-success glyphicon glyphicon-ok"></button>
-		<button ng-show="showNewCategField[$index]" ng-click="showNewCategField[$index] = !showNewCategField[$index]" class="btn btn-danger glyphicon glyphicon-remove"></button>
-	</li>
-</ul>
+	<ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories" ondrop="dropcateg(event)" ondragover="allowDrop(event)">
+		<li><span>[ Niveau {{$index}} ]</span></li>
+		<li ng-hide="" ng-show></li>
+		<li id="categ_{{categorie.categ_id}}" ng-repeat="categorie in level" draggable="true" ondragstart="drag(event)">
+			<button class="btn" 
+				ng-class="{'btn-default': categoriesPath.indexOf(categorie) == -1,
+					'btn-success': categoriesPath.indexOf(categorie) > -1}"
+				ng-click="clickOnCategorie(categorie)"
+				ng-dblclick="dblClickOnCategorie(categorie)">{{categorie.categ_nom}}</button>
+		</li>
+		<li class="form-inline">
+			<input ng-show="showNewCategField[$index]" class="form-control form-inline" type="text" placeholder="Nouvelle catégorie..." ng-model="newcateg_$index">
+			<button ng-hide="showNewCategField[$index]" ng-click="showNewCategField[$index] = !showNewCategField[$index]" class="btn btn-primary glyphicon glyphicon-plus"></button>
+			<button ng-show="showNewCategField[$index]" ng-click="addCateg(newcateg_$index, $index);" class="btn btn-success glyphicon glyphicon-ok"></button>
+			<button ng-show="showNewCategField[$index]" ng-click="showNewCategField[$index] = !showNewCategField[$index]" class="btn btn-danger glyphicon glyphicon-remove"></button>
+		</li>
+	</ul>
 
 </div>
