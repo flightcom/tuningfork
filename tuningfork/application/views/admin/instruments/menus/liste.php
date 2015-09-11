@@ -22,9 +22,8 @@
     	</a>
     </li>
     <li>
-    	<a href="" title="RàZ" ng-click="tiParams.filter({})">
-    		<span class="glyphicon glyphicon-filter"></span>
-            <span class="badge bkg-danger" ng-show="Utils.keys(tiParams.filter()).length">{{tiParams.total()}}</span>
+    	<a href="" title="RàZ" ng-click="tiParams.filter({})" ng-class="{active: utils.keys(tiParams.filter()).length}">
+            <span class="badge">{{tiParams.total()}}</span>
     	</a>
     </li>
 </ul>

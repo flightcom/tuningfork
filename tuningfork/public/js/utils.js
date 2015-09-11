@@ -10,3 +10,7 @@ Array.prototype.sum = function(selector) {
     }
     return sum;
 };
+
+String.prototype.contains = function(it) {
+    return this.indexOf(it) != -1; 
+};

@@ -13,7 +13,6 @@
 @tf-blue : #4487fa;
 
 .color-sweet-green { color: @sweet-green!important; }
-.color-blue { color: @tf-blue; }
 
 // Disponibilité
 @green-soft : #10c140;
@@ -506,13 +505,16 @@ body {
     & > li > a { 
 		color: #777;
 		&.active {
-			.color-blue;
+			color: @tf-blue;
+			& .badge {
+				background-color: @tf-blue;
+			}
 		} 
-		& > span.badge {
-			position: absolute;
-			top: 10px;
-			margin-left: -10px;
-		}
+		// & > span.badge {
+		// 	position: absolute;
+		// 	top: 10px;
+		// 	margin-left: -10px;
+		// }
 	}
 }
 

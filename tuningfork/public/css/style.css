@@ -6168,9 +6168,6 @@ button.close {
 .color-sweet-green {
   color: #4d994f !important;
 }
-.color-blue {
-  color: #4487fa;
-}
 .bkg-danger {
   background-color: red!important;
 }
@@ -8218,11 +8215,9 @@ body[data-app="admin"] #wrap #content.admin .list-categories li {
 .submenu > li > a.active {
   color: #4487fa;
 }
-.menu > li > a > span.badge,
-.submenu > li > a > span.badge {
-  position: absolute;
-  top: 10px;
-  margin-left: -10px;
+.menu > li > a.active .badge,
+.submenu > li > a.active .badge {
+  background-color: #4487fa;
 }
 /** Page de login **/
 @media (min-width: 768px) {

@@ -1,10 +1,8 @@
 <?php echo validation_errors(); ?>
 
-<form action='/admin/instruments/add' method='post' id='newinstrument' name='newinstrument' class='form-horizontal pdl20 pdr20' novalidate>
+<form ng-action='/admin/instruments/add' id='newinstrument' name='newinstrument' class='form-horizontal col-xs-12' novalidate>
 
-	<h3>Ajout d'un nouvel instrument</h3>
-
-	<br>
+    <br>
 
 	<div class="form-group">
         <label for="categorie" class="control-label col-xs-1">Catégorie</label>
@@ -18,7 +16,7 @@
             <span class="helper-block text-danger" ng-show="!instru.categ_id"><?php echo form_error('categorie'); ?></span>
         </div>
         <div style="display:inline-block;">
-            <button ng-click="addcateg = !addcateg" ng-show="!addcateg" class="btn btn-primary" onclick="return false;">Ajouter une Catégorie</button>
+            <button ng-click="addcateg = !addcateg" ng-show="!addcateg" class="btn btn-primary" onclick="return false;"><span class="glyphicon glyphicon-plus"></span></button>
             <div class='navbar-form hidden' ng-class="{hidden : !addcateg}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">
@@ -45,7 +43,7 @@
             <span class="helper-block text-danger" ng-show="!instru.marque_id"><?php echo form_error('marque'); ?></span>
         </div>
         <div style="display:inline-block;">
-            <button ng-click="addmarque = !addmarque" ng-show="!addmarque" class="btn btn-primary" onclick="return false;">Ajouter une marque</button>
+            <button ng-click="addmarque = !addmarque" ng-show="!addmarque" class="btn btn-primary" onclick="return false;"><span class="glyphicon glyphicon-plus"></span></button>
             <div class='navbar-form hidden' ng-class="{hidden : !addmarque}" style='width:400px;margin-top:0;margin-bottom:0;'>
 
                 <div class="form-group">

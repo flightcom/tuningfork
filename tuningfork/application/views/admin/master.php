@@ -86,9 +86,8 @@
 
 			</div>
 			
-			<div ng-include="'html/success.html'" ng-show="submitSuccess === true"></div>
-			<div ng-include="'html/error.html'" ng-show="submitSuccess === false"></div>
-
+			<div ng-include="'<?php echo HTML; ?>/success.html'" ng-show="submitSuccess === true"></div>
+			<div ng-include="'<?php echo HTML; ?>/error.html'" ng-show="submitSuccess === false"></div>
 
 		</div>
 

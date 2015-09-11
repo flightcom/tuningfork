@@ -1,11 +1,8 @@
-<div class="pdl20 pdr20">
+<div class="col-xs-12 pdt-20">
 
 	<span class="glyphicon glyphicon-trash fs24 pull-right" ondrop="deletecateg(event)" ondragover="allowDrop(event)"></span>
 
-	<h3><?php echo $title; ?></h3>
-
-
-	<ul ng-repeat="level in categories" class="col-xs-12 list-inline list-categories" ondrop="dropcateg(event)" ondragover="allowDrop(event)">
+	<ul ng-repeat="level in categories" class="list-inline" ondrop="dropcateg(event)" ondragover="allowDrop(event)">
 		<li><span>[ Niveau {{$index}} ]</span></li>
 		<li ng-hide="" ng-show></li>
 		<li id="categ_{{categorie.categ_id}}" ng-repeat="categorie in level" draggable="true" ondragstart="drag(event)">

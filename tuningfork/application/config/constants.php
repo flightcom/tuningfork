@@ -42,6 +42,7 @@ define('URL','http://tuningfork.local/');
 define('IMG',URL.'public/img/');
 define('CSS',URL.'public/css/');
 define('JS',URL.'public/js/');
+define('HTML',URL.'public/html/');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

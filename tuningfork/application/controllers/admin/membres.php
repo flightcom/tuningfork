@@ -146,13 +146,31 @@ class Membres extends Admin_Controller {
 		$this->load->view('admin/master', array( 'content' => $content));
 	}
 
-	public function add()
+	public function create()
 	{
-		$data = [
-			'title' => 'Ajouter un membre'
-		];
-		$content = $this->load->view('membres/new', $data, TRUE);
-		$this->load->view('admin/master', array( 'content' => $content));
+		$this->breadcrumb->add('Nouveau', '/' . $this->router->fetch_method());
+		// $this->form_validation->set_rules('categorie', 'Catégorie', 'required');
+		// $this->form_validation->set_rules('marque', 'Marque', 'required');
+		// $this->form_validation->set_rules('modele', 'Modèle', 'required');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data = array();
+
+			$content = $this->load->view('admin/membres/create', $data, TRUE);
+			$this->load->view('admin/master', array('content' => $content));
+
+		}
+		else
+		{
+			// $marque = $this->input->post('marque');
+			// $modele = $this->input->post('modele');
+			// // $code = $this->input->post('code');
+			// $numero = $this->input->post('numero');
+			// $query = $this->Instrument_model->insert();
+			redirect('/admin/membres/liste');
+		}
+
 	}
 
 	public function getMembresLocation($method = null)

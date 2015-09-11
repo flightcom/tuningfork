@@ -1,11 +1,5 @@
 tfApp.requires.push('ngStorage');
 
-tfApp.run(function($rootScope){
-	$rootScope.Utils = {
-		keys : Object.keys
-	}
-});
-
 tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParams', function($rootScope, $location, $route, $routeParams) {
     return {
         restrict: 'A',
@@ -37,6 +31,11 @@ tfApp.factory('menu', function menuFactory() {
 
 	return menu;
 
+}).factory('utils', function utilsFactory(){
+
+	var utils = {};
+	utils.keys = Object.keys;
+	return utils;
 });
 
 tfApp.controller('MenuCtrl', function ($scope, $localStorage, menu) {
@@ -51,7 +50,7 @@ tfApp.controller('MenuCtrl', function ($scope, $localStorage, menu) {
 
 });
 
-tfApp.controller('AdminInstrumentsAddCtrl', ['$scope', '$http', function ($scope, $http){
+tfApp.controller('AdminInstrumentsAddCtrl', function ($scope, $http, utils){
 
 	$scope.instru = {
 		categpath: []
@@ -143,7 +142,7 @@ tfApp.controller('AdminInstrumentsAddCtrl', ['$scope', '$http', function ($scope
 		}
 	});
 
-}]);
+});
 
 tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q', 'ngTableParams', function ($scope, $http, $filter, $q, ngTableParams){
 
@@ -156,10 +155,7 @@ tfApp.controller('AdminInstrumentsListeCtrl', ['$scope', '$http', '$filter', '$q
 			$scope.tiParams = new ngTableParams({
 		        page: 1,            // show first page
 		        count: 10,          // count per page
-		        filter: {
-		        	// instru_dispo: [0,1],
-		        	// instru_etat: [0,1,2,3,4,5]
-		        },
+		        filter: {},
 		        sorting: {
 		        	instru_id: 'asc'
 		        }

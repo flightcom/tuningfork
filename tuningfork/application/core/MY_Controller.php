@@ -53,7 +53,7 @@ class Membre_Controller extends Auth_Controller {
 
 }
 
-class Admin_Controller extends Auth_Controller {
+class Admin_Controller extends Membre_Controller {
 
     function __construct()
     {
