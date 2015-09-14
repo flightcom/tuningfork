@@ -364,11 +364,13 @@ tfApp.controller('AdminMembresListeCtrl', function ($scope, $http, $filter, $q, 
 
 });
 
-tfApp.controller('AdminEditMembreCtrl', function ($scope, $http, $filter){
+tfApp.controller('AdminMembresEditCtrl', function ($scope, $http, $filter){
 
 	$scope.$watch('membre.ville_code_postal', function(){
-		if(!angular.isUndefined($scope.membre.ville_code_postal) && $scope.membre.ville_code_postal.length >= 3) {
+		if($scope.membre && $scope.membre.ville_code_postal ) {
+			console.log('ok');
 			$http.get('/ajax/getcities/'+$scope.membre.ville_code_postal).success(function(data){
+				console.log(data);
 				$scope.villes = data.cities;
 				if ( $scope.villes.length == 1) {
 					$scope.membre.ville_id = $scope.villes[0].ville_id;
@@ -378,7 +380,7 @@ tfApp.controller('AdminEditMembreCtrl', function ($scope, $http, $filter){
 	}, true);
 
 	$scope.$watch('membre.ville_id', function(){
-		if(!angular.isUndefined($scope.membre.ville_code_postal)) {
+		if($scope.membre && $scope.membre.ville_code_postal) {
 			var found = $filter('filter')($scope.villes, {ville_id: $scope.membre.ville_id}, true);
 			console.log(found)
 			if(angular.isDefined(found)) {

@@ -1,56 +1,47 @@
-<div class="pdl20 pdr20" ng-controller="AdminEditMembreCtrl">
-
-    <h3><span class="glyphicon glyphicon-chevron-left btn-back" onclick="document.location.href='/admin/membres/';return false;"></span> <?php echo $membre->membre_prenom . " " . $membre->membre_nom; ?></h3>
-
-    <br>
-
-    <ul id="membre-actions-list" class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#infos" data-toggle="tab">Infos</a></li>
-        <li><a href="#emprunts" data-toggle="tab">Emprunts</a></li>
-    </ul>
+<div class="col-xs-12">
 
     <div class="tab-content">
 
-        <section id="infos" class="tab-pane fade in active">
+        <section id="infos" class="tab-pane fade in active" ng-init="editMembre=false">
 
             <?php echo form_open('admin/membres/' . $membre->membre_id . '/edit', array('id' => $formid, 'class' => 'form-horizontal')); ?>
 
             	<br>
 
-                    <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $membre->membre_id; ?>" readonly />
+                    <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $membre->membre_id; ?>" ng-readonly="editMembre" />
 
             	<div class="form-group">
                     <label for="categorie" class="control-label col-xs-1">Nom</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $membre->membre_nom; ?>" readonly />
+                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $membre->membre_nom; ?>" ng-readonly="editMembre" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="categorie" class="control-label col-xs-1">Prénom</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $membre->membre_prenom; ?>" readonly />
+                        <input type="text" class="form-control" id="nom" name="nom" value="<?php echo $membre->membre_prenom; ?>" ng-readonly="editMembre" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="tel" class="control-label col-xs-1">Téléphone</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control editable" id="tel" name="tel" value="<?php echo $membre->membre_tel; ?>" readonly />
+                        <input type="text" class="form-control editable" id="tel" name="tel" value="<?php echo $membre->membre_tel; ?>" ng-readonly="editMembre" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="control-label col-xs-1">Email</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control editable" id="email" name="email" value="<?php echo $membre->membre_email; ?>" readonly />
+                        <input type="text" class="form-control editable" id="email" name="email" value="<?php echo $membre->membre_email; ?>" ng-readonly="editMembre" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="adresse" class="control-label col-xs-1">Adresse</label>
                     <div class="col-xs-11">
-                        <input type="text" class="form-control editable" id="adresse" name="adresse" value="<?php echo $membre->adr_voie; ?>" readonly />
+                        <input type="text" class="form-control editable" id="adresse" name="adresse" value="<?php echo $membre->adr_voie; ?>" ng-readonly="editMembre" />
                     </div>
                 </div>
 
@@ -79,7 +70,7 @@
             	<div class="form-group">
                     <label for="date-entree" class="control-label col-xs-1"></label>
                     <div class="col-xs-11">
-            			<button onclick="editForm('<?php echo $formid;?>');return false;" class="btn btn-warning no-edition">Modifier</button>
+            			<button type="button" ng-click="editMembre=true" class="btn btn-warning">Modifier</button>
             			<button type="submit" class="btn btn-success edition hidden">Valider</button>
             			<button onclick="uneditForm('<?php echo $formid; ?>');return false;" class="btn btn-default edition hidden">Annuler</button>
             			<button onclick="document.location.href='/admin/membres/<?php echo $membre->membre_id; ?>/delete';return false;" class="btn btn-danger pull-right">Supprimer</button>

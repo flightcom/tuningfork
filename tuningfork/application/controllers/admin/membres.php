@@ -27,6 +27,7 @@ class Membres extends Admin_Controller {
 		$this->load->model('Emprunt_model');
 
 		$this->menu = $this->load->view('admin/membres/menu', NULL, TRUE);
+
 		$this->breadcrumb->add('Membres', '/membres');
     }
 
@@ -38,7 +39,7 @@ class Membres extends Admin_Controller {
 		} 
 		else if(is_numeric($membre_id) && is_null($action))
 		{
-			$this->infos_membre($membre_id);
+			$this->read($membre_id);
 		}
 		else if(is_numeric($membre_id) && !is_null($action))
 		{
@@ -121,15 +122,20 @@ class Membres extends Admin_Controller {
 		}
 	}
 
-	public function infos_membre($membre_id)
+	public function read($membre_id)
 	{
+		$this->submenu = $this->load->view('admin/membres/menus/detail', NULL, true);
+		// $this->angular = false;
+
 		$data = array(
 			'title'    => 'Informations sur le membre',
 			'formid'   => 'edit-membre',
 			'membre'   => $this->Membre_model->get_membre_by_id($membre_id),
 			'emprunts' => $this->Emprunt_model->get_emprunts_by_membre_id($membre_id),
 			'en_cours' => $this->Emprunt_model->check_emprunt_en_cours_by_membre_id($membre_id)
-			);
+		);
+
+		$this->breadcrumb->add($data['membre']->membre_nom . ' ' . $data['membre']->membre_prenom, '/' . $membre_id);
 		$content = $this->load->view('admin/membres/detail', $data, TRUE);
 		$this->load->view('admin/master', array( 'content' => $content));
 	}

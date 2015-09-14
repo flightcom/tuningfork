@@ -45,7 +45,7 @@ class Breadcrumb {
 		// }, $tab));
 
 		return implode('', array_map(function($item){
-			return ucfirst($item);
+			return is_numeric($item) ? 'Edit' : ucfirst($item);
 		}, explode('/', $this->tab[count($this->tab)-1]['path']))) . 'Ctrl';
 	}
 
