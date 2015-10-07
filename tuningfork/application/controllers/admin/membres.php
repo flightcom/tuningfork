@@ -22,6 +22,7 @@ class Membres extends Admin_Controller {
     	parent::__construct();
         $this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->helper('database');
 		$this->load->library('form_validation');
 		$this->load->model('Membre_model');
 		$this->load->model('Emprunt_model');
@@ -152,8 +153,9 @@ class Membres extends Admin_Controller {
 		$this->load->view('admin/master', array( 'content' => $content));
 	}
 
-	public function create()
+	public function add()
 	{
+		// $this->angular = false;
 		$this->breadcrumb->add('Nouveau', '/' . $this->router->fetch_method());
 		// $this->form_validation->set_rules('categorie', 'Catégorie', 'required');
 		// $this->form_validation->set_rules('marque', 'Marque', 'required');
@@ -161,9 +163,12 @@ class Membres extends Admin_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			$data = array();
+			$data = array(
+				'title' => 'Nouveau membre',
+				'genres' => Membre_model::get_genders()
+			);
 
-			$content = $this->load->view('admin/membres/create', $data, TRUE);
+			$content = $this->load->view('admin/membres/new', $data, TRUE);
 			$this->load->view('admin/master', array('content' => $content));
 
 		}

@@ -1,22 +1,15 @@
-<h3 class="center">Création de mon compte</h3>
+<div class="pd-20">
 
-<?php echo validation_errors(); ?>
+    <?php echo validation_errors(); ?>
+          
+    <form method="post" action="/admin/membres/add" name='newaccount' class='form-horizontal col-xs-12' autocomplete='off' novalidate>
 
-<br>
-
-<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-        
-    <form method="post" action="/membres/create" name='newaccount' class='form-horizontal' autocomplete='off' novalidate ng-controller='AddMembreCtrl'>
-
-        <div class="form-group col-xs-12">
-            <label for="genre">Civilité</label>
+        <div class="form-group">
             <div class="col-xs-12 col-md-10 has-feedback" ng-class="{'has-success' : newaccount.genre.$valid, 'has-error': newaccount.genre.$invalid && newaccount.genre.$dirty}">
+                <label for="genre">Civilité</label>
                 <?php foreach ( $genres as $i => $g) { ?>
-                <div>
-                    <label for="genre-<?php echo $i; ?>" class="radio control-label col-xs-1">
-                        <input type="radio" class="" id="genre-<?php echo $i; ?>" name="genre" value="<?php echo $g; ?>" required ng-model="membre.genre"><?php echo $g; ?>
-                    </label>                
-                </div>
+                <label for="genre-<?php echo $i; ?>" class="radio control-label col-xs-1"></label>                
+                <input type="radio" class="" id="genre-<?php echo $i; ?>" name="genre" value="<?php echo $g; ?>" required ng-model="membre.genre"><?php echo $g; ?>
                 <?php } ?>
                 <span ng-show="newaccount.genre.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                 <span ng-show="newaccount.genre.$invalid && newaccount.genre.$dirty" class="glyphicon glyphicon-remove form-control-feedback"></span>

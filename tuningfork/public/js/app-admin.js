@@ -364,6 +364,37 @@ tfApp.controller('AdminMembresListeCtrl', function ($scope, $http, $filter, $q, 
 
 });
 
+tfApp.controller('AdminMembresAddCtrl', function ($scope, $http, $filter){
+
+	$scope.membre = {};
+
+	$scope.$watch('membre.ville_code_postal', function(){
+		console.log('watch');
+		if($scope.membre && $scope.membre.ville_code_postal && $scope.membre.ville_code_postal.length == 5 ) {
+			console.log('ok');
+			$http.get('/ajax/getcities/'+$scope.membre.ville_code_postal).success(function(data){
+				console.log(data);
+				$scope.villes = data.cities;
+				if ( $scope.villes.length == 1) {
+					$scope.membre.ville_id = $scope.villes[0].ville_id;
+				}
+			});			
+		}
+	}, true);
+
+	// $scope.$watch('membre.ville_id', function(){
+	// 	if($scope.membre && $scope.membre.ville_code_postal) {
+	// 		var found = $filter('filter')($scope.villes, {ville_id: $scope.membre.ville_id}, true);
+	// 		console.log(found)
+	// 		if(angular.isDefined(found)) {
+	// 			$scope.membre.ville_code_postal = found[0].ville_code_postal;
+	// 		}
+	// 	}
+	// }, true);
+
+});
+
+
 tfApp.controller('AdminMembresEditCtrl', function ($scope, $http, $filter){
 
 	$scope.$watch('membre.ville_code_postal', function(){
