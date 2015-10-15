@@ -23,6 +23,7 @@ class Instruments extends Admin_Controller {
         $this->load->helper('url');
 		$this->load->helper('text');
 		$this->load->helper('form');
+		$this->load->helper('database');
 		$this->load->library('form_validation');
 		$this->load->model('Instrument_model');
 		$this->load->model('Emprunt_model');
@@ -302,6 +303,25 @@ class Instruments extends Admin_Controller {
 			$check = $this->Instrument_model->test_code($tmpcode);
 			if ( $check ) $code = $tmpcode;
 		}
+
+	}
+
+	public function barcodes($format = null)
+	{
+		$this->angular = false;
+		$this->submenu = $this->load->view('admin/instruments/menus/barcodes', NULL, true);
+		$this->breadcrumb->add('Codes Barres', '/barcodes');
+		$data = array(
+			'barcodes' => $this->Instrument_model->get_barcodes(),
+			'auto_increment' => get_auto_increment('instruments_barcodes')
+		);
+
+		$content = $this->load->view('admin/instruments/barcodes', $data, TRUE);
+		$this->load->view('admin/master', array('title' => 'Codes Barres instruments', 'content' => $content));
+	}
+
+	public function generateBarcodes($q) 
+	{
 
 	}
 

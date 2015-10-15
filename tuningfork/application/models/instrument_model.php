@@ -259,6 +259,14 @@ class Instrument_model extends CI_Model {
         $this->db->where("instru_code = " . $code);
     }
 
+    function get_barcodes()
+    {
+        $this->db->select('*');
+        $this->db->from('instruments_barcodes');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 
 ?>

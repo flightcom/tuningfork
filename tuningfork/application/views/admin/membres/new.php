@@ -112,7 +112,7 @@
 
         <div class="form-group">
             <div class="col-xs-12">
-                <button type="submit" ng-submit="newaccount.setSubmitted();" class="col-xs-12 btn btn-success">Valider</button>
+                <button type="submit" ng-show="newaccount.$dirty && newaccount.$valid" class="col-xs-12 btn btn-success">Valider</button>
             </div>
         </div>
 

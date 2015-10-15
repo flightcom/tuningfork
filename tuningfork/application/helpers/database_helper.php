@@ -14,3 +14,18 @@ if ( ! function_exists('field_enums'))
         return $enums;
     }  
 }
+
+if ( ! function_exists('get_auto_increment'))
+{
+    function get_auto_increment($tablename = '')
+    {
+        $auto_increment = null;
+        if ($tablename == '') return $auto_increment;
+        $CI =& get_instance();
+        $query = $CI->db->query("SELECT `AUTO_INCREMENT`
+            FROM  INFORMATION_SCHEMA.TABLES
+            WHERE TABLE_SCHEMA = '".$CI->db->database."'
+            AND   TABLE_NAME   = '".$tablename."'");
+        return $query->result()[0]->AUTO_INCREMENT;
+    }
+}

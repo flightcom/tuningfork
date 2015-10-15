@@ -157,9 +157,15 @@ class Membres extends Admin_Controller {
 	{
 		// $this->angular = false;
 		$this->breadcrumb->add('Nouveau', '/' . $this->router->fetch_method());
-		// $this->form_validation->set_rules('categorie', 'Catégorie', 'required');
-		// $this->form_validation->set_rules('marque', 'Marque', 'required');
-		// $this->form_validation->set_rules('modele', 'Modèle', 'required');
+		$this->form_validation->set_rules('genre', 'Genre', 'required');
+		$this->form_validation->set_rules('nom', 'Nom', 'required');
+		$this->form_validation->set_rules('prenom', 'Prénom', 'required');
+		$this->form_validation->set_rules('adresse', 'Adresse', 'required');
+		$this->form_validation->set_rules('dob', 'Date de naissance', 'required');
+		$this->form_validation->set_rules('tel', 'Téléphone', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('ville', 'Téléphone', 'required');
+		$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[6]');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -171,15 +177,22 @@ class Membres extends Admin_Controller {
 			$content = $this->load->view('admin/membres/new', $data, TRUE);
 			$this->load->view('admin/master', array('content' => $content));
 
-		}
-		else
-		{
-			// $marque = $this->input->post('marque');
-			// $modele = $this->input->post('modele');
-			// // $code = $this->input->post('code');
-			// $numero = $this->input->post('numero');
-			// $query = $this->Instrument_model->insert();
-			redirect('/admin/membres/liste');
+		} else {
+			$editdata = [
+				'membre_genre'          => $this->input->post('genre'),
+				'membre_nom'            => $this->input->post('nom'),
+				'membre_prenom'         => $this->input->post('prenom'),
+				'membre_date_naissance' => $this->input->post('dob'),
+				'membre_tel'            => $this->input->post('tel'),
+				'membre_email'          => $this->input->post('email'),
+				'membre_password'       => $this->input->post('password'),
+				'adr_voie'              => $this->input->post('adresse'),
+				'adr_ville_id'          => $this->input->post('ville')
+			];
+			$res = $this->Membre_model->update($id, $editdata);
+			$data['success'] = $res ? 1 : 0;
+			if($data['success'])
+				redirect('/admin/membres/liste');
 		}
 
 	}

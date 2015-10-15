@@ -16,6 +16,22 @@ tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParam
     };
 }]);
 
+tfApp.service('ControllerChecker', ['$controller', function($controller) {
+  return {
+    exists: function(controllerName) {
+      if(typeof window[controllerName] == 'function') {
+        return true;
+      }
+      try {
+        $controller(controllerName);
+        return true;
+      } catch (error) {
+        return !(error instanceof TypeError);
+      }
+    }
+  };
+}]);
+
 tfApp.factory('menu', function menuFactory() {
 
 	var menu = {};
@@ -379,6 +395,8 @@ tfApp.controller('AdminMembresAddCtrl', function ($scope, $http, $filter){
 					$scope.membre.ville_id = $scope.villes[0].ville_id;
 				}
 			});			
+		} else {
+			$scope.membre.ville_id = null;
 		}
 	}, true);
 
