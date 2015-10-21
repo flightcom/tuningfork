@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
-@import 'bootstrap/bootstrap.less';
+@import 'bootstrap4/scss/bootstrap';
+
 
 /**** Colors ****/
 
@@ -70,29 +71,27 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 	border-right-color: transparent; 
 }
 
-$iterations: 5;
-@mixin border-state($i) when ($i >= 0)
-{
-	.border-state-${i} { border-right-color: #{"${color-state-${i}}!important"}; }
-	@include border-state($i - 1);
+/* border color */
+@for $i from 0 to 5 {
+  .border-state-#{$i} { border-right-color: #{"${color-state-#{$i}}!important"}; }
 }
-@include border-state($iterations);
 
 /* font-size */
-$terations: 500;
-@mixin fs($i) when ($i >= 10)
-{
-	// .fs-${index} { font-size: ${index} px; }
-	.fs-${i} { font-size: #{"${i}px!important"}; }
-	.fs ($i - 1);
+@for $i from 10 to 500 {
+	.fs-#{$i} { font-size: #{"#{$i}px!important"}; }
 }
-@include fs($terations);
+
+// Home sections
+#home { background-color: $sweet-green-light-more; }
+#infos { background-color: $red-soft; }
+#instruments { background-color: #d2ffc9; }
+#contact { background-color: #ffc570; }
 
 .border-left-ok { border-left-color: $green-soft!important;}
 .border-left-ko { border-left-color: $red-soft!important;}
 .border-left-closed { border-left-color: $color-archived!important;}
-.border-left-opened { .border-left-ok }
-.border-left-delayed { .border-left-ko }
+.border-left-opened { @extend .border-left-ok }
+.border-left-delayed { @extend .border-left-ko }
 .bg-red-soft {	background-color: $red-soft!important;}
 .bg-green-soft {	background-color: $green-soft!important;}
 
@@ -150,7 +149,7 @@ body {
 
 	#wrap {
 		// .pdlr-20;
-		.nopadding;
+		@extend .nopadding;
 		min-height:100%;
 		height: auto!important;
 		height: 100%;
@@ -164,45 +163,39 @@ body {
 
 	&[data-app="public"] {
 
-		[role="navigation"] {
+		nav {
 
-			background-color: $sweet-green; /* Old browsers */
-			background: -moz-linear-gradient(top,  #4e994f 0%, #479949 100%); /* FF3.6+ */
-			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4e994f), color-stop(100%,#479949)); /* Chrome,Safari4+ */
-			background: -webkit-linear-gradient(top,  #4e994f 0%,#479949 100%); /* Chrome10+,Safari5.1+ */
-			background: -o-linear-gradient(top,  #4e994f 0%,#479949 100%); /* Opera 11.10+ */
-			background: -ms-linear-gradient(top,  #4e994f 0%,#479949 100%); /* IE10+ */
-			background: linear-gradient(to bottom,  #4e994f 0%,#479949 100%); /* W3C */
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4e994f', endColorstr='#479949',GradientType=0 ); /* IE6-9 */
-			// background:
-			// radial-gradient(black 15%, transparent 16%) 0 0,
-			// radial-gradient(black 15%, transparent 16%) 8px 8px,
-			// radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-			// radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-			// background-size:16px 16px;
+			margin-top: 10px;
+ 			//background-color: rgba(255,255,255,.75);
+			//border-bottom: 1px solid rgba(0,0,0,.05);
 
 			.navbar-nav {
 
 				li {
 
 					a  {
-						color: white;
-					}
-
-					button {
 						border: none;
 						margin-right: 15px;
 						background-color: transparent;
 						color: white;
 
 						&:hover {
-							background-color: $sweet-green-dark;
+							//background-color: rgba(255,255,255,.2);
+
 						}
 
 					}
 
-					&.active button{
-						background-color: $sweet-green-dark-more;
+					&.active a{
+						background-color: rgba(255,255,255,.25);
+
+						&::after {
+							content: '';
+							top: 75px;
+							border-bottom: 10px solid rgba(255,255,255,.25);
+							margin-left: auto;
+							margin-right: auto;
+						}
 					}
 				}
 
@@ -239,7 +232,7 @@ body {
 				&.admin {
 
 					top: 100px;
-					.nopadding;
+					@extend .nopadding;
 
 					.table-list-bordered {
 						th {
@@ -264,9 +257,9 @@ body {
 							margin-left: 5px;
 
 							&:hover {
-								.btn-danger;
+								@extend .btn-danger;
 								& ~ .path {
-									.btn-danger;									
+									@extend .btn-danger;									
 								}
 							}
 						}
@@ -368,7 +361,7 @@ body {
 }
 
 #topbar {
-	.nomargin;
+	@extend .nomargin;
 	z-index: 50;
 	border-bottom: 1px solid #e5e5e5;
 	background-color: #fff;
@@ -387,7 +380,7 @@ body {
 	position: fixed;
 	top: 100px;
 	z-index: 48;
-	.nopadding;
+	@extend .nopadding;
 }
 
 .breadcrumb {
@@ -632,7 +625,7 @@ div.categorie {
 	text-align: center;
 	width:auto!important;
 
-	:hover {
+	&:hover {
 		background-color: #aaa;
 		cursor: pointer;		
 	}
@@ -716,7 +709,7 @@ float: right;
 /****************** NEWS ******************/
 /******************************************/
 .article {
-	.pdb-20;
+	@extend .pdb-20;
 	.infos {
 		font-style: italic;
 	}
@@ -742,4 +735,9 @@ float: right;
 
 .navbar {
 	border-radius: 0!important;
+}
+
+.section-home {
+	padding-top: 75px;
+	min-height: 500px;
 }
