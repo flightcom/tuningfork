@@ -1,16 +1,26 @@
-<div id="banner">
+<section class="section-home" id="home">
 	
-	<div class="center banner-title">
+	<h2>Section Home</h2>
 
-		<h1>Apprenez la musique sans vous ruiner !</h1>
+</section>
 
-	</div>
+<section class="section-home" id="infos">
 
-	<div class="slide">
-		
-	</div>
+	<h2>Section Infos</h2>
 
-</div>
+</section>
+
+<section class="section-home" id="instruments">
+	
+	<h2>Section Instruments</h2>
+
+</section>
+
+<section class="section-home" id="contact">
+
+	<h2>Section Contact</h2>
+
+</section>
 
 <script type="text/javascript">
 	

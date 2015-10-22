@@ -21,29 +21,40 @@
 
 	<body role="document" ng-app="tuningfork" data-app="public">
 
-		<div class=" center" role="navigation">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/">tuningfork</a>
+		<nav class="topbar navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+  					<a class="navbar-brand" href="/">tuningfork</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="main-navbar">
+					<ul class="center nav navbar-nav">
+						<li><a href="#home">Home</a></li>
+						<li><a href="#infos">Infos</a></li>
+						<li><a href="#instruments">Instruments</a></li>
+						<li><a href="#contact">Contact</a></li>
+						<li><a href="/blog">Blog</a></li>
+					</ul>
+
+	<!-- 				<form name="search" id="search-form" class="navbar-form navbar-right" autocomplete="off" role="search">
+						<div class="form-group">
+							<input type="text" class="form-control" id="search" name="search" placeholder="Rechercher un instrument..." >
+						</div>
+					</form>
+	 -->
+					<?php echo $this->session->userdata('account'); ?>
+
+				</div>
+
 			</div>
 
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/'">Home</button></li>
-					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/instruments'">Instruments</button></li>
-					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/blog'">Blog</button></li>
-					<li><button type="button" class="btn btn-default navbar-btn" onclick="location.href='/contact'">Contact</button></li>
-				</ul>
-
-				<?php echo $this->session->userdata('account'); ?>
-
-				<form name="search" id="search-form" class="navbar-form navbar-right" autocomplete="off" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" id="search" name="search" placeholder="Rechercher un instrument..." >
-					</div>
-				</form>
-
-			</div>
-		</div>
+		</nav>
 
    		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
    			<div id="content">

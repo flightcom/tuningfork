@@ -1,26 +1,32 @@
 var activePage;
 
-$(document).ready(function(){
+function scrollTo(hash) {
+    location.hash = "#" + hash;
+}
 
-    if ( localStorage.activePage != undefined ) {
-        activePage = $.parseJSON(localStorage.getItem('activePage'));
-    } else {
-        activePage = 0;
-    }
+$(function(){
 
-    $('.navbar-nav li').eq(activePage).addClass('active');
+    $('#main-navbar li a[href^="#"]').click(function(e){
+        if(window.location.pathname != '/') window.location.href = '/';
+        $(this).closest('ul').find('li').removeClass('active');
+        $(this).closest('li').addClass('active');
 
-    $('.navbar-nav li').click(function(){
-        var index = $(this).index();
-        if ( $(this).hasClass('navbar-btn') ) {
-            localStorage.removeItem('activePage');
-            localStorage.setItem('activePage', index);
-            $('.navbar-nav').removeClass('active');            
-        } else {
-            localStorage.removeItem('activePage');            
-        }
+       // prevent default anchor click behavior
+       e.preventDefault();
+
+       // store hash
+       var hash = this.hash;
+       // animate
+       $('html, body').animate({
+//           scrollTop: $(hash).offset().top - $('.topbar').height()
+           scrollTop: $(hash).offset().top
+         }, 300, function(){
+
+           // when done, add hash to url
+           // (default click behaviour)
+           window.location.hash = hash;
+         });
     });
-
 
     // Recherche
     var instruments = new Bloodhound({
