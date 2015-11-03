@@ -1,31 +1,31 @@
 var activePage;
-
-function scrollTo(hash) {
-    location.hash = "#" + hash;
-}
+var position = $(window).scrollTop();
 
 $(function(){
 
-    $('#main-navbar li a[href^="#"]').click(function(e){
+    $(document).on("scroll", onScroll);
+
+    $('nav li a[href^="#"]').click(function(e){
         if(window.location.pathname != '/') window.location.href = '/';
         $(this).closest('ul').find('li').removeClass('active');
         $(this).closest('li').addClass('active');
 
-       // prevent default anchor click behavior
-       e.preventDefault();
+        // prevent default anchor click behavior
+        e.preventDefault();
 
-       // store hash
-       var hash = this.hash;
-       // animate
-       $('html, body').animate({
-//           scrollTop: $(hash).offset().top - $('.topbar').height()
-           scrollTop: $(hash).offset().top
-         }, 300, function(){
+        // store hash
+        var hash = this.hash;
+        // animate
+        $('html, body').animate({
+            scrollTop: $(hash).offset().top
+        }, 300, function(){
 
-           // when done, add hash to url
-           // (default click behaviour)
-           window.location.hash = hash;
-         });
+            // when done, add hash to url
+            // (default click behaviour)
+            window.location.hash = hash;
+            // history.pushState(null, null, hash);
+            // $(document).on("scroll", onScroll);
+        });
     });
 
     // Recherche
@@ -68,3 +68,33 @@ $(function(){
     });
 
 });
+
+function onScroll(e){
+    e.preventDefault();
+    var scrollPos = $(document).scrollTop();
+    $('#main-menu a').each(function () {
+        var anchor = $(this).attr("href");
+        // Si on est sur la section en cours de test
+        if ($(anchor).position().top <= scrollPos && $(anchor).position().top + $(anchor).height() > scrollPos) {
+            $(this).addClass("active");
+            if(scrollPos > position) {
+                var following = $(anchor).next().attr('id');
+            } else {
+                var following = $(anchor).prev().attr('id');
+            }
+            position = scroll;
+            // store next hash
+            console.log(following);
+            // animate
+            $('html, body').animate({
+                scrollTop: $(following).offset().top
+            }, 300, function(){
+                // window.location.hash = hash;
+                // history.pushState(null, null, hash);
+            });
+        } else {
+            $(this).removeClass("active");
+        }
+    });
+
+}

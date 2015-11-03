@@ -1,48 +1,45 @@
-<section class="section-home" id="home">
+<section class="home" id="asso" data-id="asso">
 	
-	<h2>Section Home</h2>
+	<div>
+		<h2>Section Home</h2>
+	</div>
 
 </section>
 
-<section class="section-home" id="infos">
+<section class="home" id="actus" data-id="actus">
 
-	<h2>Section Infos</h2>
-
+	<div>
+		<h2>Section Infos
 </section>
 
-<section class="section-home" id="instruments">
+<section class="home" id="instrumentheque" data-id="instrumentheque">
 	
-	<h2>Section Instruments</h2>
+	<div>
+		<h2>Section Instruments</h2>
+	</div>
 
 </section>
 
-<section class="section-home" id="contact">
+<section class="home" id="stations" data-id="stations">
 
-	<h2>Section Contact</h2>
+	<div id="map-stations" ng-gmap></div>
 
 </section>
 
-<script type="text/javascript">
-	
-var search = $('#search').closest('.form-group');
-var origOffsetY = search.offset().top;
+<section class="home" id="contact" data-id="contact">
 
-$(function(){
+	<div>
+		<h2>Section Contact</h2>
+	</div>
 
-    console.log(search.size());
-    document.onscroll = scroll;
+</section>
 
+<section class="home" id="jeparticipe" data-id="jeparticipe">
 
-});
+	<div>
+		<h2>Section Je participe</h2>
+	</div>
 
-function scroll() 
-{
-    if ($(window).scrollTop() >= origOffsetY) {
-        search.addClass('navbar-fixed-top');
-    } else {
-        search.removeClass('navbar-fixed-top');
-    }
+</section>
 
-}
-
-</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr0LVacacrqDtM5AGRpumKAYJ1r8UE6yk"></script>
