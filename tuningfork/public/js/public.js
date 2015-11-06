@@ -1,31 +1,20 @@
 var activePage;
-var position = $(window).scrollTop();
+var position = 0;
+var scrolling = false;
 
 $(function(){
+
+    if(location.hash) { showSection(location.hash); }
 
     $(document).on("scroll", onScroll);
 
     $('nav li a[href^="#"]').click(function(e){
         if(window.location.pathname != '/') window.location.href = '/';
-        $(this).closest('ul').find('li').removeClass('active');
-        $(this).closest('li').addClass('active');
-
         // prevent default anchor click behavior
         e.preventDefault();
 
-        // store hash
         var hash = this.hash;
-        // animate
-        $('html, body').animate({
-            scrollTop: $(hash).offset().top
-        }, 300, function(){
-
-            // when done, add hash to url
-            // (default click behaviour)
-            window.location.hash = hash;
-            // history.pushState(null, null, hash);
-            // $(document).on("scroll", onScroll);
-        });
+        showSection(hash, true);
     });
 
     // Recherche
@@ -71,30 +60,41 @@ $(function(){
 
 function onScroll(e){
     e.preventDefault();
-    var scrollPos = $(document).scrollTop();
+    e.stopPropagation();
+    if(scrolling) return true;
+    var scroll = $(document).scrollTop();
+    var following = null;
     $('#main-menu a').each(function () {
+        // $(this).removeClass("active");
         var anchor = $(this).attr("href");
         // Si on est sur la section en cours de test
-        if ($(anchor).position().top <= scrollPos && $(anchor).position().top + $(anchor).height() > scrollPos) {
-            $(this).addClass("active");
-            if(scrollPos > position) {
-                var following = $(anchor).next().attr('id');
-            } else {
-                var following = $(anchor).prev().attr('id');
-            }
-            position = scroll;
-            // store next hash
-            console.log(following);
-            // animate
-            $('html, body').animate({
-                scrollTop: $(following).offset().top
-            }, 300, function(){
-                // window.location.hash = hash;
-                // history.pushState(null, null, hash);
-            });
-        } else {
-            $(this).removeClass("active");
+        if ($(anchor).position().top < scroll && $(anchor).position().top + $(anchor).height() > scroll) {
+            following = scroll > position ? '#' + $(anchor).next().attr('id') : anchor;
+            return false;
         }
-    });
 
+    });
+    if (following && following !== undefined) {
+        showSection(following);
+    }
+
+}
+
+function showSection(hash, log) {
+    if(hash.indexOf('#') == -1) return;
+    var section = $(hash);
+    var menu = $('nav li a[href="'+hash+'"]');
+    scrolling = true;
+    $('body').animate({
+        scrollTop: section.offset().top
+    }, 300, function(){
+        menu.closest('ul').find('a').removeClass("active");
+        menu.addClass("active");
+        window.location.hash = hash;
+        if(log) {
+            history.pushState(null, null, hash);
+        }
+        position = $(document).scrollTop();
+        scrolling = false;
+    });
 }

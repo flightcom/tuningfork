@@ -101,7 +101,7 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
 			});
 		}
    }
-}).directive('ngGmap', function () {
+}).directive('ngGmap', function ($http) {
 	return {
 		restrict: "A",
 		link: function (scope, element, attrs) {
@@ -112,6 +112,18 @@ var tfApp = angular.module('tuningfork', ['ngTable', 'ngSanitize', 'ngRoute'])
 				};
 
 				map = new google.maps.Map(document.getElementById(element[0].id), mapOptions);
+
+				if(attrs.ngGmapSource) {
+					$http.get(attrs.ngGmapSource).success(function(data){
+						angular.forEach(data, function(station){
+					        var marker = new google.maps.Marker({
+					            position: new google.maps.LatLng(station.location.lat,station.location.lng),
+					            map: map,
+					            title: station.name
+					        });
+						});
+					});
+				}
 
 				// Try HTML5 geolocation
 				if(navigator.geolocation) {
@@ -232,5 +244,10 @@ tfApp.controller('CategoriesCtrl', function ($scope, $http, $filter){
 tfApp.controller('MainMenuCtrl', function ($scope, $http){
 
 	// $scope.
+
+});
+
+tfApp.controller('IndexCtrl', function ($scope, $http){
+
 
 });

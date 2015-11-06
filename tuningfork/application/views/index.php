@@ -1,45 +1,49 @@
-<section class="home" id="asso" data-id="asso">
-	
-	<div>
-		<h2>Section Home</h2>
-	</div>
+<div ng-controller="IndexCtrl">
 
-</section>
+	<section class="home" id="asso" data-id="asso">
+		
+		<div>
+			<h2>Section Home</h2>
+		</div>
 
-<section class="home" id="actus" data-id="actus">
+	</section>
 
-	<div>
-		<h2>Section Infos
-</section>
+	<section class="home" id="actus" data-id="actus">
 
-<section class="home" id="instrumentheque" data-id="instrumentheque">
-	
-	<div>
-		<h2>Section Instruments</h2>
-	</div>
+		<div>
+			<h2>Section Infos</h2>
+	</section>
 
-</section>
+	<section class="home" id="instrumentheque" data-id="instrumentheque">
+		
+		<div>
+			<h2>Section Instruments</h2>
+		</div>
 
-<section class="home" id="stations" data-id="stations">
+	</section>
 
-	<div id="map-stations" ng-gmap></div>
+	<section class="home" id="stations" data-id="stations">
 
-</section>
+		<div id="map-stations" ng-gmap ng-gmap-source="/ajax/getstations"></div>
 
-<section class="home" id="contact" data-id="contact">
+	</section>
 
-	<div>
-		<h2>Section Contact</h2>
-	</div>
+	<section class="home" id="contact" data-id="contact">
 
-</section>
+		<div>
+			<h2>Section Contact</h2>
+		</div>
 
-<section class="home" id="jeparticipe" data-id="jeparticipe">
+	</section>
 
-	<div>
-		<h2>Section Je participe</h2>
-	</div>
+	<section class="home" id="jeparticipe" data-id="jeparticipe">
 
-</section>
+		<div>
+			<h2>Section Je participe</h2>
+		</div>
+
+	</section>
+
+</div>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr0LVacacrqDtM5AGRpumKAYJ1r8UE6yk"></script>

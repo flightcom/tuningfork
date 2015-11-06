@@ -31,7 +31,7 @@
 			</div>
 
 			<ul id="main-menu" class="nav nav-pills">
-				<li class="nav-item"><a class="nav-link active" href="#asso">L'Association</a></li>
+				<li class="nav-item"><a class="nav-link" href="#asso">L'Association</a></li>
 				<li class="nav-item"><a class="nav-link" href="#actus">Actualités</a></li>
 				<li class="nav-item"><a class="nav-link" href="#instrumentheque">L'Instrumenthèque</a></li>
 				<li class="nav-item"><a class="nav-link" href="#stations">Stations musicales</a></li>

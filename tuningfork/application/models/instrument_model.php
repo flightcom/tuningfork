@@ -267,6 +267,17 @@ class Instrument_model extends CI_Model {
         return $query->result();
     }
 
+    function get_stations_addresses()
+    {
+        $this->db->select("station_nom AS name, CONCAT(adresses.adr_voie, ' ', villes.ville_code_postal, ' ', villes.ville_nom, ' ', pays.pays_nom) AS adresse", false);
+        $this->db->from('stations_instrumentales');
+        $this->db->join('adresses', 'stations_instrumentales.station_adresse_id= adresses.adr_id');
+        $this->db->join('villes', 'adresses.adr_ville_id= villes.ville_id');
+        $this->db->join('pays', 'adresses.adr_pays_id= pays.pays_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 
 ?>

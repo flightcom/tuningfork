@@ -25,7 +25,6 @@ class Auth_Controller extends MY_Controller {
         { 
 	        // Allow some methods?
 	        $allowed = array(
-	            // 'connexion',
 	            // 'instruments'
 	        );
 	        if ( ! in_array($this->router->method, $allowed) )

@@ -35,17 +35,21 @@
 		<div class="row omb_row-sm-offset-3">
 			<div class="col-xs-12 col-sm-6">	
 				<?php echo form_open('connexion', array('id'=>'login', 'class' => 'omb_loginForm', 'method'=>'post', 'autocomplete' => 'off')); ?> 
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="username" placeholder="Adresse mail">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user"></i></span>
+							<input type="text" class="form-control" name="username" placeholder="Adresse mail">
+						</div>
+						<span class="help-block"></span>
 					</div>
-					<span class="help-block"></span>
-										
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input type="password" class="form-control" name="password" placeholder="Mot de passe">
-					</div>
-                    <span class="help-block"></span>
+
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+							<input type="password" class="form-control" name="password" placeholder="Mot de passe">
+						</div>
+	                    <span class="help-block"></span>
+	                </div>
 
 					<button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
 				</form>

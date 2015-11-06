@@ -23,6 +23,7 @@ class Ajax extends MY_Controller {
 		$this->load->model('Instrument_model');
 		$this->load->model('Membre_model');
 		$this->load->model('Emprunt_model');
+		$this->load->library('Utils');
     }
 
 	public function getLastInstru($count = null)
@@ -43,6 +44,17 @@ class Ajax extends MY_Controller {
 			'cities' => $this->Adresse_model->get_cities_by_cp($cp)
 		);
 		echo json_encode($data);
+	}
+
+	public function getstations() {
+		$stations = $this->Instrument_model->get_stations_addresses();
+		foreach ($stations as $key => $station) {
+			$adresse['location'] = Utils::getGMapsCoordinates($station->adresse);
+			$adresse['name'] = $station->name;
+			$adresses[] = $adresse;
+		}
+		// die('<pre>'.print_r($adresses, true));
+		echo json_encode($adresses);
 	}
 
 	public function searchInstru($search)

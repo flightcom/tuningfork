@@ -127,6 +127,11 @@ class Instruments extends Auth_Controller {
 
 	}
 
+	public function getStations() {
+		$stations = $this->Instrument_model->get_stations();
+		echo json_encode($stations);
+	}
+
 	public function _remap($method, $args)
 	{
 		if (method_exists($this, $method)){
