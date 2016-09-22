@@ -6,7 +6,7 @@ $(function(){
 
     if(location.hash) { showSection(location.hash); }
 
-    $(document).on("scroll", onScroll);
+    // $(document).on("scroll", onScroll);
 
     $('nav li a[href^="#"]').click(function(e){
         if(window.location.pathname != '/') window.location.href = '/';

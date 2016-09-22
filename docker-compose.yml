@@ -1,0 +1,43 @@
+version: "2"
+services:
+  tuningfork:
+    build: .
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "80:80"
+      - "3308:3306"
+    # environment:
+      # - MYSQL_ROOT_PASSWORD=tooroot
+  #   image: busybox:latest
+  #   depends_on:
+  #   - db
+  #   - web
+  # web:
+  #   build: ./config/nginx/
+  #   links:
+  #     - db
+  #   volumes:
+  #     - .:/var/www/html
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     - NGINX_HOST=tuninfork.dev
+  #     - NGINX_PORT=80
+  # db:
+  #   # image: mysql
+  #   build: ./config/mysql/
+  #   volumes:
+  #     - ./data:/var/lib/mysql
+  #     - ./tmp:/var/run
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_ALLOW_EMPTY_PASSWORD=false
+  #     - MYSQL_RANDOM_ROOT_PASSWORD=false
+      # - MYSQL_DATABASE=tuningfork
+  # php:
+  #   image: php:7.0-fpm
+  #   # build: ./config/php
+  #   volumes:
+  #     - ./config/php/php.ini:/usr/local/etc/php/php.ini
+  #     - .:/var/www/html

@@ -56,14 +56,14 @@
 
         <footer></footer>
 
-		<script src="<?php echo (JS.'angularjs/angular.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'angularjs/ng-table.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'angularjs/ng-sanitize.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'angularjs/ng-route.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'bootstrap/bootstrap.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
-		<script src="<?php echo (JS.'handlebars.js'); ?>"></script> 
-		<script src="<?php echo (JS.'calendar.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'vendor/angularjs/angular.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'vendor/angularjs/ng-table.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'vendor/angularjs/ng-sanitize.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'vendor/angularjs/ng-route.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'vendor/bootstrap/bootstrap.min.js'); ?>"></script>
+		<script src="<?php echo (JS.'vendor/bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
+		<script src="<?php echo (JS.'vendor/handlebars.js'); ?>"></script> 
+		<script src="<?php echo (JS.'vendor/calendar.min.js'); ?>"></script> 
 		<script src="<?php echo (JS.'public.js'); ?>"></script> 
 		<script src="<?php echo (JS.'app.js'); ?>"></script> 
 
