@@ -118,7 +118,8 @@ input[type="date"]:focus:before, input[type="date"]:valid:before {
 .nav-menu .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
 .navbar {min-height:40px !important}
 .navbar-inverse { 
-	border: none; 
+	border: none;
+	background-color: #fff; 
 }
 .rating-input span { font-size:18px!important;}
 // table td[class*=col-], table th[class*=col-] { box-shadow: none;}
