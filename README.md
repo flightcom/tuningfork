@@ -2,4 +2,14 @@ Application Tuningfork
 
 # Installation
 
-`npm install`
+```
+$ dssh $(did1)
+
+$ php composer.phar self-update
+$ php composer.phar install
+```
+
+```
+$ sudo npm install && bower install
+$ gulp
+```
