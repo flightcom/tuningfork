@@ -21,26 +21,45 @@ var paths = {
     sass: [
         './public/sass/application.scss'
     ],
-    css: [
+    cssDir: [
         './public/css/**/*.css'
     ],
     js: [
-        './public/js/vendor/angularjs/*.min.js',
-        './public/js/vendor/bootstrap/*.js',
-        './public/js/vendor/codemirror/*.js',
+        './public/js/vendor/angular/angular.min.js',
+        './public/js/vendor/tinymce/tinymce.min.js',
+        './public/js/vendor/underscore/underscore-min.js',
+        './public/js/vendor/ng-file-upload/angular-file-upload-shim.min.js',
+        './public/js/vendor/ng-file-upload/angular-file-upload.min.js',
+        './public/js/vendor/angular-busy/angular-busy.js',
+        './public/js/vendor/angular-touch/angular-touch.min.js',
+        './public/js/vendor/angular-loading-bar/build/loading-bar.min.js',
+        './public/js/vendor/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js',
+        './public/js/vendor/ng-lodash/build/ng-lodash.js',
+        './public/js/vendor/angular-osd-form/angular-osd-form.min.js',
+        './public/js/vendor/angular-utils-pagination/dirPagination.js',
+        './public/js/vendor/ng-tags-input/ng-tags-input.min.js',
+        './public/js/vendor/angular-file-saver/dist/angular-file-saver.bundle.min.js',
         './public/js/vendor/jquery/*.js',
+        './public/js/vendor/bootstrap/bootstrap.min.js',
+        './public/js/vendor/codemirror/*.js',
         './public/js/vendor/*.js',
         './public/js/ie.js',
         './public/js/ios.js',
         './public/js/app.js',
         './public/js/run.js',
+        './public/js/app-tomove.js',
+        './public/js/app-admin.js',
         './public/js/constants/**/*.js',
         './public/js/constants.js',
         './public/js/services/**/*.js',
         './public/js/controllers/**/*.js',
         './public/js/directives/**/*.js',
         './public/js/filters/**/*.js',
-        './public/js/lib/*.js'
+        './public/js/lib/*.js',
+        './public/js/fb.js',
+        './public/js/utils.js',
+        './public/js/public.js',
+        './public/js/admin.js',
     ],
     img: [
         './public/img/*',
@@ -64,7 +83,7 @@ var paths = {
 };
 
 gulp.task('css', ['clean-css'], function () {
-    var vendorFiles = gulp.src(paths.css);
+    var vendorFiles = gulp.src(paths.cssDir);
     var appFiles = gulp.src(paths.sass)
         .pipe(sass({style: 'compressed'}).on('error', gutil.log));
 
@@ -149,8 +168,14 @@ gulp.task('default', ['build']);
 
 gulp.task('build', ['css', 'js', 'img', 'fonts']);
 
+gulp.slurped = false;
+
 gulp.task('watch', ['build'], function () {
-    gulp.watch(paths.sassDir, ['css']);
+    if(!gulp.slurped){ // step 2
+        gulp.watch("gulpfile.js", ["default"]);
+        gulp.slurped = true; // step 3
+    }
+    gulp.watch([paths.sassDir, paths.cssDir], ['css']);
     gulp.watch(paths.img, ['img']);
     gulp.watch(paths.js, ['js']);
     // gulp.watch(paths.partials, ['partials']);

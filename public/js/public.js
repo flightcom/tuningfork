@@ -4,6 +4,7 @@ var scrolling = false;
 
 $(function(){
 
+    console.log('test');
     if(location.hash) { showSection(location.hash); }
 
     // $(document).on("scroll", onScroll);

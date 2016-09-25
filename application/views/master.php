@@ -16,8 +16,7 @@
 
 	<body ng-app="tuningfork">
 
-    <!-- <nav class="navbar navbar-inverse navbar-fixed-top"> -->
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-fixed-top">
 			<div class="navbar-header">
 				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/tuningfork.png" height="30"></a>
 			</div>
@@ -38,7 +37,7 @@
 				</div>
 			</form>
 -->
-			<?php echo $this->session->userdata('account'); ?>
+			<?php // echo $this->session->userdata('account'); ?>
 
 		</nav>
 
