@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -34,13 +34,11 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
-		break;
-	
-		case 'testing':
+			break;
+		case 'test':
 		case 'production':
 			error_reporting(0);
-		break;
-
+			break;
 		default:
 			exit('The application environment is not set correctly.');
 	}

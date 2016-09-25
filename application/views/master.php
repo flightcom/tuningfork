@@ -10,15 +10,7 @@
 
 		<title><?php echo $title; ?></title>
 
-		<link href="<?php echo (CSS.'font-awesome.min.css'); ?>" rel="stylesheet">
-		<!-- <link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script> -->
-		<link href="<?php echo (CSS.'bootstrap-typeahead.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'bootstrap-social-buttons.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'calendar.public.css'); ?>" rel="stylesheet" type="text/css"></script>
-		<link href="<?php echo (CSS.'style.css'); ?>" rel="stylesheet" type="text/css"></script>
-
-		<script src="<?php echo (JS.'utils.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/jquery/jquery-1.11.0.min.js'); ?>"></script> 
+		<link href="<?php echo (CSS_FILE); ?>" rel="stylesheet" type="text/css"></script>
 
 	</head>
 
@@ -27,7 +19,7 @@
     <!-- <nav class="navbar navbar-inverse navbar-fixed-top"> -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
-				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG; ?>/tuningfork.png" height="30"></a>
+				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/tuningfork.png" height="30"></a>
 			</div>
 
 			<ul id="main-menu" class="nav nav-pills">
@@ -56,16 +48,7 @@
 
         <footer></footer>
 
-		<script src="<?php echo (JS.'vendor/angularjs/angular.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/angularjs/ng-table.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/angularjs/ng-sanitize.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/angularjs/ng-route.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/bootstrap/bootstrap.min.js'); ?>"></script>
-		<script src="<?php echo (JS.'vendor/bootstrap/bootstrap-typeahead.min.js'); ?>"></script> 
-		<script src="<?php echo (JS.'vendor/handlebars.js'); ?>"></script> 
-		<script src="<?php echo (JS.'vendor/calendar.min.js'); ?>"></script> 
-		<script src="<?php echo (JS.'public.js'); ?>"></script> 
-		<script src="<?php echo (JS.'app.js'); ?>"></script> 
+		<script src="<?php echo (JS_FILE); ?>"></script> 
 
 	</body>
 

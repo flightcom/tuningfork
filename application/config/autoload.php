@@ -55,7 +55,7 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
 	'session',
 	'database',
-	'doctrine'
+	// 'doctrine'
 	);
 
 
