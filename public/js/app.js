@@ -6,18 +6,18 @@
             'ngTable',
             'ngResource',
             'ngTagsInput',
+            'ngRoute',
             'angularFileUpload',
             'cgBusy',
-            'angular-tour',
             'ui.tinymce',
             'ui.sortable',
             'bootstrapLightbox',
-            // 'countrySelect',
             'osdForm',
             'ngSanitize',
             'angularUtils.directives.dirPagination',
             'ngFileSaver',
-            'ngStorage'
+            'ngStorage',
+            // 'ngMap',
         ]);
 
     // @ngInject
@@ -46,11 +46,11 @@
         LightboxProvider.templateUrl = '/dist/js/templates/lightbox.html';
     }
 
-    angular.module('app')
-        .value('cgBusyDefaults', {
-            templateUrl: '/dist/js/templates/angular-busy.html'
-        })
-        .config(tiny)
-        .config(lightbox);
+    // angular.module('app')
+    //     .value('cgBusyDefaults', {
+    //         templateUrl: '/dist/js/templates/angular-busy.html'
+    //     })
+    //     .config(tiny)
+    //     .config(lightbox);
 
 })();

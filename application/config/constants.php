@@ -42,7 +42,7 @@ define('URL','http://tuningfork.dev/');
 define('IMG',URL.'public/img/');
 define('IMG_PATH',URL.'public/dist/img/');
 define('CSS',URL.'public/css/');
-define('CSS_FILE',URL.'public/dist/css/app.css');
+define('CSS_FILE',URL.'public/dist/css/app.min.css');
 define('JS',URL.'public/js/');
 define('JS_FILE',URL.'public/dist/js/app.min.js');
 define('HTML',URL.'public/html/');

@@ -1,0 +1,22 @@
+#splash-container {
+
+	section {
+
+		padding-top: 50px;
+		
+		height: 100vh;
+
+		&::before {
+			content:'up';
+			position: absolute;
+			margin: 0 auto;
+			top: -100px;
+			background-color: rgba(0,0,0,.25);
+			border-radius: 25px;
+			color: white;
+		}
+
+	}
+
+
+}

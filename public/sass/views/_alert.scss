@@ -1,0 +1,41 @@
+.alert-main {
+    z-index: 1200;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 300px;
+
+    .check {
+        max-height: 32px;
+        content: url("../img/check.png");
+    }
+
+    &.alert-danger {
+        .check {
+            display: none;
+        }
+    }
+
+    .text-box {
+        margin-top: -25px;
+        padding-right: 0;
+    }
+    @include respond-to(extra-small-to-tiny) {
+        margin-left: 0;
+        left:auto;
+        width:100%;
+    }
+
+    @include respond-to(tiny-to-very-large) {
+        .close {
+            top: -16px;
+            right: -10px;
+        }        
+    }
+
+}
+
+
+.alert {
+    padding: 15px;
+}

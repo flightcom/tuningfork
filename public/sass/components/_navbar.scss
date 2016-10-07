@@ -1,3 +1,20 @@
 .navbar {
+
+	@include flexbox;
+
 	background-color: white;
+
+	.nav-pills {
+		.nav-link {
+			border-radius: 0;
+			border-bottom: 5px solid white;
+
+			&.active {
+				color: black;
+				background-color: white;
+				border-bottom: 5px solid $sweet-green-light;
+			}
+			
+		}
+	}
 }

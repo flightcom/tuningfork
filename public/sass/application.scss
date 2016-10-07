@@ -1,3 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+
+// CSS Framework 
 @import 'bootstrap/bootstrap';
+
+// Mixins
+@import 'mixins/base';
+@import 'mixins/flex';
+
+// Utils
+@import 'colors';
+
+// Components
 @import 'components/navbar';
+
+// Views
+@import 'views/splash';
+@import 'views/alert';
+
+@import 'style';

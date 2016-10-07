@@ -12,7 +12,7 @@ class Station extends MY_Controller {
     }
 
 
-	public function getstations() {
+	public function get() {
 		$stations = $this->Instrument_model->get_stations_addresses();
 		foreach ($stations as $key => $station) {
 			$adresse['location'] = Utils::getGMapsCoordinates($station->adresse);

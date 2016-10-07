@@ -26,21 +26,32 @@ var paths = {
     ],
     js: [
         './public/js/vendor/angular/angular.min.js',
-        './public/js/vendor/tinymce/tinymce.min.js',
-        './public/js/vendor/underscore/underscore-min.js',
+        './public/js/vendor/ngmap/build/scripts/ng-map.min.js',
+        './public/js/vendor/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js',
+        './public/js/vendor/angular-bootstrap/ui-bootstrap.min.js',
+        './public/js/vendor/angular-busy/angular-busy.js',
+        './public/js/vendor/angular-file-saver/dist/angular-file-saver.bundle.min.js',
+        './public/js/vendor/angular-loading-bar/build/loading-bar.min.js',
+        './public/js/vendor/angular-osd-form/angular-osd-form.min.js',
+        './public/js/vendor/angular-resource/angular-resource.min.js',
+        './public/js/vendor/angular-route/angular-route.min.js',
+        './public/js/vendor/angular-sanitize/angular-sanitize.min.js',
+        './public/js/vendor/angular-touch/angular-touch.min.js',
+        './public/js/vendor/angular-ui-sortable/sortable.min.js',
+        './public/js/vendor/angular-ui-tinymce/dist/tinymce.min.js',
+        './public/js/vendor/angular-utils-pagination/dirPagination.js',
         './public/js/vendor/ng-file-upload/angular-file-upload-shim.min.js',
         './public/js/vendor/ng-file-upload/angular-file-upload.min.js',
-        './public/js/vendor/angular-busy/angular-busy.js',
-        './public/js/vendor/angular-touch/angular-touch.min.js',
-        './public/js/vendor/angular-loading-bar/build/loading-bar.min.js',
-        './public/js/vendor/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js',
         './public/js/vendor/ng-lodash/build/ng-lodash.js',
-        './public/js/vendor/angular-osd-form/angular-osd-form.min.js',
-        './public/js/vendor/angular-utils-pagination/dirPagination.js',
+        './public/js/vendor/ng-table/dist/ng-table.min.js',
         './public/js/vendor/ng-tags-input/ng-tags-input.min.js',
-        './public/js/vendor/angular-file-saver/dist/angular-file-saver.bundle.min.js',
-        './public/js/vendor/jquery/*.js',
+        './public/js/vendor/ngstorage/ngStorage.js',
+        './public/js/vendor/tinymce/tinymce.min.js',
+        './public/js/vendor/tinymce/themes/modern/theme.min.js',
+        './public/js/vendor/jquery/jquery.min.js',
         './public/js/vendor/bootstrap/bootstrap.min.js',
+        './public/js/vendor/bootstrap/bootstrap-typeahead.min.js',
+        './public/js/vendor/underscore/underscore-min.js',
         './public/js/vendor/codemirror/*.js',
         './public/js/vendor/*.js',
         './public/js/ie.js',
@@ -51,6 +62,7 @@ var paths = {
         './public/js/app-admin.js',
         './public/js/constants/**/*.js',
         './public/js/constants.js',
+        './public/js/config/**/*.js',
         './public/js/services/**/*.js',
         './public/js/controllers/**/*.js',
         './public/js/directives/**/*.js',
@@ -67,6 +79,12 @@ var paths = {
     ],
     fonts: [
         './public/fonts/**/*.*'
+    ],
+    tinymce: [
+        './public/js/vendor/tinymce/**/*.*'
+    ],
+    tinymceTheme: [
+        './public/js/vendor/tinymce/themes/modern/theme.min.js'
     ],
     tests: [
         './public/js/vendor/jquery/jquery.min.js',
@@ -96,16 +114,10 @@ gulp.task('css', ['clean-css'], function () {
         .on('error', gutil.log);
 });
 
-gulp.task('js', function () {
+gulp.task('js', ['clean-js'], function () {
     return gulp.src(paths.js)
         .pipe(concat('app.min.js'))
         .pipe(ngAnnotate())
-        .pipe(gulp.dest('./public/dist/js'))
-        .on('error', gutil.log);
-});
-
-gulp.task('jsCopy', function () {
-    return gulp.src(paths.jsCopy)
         .pipe(gulp.dest('./public/dist/js'))
         .on('error', gutil.log);
 });
@@ -147,6 +159,19 @@ gulp.task('clean', function () {
         .pipe(clean({force: true}));
 });
 
+gulp.task('tinymce', function () {
+    return gulp.src(paths.tinymce)
+        .pipe(gulp.dest('./public/dist/js/vendor/tinymce'))
+        .on('error', gutil.log);
+});
+
+gulp.task('tinymceTheme', function () {
+    return gulp.src(paths.tinymceTheme)
+        .pipe(rename('theme.js'))
+        .pipe(gulp.dest('./public/dist/js/vendor/tinymce/themes/modern'))
+        .on('error', gutil.log);
+});
+
 gulp.task('test', function () {
     var testFiles = gulp.src(paths.tests);
     var appFiles = gulp.src(paths.js);
@@ -165,7 +190,6 @@ gulp.task('test', function () {
 });
 
 gulp.task('default', ['build']);
-
 gulp.task('build', ['css', 'js', 'img', 'fonts']);
 
 gulp.slurped = false;

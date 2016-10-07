@@ -66,5 +66,6 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 $plop = 'test';
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -1,22 +1,75 @@
 <?php
 
+require(APPPATH.'/libraries/REST_Controller.php');
+
+use Doctrine\ORM\EntityManager;
+
 class MY_Controller extends CI_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('form');
+        $this->load->library('breadcrumb');
+        $this->load->library('Doctrine');
+
+        $account = $this->load->view('membres/button', NULL, TRUE);
+        $this->session->set_userdata('account', $account);
+        // $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
+        $this->breadcrumb = new Breadcrumb();
+        $this->angular = true;
+    }
+
+}
+class MY_REST_Controller extends REST_Controller {
+
+    /**
+     * @var EntityManager
+     */
+    protected $em = null;
+
 
     function __construct()
     {
         parent::__construct();
 		$this->load->helper('form');
         $this->load->library('breadcrumb');
+        $this->load->library('Doctrine');
 
 		$account = $this->load->view('membres/button', NULL, TRUE);
         $this->session->set_userdata('account', $account);
 		// $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
         $this->breadcrumb = new Breadcrumb();
         $this->angular = true;
+        $this->em = $this->doctrine->getEntityManager();
     }
+
+    /**
+     * Set entity manager
+     *
+     * @param EntityManager $em
+     * @return mixed
+     */
+    public function setEntityManager(EntityManager $em)
+    {
+        $this->em = $em;
+
+        return $this;
+    }
+
+    /**
+     * Get entity manager
+     *
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->em;
+    }
+
 }
 
-class Auth_Controller extends MY_Controller {
+class Auth_Controller extends MY_REST_Controller {
 
     function __construct()
     {

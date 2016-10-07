@@ -1,4 +1,5 @@
-var tfApp = angular.module('app', ['ngTable', 'ngSanitize', 'ngRoute'])
+// var tfApp = angular.module('app', ['ngTable', 'ngSanitize', 'ngRoute'])
+var tfApp = angular.module('app')
 .directive('ngFocusOn', function($timeout) {
 	return {
 		link: function(scope, element, attrs) {
@@ -36,35 +37,6 @@ var tfApp = angular.module('app', ['ngTable', 'ngSanitize', 'ngRoute'])
 			});
 		}
    }
-}).directive('resize', function ($window) {
-	return function (scope, element) {
-		console.log('resize');
-		var w = angular.element($window);
-		scope.getWindowDimensions = function () {
-			return {
-				'h': w.height(),
-				'w': w.width()
-			};
-		};
-		scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-			scope.windowHeight = newValue.h;
-			scope.windowWidth = newValue.w;
-
-			scope.style = function () {
-				var menusHeight = $('[role=navigation]').map(function(index, element){ return $(this).outerHeight(); }).get().sum();
-				var menusWidth = $('#sidebar-left').map(function(index, element){ return $(this).outerWidth(); }).get().sum();
-				return {
-					'height': (newValue.h - menusHeight) + 'px',
-					'width': (newValue.w - menusWidth) + 'px'
-				};
-			};
-
-		}, true);
-
-		w.bind('resize', function () {
-			scope.$apply();
-		});
-	}
 }).directive('ngEnter', function () {
 	return function (scope, element, attrs) {
 		element.bind("keydown keypress", function (event) {
@@ -99,62 +71,6 @@ var tfApp = angular.module('app', ['ngTable', 'ngSanitize', 'ngRoute'])
 				console.log(col);
 				$(element).attr('colspan', col);
 			});
-		}
-   }
-}).directive('ngGmap', function ($http) {
-	return {
-		restrict: "A",
-		link: function (scope, element, attrs) {
-			angular.element(document).ready(function() {
-				var mapOptions = {
-					zoom: 12,
-					scrollwheel: false
-				};
-
-				map = new google.maps.Map(document.getElementById(element[0].id), mapOptions);
-
-				if(attrs.ngGmapSource) {
-					$http.get(attrs.ngGmapSource).success(function(data){
-						angular.forEach(data, function(station){
-					        var marker = new google.maps.Marker({
-					            position: new google.maps.LatLng(station.location.lat,station.location.lng),
-					            map: map,
-					            title: station.name
-					        });
-						});
-					});
-				}
-
-				// Try HTML5 geolocation
-				if(navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function(position) {
-						var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-						map.setCenter(pos);
-					}, function() {
-						scope.handleNoGeolocation(true);
-					});
-				} else {
-					// Browser doesn't support Geolocation
-					scope.handleNoGeolocation(false);
-				}
-			});
-
-			scope.handleNoGeolocation = function(errorFlag) {
-				if (errorFlag) {
-					var content = 'Error: The Geolocation service failed.';
-				} else {
-					var content = 'Error: Your browser doesn\'t support geolocation.';
-				}
-
-				var options = {
-					map: map,
-					position: new google.maps.LatLng(60, 105),
-					content: content
-				};
-
-				// var infowindow = new google.maps.InfoWindow(options);
-				map.setCenter(options.position);
-			}
 		}
    }
 }).filter('reverse', function() {
@@ -222,32 +138,8 @@ tfApp.controller('AddMembreCtrl', function ($scope, $http, $filter){
 
 });
 
-tfApp.controller('CategoriesCtrl', function ($scope, $http, $filter){
-
-	$scope.$watch('parent.categ_id', function(){
-		if ( !angular.isUndefined($scope.parent.categ_id) ) {
-			$http.get('/instruments/getCategorieInfos/'+$scope.parent.categ_id).success(function(data){
-				$scope.parent = data.categorie;
-				$scope.path = $scope.parent.path.split(',');
-			});
-		}
-
-		console.log($scope.parent);
-		$http.get('/instruments/getChildrenCategories/'+$scope.parent.categ_id||'').success(function(data){
-			$scope.children = data;
-			console.log($scope.children);
-		});
-	}, true);
-
-});
-
 tfApp.controller('MainMenuCtrl', function ($scope, $http){
 
 	// $scope.
-
-});
-
-tfApp.controller('IndexCtrl', function ($scope, $http){
-
 
 });

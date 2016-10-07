@@ -55,7 +55,7 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
 	'session',
 	'database',
-	// 'doctrine'
+	'utils',
 	);
 
 
@@ -117,7 +117,6 @@ $autoload['language'] = array();
 */
 
 $autoload['model'] = array();
-
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
