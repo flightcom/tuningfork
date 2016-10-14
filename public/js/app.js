@@ -17,7 +17,7 @@
             'angularUtils.directives.dirPagination',
             'ngFileSaver',
             'ngStorage',
-            // 'ngMap',
+            'ngMap',
         ]);
 
     // @ngInject

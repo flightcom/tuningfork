@@ -1,29 +1,33 @@
 (function () {
 
     // @ngInject
-    function SplashCtrl($http, Station, Contact, Alert){
+    function SplashCtrl($http, Station, Contact, Alert, GOOGLE_MAPS_API){
 
         var vm = this;
-        vm.currentUser = {};
+        vm.defaultUser = {}
+        vm.currentUser = angular.copy(vm.defaultUser);
+        vm.googleMapsUrl = GOOGLE_MAPS_API.url + '?key=' + GOOGLE_MAPS_API.key;
 
-        // Station.query().then(function(response) {
-        //     console.log(response);
-        //     $scope.stations = response;
-        // });
+        Station.query().then(function(response) {
+            console.log(response);
+            vm.stations = response;
+        });
 
         // uiGmapGoogleMapApi.then(function(maps) {
         //     console.log('gmaps API ready');
         // });
 
-        // Station.get(43).then(function(response) {
-        //     console.log(response);
-        //     $scope.stations = response;
-        // });
-
         vm.contact = function() {
-            console.log(vm.currentUser);
-            Contact.post(vm.currentUser);
+            Contact.post(vm.currentUser).then(function(response){
+                vm.resetContactForm();
+            });
             return false;
+        };
+
+        vm.resetContactForm = function() {
+            vm.currentUser = angular.copy(vm.defaultUser);
+            vm.contactForm.$setPristine();
+            vm.contactForm.$setUntouched();
         };
 
     }

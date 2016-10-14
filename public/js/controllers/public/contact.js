@@ -4,7 +4,6 @@
     function ContactCtrl($scope, $http, $filter){
 
         $scope.splashContact = function() {
-            console.log($scope.currentUser);
             return false;
         }
 

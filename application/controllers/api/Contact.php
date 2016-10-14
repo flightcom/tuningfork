@@ -6,6 +6,16 @@ class Contact extends MY_REST_Controller {
     {
     	parent::__construct();
     	$this->load->library('email');
+		$config['protocol'] = "smtp";
+		$config['smtp_host'] = "ssl://smtp.orange.fr";
+		$config['smtp_port'] = "465";
+		$config['smtp_user'] = "flightcom@wanadoo.fr"; 
+		$config['smtp_pass'] = "vanessa";
+		$config['charset'] = "utf-8";
+		$config['mailtype'] = "html";
+		$config['newline'] = "\r\n";
+
+		$this->email->initialize($config);
     }
 
 	public function index_post()

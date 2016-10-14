@@ -19,7 +19,7 @@ class Stations extends MY_REST_Controller {
 			$stations = $this->em->getRepository('Entity\Station')->getAll();
 		}
 
-		$this->response(['stations' => $stations], 200);
+		$this->response($stations, 200);
 	}
 
 	public function stations_get($id)
