@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+use Entity\Message;
+
 class Contact extends MY_REST_Controller {
 
     public function __construct()
@@ -20,15 +22,29 @@ class Contact extends MY_REST_Controller {
 
 	public function index_post()
 	{
-		$this->email->from($this->post('email'), $this->post('name')); 
-		// $this->email->to('admin@tuningfork.com');
-		$this->email->to('flightcom@wanadoo.fr');
-		$this->email->subject('Demande de contact');
-		$this->email->message($this->post('message'));	
+		$data = [
+			'type' => 'contact',
+			'name' => $this->post('name'),
+			'email' => $this->post('email'),
+			'subject' => 'Demande de contact',
+			'content' => $this->post('message'),
+		];
+
+		$message = Message::create($data);
+
+		$this->em->persist($message);
+		$this->em->flush();
+
+		// $this->email->from($this->post('email'), $this->post('name')); 
+		// // $this->email->to('admin@tuningfork.com');
+		// $this->email->to('flightcom@wanadoo.fr');
+		// $this->email->subject('Demande de contact');
+		// $this->email->message($this->post('message'));	
 
 		try {
-			$this->email->send();
-			$this->response("Email envoyé", 200);
+			// $this->email->send();
+			// $this->response("Email envoyé", 200);
+			$this->response("Message envoyé", 200);
 		} catch (Exception $e) {
 			$this->response("Erreur lors de l'envoi du message : " . $e->getMessage(), 400);
 		}
