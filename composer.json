@@ -1,0 +1,25 @@
+{
+    "name": "flightcom/tuningfork",
+    "license": "MIT",
+    "keywords": [
+        "instrumentheque"
+    ],
+    "homepage": "http://tuningfork.fr/",
+    "require": {
+        "php": ">=5.3.3",
+        "ext-intl": "*",
+        "doctrine/common": "2.3.*",
+        "doctrine/orm": "2.3.*",
+        "symfony/console": "2.0.*",
+        "zendframework/zendframework": "2.3.*",
+        "swiftmailer/swiftmailer": "^5.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Entity": "application/models/Entity"
+        }
+    },
+    "require-dev": {
+    },
+    "version": "1.0.0"
+}

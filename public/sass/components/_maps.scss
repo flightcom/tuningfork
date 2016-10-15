@@ -1,0 +1,36 @@
+.custom-marker {
+
+	& > p {
+		border: 1px solid #888;
+		background-color: white;
+		border-radius: 5px;
+		padding: 5px;
+		position: relative;
+
+		&::after, &::before {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			left: 50%;
+			border-left-color: transparent;
+			border-right-color: transparent;
+			border-style: solid;
+		}
+
+		&::before {
+			margin-left: -9px;
+			bottom: -9px;
+			border-top-color: #888;
+			border-width: 9px 9px 0 9px;
+		}
+
+		&::after {
+			margin-left: -8px;
+			bottom: -8px;
+			border-top-color: white;
+			border-width: 8px 8px 0 8px;
+		}
+	}
+
+}

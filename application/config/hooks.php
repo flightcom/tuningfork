@@ -10,7 +10,13 @@
 |
 */
 
-
+$hook['pre_system'] = array(
+    0 => array(         
+        'function' => 'load_initial_functions',
+        'filename' => 'my_hooks.php',
+        'filepath' => 'hooks'
+    )
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */

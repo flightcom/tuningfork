@@ -21,6 +21,7 @@
 
 	   		<div id="wrap" role="main" class="col-sd-12 col-lg-12 col-centered">
 	   			<div id="content">
+	   				OK
 					<?php echo $content; ?>
 				</div>
 			</div>

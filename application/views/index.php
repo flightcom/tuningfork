@@ -1,49 +1,15 @@
-<div ng-controller="IndexCtrl">
+<div id="splash-container" ng-controller="SplashCtrl as vm">
 
-	<section class="home" id="asso" data-id="asso">
-		
-		<div>
-			<h2>Section Home</h2>
-		</div>
+	<?php $this->load->view('partial/splash/association'); ?>
 
-	</section>
+	<?php // $this->load->view('partial/splash/actualites'); ?>
 
-	<section class="home" id="actus" data-id="actus">
+	<?php $this->load->view('partial/splash/instruments'); ?>
 
-		<div>
-			<h2>Section Infos</h2>
-	</section>
+	<?php $this->load->view('partial/splash/stations'); ?>
 
-	<section class="home" id="instrumentheque" data-id="instrumentheque">
-		
-		<div>
-			<h2>Section Instruments</h2>
-		</div>
+	<?php $this->load->view('partial/splash/contact'); ?>
 
-	</section>
-
-	<section class="home" id="stations" data-id="stations">
-
-		<div id="map-stations" ng-gmap ng-gmap-source="/ajax/getstations"></div>
-
-	</section>
-
-	<section class="home" id="contact" data-id="contact">
-
-		<div>
-			<h2>Section Contact</h2>
-		</div>
-
-	</section>
-
-	<section class="home" id="jeparticipe" data-id="jeparticipe">
-
-		<div>
-			<h2>Section Je participe</h2>
-		</div>
-
-	</section>
+	<?php // $this->load->view('partial/splash/participation'); ?>
 
 </div>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr0LVacacrqDtM5AGRpumKAYJ1r8UE6yk"></script>

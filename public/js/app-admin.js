@@ -1,6 +1,4 @@
-tfApp.requires.push('ngStorage');
-
-tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParams', function($rootScope, $location, $route, $routeParams) {
+tfApp.directive('activeLink', function($rootScope, $location, $route, $routeParams) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -14,7 +12,7 @@ tfApp.directive('activeLink', ['$rootScope', '$location', '$route', '$routeParam
             }
         }
     };
-}]);
+});
 
 tfApp.service('ControllerChecker', ['$controller', function($controller) {
   return {
