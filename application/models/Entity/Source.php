@@ -8,7 +8,7 @@ use Entity\BaseEntity;
  * @Entity
  * @Table(name="membre")
  */
-class Membre extends BaseEntity
+class Source extends BaseEntity
 {
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
