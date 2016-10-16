@@ -6,12 +6,19 @@ use Entity\BaseEntity;
 
 /**
  * @Entity
- * @Table(name="membre")
+ * @Table(name="source")
  */
 class Source extends BaseEntity
 {
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
+
+    /**
+     * @Id
+     * @Column(type="integer", name="id", nullable=false)
+     * @GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
     public static function getGenderList()
     {
