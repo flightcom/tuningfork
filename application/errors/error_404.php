@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
-		<link href="<?php echo (CSS.'bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"></script>
+		<link href="<?php echo (CSS_FILE); ?>" rel="stylesheet" type="text/css"></script>
 		<title>404 Page introuvable</title>
 <style type="text/css">
 
@@ -59,7 +59,7 @@ p {
 				<div class="forbidden-inner"></div>
 			</div>
 		</div>
-		<h1>Vous faîtes fausse route !</h1>
+		<h1>Vous faÃ®tes fausse route !</h1>
 		<p>La page que vous demandez n'existe pas</p>
 		<button class="btn btn-primary" onclick="history.go(-1);">Retour au site</button>
 	</div>
