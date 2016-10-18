@@ -50,7 +50,6 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-// $db['default']['password'] = getenv('MYSQL_ROOT_PASSWORD');
 $db['default']['password'] = 'root';
 $db['default']['database'] = 'tuningfork';
 $db['default']['dbdriver'] = 'mysqli';
@@ -64,8 +63,6 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
-
-$plop = 'test';
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

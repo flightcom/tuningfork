@@ -1,7 +1,7 @@
 server {
   rewrite_log on;
 
-  server_name  localhost tuningfork.dev www.tuningfork.dev;
+  server_name  localhost tuningfork.dev;
 
   access_log /var/log/nginx/tuningfork.access;
   error_log  /var/log/nginx/tuningfork.error notice;
@@ -29,29 +29,27 @@ server {
     rewrite ^/(.+)/$ /$1 permanent;
   }
 
-  # removes access to "system" folder, also allows a "System.php" controller
-  if ($request_uri ~* ^/system) {
-    rewrite ^/(.*)$ /index.php?/$1 last;
-    break;
+  location ~* \.(ico|css|js|gif|jpe?g|png)$ {
+    expires max;
+    add_header Pragma public;
+    add_header Cache-Control "public, must-revalidate, proxy-revalidate";
   }
 
-  # unless the request is for a valid file (image, js, css, etc.), send to bootstrap
-  if (!-e $request_filename) {
-    rewrite ^/(.*)$ /index.php?/$1 last;
-    break;
+  location / {
+      try_files $uri $uri/ /index.php;
   }
-
-  # catch all
-  error_page 404 /index.php;
 
   # use fastcgi for all php files
   location ~ \.php$ {
     fastcgi_pass unix:/var/run/php5-fpm.sock;
     fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME /var/www/tuningfork$fastcgi_script_name;
-    # fastcgi_param SCRIPT_FILENAME $request_filename;
+    # fastcgi_param SCRIPT_FILENAME /var/www/tuningfork$fastcgi_script_name;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
     include fastcgi_params;
   }
+
+  # catch all
+  error_page 404 /index.php;
 
   # deny access to apache .htaccess files
   location ~ /\.ht {
