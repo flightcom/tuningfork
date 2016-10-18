@@ -48,7 +48,7 @@ var paths = {
         './public/js/vendor/ngstorage/ngStorage.js',
         './public/js/vendor/tinymce/tinymce.min.js',
         './public/js/vendor/tinymce/themes/modern/theme.min.js',
-        './public/js/vendor/jquery/jquery.min.js',
+        './node_modules/jquery/dist/jquery.min.js',
         './public/js/vendor/bootstrap/bootstrap.min.js',
         './public/js/vendor/bootstrap/bootstrap-typeahead.min.js',
         './public/js/vendor/underscore/underscore-min.js',

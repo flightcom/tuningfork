@@ -3,7 +3,7 @@ services:
   tuningfork:
     build: .
     volumes:
-      - .:/var/www/html
+      - .:/var/www/tuningfork
     ports:
       - "80:80"
       - "443:443"

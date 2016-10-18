@@ -13,6 +13,7 @@ class Stations extends MY_REST_Controller {
 	public function index_get()
 	{
 		$id = $this->get('id') ? $this->get('id') : null;
+		// echo $id;
 		if ($id) {
 			$stations = $this->em->getRepository('Entity\Station')->get($id);
 		} else {
@@ -22,16 +23,10 @@ class Stations extends MY_REST_Controller {
 		$this->response($stations, 200);
 	}
 
-	public function stations_get($id)
+	public function test_get()
 	{
-		echo $this->get('id');
-		// if ($id) {
-		// 	$stations = $this->em->getRepository('Entity\Station')->get($id);
-		// } else {
-		// 	$stations = $this->em->getRepository('Entity\Station')->getAll();
-		// }
-
-		// $this->response(['stations' => $stations], 200);
+		echo 'test';
+		echo $this->post('id');
+		// echo $id;
 	}
-
 }
