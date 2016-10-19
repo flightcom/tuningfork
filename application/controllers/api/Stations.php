@@ -10,10 +10,10 @@ class Stations extends MY_REST_Controller {
     	parent::__construct();
     }
 
-	public function index_get()
+	public function index_get($id = null)
 	{
-		$id = $this->get('id') ? $this->get('id') : null;
-		// echo $id;
+		$id = !$id ? ($this->get('id') ? $this->get('id') : null) : $id;
+
 		if ($id) {
 			$stations = $this->em->getRepository('Entity\Station')->get($id);
 		} else {
@@ -23,10 +23,4 @@ class Stations extends MY_REST_Controller {
 		$this->response($stations, 200);
 	}
 
-	public function test_get()
-	{
-		echo 'test';
-		echo $this->post('id');
-		// echo $id;
-	}
 }
