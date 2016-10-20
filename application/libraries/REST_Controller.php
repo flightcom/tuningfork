@@ -503,8 +503,6 @@ abstract class REST_Controller extends CI_Controller
             header('Content-Length: ' . strlen($output));
         }
 
-        error_log('---> RESPONSE');
-
         if($continue){
             echo($output);
             ob_end_flush();
