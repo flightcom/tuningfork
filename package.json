@@ -1,6 +1,6 @@
 {
   "name": "tuningfork",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "dependencies": {
     "event-stream": "~3.1.7",
     "gulp": "^3.5.6",
