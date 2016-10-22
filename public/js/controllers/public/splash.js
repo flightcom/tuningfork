@@ -9,13 +9,8 @@
         vm.googleMapsUrl = GOOGLE_MAPS_API.url + '?key=' + GOOGLE_MAPS_API.key;
 
         Station.query().then(function(response) {
-            console.log(response);
             vm.stations = response;
         });
-
-        // uiGmapGoogleMapApi.then(function(maps) {
-        //     console.log('gmaps API ready');
-        // });
 
         vm.contact = function() {
             Contact.post(vm.currentUser).then(function(response){

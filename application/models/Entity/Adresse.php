@@ -13,13 +13,13 @@ class Adresse extends BaseEntity
 {
     /**
      * @Id
-     * @Column(type="integer", name="adr_id", nullable=false)
+     * @Column(type="integer", name="id", nullable=false)
      * @GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @Column(type="string", name="adr_voie", unique=false, nullable=false)
+     * @Column(type="string", name="voie", unique=false, nullable=false)
      */
     protected $voie;
 

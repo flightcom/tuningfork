@@ -25,7 +25,7 @@ class Station extends BaseEntity
 
     /**
      * @OneToOne(targetEntity="Entity\Adresse")
-     * @JoinColumn(name="adresse_id", referencedColumnName="adr_id")
+     * @JoinColumn(name="adresse_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $adresse;
 

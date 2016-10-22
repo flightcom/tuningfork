@@ -4,7 +4,7 @@
 
 	<div map-lazy-load="https://maps.google.com/maps/api/js"
 		map-lazy-load-params="{{vm.googleMapsUrl}}">
-		<ng-map center="47.21,-1.55" zoom="12" scrollwheel="false">
+		<ng-map center="47.21,-1.55" zoom="13" scrollwheel="false">
 <!-- 				<marker ng-repeat="station in vm.stations"
 				position="{{station.adresse.formatted}}"
 				title="{{station.name}}"
