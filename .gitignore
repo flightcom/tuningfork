@@ -20,3 +20,4 @@ log.json
 nbproject
 tests/Test/build/
 vendor/
+migrations-db.php
