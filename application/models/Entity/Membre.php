@@ -50,7 +50,7 @@ class Membre extends BaseEntity
 
     /**
      * @OneToOne(targetEntity="Adresse")
-     * @JoinColumn(name="membre_adr_id", referencedColumnName="adr_id")
+     * @JoinColumn(name="adresse_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $adresse = null;
 
@@ -96,6 +96,5 @@ class Membre extends BaseEntity
         'internet',
         'presse'
     ];
-
 
 }
