@@ -19,15 +19,13 @@ ADD config/nginx/default /etc/nginx/sites-enabled/tuningfork
 ADD config/nginx/nginx-setup.sh /nginx-setup.sh
 RUN chmod +x /nginx-setup.sh
 RUN /nginx-setup.sh
-RUN service nginx start
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # PHP
 RUN apt-get install -y php5-fpm
 ADD config/php/php-setup.sh /php-setup.sh
 RUN chmod +x /php-setup.sh
 RUN /php-setup.sh
-RUN service php5-fpm start
-# RUN service php7-fpm start
 
 # MySQL
 RUN mkdir /data
@@ -40,4 +38,7 @@ ADD config/mysql/supervisor.conf /etc/supervisor/conf.d/mysql.conf
 RUN /mysql-setup.sh
 
 # Start
-CMD ["supervisord", "-n"]
+ADD config/start.sh /start.sh
+RUN chmod +x /start.sh
+CMD bash /start.sh
+
