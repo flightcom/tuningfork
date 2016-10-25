@@ -9,13 +9,21 @@ class Contact extends MY_REST_Controller {
     	parent::__construct();
     	$this->load->library('email');
 		$config['protocol'] = "smtp";
-		$config['smtp_host'] = "ssl://smtp.orange.fr";
-		$config['smtp_port'] = "465";
-		$config['smtp_user'] = "flightcom@wanadoo.fr"; 
-		$config['smtp_pass'] = "vanessa";
 		$config['charset'] = "utf-8";
 		$config['mailtype'] = "html";
 		$config['newline'] = "\r\n";
+
+		// Config SMTP Orange
+		// $config['smtp_host'] = "ssl://smtp.orange.fr";
+		// $config['smtp_port'] = "465";
+		// $config['smtp_user'] = "flightcom@wanadoo.fr";
+		// $config['smtp_pass'] = "vanessa";
+
+		// Config SMTP OVH
+		$config['smtp_host'] = "SSL0.OVH.NET";
+		$config['smtp_port'] = "587";
+		$config['smtp_user'] = "contact@tuningfork.fr";
+		$config['smtp_pass'] = "8iDKmzcc4vQu";
 
 		$this->email->initialize($config);
     }
@@ -32,24 +40,28 @@ class Contact extends MY_REST_Controller {
 
 		$message = Message::create($data);
 
-		$this->em->persist($message);
-		$this->em->flush();
+		$this->email->from($this->post('email'), $this->post('name'));
+		$this->email->from('admin@tuningfork.fr');
+		$this->email->to('contact@tuningfork.fr');
+		$this->email->subject('Demande de contact de ' . $this->post('name'));
 
-		// $this->email->from($this->post('email'), $this->post('name')); 
-		// // $this->email->to('admin@tuningfork.com');
-		// $this->email->to('flightcom@wanadoo.fr');
-		// $this->email->subject('Demande de contact');
-		// $this->email->message($this->post('message'));	
+		// We set the email content
+		$emailContent = 'Message de ' . $this->post('name') . "<br>"
+			. 'email : ' . $this->post('email') . "<br>"
+			. "<br>"
+			. $this->post('message') . "<br>";
+		$this->email->message($emailContent);
 
 		try {
-			// $this->email->send();
-			// $this->response("Email envoyé", 200);
-			$this->response("Message envoyé", 200);
+			$this->email->send();
+			$this->em->persist($message);
+			$this->em->flush();
+			$this->response(["text" => "Message envoyé"], 200);
 		} catch (Exception $e) {
-			$this->response("Erreur lors de l'envoi du message : " . $e->getMessage(), 400);
+			$this->response("not ok", 400);
+			$this->response(["text" => "Erreur lors de l'envoi du message : " . $e->getMessage()], 200);
 		}
 
-		// echo $this->email->print_debugger();
 	}
 
 

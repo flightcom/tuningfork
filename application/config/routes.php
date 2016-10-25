@@ -2,6 +2,7 @@
 
 $route['default_controller'] = "welcome";
 
+// $route['api/contact/'] = 'api/contact/index/';
 $route['api/stations/(:num)'] = 'api/stations/index/$1';
 
 /* End of file routes.php */

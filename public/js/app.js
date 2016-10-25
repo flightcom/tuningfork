@@ -18,6 +18,7 @@
             'ngFileSaver',
             'ngStorage',
             'ngMap',
+            'ngParallax'
         ]);
 
     // @ngInject
@@ -46,11 +47,11 @@
         LightboxProvider.templateUrl = '/dist/js/templates/lightbox.html';
     }
 
-    // angular.module('app')
-    //     .value('cgBusyDefaults', {
-    //         templateUrl: '/dist/js/templates/angular-busy.html'
-    //     })
-    //     .config(tiny)
-    //     .config(lightbox);
+    angular.module('app')
+        .value('cgBusyDefaults', {
+            templateUrl: '/dist/js/templates/angular-busy.html'
+        })
+        .config(tiny)
+        .config(lightbox);
 
 })();

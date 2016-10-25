@@ -1,8 +1,7 @@
 <section id="contact" data-id="contact">
 
-	<div>
-		<h2>Section Contact</h2>
-
+	<div class="container">
+		<h3 class="text-center">Contactez-nous !</h3>
 		<form role="form" name="vm.contactForm" osd-submit="vm.contact()" novalidate>
 		    <osd-field attr="name">
 		        <label class="control-label">Nom</label>

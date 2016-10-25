@@ -2,8 +2,16 @@
 
 	section {
 
-		padding-top: 50px;
-		
+		padding-top: 60px;
+
+		&:first-child {
+			padding-top: 53px;
+		}
+
+		h3 {
+			margin-bottom: 50px;
+		}
+
 		// height: 100vh;
 
 		&::before {
@@ -14,6 +22,32 @@
 			background-color: rgba(0,0,0,.25);
 			border-radius: 25px;
 			color: white;
+		}
+
+		&#top {
+			.parallax-wrapper {
+				// height: calc(100vh - 110px);
+				height: 60vw;
+				position: relative;
+
+				.parallax {
+					position: absolute;
+					width: 100vw;
+					left: 0;
+				}
+			}
+		}
+
+		&#asso {
+			padding-top: inherit;
+
+			.desc {
+				margin-top: -50px;
+				padding: 20px;
+				position: relative;
+				background-color: white;
+				// box-shadow: 0 0 20px #888;
+			}
 		}
 
 	}
