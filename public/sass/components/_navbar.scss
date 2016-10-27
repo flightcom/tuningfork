@@ -3,6 +3,7 @@
 	@include flexbox;
 
 	background-color: white;
+	padding-bottom: 0;
 
 	.nav-pills {
 		.nav-link {
@@ -12,7 +13,7 @@
 			&.active {
 				color: black;
 				background-color: white;
-				border-bottom: 5px solid $sweet-green-light;
+				border-bottom: 5px solid $color-menu-active-bottom-border;
 			}
 			
 		}

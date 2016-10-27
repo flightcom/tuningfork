@@ -1,12 +1,14 @@
 /**** Colors ****/
 
 // Header
+// Green
 $sweet-green : #4d994f;
 $sweet-green-dark : $sweet-green - #111;
 $sweet-green-dark-more : $sweet-green - #222;
 $sweet-green-light : $sweet-green + #111;
 $sweet-green-light-more : $sweet-green + #222;
-
+// Blue
+$blue : #1477d5;
 $tf-blue : #4487fa;
 
 // Disponibilité
@@ -25,3 +27,4 @@ $color-archived : #aaa;
 
 // Menu selected
 $color-menu-active : #fff;
+$color-menu-active-bottom-border: $tf-blue;

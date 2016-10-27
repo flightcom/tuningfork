@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function SplashCtrl($http, Station, Contact, Alert, GOOGLE_MAPS_API){
+    function SplashCtrl($http, $sce, Station, Contact, Alert, NgMap, GOOGLE_MAPS_API){
 
         var vm = this;
         vm.defaultUser = {}
@@ -12,9 +12,17 @@
             vm.stations = response;
         });
 
+        NgMap.getMap().then(function(map) {
+            vm.map = map;
+        });
+
         vm.contact = function() {
-            Contact.post(vm.currentUser).then(function(response){
+            Contact.save(vm.currentUser)
+            .then(function(success){
+                Alert.success(success.text);
                 vm.resetContactForm();
+            }).catch(function(error){
+                Alert.error(error.text);
             });
             return false;
         };
@@ -23,6 +31,11 @@
             vm.currentUser = angular.copy(vm.defaultUser);
             vm.contactForm.$setPristine();
             vm.contactForm.$setUntouched();
+        };
+
+        vm.showStationDetails = function(e, station) {
+            vm.station = station;
+            vm.map.showInfoWindow('info-window-station', 'marker-station-' + station.id);
         };
 
     }

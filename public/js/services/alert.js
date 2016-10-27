@@ -11,7 +11,7 @@
         alertService.success = function(msg) {
             emitAlert({
                 show: true,
-                title: 'Success!',
+                title: 'Succès !',
                 msg: msg,
                 class: 'alert-success'
             });
@@ -20,7 +20,7 @@
         alertService.saved = function(type) {
             emitAlert({
                 show: true,
-                title: 'Success!',
+                title: 'Succès !',
                 msg: 'Your ' + type + ' has been saved!',
                 class: 'alert-success'
             });
@@ -30,7 +30,7 @@
             var message = plural ? 'Your ' + type + ' have been updated!' : 'Your ' + type + ' has been updated!';
             emitAlert({
                 show: true,
-                title: 'Success!',
+                title: 'Succès !',
                 msg: message,
                 class: 'alert-success'
             });
@@ -39,7 +39,7 @@
         alertService.removed = function(type) {
             emitAlert({
                 show: true,
-                title: 'Success!',
+                title: 'Succès !',
                 msg: 'Your ' + type + ' has been removed.',
                 class: 'alert-success'
             });
