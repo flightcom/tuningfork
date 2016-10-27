@@ -1,11 +1,19 @@
 <section id="stations" data-id="stations">
 
-	<h3 class="text-center">Nos Stations musicales :</h3>
+	<div class="container">
+		<h3 class="text-center">Les Stations musicales</h3>
 
-	<div map-lazy-load="https://maps.google.com/maps/api/js"
+		<p>Ce sont des lieux où nous avons laissé quelques-uns de nos instruments. Vous pouvez en emprunter un et jouer en toute liberté dans l'établissement.</p>
+	</div>
+
+	<div class="map-wrapper"
+		map-lazy-load="https://maps.google.com/maps/api/js"
 		map-lazy-load-params="{{vm.googleMapsUrl}}">
 		<ng-map
-			zoom-to-include-markers='true'
+			default-style="false"
+			center="47.213,-1.56"
+			zoom="13"
+			zoom-to-include-markers="false"
 			scrollwheel="false">
 			<marker ng-repeat="station in vm.stations"
 				id="marker-station-{{station.id}}"

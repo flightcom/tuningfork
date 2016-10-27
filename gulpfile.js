@@ -22,7 +22,8 @@ var paths = {
         './public/sass/application.scss'
     ],
     cssDir: [
-        './public/css/**/*.css'
+        './public/css/**/*.css',
+        './public/js/vendor/bootstrap-social/bootstrap-social.css'
     ],
     js: [
         './public/js/vendor/angular/angular.min.js',

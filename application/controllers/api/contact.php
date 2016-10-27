@@ -13,18 +13,6 @@ class Contact extends MY_REST_Controller {
 		$config['mailtype'] = "html";
 		$config['newline'] = "\r\n";
 
-		// Config SMTP Orange
-		// $config['smtp_host'] = "ssl://smtp.orange.fr";
-		// $config['smtp_port'] = "465";
-		// $config['smtp_user'] = "flightcom@wanadoo.fr";
-		// $config['smtp_pass'] = "vanessa";
-
-		// Config SMTP OVH
-		$config['smtp_host'] = "SSL0.OVH.NET";
-		$config['smtp_port'] = "587";
-		$config['smtp_user'] = "contact@tuningfork.fr";
-		$config['smtp_pass'] = "8iDKmzcc4vQu";
-
 		$this->email->initialize($config);
     }
 
@@ -58,8 +46,7 @@ class Contact extends MY_REST_Controller {
 			$this->em->flush();
 			$this->response(["text" => "Message envoyé"], 200);
 		} catch (Exception $e) {
-			$this->response("not ok", 400);
-			$this->response(["text" => "Erreur lors de l'envoi du message : " . $e->getMessage()], 200);
+			$this->response(["text" => "Erreur lors de l'envoi du message : " . $e->getMessage()], 400);
 		}
 
 	}

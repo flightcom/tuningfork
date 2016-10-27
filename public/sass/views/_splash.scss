@@ -26,8 +26,12 @@
 
 		&#top {
 			.parallax-wrapper {
-				// height: calc(100vh - 110px);
-				height: 60vw;
+			    @include respond-to(handheld-to-tiny) {
+					height: 60vw;
+				}
+			    @include respond-to(tiny-to-very-large) {
+					height: 30vw;
+				}
 				position: relative;
 
 				.parallax {
@@ -46,7 +50,27 @@
 				padding: 20px;
 				position: relative;
 				background-color: white;
-				// box-shadow: 0 0 20px #888;
+				box-shadow: 0 10px 50px #888;
+			}
+		}
+
+		&#stations {
+
+			.map-wrapper {
+				position: relative;
+
+				ng-map {
+					@extend .row;
+					display: block;
+					height: 70vh;
+				}
+			}
+		}
+
+		&#contact {
+
+			form {
+				margin-top: 20px;
 			}
 		}
 
