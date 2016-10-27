@@ -22,7 +22,8 @@ var paths = {
         './public/sass/application.scss'
     ],
     cssDir: [
-        './public/css/**/*.css'
+        './public/css/**/*.css',
+        './public/js/vendor/bootstrap-social/bootstrap-social.css'
     ],
     js: [
         './public/js/vendor/angular/angular.min.js',
@@ -49,6 +50,7 @@ var paths = {
         './public/js/vendor/tinymce/tinymce.min.js',
         './public/js/vendor/tinymce/themes/modern/theme.min.js',
         './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/ng-parallax/src/ngParallax.min.js',
         './public/js/vendor/bootstrap/bootstrap.min.js',
         './public/js/vendor/bootstrap/bootstrap-typeahead.min.js',
         './public/js/vendor/underscore/underscore-min.js',
@@ -62,7 +64,7 @@ var paths = {
         './public/js/app-admin.js',
         './public/js/constants/**/*.js',
         './public/js/constants.js',
-        './public/js/config/**/*.js',
+        './public/js/configs/**/*.js',
         './public/js/services/**/*.js',
         './public/js/controllers/**/*.js',
         './public/js/directives/**/*.js',

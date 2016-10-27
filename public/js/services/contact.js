@@ -1,20 +1,27 @@
 (function () {
 
     // @ngInject
-    function Contact($http, $q, Alert) {
-        var url = '/api/contact/';
+    function Contact($resource, HTTPCreator) {
+        var resource = $resource('/api/contact/:id', {id: '@id'}, {
+            update: {method: 'PUT'},
+        });
 
         return {
-            post: function(data) {
-                var defer = $q.defer();
-                $http.post(url, data).then(function(response){
-                    Alert.success("Le mail a bien été envoyé");
-                    defer.resolve(response);
-                }).catch(function(error){
-                    Alert.error("Erreur lors de l'envoi du mail");
-                });
-                return defer.promise;
-            }
+            query: function() {
+                return resource.query().$promise;
+            },
+            get: function(id) {
+                return resource.get({id: id}).$promise;
+            },
+            save: function(data) {
+                return resource.save(data).$promise;
+            },
+            update: function(data) {
+                return resource.update(data).$promise;
+            },
+            delete: function(id) {
+                return resource.$delete({id: id}).$promise;
+            },
         };
     }
 

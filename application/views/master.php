@@ -19,7 +19,7 @@
 
 		<nav class="navbar navbar-fixed-top">
 			<div class="navbar-header">
-				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/tuningfork.png" height="30"></a>
+				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/logo.png" height="30"></a>
 			</div>
 
 			<ul id="main-menu" class="nav nav-pills">
@@ -36,16 +36,15 @@
 
 		</nav>
 
-    	<div class="container">
+    	<div class="container-fluid">
 			<?php echo $content; ?>
 		</div>
 
+		<?php $this->load->view('footer'); ?>
+
 		<?php $this->load->view('alert'); ?>
 
-        <footer></footer>
-
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr0LVacacrqDtM5AGRpumKAYJ1r8UE6yk"></script>
-		<script src="<?php echo (JS_FILE); ?>"></script> 
+		<script src="<?php echo (JS_FILE); ?>"></script>
 
 	</body>
 

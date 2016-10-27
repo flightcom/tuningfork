@@ -38,9 +38,19 @@ class Message extends BaseEntity
     protected $subject;
 
     /**
-     * @Column(type="string", name="content", unique=false, nullable=false)
+     * @Column(type="text", name="content", unique=false, nullable=false)
      */
     protected $content;
+
+    /**
+     * @Column(type="datetime", name="date", unique=false, nullable=false)
+     */
+    protected $date;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     protected $attributes = [
         'id',

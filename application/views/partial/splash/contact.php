@@ -1,7 +1,12 @@
 <section id="contact" data-id="contact">
 
-	<div>
-		<h2>Section Contact</h2>
+	<div class="container">
+		<h3 class="text-center">Contactez-nous !</h3>
+
+		<a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/contact.tuningfork/" target="_blank" rel="noopener">
+			<span class="fa fa-facebook"></span>
+			Suivez-nous sur facebook
+		</a>
 
 		<form role="form" name="vm.contactForm" osd-submit="vm.contact()" novalidate>
 		    <osd-field attr="name">
@@ -26,7 +31,7 @@
 		        <osd-error msg="Message requis"></osd-error>
 		    </osd-field>
 
-		    <button type="submit" class="btn btn-primary">Envoyer</button>
+		    <button type="submit" class="btn btn-primary col-xs-12">Envoyer</button>
 		</form>
 
 	</div>
