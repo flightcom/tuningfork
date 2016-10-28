@@ -1,12 +1,7 @@
 <section id="contact" data-id="contact">
 
+	<h3 class="text-center">Contactez-nous !</h3>
 	<div class="container">
-		<h3 class="text-center">Contactez-nous !</h3>
-
-		<a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/contact.tuningfork/" target="_blank" rel="noopener">
-			<span class="fa fa-facebook"></span>
-			Suivez-nous sur facebook
-		</a>
 
 		<form role="form" name="vm.contactForm" osd-submit="vm.contact()" novalidate>
 		    <osd-field attr="name">
@@ -36,4 +31,20 @@
 
 	</div>
 
+<!-- 	<div class="col-xs-12 col-md-6 col-lg-3">
+		<a class="btn btn-block btn-social btn-facebook" href="https://www.facebook.com/contact.tuningfork/" target="_blank" rel="noopener">
+			<span class="fa fa-facebook"></span>
+			Suivez-nous sur facebook
+		</a>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.8&appId=1442961679312676";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+		<div class="fb-page" data-href="https://www.facebook.com/contact.tuningfork/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/contact.tuningfork/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/contact.tuningfork/">L&#039;instrumenthèque</a></blockquote></div>
+	</div>
+ -->
 </section>
