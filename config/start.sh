@@ -7,6 +7,6 @@ php application/doctrine.php orm:schema-tool:update --force
 
 # Starting services
 service mysql start
-service php5-fpm start
+service php7.0-fpm start
 service nginx start
 supervisor -n
