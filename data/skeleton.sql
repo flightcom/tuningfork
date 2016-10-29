@@ -115,28 +115,6 @@ CREATE TABLE `articles_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-
-# Affichage de la table articles_extended
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `articles_extended`;
-
-CREATE TABLE `articles_extended` (
-  `article_id` int(11) NOT NULL DEFAULT '0',
-  `article_categ_id` int(11) DEFAULT NULL,
-  `article_titre` varchar(100) NOT NULL,
-  `article_contenu` mediumblob NOT NULL,
-  `article_date_creation` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `article_highlight` tinyint(4) NOT NULL DEFAULT '0',
-  `article_published` tinyint(1) NOT NULL DEFAULT '0',
-  `article_auteur_id` int(11) NOT NULL,
-  `article_vues` int(11) NOT NULL DEFAULT '0',
-  `article_date_last_update` timestamp NULL DEFAULT NULL,
-  `membre_nom_complet` varchar(101) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-
 # Affichage de la table articles_tags
 # ------------------------------------------------------------
 
@@ -233,37 +211,6 @@ SET instru_dispo = 1 WHERE instru_id = NEW.emp_instru_id;
 END IF */;;
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
-
-
-# Affichage de la table events
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `events`;
-
-CREATE TABLE `events` (
-  `event_id` int(11) NOT NULL AUTO_INCREMENT,
-  `event_nom` varchar(100) NOT NULL,
-  `event_lieu` varchar(100) NOT NULL,
-  `event_type` enum('info','warning','important','special') NOT NULL,
-  `event_public` tinyint(4) NOT NULL DEFAULT '0',
-  `event_debut` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `event_fin` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `event_description` text NOT NULL,
-  `event_url` text NOT NULL,
-  `event_activated` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `events` WRITE;
-/*!40000 ALTER TABLE `events` DISABLE KEYS */;
-
-INSERT INTO `events` (`event_id`, `event_nom`, `event_lieu`, `event_type`, `event_public`, `event_debut`, `event_fin`, `event_description`, `event_url`, `event_activated`)
-VALUES
-	(1,'test','Nantes','info',0,'2014-10-10 14:00:00','2014-10-10 16:00:00','description test','',0),
-	(2,'Jambon','Parthenay','warning',1,'2014-09-09 00:00:00','2014-09-09 03:00:00','FLIP','',0);
-
-/*!40000 ALTER TABLE `events` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Affichage de la table instruments
