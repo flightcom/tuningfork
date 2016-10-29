@@ -19,7 +19,7 @@
 
 		<nav class="navbar navbar-fixed-top">
 			<div class="navbar-header">
-				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/logo.png" height="30"></a>
+				<a class="navbar-brand nopadding" href="/"><img src="<?php echo IMG_PATH; ?>/logo_long_small.png" height="30"></a>
 			</div>
 
 			<ul id="main-menu" class="nav nav-pills">

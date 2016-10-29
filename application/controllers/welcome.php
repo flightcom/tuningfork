@@ -21,7 +21,7 @@ class Welcome extends MY_Controller {
 	{
 			$data = array();
 			$content = $this->load->view('index', $data, TRUE);
-			$this->load->view('master', array('title' => 'TuningFork', 'content' => $content));
+			$this->load->view('public/master', array('title' => 'TuningFork', 'content' => $content));
 	}
 
 }
