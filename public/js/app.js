@@ -18,7 +18,7 @@
             'ngFileSaver',
             'ngStorage',
             'ngMap',
-            'ngParallax'
+            'angular-parallax'
         ]);
 
     // @ngInject

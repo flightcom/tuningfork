@@ -50,7 +50,7 @@ var paths = {
         './public/js/vendor/tinymce/tinymce.min.js',
         './public/js/vendor/tinymce/themes/modern/theme.min.js',
         './node_modules/jquery/dist/jquery.min.js',
-        './node_modules/ng-parallax/src/ngParallax.min.js',
+        './public/js/vendor/angular-parallax/scripts/angular-parallax.js',
         './public/js/vendor/bootstrap/bootstrap.min.js',
         './public/js/vendor/bootstrap/bootstrap-typeahead.min.js',
         './public/js/vendor/underscore/underscore-min.js',
