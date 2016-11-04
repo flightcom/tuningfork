@@ -1,12 +1,52 @@
-version: "2"
+version: '2'
+
 services:
-  tuningfork:
-    build: .
-    volumes:
-      - .:/var/www/tuningfork
-    ports:
-      - "80:80"
-      - "3308:3306"
+
+  mysql:
+    image: mysql:latest
     environment:
       - MYSQL_DATABASE=tuningfork
+      - MYSQL_USER=tuningfork
+      - MYSQL_PASSWORD=tuningfork
       - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./data/skeleton.sql:/docker-entrypoint-initdb.d/skeleton.sql
+
+  nginx:
+    build: ./config/nginx
+    ports:
+      - "80:80"
+    links:
+      - php
+    volumes_from:
+      - volumes
+
+  php:
+    # image: php:7.0-fpm
+    build: ./config/php
+    links:
+      - mysql:db-host
+    # expose:
+    #   - "9000"
+    volumes_from:
+      - volumes
+
+  setup:
+    build: ./config/setup
+    links:
+      - mysql:db-host
+    entrypoint: /wait-for-it.sh mysql:3306 -t 60 -- /bin/bash /run.sh
+    volumes:
+      - ./config/setup/run.sh:/run.sh
+      - ./config/wait-for-it.sh:/wait-for-it.sh
+    volumes_from:
+      - volumes
+
+  volumes:
+    image: tianon/true
+    volumes:
+      - .:/var/www/tuningfork
+      - ./data/logs/nginx/:/var/log/nginx

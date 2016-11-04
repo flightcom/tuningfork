@@ -13,3 +13,17 @@ $ php composer.phar install
 $ sudo npm install && bower install
 $ gulp
 ```
+
+- Create file `migrations-db.php` :
+
+```
+<?php
+
+return [
+    'dbname'   => 'tuningfork',
+    'user'     => 'root',
+    'password' => 'root',
+    'host'     => 'localhost',
+    'driver'   => 'mysqli'
+];
+```
