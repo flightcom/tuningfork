@@ -3,76 +3,6 @@ var activeMenu = 0;
 
 $(document).ready(function(){
 
-    // Instantiate the Bloodhound suggestion engine
-    var membres = new Bloodhound({
-        datumTokenizer: function (datum) {
-            return Bloodhound.tokenizers.whitespace(datum.value);
-        },
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-            url: '/admin/ajax/searchMember/%QUERY',
-            filter: function (membres) {
-                return $.map(membres, function (membre) {
-                    return {
-                        value: membre.membre_prenom + ' ' + membre.membre_nom,
-                        id: membre.membre_id
-                    };
-                });
-            }
-        }
-    });
-
-    var instruments = new Bloodhound({
-        datumTokenizer: function (datum) {
-            return Bloodhound.tokenizers.whitespace(datum.value);
-        },
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-            url: '/admin/ajax/searchInstru/%QUERY',
-            filter: function (instruments) {
-                return $.map(instruments, function (instru) {
-                    return {
-                        value: instru.marque_nom + ' ' + instru.instru_modele,
-                        id: instru.instru_id
-                    };
-                });
-            }
-        }
-    });
-
-    // Initialize the Bloodhound suggestion engine
-    membres.initialize();
-    instruments.initialize();
-
-    // Instantiate the Typeahead UI
-    $('#search').typeahead(
-    {
-        highlight: true,
-        minLength: 3,
-        template: {
-            empty: '<div class="empty-message">Aucun résultat</div>'
-        }
-    },
-    {
-        name: 'membres',
-        displayKey: 'value',
-        source: membres.ttAdapter(),
-        templates: {
-            header: '<h4 class="search-result-title">Membres</h4>',
-            suggestion: Handlebars.compile("<p><a href='/admin/membres/{{id}}'>{{value}}</a></p>")
-        }
-    },
-    {
-        name: 'instruments',
-        displayKey: 'value',
-        source: instruments.ttAdapter(),
-        templates: {
-            header: '<h4 class="search-result-title">Instruments</h4>',
-            suggestion: Handlebars.compile("<p><a href='/admin/instruments/{{id}}'>{{value}}</a></p>")
-        }
-    }
-    );
-
     // Soumission formulaire de recherche
     $('.navbar-fixed-top form input').on("keypress", function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
@@ -81,7 +11,7 @@ $(document).ready(function(){
             e.stopPropagation();
             $(this).closest('form').submit();
         }
-    });    
+    });
 
 });
 
@@ -89,7 +19,7 @@ function loadAddInstruView(){
 
     $('#add button').hide();
     $.ajax({
-        type: 'GET', 
+        type: 'GET',
         url: '/admin/ajouter_instrument',
         success: function(data){
             $('#add').append(data);
@@ -152,7 +82,7 @@ function dropcateg(ev) {
     if ( categid == parentid ) { return false; }
 
     $.ajax({
-        type: 'post', 
+        type: 'post',
         url: '/admin/instruments/editCategorie',
         data: 'categid='+categid+'&categparentid='+parentid,
         success: function(result){
@@ -173,7 +103,7 @@ function deletecateg(ev) {
     if(!res) { return; }
 
     $.ajax({
-        type: 'post', 
+        type: 'post',
         url: '/admin/instruments/deleteCategorie',
         data: 'categid='+categid,
         success: function(result){
