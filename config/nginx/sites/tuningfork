@@ -1,5 +1,5 @@
 server {
-  rewrite_log on;
+  # rewrite_log on;
 
   server_name tuningfork.dev www.tuningfork.dev;
 
@@ -7,7 +7,7 @@ server {
   error_log  /var/log/nginx/tuningfork.error notice;
 
   root /var/www/tuningfork;
-  index index.php index.html index.htm;
+  index index.html index.php index.htm;
 
   # enforce NO www
   if ($host ~* ^www\.(.*)) {
