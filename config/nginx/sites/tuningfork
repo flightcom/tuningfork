@@ -57,6 +57,15 @@ server {
     fastcgi_temp_file_write_size 256k;
     include fastcgi_params;
   }
+
+  location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|zip|tgz|gz|rar|bz2|pdf|txt|tar|wav|bmp|rtf|js|flv|swf|xml|html|htm)$ {
+    # clear all access_log directives for the current level
+    access_log off;
+    add_header Cache-Control no-cache;
+    # set the Expires header to 31 December 2037 23:59:59 GMT, and the Cache-Control max-age to 10 years
+    expires -1;
+  }
+
   # deny access to apache .htaccess files
   location ~ /\.ht {
     deny all;

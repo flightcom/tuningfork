@@ -1,4 +1,7 @@
 <?php
+
+namespace Library;
+
 /*
  *  BarCode Coder Library (BCC Library)
  *  BCCL Version 2.0

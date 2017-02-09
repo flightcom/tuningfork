@@ -1,0 +1,12 @@
+<md-toolbar class="md-default">
+    <div class="md-toolbar-tools">
+        <h2>Membres</h2>
+        <span flex></span>
+        <md-button class="" ui-sref="admin.user_add" aria-label="Add">
+            <md-icon ng-show="$usersListCtrl.selected.length" class="md-hue-2 material-icons">delete_forever</md-icon>
+            <md-icon class="md-hue-2 material-icons">add_more</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<users-list></users-list>

@@ -1,0 +1,22 @@
+<md-fab-speed-dial
+    ng-if="$menuUserCtrl.user"
+    ng-cloak=""
+    class="md-fling"
+    md-open="$menuUserCtrl.isOpen"
+    md-direction="up">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab">
+            <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
+        </md-button>
+    </md-fab-trigger>
+
+    <md-fab-actions>
+        <md-button aria-label="Admin" class="md-fab md-raised md-mini" ui-sref="admin.dashboard">
+            <md-icon aria-label="Admin" class="material-icons md-light">settings</md-icon>
+        </md-button>
+        <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="public.home">
+            <md-icon aria-label="Home" class="material-icons md-light">home</md-icon>
+        </md-button>
+    </md-fab-actions>
+
+</md-fab-speed-dial>

@@ -20,7 +20,7 @@
 	</ul>
 	<?php } else { ?>
 	<ul class="nav nav-pills pull-right">
-		<li class="nav-item"><a class="nav-link" href="/connexion">Se connecter</a></li>
+		<li class="nav-item"><a class="nav-link" href="/register">Se connecter</a></li>
 	</ul>
 </div>
 <?php } ?>

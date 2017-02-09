@@ -49,7 +49,7 @@ class BaseEntity
                 return $this;
             }
         }
-        
+
         return $this;
     }
 

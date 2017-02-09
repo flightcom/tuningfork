@@ -1,21 +1,27 @@
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    clean = require('gulp-clean'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    concat = require('gulp-concat'),
-    cache = require('gulp-cache'),
-    sass = require('gulp-sass'),
-    minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename'),
-    argv = require('yargs').argv,
+var gulp       = require('gulp'),
+    gutil      = require('gulp-util'),
+    clean      = require('gulp-clean'),
+    uglify     = require('gulp-uglify'),
+    imagemin   = require('gulp-imagemin'),
+    concat     = require('gulp-concat'),
+    cache      = require('gulp-cache'),
+    sass       = require('gulp-sass'),
+    minifyCss  = require('gulp-minify-css'),
+    rename     = require('gulp-rename'),
+    argv       = require('yargs').argv,
     ngAnnotate = require('gulp-ng-annotate'),
-    karma = require('gulp-karma'),
-    es = require('event-stream'),
-    sq = require('streamqueue'),
-    spawn = require('child_process').spawn;
+    karma      = require('gulp-karma'),
+    es         = require('event-stream'),
+    sq         = require('streamqueue'),
+    babel      = require("gulp-babel"),
+    spawn      = require('child_process').spawn,
+    bust       = require('gulp-buster');
 
 var paths = {
+    templates: [
+        './public/html/**/*.html',
+        './public/js/templates/**/*.html',
+    ],
     sassDir: [
         './public/sass/**/*.scss'
     ],
@@ -27,47 +33,48 @@ var paths = {
         './node_modules/bootstrap-social/bootstrap-social.css',
         './node_modules/ng-table/bundles/ng-table.min.css',
         './node_modules/angular-busy/dist/angular-busy.min.css',
-        './node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css'
+        './node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css',
+        './node_modules/angular-material/angular-material.min.css',
+        './node_modules/angular-material-data-table/dist/md-data-table.min.css',
+        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.css'
     ],
     js: [
+        './public/js/app.js',
+        './public/js/run.js',
+        './public/js/components/**/*.js',
+        './public/js/configs/**/*.js',
+        './public/js/constants/**/*.js',
+        './public/js/routes/**/*.js',
+        './public/js/services/**/*.js',
+        './public/js/controllers/**/*.js',
+        './public/js/directives/**/*.js',
+        './public/js/filters/**/*.js',
+    ],
+    jsLibraries: [
         './node_modules/angular/angular.min.js',
-        './node_modules/angular-route/angular-route.min.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.min.js',
         './node_modules/angular-resource/angular-resource.min.js',
         './node_modules/angular-sanitize/angular-sanitize.min.js',
-        // './node_modules/jquery/dist/jquery.min.js',
-        // './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/bootstrap/dist/js/bootstrap.min.js',
         './public/js/vendor/ngmap/build/scripts/ng-map.min.js',
         './node_modules/angular-busy/dist/angular-busy.min.js',
         './node_modules/angular-osd-form/angular-osd-form.min.js',
+        './node_modules/angular-animate/angular-animate.min.js',
+        './node_modules/angular-aria/angular-aria.min.js',
+        './node_modules/angular-messages/angular-messages.min.js',
+        './node_modules/angular-material/angular-material.min.js',
+        './node_modules/angular-material-data-table/dist/md-data-table.min.js',
+        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.js',
         // Required by angular-osd-form
         './node_modules/ng-lodash/build/ng-lodash.min.js',
         './node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
         './node_modules/ng-table/bundles/ng-table.min.js',
         './node_modules/ng-tags-input/build/ng-tags-input.min.js',
         './node_modules/ngstorage/ngStorage.min.js',
-        './node_modules/tinymce/tinymce.min.js',
-        './node_modules/tinymce/themes/modern/theme.min.js',
         './public/js/vendor/angular-parallax/scripts/angular-parallax.js',
         './node_modules/underscore/underscore-min.js',
-        // './public/js/vendor/codemirror/*.js',
-        // './public/js/vendor/*.js',
-        './public/js/ie.js',
-        './public/js/ios.js',
-        './public/js/app.js',
-        './public/js/run.js',
-        // './public/js/app-tomove.js',
-        // './public/js/app-admin.js',
-        './public/js/constants/**/*.js',
-        './public/js/routes/**/*.js',
-        './public/js/configs/**/*.js',
-        './public/js/services/**/*.js',
-        './public/js/controllers/**/*.js',
-        './public/js/directives/**/*.js',
-        './public/js/filters/**/*.js',
-        // './public/js/fb.js',
-        // './public/js/utils.js',
-        // './public/js/public.js',
-        // './public/js/admin.js',
+        './node_modules/angular-barcode/dist/angular-barcode.js',
     ],
     img: [
         './public/img/*',
@@ -107,10 +114,17 @@ gulp.task('css', ['clean-css'], function () {
 });
 
 gulp.task('js', ['clean-js'], function () {
-    return gulp.src(paths.js)
-        .pipe(concat('app.min.js'))
+    var jsLibraries = gulp.src(paths.jsLibraries)
+        .pipe(concat('app.libraries.js'));
+    var js = gulp.src(paths.js)
+        .pipe(babel())
         .pipe(ngAnnotate())
+        .pipe(concat('app.js'));
+    return es.concat(jsLibraries, js)
+        .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./public/dist/js'))
+        // .pipe(uglify())
+        .pipe(gulp.dest('.'))
         .on('error', gutil.log);
 });
 
@@ -157,6 +171,17 @@ gulp.task('tinymce', function () {
         .on('error', gutil.log);
 });
 
+gulp.task('clean-template', function () {
+    return gulp.src('./public/dist/html', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('templates', ['clean-template'], function () {
+    return gulp.src(paths.templates)
+        .pipe(gulp.dest('./public/dist/html'))
+        .on('error', gutil.log);
+});
+
 gulp.task('test', function () {
     var testFiles = gulp.src(paths.tests);
     var appFiles = gulp.src(paths.js);
@@ -175,13 +200,12 @@ gulp.task('test', function () {
 });
 
 gulp.task('default', ['build']);
-gulp.task('build', ['css', 'js', 'img', 'fonts']);
+gulp.task('build', ['css', 'js', 'img', 'fonts', 'templates']);
 gulp.task('watch', ['build'], function () {
     gulp.watch([paths.sassDir, paths.cssDir], ['css']);
     gulp.watch(paths.img, ['img']);
     gulp.watch(paths.js, ['js']);
-    // gulp.watch(paths.partials, ['partials']);
-    // gulp.watch(paths.templates, ['templates']);
+    gulp.watch(paths.templates, ['templates']);
 });
 
 gulp.task('auto-reload', function() {

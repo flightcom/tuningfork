@@ -24,7 +24,7 @@ class Adresse extends BaseEntity
     protected $voie;
 
     /**
-     * @ManyToOne(targetEntity="Entity\Ville", inversedBy="adresse")
+     * @ManyToOne(targetEntity="Entity\Ville", inversedBy="adresse", cascade={"persist"})
      * @JoinColumn(name="ville_id", referencedColumnName="id", nullable=false)
      */
     protected $ville;
@@ -55,11 +55,20 @@ class Adresse extends BaseEntity
 
     protected function getFormatted()
     {
-        return 
-            $this->getVoie() 
+        return
+            $this->getVoie()
             . ' ' . $this->getVille()->getCodePostal()
             . ' ' . $this->getVille()->getNom()
             . ' ' . $this->getPays()->getNom();
     }
+
+    // public function setVille($ville)
+    // {
+    //     $doctrine = $this->getDoctrine();
+    //     $em = $doctrine->getManager();
+    //     $res = $em->getRepository('Entity\Ville')->get($ville['id']);
+    //     error_log(print_r($res, true));
+    //     $this->ville = $ville;
+    // }
 
 }

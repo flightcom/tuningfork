@@ -16,6 +16,20 @@ body {
     }
 }
 
+.flexbox {
+    @include flexbox;
+
+    &.center {
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
 ul {
     list-style-type: none;
     padding: 0;
@@ -686,3 +700,5 @@ float: right;
     left: 0; right: 0;
     height: 100%;
 }
+
+

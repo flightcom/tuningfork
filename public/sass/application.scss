@@ -1,4 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+// @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+@import 'externals/material-icons';
 
 // CSS Framework
 @import 'bootstrap-custom';
@@ -6,17 +9,28 @@
 // Mixins
 @import 'mixins/base';
 @import 'mixins/flex';
+@import 'mixins/filters';
 
 // Utils
 @import 'colors';
+@import 'global';
+
+// Elements
+@import 'elements/padding';
 
 // Components
 @import 'components/navbar';
 @import 'components/maps';
+@import 'components/typeahead';
+@import 'components/nav-main';
+@import 'components/menu-admin';
+@import 'components/menu-user';
+@import 'components/instruments-list';
 
 // Views
+@import 'views/main';
 @import 'views/splash';
+@import 'views/admin';
 @import 'views/alert';
 @import 'views/footer';
 
-@import 'style';

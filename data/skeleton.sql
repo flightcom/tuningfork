@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Hôte: 127.0.0.1 (MySQL 5.5.52-0+deb8u1-log)
-# Base de données: tuningfork
-# Temps de génération: 2016-10-24 15:06:14 +0000
+# H�te: 127.0.0.1 (MySQL 5.7.16)
+# Base de donn�es: tuningfork
+# Temps de g�n�ration: 2016-12-15 04:29:31 +0000
 # ************************************************************
 
 
@@ -44,7 +44,8 @@ INSERT INTO `adresse` (`id`, `ville_id`, `pays_id`, `voie`)
 VALUES
 	(1,16756,1,'9 rue de l\'Hôtel de Ville'),
 	(2,16756,1,'21 quai des Antilles'),
-	(3,16756,1,'6 Boulevard Léon Bureau');
+	(3,16756,1,'6 Boulevard Léon Bureau'),
+	(14,16766,1,'39 rue Mazureau');
 
 /*!40000 ALTER TABLE `adresse` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -113,6 +114,7 @@ CREATE TABLE `articles_categories` (
   KEY `fk_article_categ_parent_id` (`article_categ_parent_id`),
   CONSTRAINT `articles_categories_ibfk_1` FOREIGN KEY (`article_categ_parent_id`) REFERENCES `articles_categories` (`article_categ_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 
 # Affichage de la table articles_tags
@@ -213,151 +215,64 @@ DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 
-# Affichage de la table instruments
+# Affichage de la table instrument
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `instruments`;
+DROP TABLE IF EXISTS `instrument`;
 
-CREATE TABLE `instruments` (
-  `instru_id` int(11) NOT NULL AUTO_INCREMENT,
-  `instru_code` int(11) NOT NULL,
-  `instru_marque_id` int(11) DEFAULT NULL,
-  `instru_modele` varchar(50) DEFAULT NULL,
-  `instru_numero_serie` varchar(20) DEFAULT NULL,
-  `instru_img` varchar(100) NOT NULL,
-  `instru_categ_id` int(11) NOT NULL,
-  `instru_type_id` int(11) DEFAULT NULL,
-  `instru_date_entree` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `instru_dispo` tinyint(1) NOT NULL DEFAULT '0',
-  `instru_a_verifier` tinyint(1) NOT NULL DEFAULT '0',
-  `instru_etat` tinyint(4) NOT NULL,
-  `instru_etat_commentaire` text NOT NULL,
-  `instru_accessoires` text NOT NULL,
-  `instru_storage_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`instru_id`),
-  KEY `fk_instru_marque_id` (`instru_marque_id`),
-  KEY `fk_instru_categ_id` (`instru_categ_id`),
-  KEY `fk_instru_type_id` (`instru_type_id`),
-  CONSTRAINT `instruments_ibfk_1` FOREIGN KEY (`instru_marque_id`) REFERENCES `marques` (`marque_id`) ON DELETE CASCADE,
-  CONSTRAINT `instruments_ibfk_2` FOREIGN KEY (`instru_categ_id`) REFERENCES `categories` (`categ_id`) ON DELETE CASCADE,
-  CONSTRAINT `instruments_ibfk_3` FOREIGN KEY (`instru_type_id`) REFERENCES `types_instru` (`type_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `instruments` WRITE;
-/*!40000 ALTER TABLE `instruments` DISABLE KEYS */;
-
-INSERT INTO `instruments` (`instru_id`, `instru_code`, `instru_marque_id`, `instru_modele`, `instru_numero_serie`, `instru_img`, `instru_categ_id`, `instru_type_id`, `instru_date_entree`, `instru_dispo`, `instru_a_verifier`, `instru_etat`, `instru_etat_commentaire`, `instru_accessoires`, `instru_storage_id`)
-VALUES
-	(24,871844987,11,'Senzo','GHF6546dFD','',4,9,'2014-03-14 09:14:15',0,0,5,'','',NULL),
-	(26,56645,1,'test','DSFSF564','',1,2,'2014-04-03 14:58:58',1,0,5,'','',NULL),
-	(28,464,1,'cleagle','SDFSGD4','',3,10,'2014-04-03 15:06:58',1,0,0,'','',NULL),
-	(29,2147483647,8,'RG3770FZ-TB','IOUY45','',1,1,'2014-04-04 08:32:36',1,0,5,'','',NULL),
-	(30,21231848,13,'KDP-90','MLJK54','',6,4,'2014-04-04 08:35:23',1,0,2,'','',NULL),
-	(31,2147483647,11,'AZERTY','BC88754-54','',4,NULL,'2014-09-03 14:07:00',1,0,2,'','',NULL),
-	(32,2147483647,2,'Jazzmaster','MX-872314','',1,5,'2014-09-03 21:50:32',1,0,3,'','',NULL),
-	(33,2147483647,2,'Jazzmaster','MX-872314','',1,5,'2014-09-03 22:11:10',1,0,4,'','',NULL),
-	(34,686564654,2,'Jaguar','reger65454646','',1,NULL,'2014-09-05 09:53:34',1,0,5,'','',NULL),
-	(35,2147483647,11,'test','GHF6546dFD','',7,11,'2014-09-09 12:54:24',1,0,4,'','',NULL),
-	(36,2147483647,1,'test','DSFSF564','',1,NULL,'2014-09-15 18:20:39',1,0,5,'','',NULL),
-	(37,2147483647,11,'test','GHF6546dFD','',3,10,'2014-09-21 11:17:45',0,0,0,'','',NULL),
-	(38,0,1,'MS10','','',9,NULL,'2014-10-01 19:50:54',1,0,0,'','',NULL),
-	(39,0,1,'morel','','',3,NULL,'2015-05-28 19:37:00',1,0,0,'','',NULL),
-	(40,0,14,'ezfrrgrg','rgerggg','',12,NULL,'2015-06-14 22:04:45',1,0,4,'','',NULL);
-
-/*!40000 ALTER TABLE `instruments` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Affichage de la table instruments_barcodes
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `instruments_barcodes`;
-
-CREATE TABLE `instruments_barcodes` (
-  `ib_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ib_ean13` varchar(13) NOT NULL,
-  `ib_path` varchar(255) NOT NULL,
-  `ib_instru_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ib_id`),
-  UNIQUE KEY `ib_ean13` (`ib_ean13`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
-# Affichage de la table instruments_extended
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `instruments_extended`;
-
-CREATE TABLE `instruments_extended` (
-  `instru_id` int(11) NOT NULL DEFAULT '0',
-  `instru_modele` varchar(50) DEFAULT NULL,
-  `instru_categ_id` int(11) NOT NULL,
-  `categ_path_ids` varchar(1024) DEFAULT NULL,
-  `categ_path_name` varchar(1024) DEFAULT NULL,
-  `marque_nom` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-
-# Affichage de la table marques
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `marques`;
-
-CREATE TABLE `marques` (
-  `marque_id` int(11) NOT NULL AUTO_INCREMENT,
-  `marque_nom` varchar(50) NOT NULL,
-  PRIMARY KEY (`marque_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-LOCK TABLES `marques` WRITE;
-/*!40000 ALTER TABLE `marques` DISABLE KEYS */;
-
-INSERT INTO `marques` (`marque_id`, `marque_nom`)
-VALUES
-	(1,'Eagletone'),
-	(2,'Fender'),
-	(3,'Gibson'),
-	(6,'Marshall'),
-	(7,'Pioneer'),
-	(8,'Ibanez'),
-	(9,'Korg'),
-	(11,'Buffet crampon'),
-	(12,'Yamaha'),
-	(13,'Kawai'),
-	(14,'Buffet cram');
-
-/*!40000 ALTER TABLE `marques` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Affichage de la table membre
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `membre`;
-
-CREATE TABLE `membre` (
-  `membre_id` int(11) NOT NULL AUTO_INCREMENT,
-  `adresse_id` int(11) DEFAULT NULL,
-  `membre_genre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `membre_nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `membre_prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `membre_date_naissance` date DEFAULT NULL,
-  `membre_email` date DEFAULT NULL,
-  `membre_tel` date DEFAULT NULL,
-  `membre_password` int(11) DEFAULT NULL,
-  `membre_admin` int(11) NOT NULL,
-  `membre_commentaire` longtext COLLATE utf8_unicode_ci,
-  `membre_cnavc` int(11) DEFAULT NULL,
-  `membre_date_inscription` date DEFAULT NULL,
-  `membre_date_adhesion` date DEFAULT NULL,
-  `membre_date_last_connection` date DEFAULT NULL,
-  PRIMARY KEY (`membre_id`),
-  UNIQUE KEY `UNIQ_F6B4FB294DE7DC5C` (`adresse_id`),
-  CONSTRAINT `FK_F6B4FB294DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
+CREATE TABLE `instrument` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `marque_id` int(11) DEFAULT NULL,
+  `storage_id` int(11) DEFAULT NULL,
+  `modele` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numeroSerie` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_available` tinyint(1) NOT NULL DEFAULT '1',
+  `has_to_be_checked` tinyint(1) DEFAULT '0',
+  `condition` int(11) DEFAULT NULL,
+  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `barcode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_3CBF69DD97AE0266` (`barcode`),
+  KEY `IDX_3CBF69DD4827B9B2` (`marque_id`),
+  KEY `IDX_3CBF69DD5CC5DB90` (`storage_id`),
+  CONSTRAINT `FK_3CBF69DD4827B9B2` FOREIGN KEY (`marque_id`) REFERENCES `marque` (`id`),
+  CONSTRAINT `FK_3CBF69DD5CC5DB90` FOREIGN KEY (`storage_id`) REFERENCES `storage` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+LOCK TABLES `instrument` WRITE;
+/*!40000 ALTER TABLE `instrument` DISABLE KEYS */;
+
+INSERT INTO `instrument` (`id`, `marque_id`, `storage_id`, `modele`, `numeroSerie`, `is_available`, `has_to_be_checked`, `condition`, `comment`, `barcode`)
+VALUES
+	(1,1,NULL,'Modele 1','SDFDV4534DG',1,0,5,'No comment',NULL),
+	(2,1,NULL,'Modele 2','FGGR',0,0,NULL,NULL,NULL),
+	(3,1,NULL,'Modele 3','SDFDSFG34234',1,0,NULL,NULL,NULL);
+
+/*!40000 ALTER TABLE `instrument` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Affichage de la table marque
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `marque`;
+
+CREATE TABLE `marque` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_5A6F91CE6C6E55B5` (`nom`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `marque` WRITE;
+/*!40000 ALTER TABLE `marque` DISABLE KEYS */;
+
+INSERT INTO `marque` (`id`, `nom`)
+VALUES
+	(1,'Eagletone');
+
+/*!40000 ALTER TABLE `marque` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Affichage de la table message
@@ -371,7 +286,8 @@ CREATE TABLE `message` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `content` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -406,15 +322,17 @@ DROP TABLE IF EXISTS `pays`;
 CREATE TABLE `pays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `iso_code` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_349F3CAE62B6A45E` (`iso_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `pays` WRITE;
 /*!40000 ALTER TABLE `pays` DISABLE KEYS */;
 
-INSERT INTO `pays` (`id`, `nom`)
+INSERT INTO `pays` (`id`, `nom`, `iso_code`)
 VALUES
-	(1,'FRANCE');
+	(1,'FRANCE','FR');
 
 /*!40000 ALTER TABLE `pays` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -460,6 +378,23 @@ VALUES
 UNLOCK TABLES;
 
 
+# Affichage de la table storage
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `storage`;
+
+CREATE TABLE `storage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adresse_id` int(11) DEFAULT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_547A1B346C6E55B5` (`nom`),
+  UNIQUE KEY `UNIQ_547A1B344DE7DC5C` (`adresse_id`),
+  CONSTRAINT `FK_547A1B344DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
 # Affichage de la table types_instru
 # ------------------------------------------------------------
 
@@ -494,6 +429,47 @@ VALUES
 UNLOCK TABLES;
 
 
+# Affichage de la table user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `adresse_id` int(11) DEFAULT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mdate_naissance` date DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tel` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `commentaire` longtext COLLATE utf8_unicode_ci,
+  `source` int(11) DEFAULT NULL,
+  `date_inscription` date DEFAULT NULL,
+  `date_debut_adhesion` date DEFAULT NULL,
+  `date_last_connection` date DEFAULT NULL,
+  `is_confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `registration_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_admin` tinyint(1) NOT NULL,
+  `date_fin_adhesion` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_8D93D6494DE7DC5C` (`adresse_id`),
+  UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
+  UNIQUE KEY `UNIQ_8D93D649F037AB0F` (`tel`),
+  CONSTRAINT `FK_8D93D6494DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+
+INSERT INTO `user` (`id`, `adresse_id`, `nom`, `prenom`, `mdate_naissance`, `email`, `tel`, `password`, `commentaire`, `source`, `date_inscription`, `date_debut_adhesion`, `date_last_connection`, `is_confirmed`, `registration_token`, `is_admin`, `date_fin_adhesion`)
+VALUES
+	(8,14,'Moreau','Sébastien','2016-11-10','flightcom@wanadoo.fr','2343543','$2y$14$awIb.dEXf3aLuiXLFcEusuM7MGp0w980cArsQShu/3aXg69fS133y',NULL,NULL,NULL,NULL,NULL,0,'876b0fbef678ec667dae676ac04c0d7b5718c240c8a98483930e5432ed039a57',0,NULL);
+
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Affichage de la table ville
 # ------------------------------------------------------------
 
@@ -506,12 +482,11 @@ CREATE TABLE `ville` (
   `nom` varchar(45) DEFAULT NULL,
   `nom_reel` varchar(45) DEFAULT NULL,
   `code_postal` varchar(255) DEFAULT NULL,
-  `code_commune` varchar(5) NOT NULL DEFAULT '',
+  `code_commune` varchar(5) NOT NULL,
   `longitude_deg` float DEFAULT NULL,
   `latitude_deg` float DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ville_slug` (`slug`),
-  KEY `ville_id` (`id`)
+  UNIQUE KEY `UNIQ_43C3D9C3989D9B62` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `ville` WRITE;

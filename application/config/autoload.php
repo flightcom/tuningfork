@@ -56,7 +56,7 @@ $autoload['libraries'] = array(
 	'session',
 	'database',
 	'utils',
-	);
+);
 
 
 /*
@@ -70,7 +70,7 @@ $autoload['libraries'] = array(
 
 $autoload['helper'] = array(
 	'url',
-	'util'
+	'util',
 	);
 
 

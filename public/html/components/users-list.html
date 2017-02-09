@@ -1,0 +1,24 @@
+<md-table-container>
+     <table md-table md-row-select multiple ng-model="$usersListCtrl.selected" md-progress="$usersListCtrl.promise">
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Nom</th>
+                <th md-column>Prénom</th>
+                <th md-column></th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row md-select="user" md-select-id="name" ng-repeat="user in $usersListCtrl.items">
+                <td md-cell>{{user.nom}}</td>
+                <td md-cell>{{user.prenom}}</td>
+                <td md-cell flex>
+                    <md-button aria-label="Actions">
+                        <md-icon class="material-icons">more_vert</md-icon>
+                    </md-button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
+<md-table-pagination md-limit="$usersListCtrl.query.limit" md-limit-options="[5, 10, 15]" md-page="$usersListCtrl.query.page" md-total="{{$usersListCtrl.users.count}}" md-on-paginate="$usersListCtrl.getItems()" md-page-select></md-table-pagination>

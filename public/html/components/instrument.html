@@ -1,0 +1,84 @@
+<md-content ng-cloak>
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" ng-click="$instrumentCtrl.previous()" aria-label="Previous page">
+                <md-icon class="material-icons">navigate_before</md-icon>
+            </md-button>
+            <h2>{{$instrumentCtrl.item.modele}}</h2>
+        </div>
+    </md-toolbar>
+    <md-tabs class="md-accent" md-dynamic-height md-align-tabs="{{$instrumentCtrl.tabsAtBottom ? 'bottom' : 'top'}}">
+        <md-tab id="tab1">
+            <md-tab-label>
+                <md-icon class="material-icons">info</md-icon>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content layout="column" layout-padding>
+                    <div flex ng-show="!$instrumentCtrl.item" layout="row" layout-sm="column" layout-align="space-around">
+                        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </div>
+                    <div flex ng-show="$instrumentCtrl.item">
+                        <form name="instrumentForm">
+                            <md-input-container class="md-block">
+                                <label>Numéro de série</label>
+                                <input name="description"
+                                    ng-model="$instrumentCtrl.item.numeroSerie"
+                                    ng-model-options="{ updateOn: 'blur'}"
+                                    ng-change="$instrumentCtrl.onChange()">
+                                <div ng-messages="instrumentForm.item.numeroSerie.$error">
+                                    <div ng-message="required">Ce champ est requis</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <div layout>
+                                    <md-switch class="md-primary" name="hasToBeChecked"
+                                        ng-model="$instrumentCtrl.item.hasToBeChecked"
+                                        ng-change="$instrumentCtrl.onChange()">
+                                        À vérifier
+                                    </md-switch>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <div layout>
+                                    <div flex="10" layout layout-align="center center">
+                                        <span class="md-body-1">État</span>
+                                    </div>
+                                    <md-slider flex class="md-primary" md-discrete step="1" min="0" max="5" aria-label="rating"
+                                        ng-model="$instrumentCtrl.item.condition"
+                                        ng-model-options="{ debounce: 1000}"
+                                        ng-change="$instrumentCtrl.onChange()">
+                                    </md-slider>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <angular-barcode bc-options="$instrumentCtrl.bc" bc-class="barcode" bc-type="svg"
+                                    ng-model="$instrumentCtrl.item.barcode"></angular-barcode>
+                                <md-button class="md-icon-button" ng-click="$instrumentCtrl.generateBarcode()" aria-label="Générer code barre">
+                                    <md-icon class="material-icons">autorenew</md-icon>
+                                </md-button>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Commentaire</label>
+                                <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
+                                    ng-model="$instrumentCtrl.item.comment"
+                                    ng-model-options="{ updateOn: 'blur'}"
+                                    ng-change="$instrumentCtrl.onChange()"></textarea>
+                            </md-input-container>
+                        </form>
+                    </div>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab2" ng-disabled="data.secondLocked">
+            <md-tab-label>
+                <md-icon class="material-icons">settings_backup_restore</md-icon>
+            </md-tab-label>
+            <md-tab-body>
+                View for Item #2 <br/>
+                data.selectedIndex = 1;
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+
+</md-content>
+

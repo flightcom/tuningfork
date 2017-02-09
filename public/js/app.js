@@ -3,16 +3,20 @@
     angular.module('app',
         [
             'ui.bootstrap',
+            'ngMaterial',
             'ngTable',
             'ngResource',
             'ngTagsInput',
-            'ngRoute',
+            'ui.router',
             'cgBusy',
             'osdForm',
             'ngSanitize',
             'ngStorage',
             'ngMap',
-            'angular-parallax'
+            'angular-parallax',
+            'md.data.table',
+            'ngMaterialSidemenu',
+            'angular-barcode'
         ]);
 
     // @ngInject
@@ -23,7 +27,13 @@
         }
     }
 
+    // @ngInject
+    function locationProviderConfig($locationProvider) {
+        // $locationProvider.html5Mode(true);
+    };
+
     angular.module('app')
+        // .config(locationProviderConfig)
         .value('cgBusyDefaults', {
             templateUrl: '/dist/js/templates/angular-busy.html'
         })

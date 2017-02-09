@@ -5,7 +5,7 @@ namespace Entity;
 use Entity\BaseEntity;
 
 /**
- * @Entity
+ * @Entity (repositoryClass="Repository\VilleRepository")
  * @Table(name="ville")
  */
 class Ville extends BaseEntity
@@ -56,6 +56,7 @@ class Ville extends BaseEntity
      * @Column(type="float", name="latitude_deg", unique=false, nullable=true)
      */
     protected $latitude = null;
+
 
     protected $attributes = [
         'id',

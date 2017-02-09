@@ -10,14 +10,18 @@
         "ext-intl": "*",
         "doctrine/common": "2.5.*",
         "doctrine/orm": "2.5.*",
+        "doctrine/annotations": "1.3.*",
         "symfony/console": "2.5.*",
         "zendframework/zendframework": "2.3.*",
         "swiftmailer/swiftmailer": "^5.4",
-        "doctrine/migrations": "^1.4"
+        "doctrine/migrations": "^1.4",
+        "doctrine/dbal": "^2.5",
+        "doctrine/doctrine-module": "1.*"
     },
     "autoload": {
         "psr-0": {
-            "Entity": "application/models/Entity"
+            "Entity": "application/models/Entity",
+            "Library": "application/libraries"
         }
     },
     "require-dev": {

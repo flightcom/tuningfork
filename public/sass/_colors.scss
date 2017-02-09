@@ -7,9 +7,12 @@ $sweet-green-dark : $sweet-green - #111;
 $sweet-green-dark-more : $sweet-green - #222;
 $sweet-green-light : $sweet-green + #111;
 $sweet-green-light-more : $sweet-green + #222;
+
 // Blue
 $blue : #1477d5;
 $tf-blue : #4487fa;
+$md-blue: #106CC8;
+$md-teal: rgb(0, 150, 136);
 
 // Disponibilité
 $green-soft : #10c140;
@@ -28,3 +31,6 @@ $color-archived : #aaa;
 // Menu selected
 $color-menu-active : #fff;
 $color-menu-active-bottom-border: $tf-blue;
+
+$dark-light: #222;
+$grey-light: #eee;

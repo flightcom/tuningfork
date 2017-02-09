@@ -1,7 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 use Entity\Station;
-use Zend\View\Model\JsonModel;
 
 class Stations extends MY_REST_Controller {
 

@@ -1,0 +1,18 @@
+(function () {
+
+    // @ngInject
+    function root($urlRouterProvider, $stateProvider){
+
+        let root = {
+            name: 'root',
+            abstract: true
+        };
+
+        $stateProvider.state(root);
+
+    }
+
+    angular.module('app')
+        .config(root);
+
+})();
