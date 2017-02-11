@@ -20,8 +20,10 @@
     },
     "autoload": {
         "psr-0": {
+            "AppTrait": "application/models/AppTrait",
             "Entity": "application/models/Entity",
-            "Library": "application/libraries"
+            "Library": "application/libraries",
+            "Repository": "application/models/Repository"
         }
     },
     "require-dev": {
