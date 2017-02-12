@@ -10,6 +10,7 @@ echo -e "\n---> Installing Composer"
 curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/bin --version=1.0.0-alpha8
 echo -e "\n---> Running Composer"
 php composer.phar update
+php composer.phar dump-autoload -o
 
 # Front-end libraries
 ## WHY SO LONG ?
