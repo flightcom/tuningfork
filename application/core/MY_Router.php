@@ -25,7 +25,6 @@ class MY_Router extends CI_Router
     protected function _rewriteSegment($segment)
     {
         return preg_replace_callback('/-\w/', function ($chars) {
-            error_log(print_r($chars, true));
             return strtoupper(str_replace('-', '', $chars[0]));
         }, $segment);
     }
