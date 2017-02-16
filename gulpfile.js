@@ -124,7 +124,6 @@ gulp.task('js', ['clean-js'], function () {
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./public/dist/js'))
         // .pipe(uglify())
-        .pipe(gulp.dest('.'))
         .on('error', gutil.log);
 });
 
