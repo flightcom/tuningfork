@@ -99,6 +99,12 @@ class User extends BaseEntity
      */
     protected $dateLastConnection = null;
 
+    /**
+     * @MOneToMany(targetEntity="Entity\Pret", mappedBy="user")
+     */
+    protected $prets;
+
+
     public static $sourcesList= [
         'bouche à oreille',
         'brochure',
@@ -125,7 +131,8 @@ class User extends BaseEntity
     ];
 
     protected $relations = [
-        'adresse' => self::RELATION_ONE
+        'adresse' => self::RELATION_ONE,
+        'prets' => self::RELATION_MANY
     ];
 
     public function toArray(array $with = [])
