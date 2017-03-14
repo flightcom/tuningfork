@@ -1,13 +1,13 @@
 (function () {
 
     // @ngInject
-    function Utils($rootScope, $state, $mdDialog, $mdToast, PATHS) {
+    function Utils($rootScope, $location, $mdDialog, $mdToast, PATHS) {
 
-        function endWait(){
+        function endWait () {
             $rootScope.$emit("endWait");
         }
 
-        function startWait(){
+        function startWait () {
             $mdDialog.show({
                 controller: 'WaitCtrl',
                 template: '<md-dialog id="plz_wait" style="background-color:transparent;box-shadow:none">' +
@@ -22,14 +22,21 @@
         }
 
         function previous () {
-            console.log('previous', $rootScope.from);
-            $state.go(!$rootScope.from.abstract ? $rootScope.from : $state.$current.parent);
+            if (prev = $rootScope.history[$rootScope.history.length-1]) {
+                window.location.href = prev;
+
+            }
+        }
+
+        function loading (loading = false) {
+            $rootScope.loading = loading;
         }
 
         return {
-            previous : previous,
+            previous  : previous,
             startWait : startWait,
-            endWait   : endWait
+            endWait   : endWait,
+            loading   : loading,
         }
 
     }

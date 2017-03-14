@@ -10,7 +10,7 @@ class Instruments extends MY_REST_Controller {
         parent::__construct();
     }
 
-    public function index_get($id)
+    public function index_get($id = null)
     {
         $id = $id ?? $this->get('id') ?? null;
 
@@ -45,14 +45,11 @@ class Instruments extends MY_REST_Controller {
     {
         $data = $this->put();
 
-        $instrument = $this->em->getRepository('Entity\Instrument')->get($id);
-        // $instrument->update($data);
+        $this->object = $this->em->getRepository('Entity\Instrument')->get($id);
 
         try {
-            $instrument = $this->hydrator->hydrate($data, $instrument);
-            $this->em->merge($instrument);
-            $this->em->flush();
-            $this->response(['success' => $instrument], 200);
+            $this->updateObject($data);
+            $this->response(['success' => $this->object], 200);
         } catch (Exception $e) {
             $this->response(['error' => $e->getMessage()], 500);
         }
@@ -97,5 +94,15 @@ class Instruments extends MY_REST_Controller {
         } while ($this->em->getRepository('Entity\Instrument')->findBy(['barcode' => $barcode]));
         $this->response(["data" => $barcode], 200);
     }
+
+    public function prets_get($id)
+    {
+        $id = $id ?? $this->get('id') ?? null;
+
+        $instrument = $this->em->getRepository('Entity\Instrument')->get($id);
+        $prets = $this->em->getRepository('Entity\Pret')->findAll(['instrument' => $id]);
+        $this->response(["data" => $prets], 200);
+    }
+
 
 }

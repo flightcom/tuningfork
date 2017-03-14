@@ -27,6 +27,7 @@ class Pays extends BaseEntity
      */
     protected $nom;
 
+
     protected $attributes = [
         'id',
         'isoCode',
@@ -34,5 +35,11 @@ class Pays extends BaseEntity
     ];
 
     protected $relations = [];
+
+    public function toArray(array $with = [])
+    {
+        $extras = [];
+        return array_merge(parent::toArray($with), $extras);
+    }
 
 }

@@ -75,18 +75,6 @@ class Doctrine {
         $loader = new ClassLoader($models_namespace, $models_path);
         $loader->register();
 
-        // Load repositories
-        $repositoryClassLoader = new ClassLoader('Repository', APPPATH.'models/');
-        $repositoryClassLoader->register();
-
-        // Load interfaces
-        $interfaceClassLoader = new ClassLoader('Interface', APPPATH.'models/');
-        $interfaceClassLoader->register();
-
-        // Load libraries (not working... why?)
-        // $libraryClassLoader = new ClassLoader('Library', APPPATH);
-        // $libraryClassLoader->register();
-
     }
 
     public function getEntityManager()

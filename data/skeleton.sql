@@ -7,7 +7,7 @@
 #
 # Hôte: 127.0.0.1 (MySQL 5.7.16)
 # Base de données: tuningfork
-# Temps de génération: 2017-02-11 23:24:20 +0000
+# Temps de génération: 2017-02-28 18:06:58 +0000
 # ************************************************************
 
 
@@ -35,7 +35,7 @@ CREATE TABLE `adresse` (
   KEY `IDX_C35F0816A6E44244` (`pays_id`),
   CONSTRAINT `FK_C35F0816A6E44244` FOREIGN KEY (`pays_id`) REFERENCES `pays` (`id`),
   CONSTRAINT `FK_C35F0816A73F0036` FOREIGN KEY (`ville_id`) REFERENCES `ville` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `adresse` WRITE;
 /*!40000 ALTER TABLE `adresse` DISABLE KEYS */;
@@ -68,7 +68,7 @@ CREATE TABLE `articles` (
   `article_vues` int(11) NOT NULL DEFAULT '0',
   `article_date_last_update` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`article_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
@@ -129,7 +129,7 @@ CREATE TABLE `articles_tags` (
   PRIMARY KEY (`at_id`),
   KEY `fk_articles_tags_article_id` (`at_article_id`),
   CONSTRAINT `fk_at_article_id` FOREIGN KEY (`at_article_id`) REFERENCES `articles` (`article_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `articles_tags` WRITE;
 /*!40000 ALTER TABLE `articles_tags` DISABLE KEYS */;
@@ -157,7 +157,7 @@ CREATE TABLE `categories` (
   KEY `fk_categ_parent_id` (`categ_parent_id`),
   CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`categ_parent_id`) REFERENCES `categories` (`categ_id`) ON DELETE CASCADE,
   CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`categ_parent_id`) REFERENCES `categories` (`categ_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
@@ -227,7 +227,7 @@ CREATE TABLE `instrument` (
   `is_available` tinyint(1) NOT NULL DEFAULT '1',
   `has_to_be_checked` tinyint(1) NOT NULL DEFAULT '0',
   `condition` int(11) DEFAULT NULL,
-  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` longtext COLLATE utf8_unicode_ci,
   `barcode` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
   `model` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `serialNumber` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -239,7 +239,7 @@ CREATE TABLE `instrument` (
   KEY `IDX_3CBF69DD5CC5DB90` (`storage_id`),
   CONSTRAINT `FK_3CBF69DD4827B9B2` FOREIGN KEY (`marque_id`) REFERENCES `marque` (`id`),
   CONSTRAINT `FK_3CBF69DD5CC5DB90` FOREIGN KEY (`storage_id`) REFERENCES `storage` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `instrument` WRITE;
 /*!40000 ALTER TABLE `instrument` DISABLE KEYS */;
@@ -264,7 +264,7 @@ CREATE TABLE `marque` (
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_5A6F91CE6C6E55B5` (`nom`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `marque` WRITE;
 /*!40000 ALTER TABLE `marque` DISABLE KEYS */;
@@ -310,7 +310,8 @@ LOCK TABLES `migrations` WRITE;
 
 INSERT INTO `migrations` (`version`)
 VALUES
-	('20161021115241');
+	('20161021115241'),
+	('20170216140422');
 
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -327,7 +328,7 @@ CREATE TABLE `pays` (
   `iso_code` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_349F3CAE62B6A45E` (`iso_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `pays` WRITE;
 /*!40000 ALTER TABLE `pays` DISABLE KEYS */;
@@ -354,24 +355,86 @@ CREATE TABLE `pret` (
   `cautionRendue` tinyint(1) NOT NULL DEFAULT '0',
   `date_debut` datetime DEFAULT NULL,
   `date_fin` datetime DEFAULT NULL,
-  `date_fin_effective` datetime DEFAULT NULL,
+  `date_debut_prevue` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `date_fin_prevue` datetime DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment` longtext COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `IDX_52ECE979A76ED395` (`user_id`),
   KEY `IDX_52ECE979CF11D9C` (`instrument_id`),
   CONSTRAINT `FK_52ECE979A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_52ECE979CF11D9C` FOREIGN KEY (`instrument_id`) REFERENCES `instrument` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `pret` WRITE;
 /*!40000 ALTER TABLE `pret` DISABLE KEYS */;
 
-INSERT INTO `pret` (`id`, `user_id`, `instrument_id`, `montantCaution`, `cautionVersee`, `cautionRendue`, `date_debut`, `date_fin`, `date_fin_effective`, `created_at`, `updated_at`)
+INSERT INTO `pret` (`id`, `user_id`, `instrument_id`, `montantCaution`, `cautionVersee`, `cautionRendue`, `date_debut`, `date_fin`, `date_debut_prevue`, `created_at`, `updated_at`, `date_fin_prevue`, `status`, `comment`)
 VALUES
-	(1,8,3,NULL,0,0,NULL,NULL,NULL,NULL,NULL);
+	(1,8,3,NULL,0,0,NULL,NULL,'2017-07-01 04:00:00',NULL,NULL,'2018-06-30 03:59:59','AWAITING',NULL);
 
 /*!40000 ALTER TABLE `pret` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Affichage de la table pret_status
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pret_status`;
+
+CREATE TABLE `pret_status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_46A8B0DA5E237E06` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `pret_status` WRITE;
+/*!40000 ALTER TABLE `pret_status` DISABLE KEYS */;
+
+INSERT INTO `pret_status` (`id`, `name`, `label`)
+VALUES
+	(1,'AWAITING','En attente'),
+	(2,'RUNNING','En cours'),
+	(3,'MISSING','En retard'),
+	(4,'CLOSED','Clos'),
+	(5,'CANCELED','Annulé');
+
+/*!40000 ALTER TABLE `pret_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Affichage de la table role
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `role`;
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_57698A6A5E237E06` (`name`),
+  UNIQUE KEY `UNIQ_57698A6AEA750E8` (`label`),
+  KEY `IDX_57698A6A727ACA70` (`parent_id`),
+  CONSTRAINT `FK_57698A6A727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+
+INSERT INTO `role` (`id`, `parent_id`, `name`, `label`)
+VALUES
+	(1,NULL,'guest','Invité'),
+	(2,NULL,'user','Utilisateur'),
+	(3,2,'admin','Administrateur'),
+	(4,2,'membre','Membre');
+
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -400,7 +463,7 @@ CREATE TABLE `station` (
   UNIQUE KEY `UNIQ_9F39F8B15E237E06` (`name`),
   UNIQUE KEY `UNIQ_9F39F8B14DE7DC5C` (`adresse_id`),
   CONSTRAINT `FK_9F39F8B14DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `station` WRITE;
 /*!40000 ALTER TABLE `station` DISABLE KEYS */;
@@ -446,7 +509,7 @@ CREATE TABLE `types_instru` (
   KEY `fk_type_categ_id` (`type_categ_id`),
   CONSTRAINT `types_ibfk_1` FOREIGN KEY (`type_categ_id`) REFERENCES `categories` (`categ_id`) ON DELETE CASCADE,
   CONSTRAINT `types_instru_ibfk_1` FOREIGN KEY (`type_categ_id`) REFERENCES `categories` (`categ_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `types_instru` WRITE;
 /*!40000 ALTER TABLE `types_instru` DISABLE KEYS */;
@@ -476,34 +539,61 @@ CREATE TABLE `user` (
   `adresse_id` int(11) DEFAULT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mdate_naissance` date DEFAULT NULL,
+  `date_naissance` date DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tel` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `commentaire` longtext COLLATE utf8_unicode_ci,
+  `comment` longtext COLLATE utf8_unicode_ci,
   `source` int(11) DEFAULT NULL,
-  `date_inscription` date DEFAULT NULL,
-  `date_debut_adhesion` date DEFAULT NULL,
+  `date_confirmation` datetime DEFAULT NULL,
+  `date_debut_adhesion` datetime DEFAULT NULL,
   `date_last_connection` date DEFAULT NULL,
-  `is_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `registration_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `is_admin` tinyint(1) NOT NULL,
-  `date_fin_adhesion` date DEFAULT NULL,
+  `date_fin_adhesion` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D6494DE7DC5C` (`adresse_id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
   UNIQUE KEY `UNIQ_8D93D649F037AB0F` (`tel`),
   CONSTRAINT `FK_8D93D6494DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id`, `adresse_id`, `nom`, `prenom`, `mdate_naissance`, `email`, `tel`, `password`, `commentaire`, `source`, `date_inscription`, `date_debut_adhesion`, `date_last_connection`, `is_confirmed`, `registration_token`, `is_admin`, `date_fin_adhesion`)
+INSERT INTO `user` (`id`, `adresse_id`, `nom`, `prenom`, `date_naissance`, `email`, `tel`, `password`, `comment`, `source`, `date_confirmation`, `date_debut_adhesion`, `date_last_connection`, `registration_token`, `date_fin_adhesion`, `created_at`, `updated_at`)
 VALUES
-	(8,14,'Moreau','Sébastien','2016-11-10','flightcom@wanadoo.fr','2343543','$2y$14$awIb.dEXf3aLuiXLFcEusuM7MGp0w980cArsQShu/3aXg69fS133y',NULL,NULL,NULL,NULL,NULL,0,'876b0fbef678ec667dae676ac04c0d7b5718c240c8a98483930e5432ed039a57',0,NULL);
+	(8,14,'Moreau','Sébastien','2016-11-10','flightcom@wanadoo.fr','2343543','$2y$14$awIb.dEXf3aLuiXLFcEusuM7MGp0w980cArsQShu/3aXg69fS133y',NULL,NULL,NULL,NULL,NULL,'876b0fbef678ec667dae676ac04c0d7b5718c240c8a98483930e5432ed039a57',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Affichage de la table user_roles
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user_roles`;
+
+CREATE TABLE `user_roles` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `IDX_54FCD59FA76ED395` (`user_id`),
+  KEY `IDX_54FCD59FD60322AC` (`role_id`),
+  CONSTRAINT `FK_54FCD59FA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_54FCD59FD60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `user_roles` WRITE;
+/*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
+
+INSERT INTO `user_roles` (`user_id`, `role_id`)
+VALUES
+	(8,3),
+	(8,4);
+
+/*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -524,7 +614,7 @@ CREATE TABLE `ville` (
   `latitude_deg` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_43C3D9C3989D9B62` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=36831 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `ville` WRITE;
 /*!40000 ALTER TABLE `ville` DISABLE KEYS */;

@@ -2,6 +2,7 @@ var gulp       = require('gulp'),
     gutil      = require('gulp-util'),
     clean      = require('gulp-clean'),
     uglify     = require('gulp-uglify'),
+    gulpif     = require('gulp-if'),
     imagemin   = require('gulp-imagemin'),
     concat     = require('gulp-concat'),
     cache      = require('gulp-cache'),
@@ -13,9 +14,7 @@ var gulp       = require('gulp'),
     karma      = require('gulp-karma'),
     es         = require('event-stream'),
     sq         = require('streamqueue'),
-    babel      = require("gulp-babel"),
-    spawn      = require('child_process').spawn,
-    bust       = require('gulp-buster');
+    babel      = require("gulp-babel");
 
 var paths = {
     templates: [
@@ -36,11 +35,13 @@ var paths = {
         './node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css',
         './node_modules/angular-material/angular-material.min.css',
         './node_modules/angular-material-data-table/dist/md-data-table.min.css',
-        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.css'
+        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.css',
+        './node_modules/intl-tel-input/build/css/intlTelInput.css'
     ],
     js: [
         './public/js/app.js',
         './public/js/run.js',
+        './public/js/listeners.js',
         './public/js/components/**/*.js',
         './public/js/configs/**/*.js',
         './public/js/constants/**/*.js',
@@ -75,6 +76,9 @@ var paths = {
         './public/js/vendor/angular-parallax/scripts/angular-parallax.js',
         './node_modules/underscore/underscore-min.js',
         './node_modules/angular-barcode/dist/angular-barcode.js',
+        './node_modules/moment/min/moment.min.js',
+        './node_modules/intl-tel-input/build/js/intlTelInput.min.js',
+        './node_modules/ng-intl-tel-input/dist/scripts/ng-intl-tel-input.min.js'
     ],
     img: [
         './public/img/*',
@@ -99,6 +103,10 @@ var paths = {
     ]
 };
 
+var isDevEnv = function () {
+    return typeof env !== 'undefined' && env === 'development';
+};
+
 gulp.task('css', ['clean-css'], function () {
     var vendorFiles = gulp.src(paths.cssDir);
     var appFiles = gulp.src(paths.sass)
@@ -115,15 +123,16 @@ gulp.task('css', ['clean-css'], function () {
 
 gulp.task('js', ['clean-js'], function () {
     var jsLibraries = gulp.src(paths.jsLibraries)
+        .pipe(gulpif(!isDevEnv, uglify()))
         .pipe(concat('app.libraries.js'));
     var js = gulp.src(paths.js)
         .pipe(babel())
         .pipe(ngAnnotate())
+        .pipe(gulpif(!isDevEnv, uglify()))
         .pipe(concat('app.js'));
     return es.concat(jsLibraries, js)
         .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./public/dist/js'))
-        // .pipe(uglify())
         .on('error', gutil.log);
 });
 
@@ -198,9 +207,13 @@ gulp.task('test', function () {
         });
 });
 
+gulp.task('set-development', function() {
+    env = 'development';
+});
+
 gulp.task('default', ['build']);
 gulp.task('build', ['css', 'js', 'img', 'fonts', 'templates']);
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['set-development', 'build'], function () {
     gulp.watch([paths.sassDir, paths.cssDir], ['css']);
     gulp.watch(paths.img, ['img']);
     gulp.watch(paths.js, ['js']);

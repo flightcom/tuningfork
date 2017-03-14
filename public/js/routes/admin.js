@@ -15,6 +15,7 @@
             templateUrl: PATHS.TEMPLATE + 'partials/admin/dashboard.html',
         }
 
+        // Instruments
         let adminInstruments = {
             name: 'admin.instruments',
             url: '/instruments',
@@ -35,9 +36,6 @@
         let adminInstrumentsView = {
             name: 'admin.instruments.view',
             url: '/:id',
-            params: {
-                instrument: null
-            },
             views: {
                 'admin@admin': {
                     templateUrl: PATHS.TEMPLATE + 'partials/admin/instrument.html',
@@ -46,10 +44,39 @@
             }
         }
 
+        // Prets
+        let adminPrets = {
+            name: 'admin.prets',
+            url: '/prets',
+            views: {
+                'admin': {
+                    templateUrl: PATHS.TEMPLATE + 'partials/admin/prets.html',
+                    controller: 'AdminPretsCtrl as $adminPretsCtrl'
+                }
+            }
+        }
+
+        let adminPretsView = {
+            name: 'admin.prets.view',
+            url: '/:id',
+            views: {
+                'admin@admin': {
+                    templateUrl: PATHS.TEMPLATE + 'partials/admin/pret.html',
+                    controller: 'AdminPretViewCtrl as $adminPretViewCtrl'
+                }
+            }
+        }
+
+        // Users
         let adminUsers = {
             name: 'admin.users',
             url: '/users',
-            templateUrl: PATHS.TEMPLATE + 'partials/admin/users.html',
+            views: {
+                'admin': {
+                    templateUrl: PATHS.TEMPLATE + 'partials/admin/users.html',
+                    controller: 'AdminUsersCtrl as $adminUsersCtrl'
+                }
+            }
         }
 
         let adminUsersAdd = {
@@ -58,13 +85,26 @@
             templateUrl: PATHS.TEMPLATE + 'partials/admin/forms/user.html',
         }
 
+        let adminUsersView = {
+            name: 'admin.users.view',
+            url: '/:id',
+            views: {
+                'admin@admin': {
+                    templateUrl: PATHS.TEMPLATE + 'partials/admin/user.html',
+                    controller: 'AdminUserViewCtrl as $adminUserViewCtrl'
+                }
+            }
+        }
+
         $stateProvider.state(admin);
         $stateProvider.state(adminDashboard);
         $stateProvider.state(adminInstruments);
         $stateProvider.state(adminInstrumentsView);
-        // $stateProvider.state(adminInstrumentsAdd);
+        $stateProvider.state(adminPrets);
+        $stateProvider.state(adminPretsView);
         $stateProvider.state(adminUsers);
         $stateProvider.state(adminUsersAdd);
+        $stateProvider.state(adminUsersView);
 
     }
 

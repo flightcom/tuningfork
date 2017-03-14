@@ -7,9 +7,25 @@
     }
 
     // @ngInject
-    function ToolbarAdminController (PATHS) {
+    function ToolbarAdminController ($mdSidenav, $mdMenu, PATHS) {
 
-        this.PATHS = PATHS;
+        var vm = this;
+
+        vm.PATHS = PATHS;
+
+        vm.toggleLeft = buildToggler('left');
+
+        function buildToggler(componentId) {
+            return function() {
+                console.log('toggle');
+                $mdSidenav(componentId).toggle();
+            };
+        }
+
+        vm.openMenu = ($mdMenu, ev) => {
+            originatorEv = ev;
+            $mdMenu.open(ev);
+        };
 
     }
 

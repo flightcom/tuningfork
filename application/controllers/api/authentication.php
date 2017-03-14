@@ -20,6 +20,8 @@ class Authentication extends MY_REST_Controller {
             // Check password
             if (password_verify($data['password'], $user->getPassword()) ) {
                 $this->session->set_userdata('current_user', $user->toArray());
+                $user->setDateLastConnection(new \DateTime('now'));
+                $this->em->flush();
                 $this->response(['data' => $user->toArray()], 200);
             } else {
                 $this->response(['error' => 'Mauvais mot de passe'], 500);

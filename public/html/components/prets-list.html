@@ -1,0 +1,35 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$pretsListCtrl.embedded && !$pretsListCtrl.filter.show && !$pretsListCtrl.selected.length">
+    <div class="md-toolbar-tools">
+        <h2>Prêts</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="$pretsListCtrl.filter.show=!$pretsListCtrl.filter.show" aria-label="Filter">
+            <md-icon class="material-icons">filter_list</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="$pretsListCtrl.getItems()">
+            <md-icon>refresh</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-table-container>
+     <table md-table md-row-select="!$pretsListCtrl.embedded" multiple ng-model="$pretsListCtrl.selected" md-progress="$pretsListCtrl.promise">
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Statut</th>
+                <th md-column>Date Début Prévue</th>
+                <th md-column>Date Fin Prévue</th>
+                <th md-column>Caution Versée</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row md-select="pret" md-select-id="name" ng-repeat="pret in $pretsListCtrl.items" ng-click="$pretsListCtrl.view(pret)">
+                <td md-cell>{{pret.status.label}}</td>
+                <td md-cell>{{pret.dateDebutPrevue | date: 'dd/MM/yyyy'}}</td>
+                <td md-cell>{{pret.dateFinPrevue | date: 'dd/MM/yyyy'}}</td>
+                <td md-cell>
+                    <md-checkbox disabled aria-label="Est dispo" ng-checked="pret.cautionVersee"></md-checkbox>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

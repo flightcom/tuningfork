@@ -40,7 +40,7 @@ class UserRepository extends EntityRepository
         if ($data['page'])
             $qb->setFirstResult( ($data['page']-1) * $data['limit']);
         if ($data['order'])
-            $qb->orderBy('i.'.$data['order'], 'ASC');
+            $qb->orderBy('u.'.$data['order'], 'ASC');
         return $qb->getQuery()->getResult();
     }
 

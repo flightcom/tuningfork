@@ -14,10 +14,11 @@ class Users extends MY_REST_Controller {
 
     public function index_get($id = null)
     {
-        $id = !$id ? ($this->get('id') ? $this->get('id') : null) : $id;
+        $id = $id ?? $this->get('id') ?? null;
 
         if ($id) {
             $users = $this->em->getRepository('Entity\User')->get($id);
+            $users = $users->toArray(['adresse.ville', 'adresse.pays', 'prets.status', 'roles']);
         } else {
             $users = $this->em->getRepository('Entity\User')->getAll();
         }
@@ -25,10 +26,35 @@ class Users extends MY_REST_Controller {
         $this->response(["data" => $users], 200);
     }
 
+    public function index_put($id)
+    {
+        $data = $this->put();
+
+        try {
+            $this->object = $this->em->getRepository('Entity\User')->get($id);
+            $this->updateObject($data);
+            $user = $this->object->toArray(['adresse.ville', 'adresse.pays', 'prets.status', 'roles']);
+            $this->response(['data' => $user], 200);
+        } catch (Exception $e) {
+            $this->response(['error' => $e->getMessage()], 500);
+        }
+
+    }
+
     public function search_get()
     {
         if ($this->get()) {
             $users = $this->em->getRepository('Entity\User')->search($this->get());
+        }
+
+        $this->response(["data" => $users], 200);
+    }
+
+    public function count_get()
+    {
+        $data = array_merge(['count' => true], $this->get());
+        if ($data) {
+            $users = $this->em->getRepository('Entity\User')->search($data);
         }
 
         $this->response(["data" => $users], 200);
@@ -77,6 +103,59 @@ class Users extends MY_REST_Controller {
     public function loggedin_get()
     {
         $this->response(['data' => $this->session->userdata()], 200);
+    }
+
+    public function addRole_get($id, $rolename)
+    {
+        if (!$this->getIdentity()->isAdmin()) {
+            $this->response('You can\'t do that !', 403);
+        } else {
+            try {
+                $user = $this->em->getRepository('Entity\User')->get($id);
+                $role = $this->em->getRepository('Entity\Role')->findOneBy(['name' => $rolename]);
+                $user->addRole($role);
+                $this->em->flush();
+                $this->response(['data' => $user], 200);
+            } catch (\Exception $e) {
+                $this->response([
+                    'error' => 'Un problème est survenu : ' . $e->getMessage()
+                ], 500);
+            }
+        }
+    }
+
+    public function prets_get($id)
+    {
+        $id = $id ?? $this->get('id') ?? null;
+
+        $user = $this->em->getRepository('Entity\User')->get($id);
+        $prets = $this->em->getRepository('Entity\Pret')->findAll(['user' => $user]);
+        $this->response(["data" => $prets], 200);
+    }
+
+    protected function setExtendedRoles(&$user)
+    {
+        $rolesList = $this->em->getRepository('Entity\Role')->getAll();
+        $user->extendedRoles = array_map(function($role) use ($user) {
+            $newRole = $role->toArray();
+            $newRole['selected'] = $user->getRoles()->contains($role);
+            // error_log($user->getRoles()->contains($role));
+            error_log($role->getName() . ' is ' . ($newRole['selected']?'':' not ') . 'selected');
+            return $newRole;
+        }, $rolesList);
+    }
+
+    protected function extendedRoles(&$user)
+    {
+        $rolesList = $this->em->getRepository('Entity\Role')->getAll();
+        $extendedRoles = array_map(function($role) use ($user) {
+            $newRole = $role->toArray();
+            $newRole['selected'] = $user->getRoles()->contains($role);
+            // error_log($user->getRoles()->contains($role));
+            error_log($role->getName() . ' is ' . ($newRole['selected']?'':' not ') . 'selected');
+            return $newRole;
+        }, $rolesList);
+        return $extendedRoles;
     }
 
 }

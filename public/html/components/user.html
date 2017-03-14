@@ -1,0 +1,143 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="$state.go('admin.users')" aria-label="Previous page">
+            <md-icon class="material-icons">navigate_before</md-icon>
+        </md-button>
+        <h2 flex>{{$userCtrl.item.fullName}}</h2>
+    </div>
+</md-toolbar>
+
+<md-content flex layout="column" layout-fill>
+    <md-content flex="none" layout="column" ng-show="$userCtrl.item">
+        <md-card layout-padding>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Informations</span>
+                    <span class="md-subhead" ng-if="$userCtrl.item.createdAtFormatted">Créé le {{$userCtrl.item.createdAtFormatted}} - </span>
+                    <span class="md-subhead">Dernière modification le {{$userCtrl.item.updatedAtFormatted}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <form name="userForm" ng-submit="$userCtrl.onChange()">
+                <div layout="row" layout-fill>
+                     <md-input-container md-no-float class="md-block">
+                        <label>Prénom</label>
+                        <md-icon class="material-icons">perm_identity</md-icon>
+                        <input required ng-model="$userCtrl.item.prenom" type="text" placeholder="Prénom">
+                    </md-input-container>
+                     <md-input-container md-no-float class="md-block">
+                        <label>Nom</label>
+                        <input required ng-model="$userCtrl.item.nom" type="text" placeholder="Nom">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-sm="row">
+                     <md-input-container md-no-float class="md-block">
+                        <label>Adresse</label>
+                        <md-icon class="material-icons">location_on</md-icon>
+                        <input required ng-model="$userCtrl.item.adresse.voie" type="text" placeholder="Voie">
+                    </md-input-container>
+                    <div layout="row">
+                        <md-input-container flex="50" class="md-block">
+                            <input ng-model="$userCtrl.item.adresse.ville.nom" type="text" readonly placeholder="Ville">
+                        </md-input-container>
+                        <md-autocomplete flex="50"
+                            md-input-name="autocompleteVille"
+                            md-no-cache="$userCtrl.noCache"
+                            md-selected-item="$userCtrl.selectedVille"
+                            md-search-text="$userCtrl.searchVilleNom"
+                            md-selected-item-change="$userCtrl.selectedVilleChange(item)"
+                            md-items="item in $userCtrl.searchVille($userCtrl.searchVilleNom)"
+                            md-item-text="item.nom"
+                            md-input-minlength="3"
+                            md-floating-label="Rechercher une ville"
+                            md-require-match>
+                            <md-item-template>
+                                <span md-highlight-text="$userCtrl.searchVilleNom" md-highlight-flags="^i">{{item.nom}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Aucune ville trouvée pour "{{$userCtrl.searchVilleNom}}".
+                                <a ng-click="$userCtrl.newVille($userCtrl.searchVilleNom)">Ajouter une ville</a>
+                            </md-not-found>
+                            <div ng-messages="userForm.autocompleteVille.$error" ng-if="userForm.autocompleteVille.$touched">
+                                <div ng-message="required">Vous devez choisir une ville</div>
+                                <div ng-message="minlength">Votre recherche est trop courte</div>
+                                <div ng-message="md-require-match">Choisissez une ville existante</div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                </div>
+
+                 <md-input-container md-no-float class="md-block">
+                    <label>E-mail</label>
+                    <md-icon>email</md-icon>
+                    <input required ng-model="$userCtrl.item.email" type="email" placeholder="Adresse e-mail">
+                </md-input-container>
+
+                 <md-input-container md-no-float class="md-block">
+                    <label>Téléphone</label>
+                    <md-icon class="material-icons">phone</md-icon>
+                    <input required ng-model="$userCtrl.item.phone" type="text" placeholder="Télephone">
+                </md-input-container>
+
+                 <md-input-container md-no-float class="md-block">
+                    <label>Date de naissance</label>
+                    <!-- <md-icon class="material-icons">perm_contact_calendar</md-icon> -->
+                    <md-datepicker md-placeholder="Date de naissance" md-open-on-focus md-current-view="year"
+                        ng-model="$userCtrl.item.dateNaissance"></md-datepicker>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Commentaire</label>
+                    <md-icon class="material-icons">message</md-icon>
+                    <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
+                        ng-model="$userCtrl.item.comment"></textarea>
+                </md-input-container>
+                <md-button class="md-raised md-primary" type="submit">
+                    <md-icon class="material-icons">save</md-icon>
+                    ENREGISTRER
+                </md-button>
+            </form>
+        </md-card>
+
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Prets</span>
+                </md-card-title-text>
+            </md-card-title>
+            <div flex ng-show="!$userCtrl.item.prets" layout="row" layout-sm="column" layout-align="space-around">
+                <md-content layout="column" layout-padding>
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </md-content>
+            </div>
+            <div flex ng-show="$userCtrl.item.prets">
+                <prets-list prets="$userCtrl.item.prets" embedded="true"></prets-list>
+            </div>
+        </md-card>
+
+        <md-card layout-padding>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Rôles</span>
+                </md-card-title-text>
+            </md-card-title>
+            <div flex ng-show="$userCtrl.item" layout="column">
+                <form name="userForm">
+                    <div layout-xs="column" layout-gt-xs="row" layout-fill>
+                        <md-input-container flex ng-repeat="role in $userCtrl.roles track by $index">
+                            <md-checkbox
+                                aria-label="Est {{role.label}}"
+                                ng-model="role.selected">{{role.label}}</md-checkbox>
+                        </md-input-container>
+                    </div>
+                    <md-button class="md-raised md-primary" ng-click="$userCtrl.checkRoles()">
+                        <md-icon class="material-icons">save</md-icon>
+                        ENREGISTRER
+                    </md-button>
+                </form>
+            </div>
+        </md-card>
+
+    </md-content>
+</md-content>
+

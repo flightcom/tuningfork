@@ -11,9 +11,8 @@ class InstrumentRepository extends EntityRepository
     public function buildDefaultQuery()
     {
         $qb = $this->_em->createQueryBuilder();
-        $qb->select('i', 'm')
-            ->from('Entity\Instrument', 'i')
-            ->leftJoin('i.marque', 'm');
+        $qb->select('i')
+            ->from('Entity\Instrument', 'i');
 
         return $qb;
     }

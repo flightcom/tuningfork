@@ -1,4 +1,4 @@
-<!-- <md-card> -->
+<md-content>
     <md-toolbar class="md-table-toolbar md-default" ng-show="!$instrumentsListCtrl.filter.show && !$instrumentsListCtrl.selected.length">
         <div class="md-toolbar-tools">
             <h2>Instruments</h2>
@@ -9,8 +9,8 @@
             <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.getItems()">
                 <md-icon>refresh</md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.create($event)" aria-label="Add">
-                <md-icon class="material-icons">add_more</md-icon>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.create()">
+                <md-icon>add_more</md-icon>
             </md-button>
         </div>
     </md-toolbar>
@@ -34,7 +34,9 @@
             </md-button>
         </div>
     </md-toolbar>
+</md-content>
 
+<md-card>
     <md-table-container>
          <table md-table md-row-select multiple ng-model="$instrumentsListCtrl.selected" md-progress="$instrumentsListCtrl.promise">
             <thead md-head>
@@ -49,7 +51,7 @@
             </thead>
             <tbody md-body>
                 <tr md-row md-select="instrument" md-select-id="name" ng-repeat="instrument in $instrumentsListCtrl.items" ng-click="$instrumentsListCtrl.viewInstrument(instrument)">
-                    <td md-cell>{{instrument.modele}}</td>
+                    <td md-cell>{{instrument.model}}</td>
                     <td md-cell>{{instrument.marque.nom}}</td>
                     <td md-cell>
                         <md-checkbox readonly aria-label="Est dispo" ng-checked="instrument.isAvailable"></md-checkbox>
@@ -58,15 +60,10 @@
                         <md-checkbox aria-label="À vérifier" ng-model="instrument.hasToBeChecked" ng-checked="instrument.hasToBeChecked"></md-checkbox>
                     </td>
                     <td md-cell>{{instrument.condition}}</td>
-                    <td md-cell flex="none">
-                        <md-button class="md-icon-button" aria-label="Actions">
-                            <md-icon class="material-icons">more_vert</md-icon>
-                        </md-button>
-                    </td>
                 </tr>
             </tbody>
         </table>
     </md-table-container>
 
     <md-table-pagination md-limit="$instrumentsListCtrl.query.limit" md-limit-options="$instrumentsListCtrl.limitOptions" md-page="$instrumentsListCtrl.query.page" md-total="{{$instrumentsListCtrl.count}}" md-on-paginate="$instrumentsListCtrl.getItems" md-page-select></md-table-pagination>
-<!-- </md-card> -->
+</md-card>

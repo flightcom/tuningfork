@@ -57,7 +57,6 @@ class Ville extends BaseEntity
      */
     protected $latitude = null;
 
-
     protected $attributes = [
         'id',
         'departement',
@@ -71,5 +70,11 @@ class Ville extends BaseEntity
     ];
 
     protected $relations = [];
+
+    public function toArray(array $with = [])
+    {
+        $extras = [];
+        return array_merge(parent::toArray($with), $extras);
+    }
 
 }

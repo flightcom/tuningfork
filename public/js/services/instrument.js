@@ -2,7 +2,10 @@
 
     // @ngInject
     function Instrument($resource, HTTPCreator) {
-        var resource = $resource('/api/instruments/:id', {id: '@id'}, {
+        var resource = $resource('/api/instruments/:id/:action', {
+                id: '@id',
+                action: '@action'
+            }, {
             update  : {method: 'PUT'},
             search  : {method: 'GET', url: '/api/instruments/search'},
             count   : {method: 'GET', url: '/api/instruments/count'},
@@ -33,6 +36,9 @@
             },
             barcode: function () {
                 return resource.barcode().$promise;
+            },
+            prets: function (id) {
+                return resource.get({id: id, action: 'prets'}).$promise;
             }
         };
     }

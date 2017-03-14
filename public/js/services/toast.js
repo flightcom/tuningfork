@@ -23,10 +23,10 @@
                     text     : text,
                     moreText : moreText,
                 }
-            }
+            };
 
             $mdToast.show(Object.assign(config, customConfig));
-        }
+        };
 
         toastService.info = (text, moreText, action) => {
 
@@ -37,14 +37,19 @@
             };
 
             $mdToast.show(config);
-        }
+        };
 
-        toastService.error = function(message) {
-            emitToast({
-                show: true,
-                msg: message,
-                class: 'toast-danger'
-            });
+        toastService.error = function(text) {
+
+            let customConfig = {
+                // toastClass: 'toast-error',
+                locals: {
+                    text     : text,
+                    // classes  : 'toast-error'
+                }
+            };
+
+            $mdToast.show(Object.assign(config, customConfig));
         };
 
         return toastService;

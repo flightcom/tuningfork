@@ -35,9 +35,10 @@ class Adresse extends BaseEntity
      */
     protected $pays;
 
+
     protected $attributes = [
         'id',
-        'voie',
+        'voie'
     ];
 
     protected $relations = [
@@ -62,13 +63,43 @@ class Adresse extends BaseEntity
             . ' ' . $this->getPays()->getNom();
     }
 
-    // public function setVille($ville)
-    // {
-    //     $doctrine = $this->getDoctrine();
-    //     $em = $doctrine->getManager();
-    //     $res = $em->getRepository('Entity\Ville')->get($ville['id']);
-    //     error_log(print_r($res, true));
-    //     $this->ville = $ville;
-    // }
+
+    /**
+     * GETTERS
+     */
+
+    public function getVoie ()
+    {
+        return $this->voie;
+    }
+
+    public function getVille ()
+    {
+        return $this->ville;
+    }
+
+    public function getPays ()
+    {
+        return $this->pays;
+    }
+
+    /**
+     * SETTERS
+     */
+
+    public function setVoie($voie)
+    {
+        $this->voie = $voie;
+    }
+
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
+    }
+
+    public function setPays ($pays)
+    {
+        $this->pays = $pays;
+    }
 
 }

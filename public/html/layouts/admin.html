@@ -1,15 +1,17 @@
-<!-- <div layout="row">
+<div layout="column" layout-fill>
+
     <toolbar-admin></toolbar-admin>
-</div> -->
-<div layout="row">
 
-    <menu-admin class="md-primary" flex="20"></menu-admin>
-
-    <md-content layout="column" role="main" class="admin" flex="80">
-        <div ui-view="admin"></div>
-        <!-- <ui-view></ui-view> -->
+    <md-content layout="row" flex>
+        <md-sidenav layout="column" class="md-sidenav-left"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-xs')"
+            md-disable-backdrop md-whiteframe="4">
+            <menu-admin layout="row" layout-fill></menu-admin>
+        </md-sidenav>
+        <md-content layout="column" layout-fill role="main" class="admin">
+            <div ui-view="admin" layout="column"></div>
+        </md-content>
     </md-content>
 
 </div>
-
-

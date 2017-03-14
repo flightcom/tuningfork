@@ -16,7 +16,8 @@
             'angular-parallax',
             'md.data.table',
             'ngMaterialSidemenu',
-            'angular-barcode'
+            'angular-barcode',
+            'intlTelInput'
         ]);
 
     // @ngInject

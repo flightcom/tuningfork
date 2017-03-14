@@ -2,10 +2,12 @@
 
     // @ngInject
     function User($resource, HTTPCreator) {
-        var resource = $resource('/api/users/', {}, {
+        var resource = $resource('/api/users/:id/:action', {id: '@id', action: '@action'}, {
+            update: {method: 'PUT'},
+            search: {method: 'GET'},
+            count : {method: 'GET'},
             signup: {method: 'POST', url: '/api/users/signup/'},
             signin: {method: 'POST', url: '/api/users/signin/'},
-            search: {method: 'GET'}
         });
 
         return {
@@ -13,7 +15,16 @@
                 return resource.query().$promise;
             },
             get: function(id) {
-                return resource.get(id).$promise;
+                return resource.get({id: id}).$promise
+                .then(response => {
+                    return this.format(response);
+                });
+            },
+            update: function(data) {
+                return resource.update({id: data.id}, data).$promise
+                .then(response => {
+                    return this.format(response);
+                });
             },
             search: function(data = null, callback = null) {
                 data.action = 'search';
@@ -24,6 +35,16 @@
             },
             signin: function(data) {
                 return resource.signin(data).$promise;
+            },
+            count: function(data) {
+                return resource.count(data).$promise;
+            },
+            prets: function (id) {
+                return resource.get({id: id, action: 'prets'}).$promise;
+            },
+            format: function(response) {
+                response.data.dateNaissance = response.data.dateNaissance ? new Date(response.data.dateNaissance) : null;
+                return response;
             }
         };
     }

@@ -3,14 +3,18 @@
 namespace Entity;
 
 use Entity\BaseEntity;
+use AppTrait\DatesTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity (repositoryClass="Repository\InstrumentRepository")
  * @Table(name="instrument")
+ * @HasLifecycleCallbacks
  */
 class Instrument extends BaseEntity
 {
+    use DatesTrait;
+
     /**
      * @Id
      * @Column(type="integer", nullable=false)
@@ -21,12 +25,12 @@ class Instrument extends BaseEntity
     /**
      * @Column(type="string", nullable=true)
      */
-    protected $modele;
+    protected $model;
 
     /**
      * @Column(type="string", nullable=true)
      */
-    protected $numeroSerie;
+    protected $serialNumber;
 
     /**
      * @Column(name="is_available", type="boolean", nullable=false, options={"default" : true})
@@ -44,7 +48,7 @@ class Instrument extends BaseEntity
     protected $condition;
 
     /**
-     * @Column(type="string", nullable=true)
+     * @Column(type="text", nullable=true)
      */
     protected $comment;
 
@@ -63,11 +67,21 @@ class Instrument extends BaseEntity
      */
     protected $storage;
 
+    /**
+     * @OneToMany(targetEntity="Entity\Pret", mappedBy="instrument")
+     */
+    protected $prets;
+
+
+    public function __construct()
+    {
+        $this->prets = new ArrayCollection();
+    }
 
     protected $attributes = [
         'id',
-        'modele',
-        'numeroSerie',
+        'model',
+        'serialNumber',
         'isAvailable',
         'hasToBeChecked',
         'condition',
@@ -76,7 +90,8 @@ class Instrument extends BaseEntity
     ];
 
     protected $relations = [
-        'marque' => self::RELATION_ONE,
+        'prets'   => self::RELATION_MANY,
+        'marque'  => self::RELATION_ONE,
         'storage' => self::RELATION_ONE
     ];
 
@@ -84,11 +99,6 @@ class Instrument extends BaseEntity
     {
         $extras = [];
         return array_merge(parent::toArray($with), $extras);
-    }
-
-    public function setMarque(Marque $marque)
-    {
-        $this->marque = $marque;
     }
 
 }

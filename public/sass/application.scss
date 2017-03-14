@@ -17,6 +17,7 @@
 
 // Elements
 @import 'elements/padding';
+@import 'elements/visibility';
 
 // Components
 @import 'components/navbar';
@@ -26,6 +27,8 @@
 @import 'components/menu-admin';
 @import 'components/menu-user';
 @import 'components/instruments-list';
+@import 'components/intl-tel-input';
+@import 'components/md-progress-linear';
 
 // Views
 @import 'views/main';
@@ -33,4 +36,5 @@
 @import 'views/admin';
 @import 'views/alert';
 @import 'views/footer';
+@import 'views/admin-user';
 

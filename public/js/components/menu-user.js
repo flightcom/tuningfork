@@ -9,12 +9,13 @@
     // @ngInject
     function MenuUserController (Authentication, User) {
 
+        var vm = this;
+
         Authentication.getUser().then(response => {
-            // console.log('user ??', response);
-            this.user = response;
+            vm.user = response;
         });
 
-        this.$onChanges = function (changesObj) {
+        vm.$onChanges = function (changesObj) {
             if (changesObj.user) {
                 console.log('User has changed in menu user', changesObj);
             }

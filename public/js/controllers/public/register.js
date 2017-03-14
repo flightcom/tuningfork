@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function RegisterCtrl($scope, Alert, Ville, Pays, User, Authentication, TYPEAHEAD, $sessionStorage, $state){
+    function RegisterCtrl($scope, Toast, Ville, Pays, User, Authentication, TYPEAHEAD, $sessionStorage, $state){
 
         var vm = this;
         vm.user = {};
@@ -11,7 +11,7 @@
         Pays.query().then(function(response){
             vm.countries = response;
         }).catch(function(error) {
-            Alert.error(error.text);
+            Toast.error(error.text);
         });
 
         vm.resetContactForm = function () {
@@ -23,9 +23,9 @@
         vm.signup = function () {
             User.signup(vm.user).then(function(response){
                 console.log(response);
-                Alert.success('Membre ajouté !');
+                Toast.success('Membre ajouté !');
             }).catch(function(error) {
-                Alert.error(error);
+                Toast.error(error);
             });
         }
 
@@ -36,10 +36,11 @@
                     $scope.$emit('userLogin', response.data);
                     $state.go('public.splash.child');
                 };
-                Alert.success('Connexion réussie !', cb);
+                Toast.success('Connexion réussie !');
+                cb();
                 vm.sessionStorage.user = response.data;
             }).catch(function(response) {
-                Alert.error(response.data.error);
+                Toast.error(response.data.error);
             });
         }
 
@@ -49,7 +50,7 @@
             .then(function(response) {
                 defer.resolve(response);
             }).catch(function(error) {
-                Alert.error(error.text);
+                Toast.error(error.text);
             });
 
             return defer.promise;

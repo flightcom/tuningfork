@@ -86,11 +86,11 @@ class BaseEntity
             $this->addRelationArray($result, $attr, $nestedRelations);
         }
 
-        $relations = $this->buildNestedRelationsArray(array_keys($this->getRelations()));
+        // $relations = $this->buildNestedRelationsArray(array_keys($this->getRelations()));
 
-        foreach ($relations as $attr => $nestedRelations) {
-            $this->addRelationArray($result, $attr, $nestedRelations);
-        }
+        // foreach ($relations as $attr => $nestedRelations) {
+        //     $this->addRelationArray($result, $attr, $nestedRelations);
+        // }
 
         return $result;
     }
@@ -148,10 +148,6 @@ class BaseEntity
 
         if ($this->relations[$attr] === self::RELATION_ONE) {
             $result[$attr] = $this->getHasOneRelation($attr, $nestedRelations);
-
-            $idAttr = $attr . '_id';
-
-            $result[$idAttr] = isset($result[$attr]['id']) ? $result[$attr]['id'] : null;
         }
     }
 
@@ -177,6 +173,30 @@ class BaseEntity
     protected function getHasOneRelation($relation, $nestedRelations)
     {
         return $this->$relation ? $this->$relation->toArray($nestedRelations) : false;
+    }
+
+    /**
+     * @param $relation
+     * @param $nestedRelations
+     * @return array
+     */
+    protected function setHasManyRelation($relation, $data)
+    {
+
+        foreach ($this->$relation as $key => $value) {
+            $this->$relation[$key]->update($data[$key]);
+        }
+
+    }
+
+    /**
+     * @param $relation
+     * @param $nestedRelations
+     * @return mixed
+     */
+    protected function setHasOneRelation($relation, $data)
+    {
+        return $this->$relation ? $this->$relation->update($data) : false;
     }
 
     /**

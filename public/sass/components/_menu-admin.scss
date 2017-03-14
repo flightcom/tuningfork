@@ -1,0 +1,32 @@
+md-sidenav {
+
+    width: 220px;
+
+    menu-admin {
+
+        $bg-color: #222;
+
+        background-color: $bg-color;
+
+        .md-sidemenu {
+            .md-subheader {
+                background-color: $bg-color;
+                height: inherit;
+            }
+
+            .md-button, .material-icons {
+                background-color: $bg-color;
+                color: white;
+            }
+
+        }
+
+
+        @include respond-to(tiny-to-very-large) {
+            height: 100vh;
+            // background-color: $dark-light;
+        }
+
+    }
+
+}

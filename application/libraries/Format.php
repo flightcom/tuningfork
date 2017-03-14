@@ -59,7 +59,7 @@ class Format {
 
     public function to_array($data = null)
     {
-       // var_dump(__METHOD__); 
+       // var_dump(__METHOD__);
         // If not just null, but nothing is provided
         if ($data === null and ! func_num_args())
         {
@@ -136,7 +136,7 @@ class Format {
             {
                 $attributes = $value;
                 if (is_object($attributes)) $attributes = get_object_vars($attributes);
-                
+
                 foreach ($attributes as $attributeName => $attributeValue)
                 {
                     $structure->addAttribute($attributeName, $attributeValue);
@@ -218,7 +218,7 @@ class Format {
                 throw new Exception('Format class does not support multi-dimensional arrays');
             } else {
                 $row    = str_replace('"', '""', $row); // Escape dbl quotes per RFC 4180
-                $output .= '"'.implode('","', $row).'"'.PHP_EOL;                
+                $output .= '"'.implode('","', $row).'"'.PHP_EOL;
             }
 
         }
@@ -234,12 +234,12 @@ class Format {
         {
             // return json_encode($this->_data);
             return json_encode($this->to_array($this->_data));
-            
+
             /* Had to take out this code, it doesn't work on Objects.
             $str = $this->_data;
-            array_walk_recursive($str, function(&$item, $key) 
+            array_walk_recursive($str, function(&$item, $key)
             {
-                if(!mb_detect_encoding($item, 'utf-8', true)) 
+                if(!mb_detect_encoding($item, 'utf-8', true))
                 {
                     $item = utf8_encode($item);
                 }

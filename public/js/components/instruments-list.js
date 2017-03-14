@@ -29,7 +29,7 @@
             show: false
         };
         vm.query = {
-            order: 'modele',
+            order: 'model',
             limit: 10,
             page: 1
         };
@@ -50,7 +50,7 @@
             let promises = vm.selected.map(item => {
                 return Instrument.delete(item.id);
             });
-            Utils.startWait();
+            Utils.loading();
             $q.all(promises).then(responses => {
                 vm.getItems();
                 Toast.success(responses.length+ ' éléments supprimés');
@@ -61,7 +61,7 @@
                 Toast.success(message);
                 vm.getItems();
             }).finally(() => {
-                Utils.endWait();
+                Utils.loading(false);
             });
         };
 
@@ -77,7 +77,6 @@
 
         vm.viewInstrument = instrument => {
             console.log('view', instrument);
-            // $state.go('admin.instruments_view', {
             $state.go('admin.instruments.view', {
                 id: instrument.id,
                 instrument: instrument

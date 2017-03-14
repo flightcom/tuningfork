@@ -17,7 +17,6 @@ class MY_Controller extends CI_Controller {
 
         $account = $this->load->view('membres/button', NULL, TRUE);
         $this->session->set_userdata('account', $account);
-        // $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
         $this->breadcrumb = new Breadcrumb();
     }
 
@@ -29,6 +28,7 @@ class MY_REST_Controller extends REST_Controller {
      * @var EntityManager
      */
     protected $em = null;
+    protected $object;
 
 
     function __construct()
@@ -40,33 +40,64 @@ class MY_REST_Controller extends REST_Controller {
 
         $account = $this->load->view('membres/button', NULL, TRUE);
         $this->session->set_userdata('account', $account);
-        // $this->session->set_userdata('referer', $_SERVER['HTTP_REFERER']);
-        $this->breadcrumb = new Breadcrumb();
         $this->em = $this->doctrine->getEntityManager();
-        $this->hydrator = new DoctrineHydrator($this->em, false);
+        // $this->hydrator = new DoctrineHydrator($this->em, false);
+        $this->hydrator = new DoctrineHydrator($this->em);
     }
 
-    /**
-     * Set entity manager
-     *
-     * @param EntityManager $em
-     * @return mixed
-     */
     public function setEntityManager(EntityManager $em)
     {
         $this->em = $em;
-
         return $this;
     }
 
-    /**
-     * Get entity manager
-     *
-     * @return EntityManager
-     */
     public function getEntityManager()
     {
         return $this->em;
+    }
+
+    protected function invalidateCache()
+    {
+        // Drop cache for all objects because we don't want relations to have old data
+        $config = $this->em->getConfiguration();
+        $cacheDriver = $config->getResultCacheImpl();
+        return $cacheDriver->deleteAll();
+    }
+
+    protected function updateObject($data)
+    {
+        // error_log(print_r($data['roles'], true));
+        // $this->unsetRelations($data);
+        $this->hydrator->hydrate($data, $this->object);
+        // $this->object->update($data);
+        // error_log(print_r($this->object->toArray(), true));
+        // $this->em->merge($this->object);
+        $this->em->flush();
+        $this->invalidateCache();
+    }
+
+    /**
+     *
+     * Don't want to update associations when updating main entity
+     *
+     * @param $data
+     */
+    protected function unsetRelations(&$data)
+    {
+        foreach ($this->object->getRelations() as $key => $relation) {
+            unset($data[$key]);
+        }
+    }
+
+    public function getIdentity()
+    {
+        $userdata = $this->session->userdata('current_user');
+        try {
+            $user = $this->em->getRepository('Entity\User')->get($userdata['id']);
+            return $user;
+        } catch ( \Exception $e) {
+            return null;
+        }
     }
 
 }
@@ -76,7 +107,7 @@ class MY_REST_Auth_Controller extends MY_REST_Controller {
     function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('user'))
+        if (!$this->getIdentity())
         {
             throw new Exception("Vous n'êtes pas connecté");
             // Stop the execution of the script.
@@ -92,7 +123,7 @@ class MY_REST_Membre_Controller extends MY_REST_Auth_Controller {
     {
         parent::__construct();
         // Traitements
-        if (!$this->session->userdata('user')->isAdherent()) {
+        if (!($this->getIdentity() && $this->getIdentity()->isMembre())) {
             throw new Exception("Vous n'êtes pas membre");
             // Stop the execution of the script.
             exit();
@@ -106,7 +137,7 @@ class MY_REST_Admin_Controller extends MY_REST_Membre_Controller {
     function __construct()
     {
         parent::__construct();
-        if ( ! $this->session->userdata('user_isAdmin'))
+        if (!($this->getIdentity() && $this->getIdentity()->isAdmin()))
         {
             $content = $this->load->view('access_forbidden', NULL, TRUE);
             $this->load->view('master', array('title' => 'Accès non autorisé', 'content' => $content));

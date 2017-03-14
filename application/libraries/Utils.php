@@ -32,5 +32,13 @@ class Utils {
         return $code;
     }
 
+    public static function sanitizeQueryParams($queryParams)
+    {
+        $paramsToRemove = ['count', 'limit', 'order', 'asc', 'page'];
+        return array_filter($queryParams, function ($key) use ($paramsToRemove) {
+            return !in_array($key, $paramsToRemove);
+        }, ARRAY_FILTER_USE_KEY);
+    }
+
 }
 
