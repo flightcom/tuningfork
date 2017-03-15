@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function RegisterCtrl($scope, Toast, Ville, Pays, User, Authentication, TYPEAHEAD, $sessionStorage, $state){
+    function RegisterCtrl($scope, $sessionStorage, $window, Utils, Toast, Ville, Pays, User, Authentication, TYPEAHEAD){
 
         var vm = this;
         vm.user = {};
@@ -30,17 +30,20 @@
         }
 
         vm.login = function () {
-            console.log('Connexion...');
+            Utils.loading();
             Authentication.login(vm.user).then(function(response){
                 const cb = () => {
-                    $scope.$emit('userLogin', response.data);
-                    $state.go('public.splash.child');
+                    // $scope.$emit('userLogin', response.data);
+                    $window.location.href = '/';
+                    // $state.go('public.splash.child');
                 };
                 Toast.success('Connexion réussie !');
                 cb();
                 vm.sessionStorage.user = response.data;
             }).catch(function(response) {
-                Toast.error(response.data.error);
+                Toast.error(response);
+            }).finally( () => {
+                Utils.loading(false);
             });
         }
 

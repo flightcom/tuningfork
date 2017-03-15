@@ -1,0 +1,4 @@
+/* font-size */
+@for $i from 10 to 500 {
+    .fs-#{$i} { font-size: #{"#{$i}px!important"}; }
+}

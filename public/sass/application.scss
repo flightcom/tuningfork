@@ -10,6 +10,7 @@
 @import 'mixins/base';
 @import 'mixins/flex';
 @import 'mixins/filters';
+@import 'mixins/font-size';
 
 // Utils
 @import 'colors';
@@ -37,4 +38,5 @@
 @import 'views/alert';
 @import 'views/footer';
 @import 'views/admin-user';
+@import 'views/login';
 
