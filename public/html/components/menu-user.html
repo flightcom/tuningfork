@@ -1,5 +1,5 @@
 <md-fab-speed-dial
-    ng-if="$menuUserCtrl.user"
+    ng-if="$menuUserCtrl.token"
     ng-cloak=""
     class="md-fling"
     md-open="$menuUserCtrl.isOpen"
@@ -11,8 +11,8 @@
     </md-fab-trigger>
 
     <md-fab-actions>
-        <md-button aria-label="Admin" class="md-fab md-raised md-mini" ui-sref="admin.dashboard">
-            <md-icon aria-label="Admin" class="material-icons md-light">settings</md-icon>
+        <md-button ng-if="$menuUserCtrl.user.isAdmin" aria-label="Admin" class="md-fab md-raised md-mini" ui-sref="admin.dashboard">
+            <md-icon aria-label="Admin" class="material-icons md-light">build</md-icon>
         </md-button>
         <md-button aria-label="Home" class="md-fab md-raised md-mini" ui-sref="public.home">
             <md-icon aria-label="Home" class="material-icons md-light">home</md-icon>

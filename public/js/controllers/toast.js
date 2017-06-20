@@ -5,28 +5,31 @@
 
         this.isDialogOpen = false;
 
-        this.closeToast = function() {
-            if (this.isDialogOpen) return;
-
-            $mdToast
-            .hide()
-            .then(function() {
-                this.isDialogOpen = false;
-            });
-        };
-
-        this.openMoreInfo = function(e) {
+        this.openMoreInfo = function(e, text) {
             if ( this.isDialogOpen ) return;
             this.isDialogOpen = true;
 
             $mdDialog.show($mdDialog
                 .alert()
                 .title('Informations')
-                .textContent(this.moreText)
+                .textContent(text)
                 .ariaLabel('More info')
                 .ok('OK')
                 .targetEvent(e)
             ).then(function() {
+                $mdToast
+                .hide()
+                .then(function() {
+                    this.isDialogOpen = false;
+                });
+            });
+        };
+
+        this.close = () => {
+            if ( this.isDialogOpen ) return;
+            $mdToast
+            .hide()
+            .then(function() {
                 this.isDialogOpen = false;
             });
         };

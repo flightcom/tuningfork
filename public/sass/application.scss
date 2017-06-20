@@ -15,8 +15,10 @@
 // Utils
 @import 'colors';
 @import 'global';
+@import 'components';
 
 // Elements
+@import 'elements/margin';
 @import 'elements/padding';
 @import 'elements/visibility';
 
@@ -30,6 +32,9 @@
 @import 'components/instruments-list';
 @import 'components/intl-tel-input';
 @import 'components/md-progress-linear';
+@import 'components/md-chip';
+@import 'components/toolbar-admin';
+@import 'components/user-form';
 
 // Views
 @import 'views/main';
@@ -39,4 +44,3 @@
 @import 'views/footer';
 @import 'views/admin-user';
 @import 'views/login';
-

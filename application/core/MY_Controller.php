@@ -28,7 +28,7 @@ class MY_REST_Controller extends REST_Controller {
      * @var EntityManager
      */
     protected $em = null;
-    protected $object;
+    protected $object = null;
 
 
     function __construct()
@@ -64,14 +64,17 @@ class MY_REST_Controller extends REST_Controller {
         return $cacheDriver->deleteAll();
     }
 
+    protected function createObject($data)
+    {
+        $this->hydrator->hydrate($data, $this->object);
+        $this->em->persist($this->object);
+        $this->em->flush();
+        $this->invalidateCache();
+    }
+
     protected function updateObject($data)
     {
-        // error_log(print_r($data['roles'], true));
-        // $this->unsetRelations($data);
         $this->hydrator->hydrate($data, $this->object);
-        // $this->object->update($data);
-        // error_log(print_r($this->object->toArray(), true));
-        // $this->em->merge($this->object);
         $this->em->flush();
         $this->invalidateCache();
     }
@@ -89,6 +92,22 @@ class MY_REST_Controller extends REST_Controller {
         }
     }
 
+}
+
+class MY_REST_Auth_Controller extends MY_REST_Controller {
+
+    function __construct()
+    {
+        parent::__construct();
+        if (!$this->getIdentity())
+        {
+            $this->response(null, 401);
+            // Stop the execution of the script.
+            exit();
+        }
+
+    }
+
     public function getIdentity()
     {
         $userdata = $this->session->userdata('current_user');
@@ -100,21 +119,6 @@ class MY_REST_Controller extends REST_Controller {
         }
     }
 
-}
-
-class MY_REST_Auth_Controller extends MY_REST_Controller {
-
-    function __construct()
-    {
-        parent::__construct();
-        if (!$this->getIdentity())
-        {
-            throw new Exception("Vous n'êtes pas connecté");
-            // Stop the execution of the script.
-            exit();
-        }
-
-    }
 }
 
 class MY_REST_Membre_Controller extends MY_REST_Auth_Controller {

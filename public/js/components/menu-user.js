@@ -4,15 +4,15 @@
         templateUrl: 'public/dist/html/components/menu-user.html',
         controller: MenuUserController,
         controllerAs: '$menuUserCtrl'
-    }
+    };
 
     // @ngInject
     function MenuUserController (Authentication, User) {
 
         var vm = this;
 
-        Authentication.getUser().then(response => {
-            vm.user = response;
+        Authentication.getToken().then(response => {
+            vm.token = response;
         });
 
         vm.$onChanges = function (changesObj) {

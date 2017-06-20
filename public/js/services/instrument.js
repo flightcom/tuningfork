@@ -2,10 +2,9 @@
 
     // @ngInject
     function Instrument($resource, HTTPCreator) {
-        var resource = $resource('/api/instruments/:id/:action', {
-                id: '@id',
-                action: '@action'
-            }, {
+        var resource = $resource('/api/instruments/:id/:action', { id: '@id', action: '@action' }, {
+            query   : {isArray: false},
+            create  : {method: 'POST'},
             update  : {method: 'PUT'},
             search  : {method: 'GET', url: '/api/instruments/search'},
             count   : {method: 'GET', url: '/api/instruments/count'},
@@ -26,7 +25,7 @@
                 return resource.count(data).$promise;
             },
             save: function(data) {
-                return resource.save(data).$promise;
+                return resource.create(data).$promise;
             },
             update: function(data) {
                 return resource.update({id: data.id}, data).$promise;
@@ -45,7 +44,6 @@
 
     angular
         .module('app')
-        .factory('Instrument', Instrument)
+        .factory('Instrument', Instrument);
 
 })();
-

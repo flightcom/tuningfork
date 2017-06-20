@@ -1,7 +1,7 @@
 (function () {
 
     // @ngInject
-    function Pret($resource, HTTPCreator) {
+    function Pret($resource, HTTPCreator, Loading) {
 
         const resource = $resource('/api/prets/:id', {id: '@id'}, {
             update: {method: 'PUT'},
@@ -29,19 +29,32 @@
                 return resource.search(data).$promise;
             },
             save: function(data) {
-                return resource.save(data).$promise;
-            },
-            update: function(data) {
-                return resource.update({id: data.id}, data).$promise
+                Loading.start();
+                return resource.save(data).$promise
                 .then(response => {
-                    return this.format(response.data);
-                })
-                .catch(error => {
-                    throw new Error(error);
+                    Toast.success('Instrument créé');
+                    return response;
+                }).catch(error => {
+                    Toast.error(error);
+                }).finally( () => {
+                    Loading.stop();
                 });
             },
+            update: function(data) {
+                Loading.start();
+                return resource.update({id: data.id}, data).$promise
+                .then(response => {
+                    Toast.success('Mise à jour réussie');
+                    return this.format(response.data);
+                }).catch(error => {
+                    Toast.error(error);
+                }).finally( () => {
+                    Loading.stop();
+                });
+
+            },
             delete: function(id) {
-                return resource.$delete({id: id}).$promise;
+                return resource.delete({id: id}).$promise;
             },
             format: function(pret) {
                 pret.dateDebutPrevue = pret.dateDebutPrevue ? new Date(pret.dateDebutPrevue) : null;
@@ -55,7 +68,7 @@
 
     angular
         .module('app')
-        .factory('Pret', Pret)
+        .factory('Pret', Pret);
 
 })();
 

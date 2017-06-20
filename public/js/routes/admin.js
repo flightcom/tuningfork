@@ -1,114 +1,196 @@
-(function () {
+(function() {
 
-    // @ngInject
-    function admin($stateProvider, PATHS){
+  // @ngInject
+  function admin($stateProvider, PATHS) {
 
-        let admin = {
-            name: 'admin',
-            url: '/admin',
-            templateUrl: PATHS.TEMPLATE + 'layouts/admin.html'
+    let admin = {
+      name: 'admin',
+      url: '/admin',
+      // abstract: true,
+      resolve: {
+        allowed: (Authentication, $state) => {
+          return Authentication.allowed()
+          .catch(error => {
+            $state.go('login');
+          });
         }
+      },
+      templateUrl: PATHS.TEMPLATE + 'layouts/admin.html',
+      controller: 'AdminCtrl',
+      controllerAs: '$adminController'
+    };
 
-        let adminDashboard = {
-            name: 'admin.dashboard',
-            url: '/',
-            templateUrl: PATHS.TEMPLATE + 'partials/admin/dashboard.html',
+    let adminDashboard = {
+      name: 'admin.dashboard',
+      url: '/dashboard',
+      templateUrl: PATHS.TEMPLATE + 'partials/admin/dashboard.html',
+    };
+
+    //-----------------------------------
+    // Instruments
+    //-----------------------------------
+    let adminInstrumentList = {
+      name: 'admin.instruments',
+      url: '/instruments',
+      // resolve: {
+      //   instruments: (Instrument, Loading) => {
+      //     return Instrument.query().then(response => {
+      //       return response.data;
+      //     }).finally( () => {
+      //       Loading.stop();
+      //     });
+      //   }
+      // },
+      views: {
+        'admin': {
+          template: '<instruments-list items="$resolve.instruments" />'
+          // template: '<instruments-list items="$resolve.instruments" />'
         }
+      }
+    };
 
-        // Instruments
-        let adminInstruments = {
-            name: 'admin.instruments',
-            url: '/instruments',
-            views: {
-                'admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/instruments.html',
-                    controller: 'AdminInstrumentsCtrl as $adminInstrumentsCtrl'
-                }
-            }
+    let adminInstrumentCreate = {
+      name: 'admin.instruments.create',
+      url: '/new',
+      views: {
+        'admin@admin': {
+          template: '<instrument />'
         }
+      }
+    };
 
-        let adminInstrumentsAdd = {
-            name: 'admin.instruments_add',
-            url: '/instruments/add',
-            templateUrl: PATHS.TEMPLATE + 'partials/admin/forms/instrument.html',
+    let adminInstrumentItem = {
+      name: 'admin.instruments.view',
+      url: '/{id:int}',
+      resolve: {
+        item: ($stateParams, Instrument) => {
+          return $stateParams.instrument || Instrument.get($stateParams.id).then(response => {
+            return response.data;
+          });
         }
-
-        let adminInstrumentsView = {
-            name: 'admin.instruments.view',
-            url: '/:id',
-            views: {
-                'admin@admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/instrument.html',
-                    controller: 'AdminInstrumentViewCtrl as $adminInstrumentViewCtrl'
-                }
-            }
+      },
+      views: {
+        'admin@admin': {
+          template: '<instrument item="$resolve.item" />'
         }
+      }
+    };
 
-        // Prets
-        let adminPrets = {
-            name: 'admin.prets',
-            url: '/prets',
-            views: {
-                'admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/prets.html',
-                    controller: 'AdminPretsCtrl as $adminPretsCtrl'
-                }
-            }
+    //-----------------------------------
+    // Prets
+    //-----------------------------------
+    let adminPretList = {
+      name: 'admin.prets',
+      url: '/prets',
+      views: {
+        'admin': {
+          template: '<prets-list />'
         }
+      }
+    };
 
-        let adminPretsView = {
-            name: 'admin.prets.view',
-            url: '/:id',
-            views: {
-                'admin@admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/pret.html',
-                    controller: 'AdminPretViewCtrl as $adminPretViewCtrl'
-                }
-            }
+    let adminPretItem = {
+      name: 'admin.prets.view',
+      url: '/{id:int}',
+      resolve: {
+        item: ($stateParams, Pret, Utils) => {
+          Utils.loading(true);
+          return Pret.get($stateParams.id).finally( () => {
+            Utils.loading(false);
+          });
         }
-
-        // Users
-        let adminUsers = {
-            name: 'admin.users',
-            url: '/users',
-            views: {
-                'admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/users.html',
-                    controller: 'AdminUsersCtrl as $adminUsersCtrl'
-                }
-            }
+      },
+      views: {
+        'admin@admin': {
+          template: '<pret item="$resolve.item" />'
         }
+      }
+    };
 
-        let adminUsersAdd = {
-            name: 'admin.users_add',
-            url: '/users/add',
-            templateUrl: PATHS.TEMPLATE + 'partials/admin/forms/user.html',
+    let adminPretCreate = {
+      name: 'admin.prets.create',
+      url: '/new',
+      params: {
+        item: null,
+        instrument: null,
+        user: null
+      },
+      resolve: {
+        item: ($stateParams) => {
+          return $stateParams.item;
+        },
+        instrument: ($stateParams) => {
+          return $stateParams.instrument;
+        },
+        user: ($stateParams) => {
+          return $stateParams.user;
         }
-
-        let adminUsersView = {
-            name: 'admin.users.view',
-            url: '/:id',
-            views: {
-                'admin@admin': {
-                    templateUrl: PATHS.TEMPLATE + 'partials/admin/user.html',
-                    controller: 'AdminUserViewCtrl as $adminUserViewCtrl'
-                }
-            }
+      },
+      views: {
+        'admin@admin': {
+          template: '<pret item="$resolve.item" instrument="$resolve.instrument" user="$resolve.user" />'
         }
+      }
+    };
 
-        $stateProvider.state(admin);
-        $stateProvider.state(adminDashboard);
-        $stateProvider.state(adminInstruments);
-        $stateProvider.state(adminInstrumentsView);
-        $stateProvider.state(adminPrets);
-        $stateProvider.state(adminPretsView);
-        $stateProvider.state(adminUsers);
-        $stateProvider.state(adminUsersAdd);
-        $stateProvider.state(adminUsersView);
+    //-----------------------------------
+    // Users
+    //-----------------------------------
+    let adminUserList = {
+      name: 'admin.users',
+      url: '/users',
+      views: {
+        'admin': {
+          template: '<users-list />'
+        }
+      }
+    };
 
-    }
+    let adminUserCreate = {
+      name: 'admin.users.create',
+      url: '/new',
+      views: {
+        'admin@admin': {
+          template: '<user-admin-view />'
+        }
+      }
+    };
 
-    angular.module('app')
-        .config(admin);
+    let adminUserItem = {
+      name: 'admin.users.view',
+      url: '/{id:int}',
+      resolve: {
+        user: ($stateParams, User) => {
+          return $stateParams.user || User.get($stateParams.id).then(response => {
+            return response;
+          });
+        },
+      },
+      views: {
+        'admin@admin': {
+          template: '<user-admin-view item="$resolve.user" pays="$resolve.pays" />'
+        }
+      }
+    };
+
+    $stateProvider.state(admin);
+    $stateProvider.state(adminDashboard);
+
+    $stateProvider.state(adminInstrumentList);
+    $stateProvider.state(adminInstrumentItem);
+    $stateProvider.state(adminInstrumentCreate);
+
+    $stateProvider.state(adminPretList);
+    $stateProvider.state(adminPretItem);
+    $stateProvider.state(adminPretCreate);
+
+    $stateProvider.state(adminUserList);
+    $stateProvider.state(adminUserItem);
+    $stateProvider.state(adminUserCreate);
+
+  }
+
+  angular.module('app')
+  .config(admin);
 
 })();

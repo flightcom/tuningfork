@@ -1,0 +1,29 @@
+<section id="login" layout="row" layout-fill>
+
+    <div flex layout="row" layout-align="center center">
+        <form layout="column" name="$registerCtrl.loginForm" ng-submit="$registerCtrl.login()">
+            <md-icon class="material-icons step fs-96">account_circle</md-icon>
+            <span layout-padding class="md-subhead">Connectez-vous ou <a ui-sref="public.signup">créez votre compte</a></span>
+            <md-input-container class="md-block">
+                <md-icon>person</md-icon>
+                <input type="text" ng-model="$registerCtrl.user.email" name="email" placeholder="Email" ng-required="true">
+                <div ng-messages="$registerCtrl.loginForm.user.email.$error">
+                    <div ng-message="required">Une adresse e-mail est requise.</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <md-icon>security</md-icon>
+                <input type="password" ng-model="$registerCtrl.user.password" placeholder="Mot de passe" ng-required="true" name="password">
+                <div ng-messages="$registerCtrl.loginForm.user.email.$error">
+                    <div ng-message="required">Un mot de passe est requis.</div>
+                </div>
+            </md-input-container>
+
+            <md-button type="submit" class="md-raised md-primary">Connexion</md-button>
+        </form>
+
+    </div>
+
+</section>
+
+<script ng-src="FILES.JS + 'fb.js'"></script>

@@ -20,7 +20,7 @@ class Tfpays extends MY_REST_Controller {
             $pays = $this->em->getRepository('Entity\Pays')->getAll();
         }
 
-        $this->response($pays, 200);
+        $this->response(["data" => $pays], 200);
     }
 
 }

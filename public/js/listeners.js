@@ -3,7 +3,7 @@
     'use strict';
 
     // @ngInject
-    function listen($rootScope, $templateCache, $cacheFactory, $location, $state, $anchorScroll, $timeout) {
+    function listen($rootScope, $templateCache, $cacheFactory, $location, $anchorScroll, $timeout, Navigation, Loading) {
 
         $rootScope.$on('alert', function (event, alert, callback = null) {
             $rootScope.mainAlert = alert;
@@ -36,17 +36,17 @@
             if($location.hash()) $anchorScroll();
         });
 
-        $rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-            let fromURL = $state.href(from.name, fromParams, {absolute: false});
-            let toURL   = $state.href(to.name, toParams, {absolute: false});
-            let prevURL = $rootScope.history[$rootScope.history.length - 1];
-            console.log(prevURL, fromURL, toURL);
-            if (toURL !== prevURL) {
-                $rootScope.history.push(fromURL);
-            } else {
-                $rootScope.history.pop();
+        // When State starts changing
+        $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+            Loading.start();
+        });
+
+        // When State change is over
+        $rootScope.$on('$stateChangeSuccess', function (ev, toState, toParams, fromState, fromParams) {
+            Navigation.process(ev, toState, toParams, fromState, fromParams);
+            if (!toState.resolve) {
+                Loading.stop();
             }
-            console.log($rootScope.history);
         });
 
         $rootScope.$emit('destroyCache');

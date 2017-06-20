@@ -18,12 +18,27 @@ class Users extends MY_REST_Controller {
 
         if ($id) {
             $users = $this->em->getRepository('Entity\User')->get($id);
-            $users = $users->toArray(['adresse.ville', 'adresse.pays', 'prets.status', 'roles']);
+            $users = $users->toArray(['adresse.ville', 'adresse.pays', 'roles']);
         } else {
             $users = $this->em->getRepository('Entity\User')->getAll();
         }
 
         $this->response(["data" => $users], 200);
+    }
+
+    public function index_post()
+    {
+        $data = $this->post();
+
+        try {
+            $this->object = new User();
+            $this->createObject($data);
+            $user = $this->object->toArray(['adresse.ville', 'adresse.pays', 'roles']);
+            $this->response(['data' => $user], 200);
+        } catch (Exception $e) {
+            $this->response(['error' => $e->getMessage()], 500);
+        }
+
     }
 
     public function index_put($id)
@@ -33,7 +48,7 @@ class Users extends MY_REST_Controller {
         try {
             $this->object = $this->em->getRepository('Entity\User')->get($id);
             $this->updateObject($data);
-            $user = $this->object->toArray(['adresse.ville', 'adresse.pays', 'prets.status', 'roles']);
+            $user = $this->object->toArray(['adresse.ville', 'adresse.pays', 'roles']);
             $this->response(['data' => $user], 200);
         } catch (Exception $e) {
             $this->response(['error' => $e->getMessage()], 500);
@@ -43,11 +58,21 @@ class Users extends MY_REST_Controller {
 
     public function search_get()
     {
-        if ($this->get()) {
-            $users = $this->em->getRepository('Entity\User')->search($this->get());
+        $params = $this->get();
+        foreach ($params as $key => $value) {
+            if (Utils::isJson($value))
+                $params[$key] = is_object(json_decode($value)) ? (array) json_decode($value) : json_decode($value);
         }
 
-        $this->response(["data" => $users], 200);
+        if ($this->get()) {
+            $count = $this->em->getRepository('Entity\User')->search($params, true);
+            $users = $this->em->getRepository('Entity\User')->search($params);
+        }
+
+        $this->response([
+            "count" => $count,
+            "data" => $users
+        ], 200);
     }
 
     public function count_get()
@@ -72,7 +97,7 @@ class Users extends MY_REST_Controller {
         $adresse->setVille($ville);
         $adresse->setPays($pays);
         $user->setAdresse($adresse);
-        $user->setRegistrationToken(Utils::generateToken(32));
+        // $user->setRegistrationToken(Utils::generateToken(32));
         $user->setDateNaissance(new \DateTime($user->getDateNaissance()));
 
         try {
@@ -86,23 +111,9 @@ class Users extends MY_REST_Controller {
         }
     }
 
-    public function signin_post()
+    public function current_get()
     {
-        $data = $this->post();
-        $user = $this->em->getRepository('Entity\User')->findOneBy(["email" => $data['email']]);
-        if ($user) {
-            $this->session->set_userdata($user->toArray());
-            $this->response(['data' => $user->toArray()], 200);
-        } else {
-            $this->response(['data' => "Utilisateur inconnu"], 500);
-        }
-
-        // $this->response($data, 200);
-    }
-
-    public function loggedin_get()
-    {
-        $this->response(['data' => $this->session->userdata()], 200);
+        $this->response(['data' => $this->session->userdata('current')], 200);
     }
 
     public function addRole_get($id, $rolename)
@@ -131,31 +142,6 @@ class Users extends MY_REST_Controller {
         $user = $this->em->getRepository('Entity\User')->get($id);
         $prets = $this->em->getRepository('Entity\Pret')->findAll(['user' => $user]);
         $this->response(["data" => $prets], 200);
-    }
-
-    protected function setExtendedRoles(&$user)
-    {
-        $rolesList = $this->em->getRepository('Entity\Role')->getAll();
-        $user->extendedRoles = array_map(function($role) use ($user) {
-            $newRole = $role->toArray();
-            $newRole['selected'] = $user->getRoles()->contains($role);
-            // error_log($user->getRoles()->contains($role));
-            error_log($role->getName() . ' is ' . ($newRole['selected']?'':' not ') . 'selected');
-            return $newRole;
-        }, $rolesList);
-    }
-
-    protected function extendedRoles(&$user)
-    {
-        $rolesList = $this->em->getRepository('Entity\Role')->getAll();
-        $extendedRoles = array_map(function($role) use ($user) {
-            $newRole = $role->toArray();
-            $newRole['selected'] = $user->getRoles()->contains($role);
-            // error_log($user->getRoles()->contains($role));
-            error_log($role->getName() . ' is ' . ($newRole['selected']?'':' not ') . 'selected');
-            return $newRole;
-        }, $rolesList);
-        return $extendedRoles;
     }
 
 }

@@ -2,7 +2,9 @@
 
     // @ngInject
     function Pays($resource, HTTPCreator) {
-        var resource = $resource('/api/pays/:id', {id: '@id'}, {});
+        var resource = $resource('/api/pays/:id', {id: '@id'}, {
+            query: {isArray: false}
+        });
 
         return {
             query: function() {
@@ -16,7 +18,6 @@
 
     angular
         .module('app')
-        .factory('Pays', Pays)
+        .factory('Pays', Pays);
 
 })();
-

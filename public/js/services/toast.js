@@ -14,38 +14,39 @@
             templateUrl : PATHS.TEMPLATE + 'toast.html'
         };
 
-        toastService.success = (text, moreText, action) => {
+        toastService.success = (message, details, action) => {
 
             let customConfig = {
                 hideDelay : 3000,
-                // toastClass: 'toast-success',
                 locals: {
-                    text     : text,
-                    moreText : moreText,
+                    message   : message,
+                    details   : details,
+                    theme     : 'success',
+                    showClose : false
                 }
             };
 
             $mdToast.show(Object.assign(config, customConfig));
         };
 
-        toastService.info = (text, moreText, action) => {
+        toastService.info = (message, details, action) => {
 
             config.locals = {
-                text     : text,
-                moreText : moreText,
-                theme: 'blue'
+                message : message,
+                details : details,
+                theme   : 'blue'
             };
 
             $mdToast.show(config);
         };
 
-        toastService.error = function(text) {
+        toastService.error = function(message, details) {
 
             let customConfig = {
-                // toastClass: 'toast-error',
                 locals: {
-                    text     : text,
-                    // classes  : 'toast-error'
+                    message : message,
+                    details : details,
+                    theme   : 'error'
                 }
             };
 
@@ -57,6 +58,6 @@
 
     angular
         .module('app')
-        .service('Toast', Toast)
+        .service('Toast', Toast);
 
 })();

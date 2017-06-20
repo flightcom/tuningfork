@@ -5,14 +5,16 @@
         controller: UsersListController,
         controllerAs: '$usersListCtrl',
         bindings: {
-            create: "&"
+            onSelect: "&?"
         }
-    }
+    };
 
     // @ngInject
-    function UsersListController ($q, $state, Utils, User, Toast) {
+    function UsersListController ($attrs, $q, $state, Utils, User, Toast) {
 
         var vm = this;
+
+        vm.embedded = 'embedded' in $attrs;
 
         vm.selected = [];
         vm.items = [];
@@ -28,26 +30,18 @@
             options: {},
             show: false
         };
-        vm.query = {
-            order: 'nom',
+        vm.params = {
+            order: {'nom': 'asc'},
             limit: 10,
-            page: 1
+            page: 1,
+            filters: {}
         };
 
         vm.getItems = () => {
-            Utils.loading(true);
             vm.selected = [];
-            let promises = [];
-            promises.push(User.search(vm.query));
-            promises.push(User.count(vm.query));
-
-            vm.promise = $q.all(promises)
-            .then(responses => {
-                vm.items = responses[0].data;
-                vm.count = responses[1].data;
-            })
-            .then( () => {
-                Utils.loading(false);
+            vm.promise = User.search(vm.params).then(response => {
+                vm.count = response.count;
+                vm.items = response.data;
             });
         };
 
@@ -55,8 +49,6 @@
             let promises = vm.selected.map(item => {
                 return Instrument.delete(item.id);
             });
-            Utils.loading(true);
-            // Utils.startWait();
             $q.all(promises).then(responses => {
                 vm.getItems();
                 Toast.success(responses.length+ ' éléments supprimés');
@@ -66,20 +58,24 @@
                 }, '');
                 Toast.success(message);
                 vm.getItems();
-            }).finally(() => {
-                // Utils.endWait();
-                Utils.loading(false);
             });
         };
 
         vm.select = (item) => {
             vm.selected.push(item);
-            console.log('select', item);
         };
 
-        vm.removeFilter = () => {
+        vm.resetFilters = () => {
             vm.query.filter = {};
             vm.filter.show = false;
+        };
+
+        vm.selectItem = user => {
+            if (vm.onSelect) {
+                vm.onSelect({user: user});
+            } else {
+                $state.go("admin.users.view", {id: user.id, user: user});
+            }
         };
 
         vm.view = user => {

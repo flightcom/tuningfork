@@ -1,5 +1,10 @@
 <nav-main></nav-main>
 <!-- <nav-main user="user"></nav-main> -->
-<ui-view class="main-view"></ui-view>
-
-<ng-include src="PATHS.TEMPLATE + 'partials/footer.html'"></ng-include>
+<md-content layout="column">
+    <div layout-padding layout-align="center">
+        <div ui-view="public" layout="column" flex-gt-sm="66"></div>
+    </div>
+    <div layout="row">
+        <ng-include src="PATHS.TEMPLATE + 'partials/footer.html'"></ng-include>
+    </div>
+</md-content>

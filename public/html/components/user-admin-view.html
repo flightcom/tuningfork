@@ -1,0 +1,64 @@
+<!-- <md-toolbar> -->
+<md-toolbar>
+    <md-content>
+        <div class="md-toolbar-tools">
+            <md-button class="md-default md-icon-button"
+                ng-show="History.exists"
+                ng-click="History.prev()">
+                <md-icon class="material-icons">arrow_back</md-icon>
+            </md-button>
+            <span ng-if="$userAdminViewCtrl.item.id" class="md-headline" flex ng-bind="$userAdminViewCtrl.item.fullName"></span>
+            <span ng-if="!$userAdminViewCtrl.item.id" class="md-headline" flex>Nouvel utlisateur</span>
+            <md-button class="md-raised md-primary"
+                ng-disabled="!$userAdminViewCtrl.hasChanged"
+                ng-click="$userAdminViewCtrl.save()">
+                <md-icon class="material-icons">save</md-icon>
+                ENREGISTRER
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+
+<md-content flex layout="column" layout-fill>
+    <md-content flex="none" layout="column" ng-if="$userAdminViewCtrl.item">
+        <md-card layout-padding>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Informations</span>
+                    <span class="md-caption" ng-if="$userAdminViewCtrl.item.createdAtFormatted">Créé le {{$userAdminViewCtrl.item.createdAtFormatted}}</span>
+                    <span class="md-caption" ng-if="$userAdminViewCtrl.item.id">
+                        Dernière modification le {{$userAdminViewCtrl.item.updatedAtFormatted}}
+                    </span>
+                </md-card-title-text>
+            </md-card-title>
+            <user-form user="$userAdminViewCtrl.item" layout="column"></user-form>
+        </md-card>
+
+        <md-card ng-if="$userAdminViewCtrl.item.prets">
+            <!-- <div flex ng-show="$userAdminViewCtrl.item.prets"> -->
+                <prets-list user="$userAdminViewCtrl.item"></prets-list>
+            <!-- </div> -->
+        </md-card>
+
+        <md-card layout-padding>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Rôles</span>
+                </md-card-title-text>
+            </md-card-title>
+            <div flex ng-show="$userAdminViewCtrl.item" layout="column">
+                <form name="userRolesForm">
+                    <div layout-xs="column" layout-gt-xs="row" layout-fill>
+                        <md-input-container flex ng-repeat="role in $userAdminViewCtrl.roles track by $index">
+                            <md-checkbox
+                                aria-label="Est {{role.label}}"
+                                ng-model="role.selected"
+                                ng-change="$userAdminViewCtrl.checkRoles()">{{role.label}}</md-checkbox>
+                        </md-input-container>
+                    </div>
+                </form>
+            </div>
+        </md-card>
+
+    </md-content>
+</md-content>

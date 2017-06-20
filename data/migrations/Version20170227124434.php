@@ -20,6 +20,7 @@ class Version20170227124434 extends AbstractMigration
         $this->addSql("INSERT INTO role (id, name, label) VALUES (2, 'user', 'Utilisateur');");
         $this->addSql("INSERT INTO role (id, name, label, parent_id) VALUES (3, 'admin', 'Administrateur', 2);");
         $this->addSql("INSERT INTO role (id, name, label, parent_id) VALUES (4, 'membre', 'Membre', 2);");
+        $this->addSql("INSERT INTO role (id, name, label, parent_id) VALUES (4, 'moderateur', 'Modérateur', 2);");
 
     }
 

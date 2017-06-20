@@ -9,7 +9,6 @@
 
         vm.loadMarques = () => {
             return Marque.query().then(function(response){
-                console.log(response.data);
                 vm.marques = response.data;
             });
         }

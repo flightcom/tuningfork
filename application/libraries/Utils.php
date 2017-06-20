@@ -1,5 +1,7 @@
 <?php
 
+use Cocur\Slugify\Slugify;
+
 class Utils {
 
     public static function generateToken($length = 32)
@@ -38,6 +40,18 @@ class Utils {
         return array_filter($queryParams, function ($key) use ($paramsToRemove) {
             return !in_array($key, $paramsToRemove);
         }, ARRAY_FILTER_USE_KEY);
+    }
+
+    public static function isJson($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
+    }
+
+    public static function slugify($text, $delimiter = '-')
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($text, $delimiter);
     }
 
 }

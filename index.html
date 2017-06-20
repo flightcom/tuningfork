@@ -12,9 +12,9 @@
         <link ng-href="{{FILES.CSS}}" rel="stylesheet" type="text/css" />
     </head>
 
-    <body layout="column" layout-fill>
-        <md-progress-linear class="md-accent md-hue-1" ng-class="{'invisible': !loading}" md-mode="indeterminate"></md-progress-linear>
-        <ui-view layout="row" layout-fill></ui-view>
+    <body>
+        <md-progress-linear class="md-accent" ng-class="{'invisible': !loading}" md-mode="indeterminate"></md-progress-linear>
+        <ui-view flex layout="column" layout-fill></ui-view>
         <menu-user hide-gt-xs></menu-user>
         <ng-include src="PATHS.TEMPLATE + 'partials/alert.html'"></ng-include>
         <script src="public/dist/js/app.min.js"></script>

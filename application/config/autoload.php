@@ -37,7 +37,7 @@
 |
 */
 
-$autoload['packages'] = array();
+$autoload['packages'] = [];
 
 
 /*
@@ -52,11 +52,11 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array(
-	'session',
-	'database',
-	'utils',
-);
+$autoload['libraries'] = [
+    'session',
+    'database',
+    'utils',
+];
 
 
 /*
@@ -68,10 +68,13 @@ $autoload['libraries'] = array(
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array(
+$autoload['helper'] = [
 	'url',
 	'util',
-	);
+	'jwt',
+    'acl',
+    'validation'
+];
 
 
 /*
@@ -87,9 +90,10 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array(
-	'email'
-	);
+$autoload['config'] = [
+    'email',
+    'jwt'
+];
 
 
 /*
@@ -105,7 +109,7 @@ $autoload['config'] = array(
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = [];
 
 
 /*
@@ -118,7 +122,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array();
+$autoload['model'] = [];
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

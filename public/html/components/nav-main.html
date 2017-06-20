@@ -1,30 +1,29 @@
-<nav class="navbar navbar-fixed-top">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand no-padding visible-xs visible-sm" href="/"><img ng-src="{{$navMainCtrl.PATHS.IMG}}logo/short_big.png" height="30"></a>
-            <a class="navbar-brand no-padding hidden-xs hidden-sm" href="/"><img ng-src="{{$navMainCtrl.PATHS.IMG}}logo/long_small.png" height="30"></a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbar-menu">
-            <ul id="main-menu" class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link" href="#association">L'Association</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="#actus">Actualités</a></li> -->
-                <li class="nav-item"><a class="nav-link" href="#instrumentheque">L'Instrumenthèque</a></li>
-                <li class="nav-item"><a class="nav-link" href="#stations">Stations musicales</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" ui-sref="public.splash({'#': 'contact'})">Contact</a></li> -->
-                <!-- <li class="nav-item"><a class="nav-link" href="#jeparticipe">Je participe !</a></li> -->
-                <!-- <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li> -->
-                <li class="nav-item" ng-show="!$navMainCtrl.user"><a class="nav-link" ui-sref="register">Se connecter</a></li>
-            </ul>
-        </div>
-    </div>
-
-</nav>
+<md-nav-bar
+    md-selected-nav-item="currentNavItem"
+    nav-bar-aria-label="navigation links">
+    <md-nav-item md-nav-sref="public.splash.child({'#': 'association'})" name="association">L'Association</md-nav-item>
+    <!-- <md-nav-item md-nav-sref="public.splash.child({'#': 'instrumentheque'})" name="instrumentheque">L'Instrumenthèque</md-nav-item> -->
+    <md-nav-item md-nav-sref="public.splash.child({'#': 'stations'})" name="stations">Stations musicales</md-nav-item>
+    <md-nav-item md-nav-sref="public.splash.child({'#': 'contact'})" name="contact">Contact</md-nav-item>
+    <md-nav-item md-nav-sref="login" ng-show="!$navMainCtrl.user" name="connexion">Se connecter</md-nav-item>
+    <span flex></span>
+    <md-menu ng-show="$navMainCtrl.user">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="$mdMenu.open()">
+            <md-icon>menu</md-icon>
+        </md-button>
+        <md-menu-content width="4" ng-mouseleave="$mdCloseMenu()">
+            <md-menu-item ng-if="$navMainCtrl.user.isAdmin">
+                <md-button ui-sref="admin.dashboard">
+                    <md-icon class="material-icons">build</md-icon>
+                    Admin
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button logout-button>
+                    <md-icon class="material-icons">power_settings_new</md-icon>
+                    Déconnexion
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</md-nav-bar>

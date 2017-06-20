@@ -1,94 +1,156 @@
-<md-progress-linear ng-class="{'invisible': !$instrumentCtrl.isLoading}" md-mode="indeterminate"></md-progress-linear>
-
-<md-toolbar class="md-table-toolbar md-default" flex="none">
+<md-toolbar class="md-table-toolbar">
     <md-content>
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-click="$instrumentCtrl.previous()" aria-label="Previous page">
-                <md-icon class="material-icons">navigate_before</md-icon>
+            <md-button class="md-icon-button" ng-click="$instrumentCtrl.Navigation.parent()" aria-label="Précédent">
+                <md-icon class="material-icons">arrow_back</md-icon>
             </md-button>
-            <h2>{{$instrumentCtrl.item.model}}</h2>
+            <h2 flex ng-if="$instrumentCtrl.item.id">
+                Instrument #{{$instrumentCtrl.item.id}}
+            </h2>
+            <h2 flex ng-if="!$instrumentCtrl.item.id">Nouvel instrument</h2>
+            <md-button class="md-primary" ng-if="$instrumentCtrl.item.id" ui-sref="admin.prets.create({instrument: $instrumentCtrl.item})" aria-label="Créer prêt">
+                <md-icon class="material-icons">add</md-icon>
+                Prêt
+            </md-button>
         </div>
     </md-content>
 </md-toolbar>
 
-<md-content>
-    <md-card>
-
-        <md-tabs class="md-primary" md-dynamic-height md-align-tabs="{{$instrumentCtrl.tabsAtBottom ? 'bottom' : 'top'}}">
-            <md-tab id="tab1">
-                <md-tab-label>
-                    <md-icon class="material-icons">info</md-icon>
-                </md-tab-label>
-                <md-tab-body>
-                    <md-content layout="column" layout-padding>
-                        <div flex ng-show="$instrumentCtrl.item">
-                            <form name="instrumentForm">
-                                <md-input-container class="md-block">
-                                    <label>Numéro de série</label>
-                                    <input name="description"
-                                        ng-model="$instrumentCtrl.item.serialNumber"
-                                        ng-model-options="{ updateOn: 'blur'}"
-                                        ng-change="$instrumentCtrl.onChange()">
-                                    <div ng-messages="instrumentForm.item.numeroSerie.$error">
+<md-content flex layout="column" layout-fill>
+    <md-content flex layout="column" ng-show="!$instrumentCtrl.id || $instrumentCtrl.item">
+        <md-card flex layout="column">
+            <md-tabs flex layout="column" md-dynamic-height>
+                <md-tab id="tab1" flex layout="column">
+                    <md-tab-label>
+                        <!-- <md-icon class="material-icons">info</md-icon> -->
+                        informations
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div flex="none" layout-padding>
+                            <form name="instrumentForm" ng-submit="$instrumentCtrl.onChange()">
+                                <md-input-container class="md-block no-margin-bottom">
+                                    <label>Modèle</label>
+                                    <input name="modele" required
+                                        ng-model="$instrumentCtrl.item.model">
+                                    <div ng-messages="instrumentForm.item.model.$error">
                                         <div ng-message="required">Ce champ est requis</div>
                                     </div>
                                 </md-input-container>
+                                <div layout="row">
+                                    <md-input-container flex>
+                                        <label>Marque</label>
+                                        <md-select name="marque" ng-required
+                                            ng-model="$instrumentCtrl.item.marque"
+                                            ng-model-options="{trackBy: '$value.id'}">
+                                            <md-option ng-repeat="marque in $instrumentCtrl.marques" ng-value="marque">{{marque.nom}}</md-option>
+                                        </md-select>
+                                        <div ng-messages="instrumentForm.item.marque.$error">
+                                            <div ng-message="required">Ce champ est requis.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <md-button class="md-icon-button" ng-click="$instrumentCtrl.addMarque($event)" aria-label="Add">
+                                            <md-icon class="material-icons">add_more</md-icon>
+                                        </md-button>
+                                    </md-input-container>
+                                </div>
+                                <div layout="row">
+                                    <md-input-container class="md-block" flex>
+                                        <md-chips class="custom-chips"
+                                            ng-required
+                                            ng-model="$instrumentCtrl.item.categories"
+                                            md-require-match="true"
+                                            md-removable="false"
+                                            md-max-chips="5"
+                                            md-on-add="$instrumentCtrl.addChip($chip);">
+                                            <md-autocomplete
+                                                md-selected-item="$instrumentCtrl.selectedItem"
+                                                md-search-text="$instrumentCtrl.searchText"
+                                                md-min-length="3"
+                                                ng-keydown="$instrumentCtrl.keydown($event);"
+                                                ng-model-options="{'debounce': 500}"
+                                                md-items="item in $instrumentCtrl.searchCategories($instrumentCtrl.searchText)"
+                                                md-item-text="item.nom"
+                                                placeholder="Rechercher une catégorie">
+                                                <span md-highlight-text="$instrumentCtrl.searchText">{{item.nom}}</span>
+                                            </md-autocomplete>
+                                            <!-- <md-chip-template ng-class="{'removable': $instrumentCtrl.item.categories && $index == $instrumentCtrl.item.categories.length-1}"> -->
+                                            <md-chip-template>
+                                                <span ng-bind="$chip.nom"></span>
+                                                <div class="md-chip-remove-container">
+                                                    <button md-chip-remove ng-click="$event.stopPropagation();" class="md-primary">
+                                                        <md-icon>close</md-icon>
+                                                    </button>
+                                                </div>
+                                            </md-chip-template>
+                                        </md-chips>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <md-button class="md-icon-button" ng-click="$instrumentCtrl.createCategorie($event)" aria-label="Add">
+                                            <md-icon class="material-icons">add_more</md-icon>
+                                        </md-button>
+                                    </md-input-container>
+                                </div>
                                 <md-input-container class="md-block">
-                                    <div layout>
+                                    <label>Numéro de série</label>
+                                    <input name="description"
+                                        ng-model="$instrumentCtrl.item.serialNumber">
+                                </md-input-container>
+                                <div layout="row">
+                                    <div flex="33">
                                         <md-switch class="md-primary" name="hasToBeChecked"
-                                            ng-model="$instrumentCtrl.item.hasToBeChecked"
-                                            ng-change="$instrumentCtrl.onChange()">
+                                            ng-model="$instrumentCtrl.item.hasToBeChecked">
                                             À vérifier
                                         </md-switch>
                                     </div>
-                                </md-input-container>
-                                <md-input-container class="md-block">
-                                    <div layout>
-                                        <div flex="10" layout layout-align="center center">
-                                            <span class="md-body-1">État</span>
+                                    <div flex="66">
+                                        <div layout="row">
+                                            <div flex="10" layout layout-align="center center">
+                                                <span class="md-body-1">État</span>
+                                            </div>
+                                            <md-slider flex class="md-primary" md-discrete step="1" min="0" max="5" aria-label="rating"
+                                                ng-model="$instrumentCtrl.item.condition">
+                                            </md-slider>
                                         </div>
-                                        <md-slider flex class="md-primary" md-discrete step="1" min="0" max="5" aria-label="rating"
-                                            ng-model="$instrumentCtrl.item.condition"
-                                            ng-model-options="{ debounce: 1000}"
-                                            ng-change="$instrumentCtrl.onChange()">
-                                        </md-slider>
                                     </div>
+                                </div>
+                                <md-input-container class="md-block">
+                                    <label>Commentaire</label>
+                                    <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
+                                        ng-model="$instrumentCtrl.item.comment"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
                                     <angular-barcode bc-options="$instrumentCtrl.bc" bc-class="barcode" bc-type="svg"
                                         ng-model="$instrumentCtrl.item.barcode"></angular-barcode>
-                                    <md-button class="md-icon-button" ng-click="$instrumentCtrl.generateBarcode()" aria-label="Générer code barre">
-                                        <md-icon class="material-icons">autorenew</md-icon>
+                                    <md-button ng-if="!$instrumentCtrl.item.barcode" class="md-raised" ng-click="$instrumentCtrl.generateBarcode()" aria-label="Générer code barre">
+                                        <md-icon>autorenew</md-icon>
+                                        Générer un code-barre
+                                    </md-button>
+                                    <md-button ng-if="$instrumentCtrl.item.barcode" class="md-raised" ng-click="$instrumentCtrl.generateBarcode()" aria-label="Re-générer">
+                                        <md-icon>autorenew</md-icon>
+                                        Regénérer
                                     </md-button>
                                 </md-input-container>
-                                <md-input-container class="md-block">
-                                    <label>Commentaire</label>
-                                    <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
-                                        ng-model="$instrumentCtrl.item.comment"
-                                        ng-model-options="{ updateOn: 'blur'}"
-                                        ng-change="$instrumentCtrl.onChange()"></textarea>
-                                </md-input-container>
+                                <md-button class="md-raised md-primary" type="submit">
+                                    <md-icon class="material-icons">save</md-icon>
+                                    ENREGISTRER
+                                </md-button>
                             </form>
                         </div>
-                    </md-content>
-                </md-tab-body>
-            </md-tab>
-            <md-tab id="tab2">
-                <md-tab-label>
-                    <md-icon class="material-icons">settings_backup_restore</md-icon>
-                </md-tab-label>
-                <md-tab-body>
-                    <div flex ng-show="!$instrumentCtrl.item.prets" layout="row" layout-sm="column" layout-align="space-around">
-                        <md-content layout="column" layout-padding>
-                            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-                        </md-content>
-                    </div>
-                    <div flex ng-show="$instrumentCtrl.item.prets">
-                        <prets-list instrument="$instrumentCtrl.item"></prets-list>
-                    </div>
-                </md-tab-body>
-            </md-tab>
-        </md-tabs>
-    </md-card>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="tab2" flex layout="column" ng-if="$instrumentCtrl.id">
+                    <md-tab-label>
+                        <!-- <md-icon class="material-icons">settings_backup_restore</md-icon> -->
+                        prêts
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div flex ng-if="$instrumentCtrl.item">
+                            <prets-list instrument="$instrumentCtrl.item"></prets-list>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+        </md-card>
+    </md-content>
 </md-content>
-

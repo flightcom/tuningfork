@@ -20,5 +20,11 @@ $route['api/users/(:num)/?'] = 'api/users/index/$1';
 $route['api/users/(:num)/(:any)/?'] = 'api/users/$2/$1';
 $route['api/users/(:num)/(:any)/(:any)/?'] = 'api/users/$2/$1/$3';
 
+// Categories
+$route['api/categories/(:num)/?'] = 'api/categories/index/$1';
+$route['api/categories/search(/:any)/?'] = 'api/categories/search/nom$1';
+$route['api/categories/search(/:any/:any+)/?'] = 'api/categories/search$1';
+$route['api/categories/(:num)/(:any)/?'] = 'api/categories/$2/$1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

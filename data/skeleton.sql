@@ -7,7 +7,7 @@
 #
 # Hôte: 127.0.0.1 (MySQL 5.7.16)
 # Base de données: tuningfork
-# Temps de génération: 2017-02-28 18:06:58 +0000
+# Temps de génération: 2017-03-30 02:19:22 +0000
 # ************************************************************
 
 
@@ -142,6 +142,24 @@ VALUES
 UNLOCK TABLES;
 
 
+# Affichage de la table categorie
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `categorie`;
+
+CREATE TABLE `categorie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_497DD634989D9B62` (`slug`),
+  KEY `IDX_497DD634727ACA70` (`parent_id`),
+  CONSTRAINT `FK_497DD634727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `categorie` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
 # Affichage de la table categories
 # ------------------------------------------------------------
 
@@ -254,6 +272,23 @@ VALUES
 UNLOCK TABLES;
 
 
+# Affichage de la table instrument_categorie
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `instrument_categorie`;
+
+CREATE TABLE `instrument_categorie` (
+  `instrument_id` int(11) NOT NULL,
+  `categorie_id` int(11) NOT NULL,
+  PRIMARY KEY (`instrument_id`,`categorie_id`),
+  KEY `IDX_3EDB4F02CF11D9C` (`instrument_id`),
+  KEY `IDX_3EDB4F02BCF5E72D` (`categorie_id`),
+  CONSTRAINT `FK_3EDB4F02BCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`),
+  CONSTRAINT `FK_3EDB4F02CF11D9C` FOREIGN KEY (`instrument_id`) REFERENCES `instrument` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
 # Affichage de la table marque
 # ------------------------------------------------------------
 
@@ -359,11 +394,13 @@ CREATE TABLE `pret` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `date_fin_prevue` datetime DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` longtext COLLATE utf8_unicode_ci,
+  `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_52ECE979A76ED395` (`user_id`),
   KEY `IDX_52ECE979CF11D9C` (`instrument_id`),
+  KEY `IDX_52ECE9796BF700BD` (`status_id`),
+  CONSTRAINT `FK_52ECE9796BF700BD` FOREIGN KEY (`status_id`) REFERENCES `pret_status` (`id`),
   CONSTRAINT `FK_52ECE979A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_52ECE979CF11D9C` FOREIGN KEY (`instrument_id`) REFERENCES `instrument` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -371,9 +408,9 @@ CREATE TABLE `pret` (
 LOCK TABLES `pret` WRITE;
 /*!40000 ALTER TABLE `pret` DISABLE KEYS */;
 
-INSERT INTO `pret` (`id`, `user_id`, `instrument_id`, `montantCaution`, `cautionVersee`, `cautionRendue`, `date_debut`, `date_fin`, `date_debut_prevue`, `created_at`, `updated_at`, `date_fin_prevue`, `status`, `comment`)
+INSERT INTO `pret` (`id`, `user_id`, `instrument_id`, `montantCaution`, `cautionVersee`, `cautionRendue`, `date_debut`, `date_fin`, `date_debut_prevue`, `created_at`, `updated_at`, `date_fin_prevue`, `comment`, `status_id`)
 VALUES
-	(1,8,3,NULL,0,0,NULL,NULL,'2017-07-01 04:00:00',NULL,NULL,'2018-06-30 03:59:59','AWAITING',NULL);
+	(1,8,3,NULL,0,0,NULL,NULL,'2017-07-01 04:00:00',NULL,NULL,'2018-06-30 03:59:59',NULL,NULL);
 
 /*!40000 ALTER TABLE `pret` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -385,7 +422,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `pret_status`;
 
 CREATE TABLE `pret_status` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -399,9 +436,9 @@ INSERT INTO `pret_status` (`id`, `name`, `label`)
 VALUES
 	(1,'AWAITING','En attente'),
 	(2,'RUNNING','En cours'),
-	(3,'MISSING','En retard'),
-	(4,'CLOSED','Clos'),
-	(5,'CANCELED','Annulé');
+	(3,'CLOSED','Clos'),
+	(4,'CANCELED','Annulé'),
+	(5,'MISSING','En retard');
 
 /*!40000 ALTER TABLE `pret_status` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -541,11 +578,11 @@ CREATE TABLE `user` (
   `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `date_naissance` date DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `tel` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `comment` longtext COLLATE utf8_unicode_ci,
   `source` int(11) DEFAULT NULL,
-  `date_confirmation` datetime DEFAULT NULL,
+  `confirmed_at` datetime DEFAULT NULL,
   `date_debut_adhesion` datetime DEFAULT NULL,
   `date_last_connection` date DEFAULT NULL,
   `registration_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -555,16 +592,16 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D6494DE7DC5C` (`adresse_id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
-  UNIQUE KEY `UNIQ_8D93D649F037AB0F` (`tel`),
+  UNIQUE KEY `UNIQ_8D93D649444F97DD` (`phone`),
   CONSTRAINT `FK_8D93D6494DE7DC5C` FOREIGN KEY (`adresse_id`) REFERENCES `adresse` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id`, `adresse_id`, `nom`, `prenom`, `date_naissance`, `email`, `tel`, `password`, `comment`, `source`, `date_confirmation`, `date_debut_adhesion`, `date_last_connection`, `registration_token`, `date_fin_adhesion`, `created_at`, `updated_at`)
+INSERT INTO `user` (`id`, `adresse_id`, `nom`, `prenom`, `date_naissance`, `email`, `phone`, `password`, `comment`, `source`, `confirmed_at`, `date_debut_adhesion`, `date_last_connection`, `registration_token`, `date_fin_adhesion`, `created_at`, `updated_at`)
 VALUES
-	(8,14,'Moreau','Sébastien','2016-11-10','flightcom@wanadoo.fr','2343543','$2y$14$awIb.dEXf3aLuiXLFcEusuM7MGp0w980cArsQShu/3aXg69fS133y',NULL,NULL,NULL,NULL,NULL,'876b0fbef678ec667dae676ac04c0d7b5718c240c8a98483930e5432ed039a57',NULL,NULL,NULL);
+	(8,14,'Moreau','Sébastien','2016-11-10','flightcom@wanadoo.fr','2343543','$2y$14$awIb.dEXf3aLuiXLFcEusuM7MGp0w980cArsQShu/3aXg69fS133y',NULL,NULL,NULL,NULL,'2017-03-30','876b0fbef678ec667dae676ac04c0d7b5718c240c8a98483930e5432ed039a57',NULL,NULL,'2017-03-30 01:55:33');
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

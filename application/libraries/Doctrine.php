@@ -20,25 +20,25 @@ class Doctrine {
         // if you want to.
         // require_once APPPATH.'libraries/Doctrine/Common/ClassLoader.php';
 
-        $doctrineClassLoader = new ClassLoader('Doctrine',  APPPATH.'libraries');
-        $doctrineClassLoader->register();
-        $entitiesClassLoader = new ClassLoader('models', rtrim(APPPATH, "/" ));
-        $entitiesClassLoader->register();
-        $proxiesClassLoader = new ClassLoader('Proxies', APPPATH.'models/proxies');
-        $proxiesClassLoader->register();
+        // $doctrineClassLoader = new ClassLoader('Doctrine',  APPPATH.'libraries');
+        // $doctrineClassLoader->register();
+        // $entitiesClassLoader = new ClassLoader('models', rtrim(APPPATH, "/" ));
+        // $entitiesClassLoader->register();
+        // $proxiesClassLoader = new ClassLoader('Proxies', APPPATH.'models/Proxies');
+        // $proxiesClassLoader->register();
 
         // Set up caches
         $config = new Configuration;
         $cache = new ArrayCache;
         $config->setMetadataCacheImpl($cache);
-        $driverImpl = $config->newDefaultAnnotationDriver(array(APPPATH.'models/Entities'));
+        $driverImpl = $config->newDefaultAnnotationDriver(array(APPPATH.'classes/Entities'));
         $config->setMetadataDriverImpl($driverImpl);
         $config->setQueryCacheImpl($cache);
 
         $config->setQueryCacheImpl($cache);
 
         // Proxy configuration
-        $config->setProxyDir(APPPATH.'/models/proxies');
+        $config->setProxyDir(APPPATH.'/classes/Proxies');
         $config->setProxyNamespace('Proxies');
 
         // Set up logger
@@ -62,9 +62,9 @@ class Doctrine {
         // With this configuration, your model files need to be in application/models/Entity
         // e.g. Creating a new Entity\User loads the class from application/models/Entity/User.php
         $models_namespace = 'Entity';
-        $models_path = APPPATH . 'models';
-        $proxies_dir = APPPATH . 'models/Proxies';
-        $metadata_paths = array(APPPATH . 'models');
+        $models_path = APPPATH . 'classes/Entities';
+        $proxies_dir = APPPATH . 'classes/Proxies';
+        $metadata_paths = array(APPPATH . 'classes');
 
         // Set $dev_mode to TRUE to disable caching while you develop
         $config = Setup::createAnnotationMetadataConfiguration($metadata_paths, $dev_mode = true, $proxies_dir);

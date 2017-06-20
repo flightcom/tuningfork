@@ -1,79 +1,147 @@
 <md-progress-linear ng-class="{'invisible': !$pretCtrl.isLoading}" md-mode="indeterminate"></md-progress-linear>
 
-<md-toolbar class="md-table-toolbar md-default" flex="none">
-    <md-content>
-        <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-click="$pretCtrl.previous()" aria-label="Previous page">
-                <md-icon class="material-icons">navigate_before</md-icon>
-            </md-button>
-            <h2 flex>Prêt #{{$pretCtrl.item.id}}</h2>
-            <md-button class="md-fab md-mini md-primary" ui-sref="admin.users.view({id: $pretCtrl.item.user.id})">
-                <md-icon>person</md-icon>
-            </md-button>
-            <md-button class="md-fab md-mini md-primary" ui-sref="admin.instruments.view({id: $pretCtrl.item.instrument.id})">
-                <md-icon>music_note</md-icon>
-            </md-button>
-            <span>
-                <md-button ng-if="$pretCtrl.item.dateDebutPrevue && !$pretCtrl.item.dateDebut" class="md-icon-button md-primary" ng-click="$pretCtrl.start()" aria-label="Démarrer le prêt">
-                    <md-icon class="material-icons">play_arrow</md-icon>
+<form name="pretForm" ng-submit="$pretCtrl.onChange()">
+
+    <md-toolbar class="md-table-toolbar md-default" flex="none">
+        <md-content>
+            <div class="md-toolbar-tools">
+                <h2 flex ng-if="$pretCtrl.item.id">Prêt #{{$pretCtrl.item.id}}</h2>
+                <h2 flex ng-if="!$pretCtrl.item.id">Nouveau prêt</h2>
+
+                <!-- Emprunteur -->
+                <md-button ng-if="!$pretCtrl.item.user" class="md-raised" ng-click="$pretCtrl.selectUser($event)">
+                    <md-icon>add</md-icon>
+                    Emprunteur
                 </md-button>
-                <md-button ng-if="$pretCtrl.item.dateDebut && !$pretCtrl.item.dateFin" class="md-icon-button md-warn" ng-click="$pretCtrl.stop()" aria-label="Arrêter le prêt">
-                    <md-icon class="material-icons">stop</md-icon>
+
+                <!-- Instrument -->
+                <md-button ng-if="!$pretCtrl.item.instrument" class="md-raised" ng-click="$pretCtrl.selectInstrument($event)">
+                    <md-icon>add</md-icon>
+                    Instrument
                 </md-button>
-            </span>
-        </div>
+
+                <!-- Actions -->
+                <md-button ng-show="pretForm.$valid" class="md-raised md-primary" type="submit" aria-label="Enregistrer">
+                    <md-icon class="material-icons">save</md-icon>
+                    ENREGISTRER
+                </md-button>
+                <md-button ng-if="$pretCtrl.isNew" ng-show="!pretForm.$pristine || !$pretCtrl.item == {}" class="md-raised md-default" type="button" aria-label="Reset"
+                    ng-click="$pretCtrl.resetForm(pretForm)">
+                    <md-icon class="material-icons">clear</md-icon>
+                    RESET
+                </md-button>
+                <md-button ng-if="!$pretCtrl.isNew" class="md-warn" type="button" aria-label="Supprimer"
+                    ng-click="$pretCtrl.delete()">
+                    <md-icon class="material-icons">clear</md-icon>
+                    Supprimer
+                </md-button>
+
+                <!-- Controles -->
+                <span>
+                    <md-button ng-if="$pretCtrl.item.id && $pretCtrl.item.dateDebutPrevue && !$pretCtrl.item.dateDebut" class="md-icon-button md-primary" ng-click="$pretCtrl.start()" aria-label="Démarrer le prêt">
+                        <md-icon class="material-icons">play_arrow</md-icon>
+                    </md-button>
+                    <md-button ng-if="$pretCtrl.item.dateDebut && !$pretCtrl.item.dateFin" class="md-icon-button md-warn" ng-click="$pretCtrl.stop()" aria-label="Arrêter le prêt">
+                        <md-icon class="material-icons">stop</md-icon>
+                    </md-button>
+                </span>
+            </div>
+        </md-content>
+    </md-toolbar>
+
+    <md-content layout="column" flex ng-show="$pretCtrl.item">
+
+            <md-card layout-padding>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">Informations</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <div layout="row">
+                    <div flex>
+                        <md-input-container class="md-block">
+                            <label>Date début Prévue</label>
+                            <md-datepicker md-placeholder="Choisir une date" required
+                                md-open-on-focus="!$pretCtrl.item.dateDebut"
+                                ng-model="$pretCtrl.item.dateDebutPrevue"
+                                ng-disabled="$pretCtrl.item.dateDebut"
+                                ng-change="$pretCtrl.updateEndDate()"></md-datepicker>
+                            <md-button ng-if="!$pretCtrl.item.dateDebut" ng-click="$pretCtrl.setDateDebutPrevueToday()">Aujourd'hui</md-button>
+                        </md-input-container>
+                    </div>
+                    <div flex ng-if="$pretCtrl.item.dateDebut">
+                        <md-input-container class="md-block">
+                            <label>Date début</label>
+                            <md-datepicker md-open-on-focus disabled
+                                ng-model="$pretCtrl.item.dateDebut"></md-datepicker>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex>
+                        <md-input-container class="md-block">
+                            <label>Date Fin Prévue</label>
+                            <md-datepicker md-placeholder="Choisir une date" md-open-on-focus
+                                ng-disabled="$pretCtrl.item.dateFin"
+                                ng-model="$pretCtrl.item.dateFinPrevue"></md-datepicker>
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <md-input-container ng-if="$pretCtrl.item.dateFin" class="md-block">
+                            <label>Date Fin</label>
+                            <md-datepicker md-open-on-focus disabled
+                                ng-model="$pretCtrl.item.dateFin"></md-datepicker>
+                        </md-input-container>
+                    </div>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Commentaire</label>
+                    <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
+                        ng-model="$pretCtrl.item.comment"></textarea>
+                </md-input-container>
+                <div layout="row" flex>
+                </div>
+
+            </md-card>
+
+            <div layout="row">
+                <!-- Instrument -->
+                <div flex flex-gt-sm="50" ng-show="$pretCtrl.item.instrument">
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text flex>
+                                <span class="md-title">Instrument</span>
+                            </md-card-title-text>
+                            <md-card-avatar>
+                                <md-icon ui-sref="admin.instruments.view({id: $pretCtrl.item.instrument.id, instrument: $pretCtrl.item.instrument})" target="_blank">visibility</md-icon>
+                                <md-icon ng-if="$pretCtrl.isNew" ng-click="$pretCtrl.deleteInstrument()">clear</md-icon>
+                            </md-card-avatar>
+                        </md-card-title>
+                        <md-card-content>
+                            <instrument-simple name="instrument" ng-model="$pretCtrl.item.instrument" required></instrument-simple>
+                        </md-card-content>
+                    </md-card>
+                </div>
+
+                <!-- Utilisateur -->
+                <div flex flex-gt-sm="50" ng-show="$pretCtrl.item.user">
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text flex>
+                                <span class="md-title">Emprunteur</span>
+                            </md-card-title-text>
+                            <md-card-avatar>
+                                <md-icon ui-sref="admin.users.view({id: $pretCtrl.item.user.id, instrument: $pretCtrl.item.user})">visibility</md-icon>
+                                <md-icon ng-if="$pretCtrl.isNew" ng-click="$pretCtrl.deleteUser()">clear</md-icon>
+                            </md-card-avatar>
+                        </md-card-title>
+                        <md-card-content>
+                            <user-simple name="user" ng-model="$pretCtrl.item.user" required></user-simple>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </div>
+
     </md-content>
-</md-toolbar>
 
-<md-content layout="column" flex ng-show="$pretCtrl.item">
-
-    <md-card layout-padding>
-
-<!--         <div layout="row">
-            <md-button class="md-raised md-primary" ui-sref="admin.users.view({id: $pretCtrl.item.user.id})">Emprunteur</md-button>
-            <md-button class="md-raised md-primary" ui-sref="admin.instruments.view({id: $pretCtrl.item.instrument.id})">Instrument</md-button>
-        </div>
- -->
-        <form name="pretForm" ng-submit="$userCtrl.onChange()">
-            <div layout="row">
-                <md-input-container class="md-block">
-                    <label>Date début Prévue</label>
-                    <md-datepicker md-placeholder="Choisir une date" md-open-on-focus
-                        ng-model="$pretCtrl.item.dateDebutPrevue"
-                        ng-change="$pretCtrl.checkStartDate()"></md-datepicker>
-                </md-input-container>
-                <md-input-container ng-if="$pretCtrl.item.dateDebut" class="md-block">
-                    <label>Date début</label>
-                    <md-datepicker md-open-on-focus disabled
-                        ng-model="$pretCtrl.item.dateDebut"></md-datepicker>
-                </md-input-container>
-            </div>
-            <div layout="row">
-                <md-input-container class="md-block">
-                    <label>Date Fin Prévue</label>
-                    <md-datepicker md-placeholder="Choisir une date" md-open-on-focus
-                        ng-model="$pretCtrl.item.dateFinPrevue"
-                        ng-change="$pretCtrl.onChange()"></md-datepicker>
-                </md-input-container>
-                <md-input-container ng-if="$pretCtrl.item.dateFin" class="md-block">
-                    <label>Date Fin</label>
-                    <md-datepicker md-open-on-focus disabled
-                        ng-model="$pretCtrl.item.dateFin"></md-datepicker>
-                </md-input-container>
-            </div>
-            <md-input-container class="md-block">
-                <label>Commentaire</label>
-                <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
-                    ng-model="$pretCtrl.item.comment"
-                    ng-model-options="{ updateOn: 'blur'}"
-                    ng-change="$pretCtrl.onChange()"></textarea>
-            </md-input-container>
-            <md-button class="md-raised md-primary" type="submit" aria-label="Enregistrer">
-                <md-icon class="material-icons">save</md-icon>
-                ENREGISTRER
-            </md-button>
-        </form>
-
-    </md-card>
-
-</md-content>
+</form>

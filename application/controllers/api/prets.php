@@ -25,20 +25,16 @@ class Prets extends MY_REST_Controller {
 
     public function index_post()
     {
-        // $data = $this->post();
+        $data = $this->post();
 
-        // $marque = $this->em->getRepository('Entity\Marque')->get($data['marque']['id']);
-        // $instrument = Instrument::create($data);
-        // $instrument->setMarque($marque);
-
-        // try {
-        //     $this->em->persist($instrument);
-        //     $this->em->flush();
-        //     $this->response(['success' => true], 200);
-        // } catch (Exception $e) {
-        //     $this->response(['error' => $e->getMessage()], 500);
-        // }
-
+        try {
+            $this->object = new Pret();
+            $this->createObject($data);
+            $pret = $this->object->toArray();
+            $this->response(['data' => $pret], 200);
+        } catch (Exception $e) {
+            $this->response(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function index_put($id)
@@ -48,6 +44,8 @@ class Prets extends MY_REST_Controller {
         try {
             $this->object = $this->em->getRepository('Entity\Pret')->get($id);
             $this->updateObject($data);
+            $this->setStatus();
+            $this->em->flush();
             $this->response(['data' => $this->object], 200);
         } catch (Exception $e) {
             $this->response(['error' => $e->getMessage()], 500);
@@ -57,33 +55,33 @@ class Prets extends MY_REST_Controller {
 
     public function index_delete($id)
     {
-        // $instrument = $this->em->getRepository('Entity\Instrument')->get($id);
-        // try {
-        //     $this->em->remove($instrument);
-        //     $this->em->flush();
-        // } catch (\Exception $e) {
-        //     $this->response(['error' => $e->getMessage()], 500);
-        // }
-        // $this->response(['error' => null], 200);
+        $pret = $this->em->getRepository('Entity\Pret')->get($id);
+        try {
+            $this->em->remove($pret);
+            $this->em->flush();
+        } catch (\Exception $e) {
+            $this->response(['error' => $e->getMessage()], 500);
+        }
+        $this->response(['error' => null], 200);
     }
 
     public function search_get()
     {
+        $params = $this->get();
+        foreach ($params as $key => $value) {
+            if (Utils::isJson($value))
+                $params[$key] = is_object(json_decode($value)) ? (array) json_decode($value) : json_decode($value);
+        }
+
         if ($this->get()) {
-            $prets = $this->em->getRepository('Entity\Pret')->search($this->get());
+            $count = $this->em->getRepository('Entity\Pret')->search($params, true);
+            $prets = $this->em->getRepository('Entity\Pret')->search($params);
         }
 
-        $this->response(["data" => $prets], 200);
-    }
-
-    public function count_get()
-    {
-        $data = array_merge(['count' => true], $this->get());
-        if ($data) {
-            $prets = $this->em->getRepository('Entity\Pret')->search($data);
-        }
-
-        $this->response(["data" => $prets], 200);
+        $this->response([
+            "count" => $count,
+            "data" => $prets
+        ], 200);
     }
 
     public function start_post()
@@ -91,8 +89,6 @@ class Prets extends MY_REST_Controller {
         $id = $id ?? $this->get('id') ?? null;
         $pret = $this->em->getRepository('Entity\Pret')->get($id);
         $pret->setDateDebut(new \DateTime('now'));
-        $status = $this->em->getRepository('Entity\PretStatus')->findOneBy(['name' => PretStatus::calculate()]);
-        $pret->setStatus($status);
 
         try {
             $this->em->flush();

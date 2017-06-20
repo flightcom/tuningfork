@@ -5,21 +5,26 @@
         controller: PretsListController,
         controllerAs: '$pretsListCtrl',
         bindings: {
-            items: "=?prets",
-            instrument: "=?",
-            user: "=?",
-            create: "&?",
+            items: "<?prets",
+            instrument: "<?",
+            user: "<?",
             embedded: '@?'
         }
-    }
+    };
 
     // @ngInject
-    function PretsListController ($q, $state, Pret, Utils, Toast) {
+    function PretsListController ($q, $state, Pret, Utils, Toast, TRANSLATE) {
 
         var vm = this;
 
+        vm.TRANSLATE = TRANSLATE.PRET;
+
         vm.selected = [];
         vm.items = vm.items || [];
+        vm.filter = {
+            show: false,
+            options: {}
+        };
 
         vm.limitOptions = [10, 20, 50, {
             label: 'Tous',
@@ -28,32 +33,28 @@
             }
         }];
 
-        vm.filter = {
-            options: {},
-            show: false
-        };
         vm.query = {
-            order: 'dateDebut',
+            order: {dateDebut: 'asc'},
             limit: 10,
-            page: 1
+            page: 1,
+            filters: {}
         };
+
+        if (vm.user) {
+            vm.query.filters.user = vm.user.id;
+        } else if (vm.instrument) {
+            vm.query.filters.instrument = vm.instrument.id;
+        }
 
         vm.getItems = () => {
-
-            if (!vm.instrument && !vm.user) {
-                vm.count = vm.items.length;
-                return;
-            }
-
             vm.selected = [];
-            let promises = [];
-
-            promises.push(Pret.search(vm.query));
-            promises.push(Pret.count(vm.query));
-
-            vm.promise = $q.all(promises).then(responses => {
-                vm.items = responses[0].data;
-                vm.count = responses[1].data;
+            console.log('Get items');
+            Utils.loading(true);
+            vm.promise = Pret.search(vm.query).then(response => {
+                vm.count = response.count;
+                vm.items = response.data;
+            }).finally( () => {
+                Utils.loading(false);
             });
         };
 
@@ -78,11 +79,10 @@
 
         vm.select = (item) => {
             vm.selected.push(item);
-            console.log('select', item);
         };
 
         vm.removeFilter = () => {
-            vm.query.filter = {};
+            delete vm.query.filters.search;
             vm.filter.show = false;
         };
 
@@ -93,12 +93,9 @@
             });
         };
 
-        // vm.$onChanges = changesObj => {
-        //     console.log('changesObj', changesObj);
-        //     vm.items = (changesObj.prets && changesObj.prets.currentValue != changesObj.prets.oldValue) ? changesObj.prets.currentValue : [];
-        // }
-
-        vm.getItems();
+        if (!vm.items.length) {
+            vm.getItems();
+        }
 
     }
 

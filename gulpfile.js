@@ -7,11 +7,11 @@ var gulp       = require('gulp'),
     concat     = require('gulp-concat'),
     cache      = require('gulp-cache'),
     sass       = require('gulp-sass'),
-    minifyCss  = require('gulp-minify-css'),
+    cleanCss   = require('gulp-clean-css'),
     rename     = require('gulp-rename'),
     argv       = require('yargs').argv,
     ngAnnotate = require('gulp-ng-annotate'),
-    karma      = require('gulp-karma'),
+    karma      = require('gulp-karma-runner'),
     es         = require('event-stream'),
     sq         = require('streamqueue'),
     babel      = require("gulp-babel");
@@ -115,7 +115,7 @@ gulp.task('css', ['clean-css'], function () {
     return es.concat(vendorFiles, appFiles)
         .pipe(concat('app.css'))
         .pipe(gulp.dest('./public/dist/css/'))
-        .pipe(minifyCss({keepSpecialComments: 1}))
+        .pipe(cleanCss({keepSpecialComments: 1}))
         .pipe(rename({extname: '.min.css'}))
         .pipe(gulp.dest('./public/dist/css/'))
         .on('error', gutil.log);
@@ -198,8 +198,8 @@ gulp.task('test', function () {
     stream.queue(testFiles);
     stream.queue(appFiles);
     return stream.done()
-        .pipe(karma({
-            configFile: './karma.conf.js',
+        .pipe(karma.server({
+            configFile: __dirname + '/karma.conf.js',
             action: 'run'
         }))
         .on('error', function (err) {
