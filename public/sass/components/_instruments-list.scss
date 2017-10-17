@@ -1,0 +1,29 @@
+instruments-list {
+
+  md-toolbar.md-table-toolbar form > input {
+    width: 100%;
+    margin: 0;
+    border: none;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  table {
+
+    tr {
+
+      border-left-width: 4px;
+      border-left-style: solid;
+
+      &.not-available {
+        border-left-color: red;
+      }
+
+      &.available {
+        border-left-color: lawngreen;
+      }
+
+    }
+
+  }
+
+}

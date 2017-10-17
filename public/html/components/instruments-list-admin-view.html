@@ -1,0 +1,46 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$instrumentsListAdminViewCtrl.filter.show && !$instrumentsListAdminViewCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <h2>Instruments</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$instrumentsListAdminViewCtrl.filter.show=!$instrumentsListAdminViewCtrl.filter.show" aria-label="Filter">
+                <md-icon class="material-icons">filter_list</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$instrumentsListAdminViewCtrl.getItems()">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ui-sref="admin.instruments.create">
+                <md-icon>add_more</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="$instrumentsListAdminViewCtrl.filter.show && !$instrumentsListAdminViewCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <md-icon class="material-icons">search</md-icon>
+            <form flex="" name="filter.form">
+                <input class="transparent" type="text" ng-model="$instrumentsListAdminViewCtrl.query.filter" ng-model-options="$instrumentsListAdminViewCtrl.filter.options" placeholder="search">
+            </form>
+            <md-button class="md-icon-button" ng-click="$instrumentsListAdminViewCtrl.removeFilter()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+ <md-toolbar class="md-table-toolbar md-hue-1 alternate" ng-show="$instrumentsListAdminViewCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <span>{{$instrumentsListAdminViewCtrl.selected.length}} {{$instrumentsListAdminViewCtrl.selected.length > 1 ? 'élément' : 'éléments'}} sélectionnés</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$instrumentsListAdminViewCtrl.delete()">
+                <md-icon>delete</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+
+<md-card>
+    <instruments-list items="$instrumentsListAdminViewCtrl.items"></instruments-list>
+    <md-table-pagination md-limit="$instrumentsListAdminViewCtrl.query.limit" md-limit-options="$instrumentsListAdminViewCtrl.limitOptions" md-page="$instrumentsListAdminViewCtrl.query.page" md-total="{{$instrumentsListAdminViewCtrl.count}}" md-on-paginate="$instrumentsListAdminViewCtrl.getItems" md-page-select></md-table-pagination>
+</md-card>

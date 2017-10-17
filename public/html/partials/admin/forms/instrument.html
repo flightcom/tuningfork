@@ -1,0 +1,82 @@
+<div role="dialog" aria-label="Ajouter un instrument" layout="column" layout-align="center center">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Ajouter un instrument</h2>
+        </div>
+    </md-toolbar>
+
+    <md-content layout-padding>
+        <div>
+            <form name="instrumentCreateForm" ng-submit="$adminInstrumentCreateCtrl.add()">
+                <div layout-gt-xs="row">
+
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Marque</label>
+                        <md-select name="type" ng-model="$adminInstrumentCreateCtrl.instrument.marque" md-on-open="$adminInstrumentCreateCtrl.loadMarques()" required>
+                            <md-option ng-repeat="marque in $adminInstrumentCreateCtrl.marques" ng-value="marque">{{marque.nom}}</md-option>
+                        </md-select>
+                        <div ng-messages="instrumentCreateForm.instrument.marque.$error">
+                            <div ng-message="required">Ce champ est requis.</div>
+                        </div>
+                        <md-button class="md-icon-button" ng-click="$adminInstrumentCreateCtrl.showMarqueCreateDialog($event)" aria-label="Add">
+                            <md-icon class="material-icons">add_more</md-icon>
+                        </md-button>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-input-container>
+                        <label>Modèle</label>
+                        <input required ng-model="$adminInstrumentCreateCtrl.instrument.modele">
+                        <div ng-messages="instrumentCreateForm.instrument.modele.$error">
+                            <div ng-message="required">Ce champ est requis.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-input-container>
+                        <label>Numéro de série</label>
+                        <input ng-model="$adminInstrumentCreateCtrl.instrument.numeroSerie">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-input-container>
+                        <label>Code barre</label>
+                        <input ng-model="$adminInstrumentCreateCtrl.instrument.barCode">
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-input-container>
+                        <label>État</label>
+                        <md-select name="type" ng-model="$adminInstrumentCreateCtrl.instrument.condition" required>
+                            <md-option value="0">0</md-option>
+                            <md-option value="1">1</md-option>
+                            <md-option value="2">2</md-option>
+                            <md-option value="3">3</md-option>
+                            <md-option value="4">4</md-option>
+                            <md-option value="5">5</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-input-container>
+                        <label>Commentaire</label>
+                        <textarea ng-model="$adminInstrumentCreateCtrl.instrument.comment"></textarea>
+                    </md-input-container>
+                </div>
+
+                <div layout-gt-xs="row">
+                    <md-button md-autofocus flex class="md-primary" type="submit">Ajouter</md-button>
+                    <md-button md-autofocus flex ng-click="$adminInstrumentCreateCtrl.closeDialog()">Annuler</md-button>
+                </div>
+
+            </form>
+        </div>
+    </md-content>
+
+</div>
+

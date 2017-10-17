@@ -1,0 +1,54 @@
+.alert-main {
+    z-index: 1200;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+
+    .check {
+        max-height: 32px;
+        content: url("../img/check.png");
+    }
+
+    &.alert-danger {
+        .check {
+            display: none;
+        }
+    }
+
+    .text-box {
+        padding-right: 0;
+    }
+
+    @include respond-to(handheld-to-tiny) {
+        margin-left: 0;
+        left:auto;
+        top: 0;
+        width:100%;
+        bottom: inherit;
+        right: inherit;
+
+        .text-box {
+            margin-top: inherit;
+        }
+
+        .close {
+            right: 10px;
+        }
+
+    }
+
+    @include respond-to(tiny-to-very-large) {
+        .close {
+            top: -16px;
+            right: -10px;
+        }
+    }
+
+}
+
+
+.alert {
+    padding: 15px;
+}

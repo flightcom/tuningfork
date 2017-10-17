@@ -1,0 +1,24 @@
+<div ng-controller="RegisterCtrl as $registerCtrl">
+
+    <div layout="column" flex-gt-sm="66">
+
+        <div layout="row" layout-align="center">
+            <h3>Création de mon compte</h3>
+        </div>
+
+        <div layout="row" layout-align="center">
+            <user-form user="$registerCtrl.user" />
+        </div>
+
+        <div layout="row" layout-align="end">
+            <md-button class="md-raised md-primary"
+                ng-disabled="!$registerCtrl.hasChanged"
+                ng-click="$registerCtrl.save()">
+                <md-icon class="material-icons">save</md-icon>
+                Envoyer
+            </md-button>
+        </div>
+
+    </div>
+
+</div>

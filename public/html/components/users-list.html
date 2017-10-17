@@ -1,0 +1,69 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$usersListCtrl.filter.show && !$usersListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <h2>Utilisateurs</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$usersListCtrl.filter.show=!$usersListCtrl.filter.show" aria-label="Filter">
+                <md-icon class="material-icons">filter_list</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$usersListCtrl.getItems()" ng-if="!$usersListCtrl.embedded">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ui-sref="admin.users.create" ng-if="!$usersListCtrl.embedded">
+                <md-icon>add_more</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="$usersListCtrl.filter.show && !$usersListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <md-icon class="material-icons">search</md-icon>
+            <form flex="" name="filter.form">
+                <input class="transparent" type="text" ng-model="$usersListCtrl.params.filter.search" ng-model-options="$usersListCtrl.filter.options" placeholder="search">
+            </form>
+            <md-button class="md-icon-button" ng-click="$usersListCtrl.resetFilters()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+ <md-toolbar class="md-table-toolbar md-hue-1 alternate" ng-show="$usersListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <span>{{$usersListCtrl.selected.length}} {{$usersListCtrl.selected.length > 1 ? 'élément' : 'éléments'}} sélectionnés</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$usersListCtrl.delete()">
+                <md-icon>delete</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+
+<md-card>
+    <md-table-container>
+         <table md-table md-row-select="!$usersListCtrl.embedded" multiple ng-model="$usersListCtrl.selected" md-progress="$usersListCtrl.promise">
+            <thead md-head>
+                <tr md-row>
+                    <th md-column>Nom</th>
+                    <th md-column>Prénom</th>
+                    <th md-column>Email</th>
+                    <th md-column>Membre</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="user" md-select-id="name" ng-repeat="user in $usersListCtrl.items" ng-click="$usersListCtrl.selectItem(user)">
+                    <td md-cell>{{user.nom}}</td>
+                    <td md-cell>{{user.prenom}}</td>
+                    <td md-cell>{{user.email}}</td>
+                    <td md-cell>
+                        <md-checkbox readonly aria-label="Est Membre" ng-checked="user.isMembre"></md-checkbox>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="$usersListCtrl.query.limit" md-limit-options="[5, 10, 15]" md-page="$usersListCtrl.query.page" md-total="{{$usersListCtrl.users.count}}" md-on-paginate="$usersListCtrl.getItems" md-page-select></md-table-pagination>
+
+</md-card>

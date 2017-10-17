@@ -1,0 +1,29 @@
+#admin {
+
+  md-sidenav {
+
+    background-color: transparent;
+
+    &, &.md-locked-open, &.md-closed.md-locked-open-add-active {
+        min-width: auto;
+        width: auto;
+        max-width: auto;
+        position:relative;
+    }
+
+    &, & + * {
+      z-index: 0;
+    }
+
+    menu-admin {
+
+        @include respond-to(tiny-to-very-large) {
+            // height: 100vh;
+            // background-color: $dark-light;
+        }
+
+    }
+
+  }
+
+}

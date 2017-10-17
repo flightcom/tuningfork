@@ -1,0 +1,50 @@
+$break-handheld: 500px;
+$break-extra-small: 768px;
+$break-small: 992px;
+$break-medium: 1200px;
+$break-large: 1800px;
+$feed-column-height: 70vh;
+
+$break-handheld-max: $break-extra-small -1;
+$break-extra-small-max: $break-small - 1;
+$break-small-max: $break-medium - 1;
+$break-medium-max: $break-large - 1;
+
+@mixin respond-to($media) {
+  // Devices width
+  @if $media == handheld {
+    @media only screen and (max-width: $break-handheld - 1) { @content; }
+  }
+  @else if $media == extra-small {
+    @media only screen and (min-width: $break-handheld) and (max-width: $break-extra-small - 1) { @content; }
+  }
+  @else if $media == small {
+    @media only screen and (min-width: $break-extra-small) and (max-width: $break-small - 1) { @content; }
+  }
+  @else if $media == medium {
+    @media only screen and (min-width: $break-small) and (max-width: $break-medium - 1) { @content; }
+  }
+  @else if $media == large {
+    @media only screen and (min-width: $break-medium) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == very-large {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+  // Multi-devices range
+  @else if $media == handheld-to-tiny {
+    @media only screen and (max-width: $break-extra-small - 1) { @content; }
+  }
+  @else if $media == extra-small-to-tiny {
+    @media only screen and (min-width: $break-handheld) and (max-width: $break-extra-small - 1) { @content; }
+  }
+  @else if $media == tiny-to-very-large {
+    @media only screen and (min-width: $break-extra-small) { @content; }
+  }
+  // Numeric range
+  @else if $media == 992 {
+    @media only screen and (min-width: $break-extra-small) and (max-width: $break-small - 1) { @content; }
+  }
+  @else if $media == 1300 {
+    @media only screen and (min-width: $break-small) and (max-width: $break-medium - 1) { @content; }
+  }
+}
