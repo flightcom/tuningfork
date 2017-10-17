@@ -17,7 +17,7 @@
                 var media = key;
                 break;
             }
-        }            
+        }
 
         $rootScope.media = media;
 

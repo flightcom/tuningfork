@@ -15,7 +15,15 @@
 				background-color: white;
 				border-bottom: 5px solid $color-menu-active-bottom-border;
 			}
-			
+
 		}
-	}
+
+    }
+
+    &.navbar-fixed-top {
+
+        & + * {
+            margin-top: 75px;
+        }
+    }
 }

@@ -368,7 +368,7 @@ abstract class REST_Controller extends CI_Controller
             if (config_item('rest_enable_logging') and $log_method) {
                 $this->_log_request();
             }
-            
+
             $this->response(array(config_item('rest_status_field_name') => false, config_item('rest_message_field_name') => 'Invalid API Key '.$this->rest->key), 403);
         }
 
@@ -813,7 +813,7 @@ abstract class REST_Controller extends CI_Controller
                     ->set('count', 1)
                     ->update(config_item('rest_limits_table'));
         }
-        
+
         // They have called within the hour, so lets update
         else {
             // Your luck is out, you've called too many times!
@@ -1296,11 +1296,11 @@ abstract class REST_Controller extends CI_Controller
         if (empty($username)) {
             return false;
         }
-        
+
         $auth_source = strtolower($this->config->item('auth_source'));
         $rest_auth = strtolower($this->config->item('rest_auth'));
         $valid_logins = $this->config->item('rest_valid_logins');
-        
+
         if (!$this->config->item('auth_source') && $rest_auth == 'digest') { // for digest we do not have a password passed as argument
             return md5($username.':'.$this->config->item('rest_realm').':'.(isset($valid_logins[$username])?$valid_logins[$username]:''));
         }

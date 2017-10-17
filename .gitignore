@@ -1,8 +1,9 @@
 **/*.tmp*
 *.sublime*
 ._*
-.buildpath
 .DS_Store
+.babelrc
+.buildpath
 .htaccess
 .idea
 .project
@@ -17,7 +18,8 @@
 composer.lock
 docs/
 log.json
+migrations-db.php
 nbproject
 tests/Test/build/
 vendor/
-migrations-db.php
+yarn.lock

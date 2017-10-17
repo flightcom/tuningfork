@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr" ng-app="app" ng-controller="RootCtrl as $rootCtrl" ng-cloak>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="public/dist/img/favicon.ico" />
+        <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+        <base href="/">
+        <title>{{$root.getTitle()}}</title>
+        <link ng-href="{{FILES.CSS}}" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+        <md-progress-linear class="md-accent" ng-class="{'invisible': !loading}" md-mode="indeterminate"></md-progress-linear>
+        <ui-view flex layout="column" layout-fill></ui-view>
+        <menu-user hide-gt-xs></menu-user>
+        <ng-include src="PATHS.TEMPLATE + 'partials/alert.html'"></ng-include>
+        <script src="public/dist/js/app.min.js"></script>
+    </body>
+
+</html>

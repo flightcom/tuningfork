@@ -1,22 +1,46 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,300,700,600);
+// @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-// CSS Framework 
-@import 'bootstrap/bootstrap';
+@import 'externals/material-icons';
+
+// CSS Framework
+@import 'bootstrap-custom';
 
 // Mixins
 @import 'mixins/base';
 @import 'mixins/flex';
+@import 'mixins/filters';
+@import 'mixins/font-size';
 
 // Utils
 @import 'colors';
+@import 'global';
+@import 'components';
+
+// Elements
+@import 'elements/margin';
+@import 'elements/padding';
+@import 'elements/visibility';
 
 // Components
 @import 'components/navbar';
 @import 'components/maps';
+@import 'components/typeahead';
+@import 'components/nav-main';
+@import 'components/menu-admin';
+@import 'components/menu-user';
+@import 'components/instruments-list';
+@import 'components/intl-tel-input';
+@import 'components/md-progress-linear';
+@import 'components/md-chip';
+@import 'components/toolbar-admin';
+@import 'components/user-form';
 
 // Views
+@import 'views/main';
 @import 'views/splash';
+@import 'views/admin';
 @import 'views/alert';
 @import 'views/footer';
-
-@import 'style';
+@import 'views/admin-user';
+@import 'views/login';

@@ -1,0 +1,18 @@
+user-form {
+
+  md-input-container._md-datepicker-floating-label {
+    label {
+      right: inherit!important;
+      left: 37px!important;
+    }
+
+    input {
+      width: 200px;
+    }
+
+    .md-datepicker-calendar-icon {
+      color: black;
+    }
+  }
+
+}

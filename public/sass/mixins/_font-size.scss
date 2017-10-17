@@ -1,0 +1,11 @@
+/* font-size */
+@for $i from 10 to 500 {
+  .fs-#{$i} { font-size: #{"#{$i}px!important"}; }
+}
+
+[class^="fs-"], [class*=" fs-"] {
+  &.material-icons {
+    height: auto;
+    width: auto;
+  }
+}

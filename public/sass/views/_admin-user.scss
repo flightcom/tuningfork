@@ -1,0 +1,12 @@
+md-datepicker {
+    .md-button.md-icon-button {
+        margin: 0;
+        padding: 0;
+        width: inherit;
+    }
+}
+
+._md-datepicker-floating-label._md-datepicker-has-calendar-icon>label:not(.md-no-float):not(.md-container-ignore) {
+    right: inherit;
+    left: 37px;
+}

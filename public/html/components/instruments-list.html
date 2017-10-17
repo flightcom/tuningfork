@@ -1,0 +1,85 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$instrumentsListCtrl.filter.show && !$instrumentsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <h2>Instruments</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.filter.show=!$instrumentsListCtrl.filter.show" aria-label="Filter">
+                <md-icon class="material-icons">filter_list</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.getItems()" ng-if="!$instrumentsListCtrl.embedded">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ui-sref="admin.instruments.create" ng-if="!$instrumentsListCtrl.embedded">
+                <md-icon>add_more</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="$instrumentsListCtrl.filter.show && !$instrumentsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <!-- <md-icon class="material-icons">search</md-icon> -->
+            <form flex name="filter.form">
+                <md-input-container>
+                    <md-switch class="md-primary" name="isAvailable"
+                        ng-model="$instrumentsListCtrl.params.filters.isAvailable"
+                        ng-change="$instrumentsListCtrl.getItems()">
+                        Dispo
+                    </md-switch>
+                </md-input-container>
+                <md-input-container>
+                    <md-switch class="md-primary" name="hasToBeChecked"
+                        ng-model="$instrumentsListCtrl.params.filters.hasToBeChecked"
+                        ng-change="$instrumentsListCtrl.getItems()">
+                        À vérifier
+                    </md-switch>
+                </md-input-container>
+            </form>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.getItems()" ng-if="!$instrumentsListCtrl.embedded">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.removeFilter()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+ <md-toolbar class="md-table-toolbar md-hue-1 alternate" ng-show="$instrumentsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <span>{{$instrumentsListCtrl.selected.length}} {{$instrumentsListCtrl.selected.length > 1 ? 'élément' : 'éléments'}} sélectionnés</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$instrumentsListCtrl.delete()">
+                <md-icon>delete</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+
+<md-card>
+    <md-table-container>
+         <table md-table md-row-select="!$instrumentsListCtrl.embedded" multiple ng-model="$instrumentsListCtrl.selected" md-progress="$instrumentsListCtrl.promise">
+            <thead md-head>
+                <tr md-row>
+                    <th md-column>Modele</th>
+                    <th md-column>Marque</th>
+                    <th md-column>À vérifier</th>
+                    <th md-column>État</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="instrument" md-select-id="name" ng-repeat="instrument in $instrumentsListCtrl.items"
+                    ng-click="$instrumentsListCtrl.selectItem(instrument)"
+                    ng-class="{'available': instrument.isAvailable, 'not-available': !instrument.isAvailable}">
+                    <td md-cell>{{instrument.model}}</td>
+                    <td md-cell>{{instrument.marque.nom}}</td>
+                    <td md-cell>
+                        <md-checkbox aria-label="À vérifier" ng-model="instrument.hasToBeChecked" ng-checked="instrument.hasToBeChecked"></md-checkbox>
+                    </td>
+                    <td md-cell>{{instrument.condition}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <md-table-pagination md-limit="$instrumentsListCtrl.query.limit" md-limit-options="$instrumentsListCtrl.limitOptions" md-page="$instrumentsListCtrl.query.page" md-total="{{$instrumentsListCtrl.count}}" md-on-paginate="$instrumentsListCtrl.getItems" md-page-select></md-table-pagination>
+</md-card>

@@ -2,4 +2,6 @@
 
 	<div>
 		<h2>Section Infos</h2>
+    </div>
+
 </section>

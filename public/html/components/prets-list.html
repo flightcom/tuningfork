@@ -1,0 +1,86 @@
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$pretsListCtrl.embedded && !$pretsListCtrl.filter.show && !$pretsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <span class="md-title">Prêts</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$pretsListCtrl.filter.show = !$pretsListCtrl.filter.show" aria-label="Filter">
+                <md-icon class="material-icons">filter_list</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$pretsListCtrl.getItems()" ng-if="!$pretsListCtrl.embedded">
+                <md-icon>refresh</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ui-sref="admin.prets.create" ng-if="!$pretsListCtrl.embedded">
+                <md-icon>add_more</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="!$pretsListCtrl.embedded && $pretsListCtrl.filter.show && !$pretsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <md-icon class="material-icons">search</md-icon>
+            <form flex name="filter.form">
+                <input class="transparent" type="text" ng-model="$pretsListCtrl.query.filters.search" ng-model-options="$pretsListCtrl.filter.options" placeholder="search">
+            </form>
+            <md-button class="md-icon-button" ng-click="$pretsListCtrl.removeFilter()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+ <md-toolbar class="md-table-toolbar md-hue-1 alternate" ng-show="!$pretsListCtrl.embedded && $pretsListCtrl.selected.length">
+    <md-content>
+        <div class="md-toolbar-tools">
+            <span>{{$pretsListCtrl.selected.length}} {{$pretsListCtrl.selected.length > 1 ? 'élément' : 'éléments'}} sélectionnés</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="$pretsListCtrl.delete()">
+                <md-icon>delete</md-icon>
+            </md-button>
+        </div>
+    </md-content>
+</md-toolbar>
+
+<md-card>
+    <md-table-container>
+         <table md-table md-row-select="!$pretsListCtrl.embedded" multiple ng-model="$pretsListCtrl.selected" md-progress="$pretsListCtrl.promise">
+            <thead md-head>
+                <tr md-row>
+                    <th md-column>Statut</th>
+                    <th md-column ng-show="!$pretsListCtrl.user" flex="initial">Utilisateur</th>
+                    <th md-column ng-show="!$pretsListCtrl.instrument">Instrument</th>
+                    <th md-column hide show-gt-md>Date Début Prévue</th>
+                    <th md-column hide show-gt-md>Date Fin Prévue</th>
+                    <th md-column>Date Début</th>
+                    <th md-column>Date Fin</th>
+                    <th md-column hide show-gt-sm>Caution Versée</th>
+                    <th md-column hide show-gt-sm>Caution Rendue</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="pret" md-select-id="name" ng-repeat="pret in $pretsListCtrl.items" ng-click="$pretsListCtrl.view(pret)">
+                    <td md-cell>{{$pretsListCtrl.TRANSLATE.STATUS[pret.status]}}</td>
+                    <td md-cell ng-show="!$pretsListCtrl.user" flex="initial">
+                        <md-button class="md-icon-button" ui-sref="admin.users.view({id: pret.user.id})" target="_blank">
+                            <md-icon>visibility</md-icon>
+                        </md-button>
+                    </td>
+                    <td md-cell ng-show="!$pretsListCtrl.instrument">
+                        <md-button class="md-icon-button" ui-sref="admin.instruments.view({id: pret.instrument.id})" target="_blank">
+                            <md-icon>visibility</md-icon>
+                        </md-button>
+                    </td>
+                    <td md-cell hide show-gt-md>{{pret.dateDebutPrevue | date: 'dd/MM/yyyy'}}</td>
+                    <td md-cell hide show-gt-md>{{pret.dateFinPrevue | date: 'dd/MM/yyyy'}}</td>
+                    <td md-cell>{{pret.dateDebut | date: 'dd/MM/yyyy'}}</td>
+                    <td md-cell>{{pret.dateFin | date: 'dd/MM/yyyy'}}</td>
+                    <td md-cell hide show-gt-sm>
+                        <md-checkbox disabled aria-label="Caution versée" ng-checked="pret.cautionVersee"></md-checkbox>
+                    </td>
+                    <td md-cell hide show-gt-sm>
+                        <md-checkbox disabled aria-label="Caution rendue" ng-checked="pret.cautionRendue"></md-checkbox>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+</md-card>

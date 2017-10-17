@@ -1,9 +1,10 @@
 .alert-main {
     z-index: 1200;
     position: fixed;
-    bottom: 0;
-    right: 20px;
-    width: 300px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
 
     .check {
         max-height: 32px;
@@ -17,7 +18,6 @@
     }
 
     .text-box {
-        margin-top: -25px;
         padding-right: 0;
     }
 
@@ -28,7 +28,6 @@
         width:100%;
         bottom: inherit;
         right: inherit;
-        border-radius: inherit;
 
         .text-box {
             margin-top: inherit;

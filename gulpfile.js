@@ -1,20 +1,26 @@
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    clean = require('gulp-clean'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    concat = require('gulp-concat'),
-    cache = require('gulp-cache'),
-    sass = require('gulp-sass'),
-    minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename'),
-    argv = require('yargs').argv,
+var gulp       = require('gulp'),
+    gutil      = require('gulp-util'),
+    clean      = require('gulp-clean'),
+    uglify     = require('gulp-uglify'),
+    gulpif     = require('gulp-if'),
+    imagemin   = require('gulp-imagemin'),
+    concat     = require('gulp-concat'),
+    cache      = require('gulp-cache'),
+    sass       = require('gulp-sass'),
+    cleanCss   = require('gulp-clean-css'),
+    rename     = require('gulp-rename'),
+    argv       = require('yargs').argv,
     ngAnnotate = require('gulp-ng-annotate'),
-    karma = require('gulp-karma'),
-    es = require('event-stream'),
-    sq = require('streamqueue');
+    karma      = require('gulp-karma-runner'),
+    es         = require('event-stream'),
+    sq         = require('streamqueue'),
+    babel      = require("gulp-babel");
 
 var paths = {
+    templates: [
+        './public/html/**/*.html',
+        './public/js/templates/**/*.html',
+    ],
     sassDir: [
         './public/sass/**/*.scss'
     ],
@@ -23,57 +29,56 @@ var paths = {
     ],
     cssDir: [
         './public/css/**/*.css',
-        './public/js/vendor/bootstrap-social/bootstrap-social.css'
+        './node_modules/bootstrap-social/bootstrap-social.css',
+        './node_modules/ng-table/bundles/ng-table.min.css',
+        './node_modules/angular-busy/dist/angular-busy.min.css',
+        './node_modules/ng-tags-input/build/ng-tags-input.bootstrap.min.css',
+        './node_modules/angular-material/angular-material.min.css',
+        './node_modules/angular-material-data-table/dist/md-data-table.min.css',
+        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.css',
+        './node_modules/intl-tel-input/build/css/intlTelInput.css'
     ],
     js: [
-        './public/js/vendor/angular/angular.min.js',
-        './public/js/vendor/ngmap/build/scripts/ng-map.min.js',
-        './public/js/vendor/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.min.js',
-        './public/js/vendor/angular-bootstrap/ui-bootstrap.min.js',
-        './public/js/vendor/angular-busy/angular-busy.js',
-        './public/js/vendor/angular-file-saver/dist/angular-file-saver.bundle.min.js',
-        './public/js/vendor/angular-loading-bar/build/loading-bar.min.js',
-        './public/js/vendor/angular-osd-form/angular-osd-form.min.js',
-        './public/js/vendor/angular-resource/angular-resource.min.js',
-        './public/js/vendor/angular-route/angular-route.min.js',
-        './public/js/vendor/angular-sanitize/angular-sanitize.min.js',
-        './public/js/vendor/angular-touch/angular-touch.min.js',
-        './public/js/vendor/angular-ui-sortable/sortable.min.js',
-        './public/js/vendor/angular-ui-tinymce/dist/tinymce.min.js',
-        './public/js/vendor/angular-utils-pagination/dirPagination.js',
-        './public/js/vendor/ng-file-upload/angular-file-upload-shim.min.js',
-        './public/js/vendor/ng-file-upload/angular-file-upload.min.js',
-        './public/js/vendor/ng-lodash/build/ng-lodash.js',
-        './public/js/vendor/ng-table/dist/ng-table.min.js',
-        './public/js/vendor/ng-tags-input/ng-tags-input.min.js',
-        './public/js/vendor/ngstorage/ngStorage.js',
-        './public/js/vendor/tinymce/tinymce.min.js',
-        './public/js/vendor/tinymce/themes/modern/theme.min.js',
-        './node_modules/jquery/dist/jquery.min.js',
-        './public/js/vendor/angular-parallax/scripts/angular-parallax.js',
-        './public/js/vendor/bootstrap/bootstrap.min.js',
-        './public/js/vendor/bootstrap/bootstrap-typeahead.min.js',
-        './public/js/vendor/underscore/underscore-min.js',
-        './public/js/vendor/codemirror/*.js',
-        './public/js/vendor/*.js',
-        './public/js/ie.js',
-        './public/js/ios.js',
         './public/js/app.js',
         './public/js/run.js',
-        './public/js/app-tomove.js',
-        './public/js/app-admin.js',
-        './public/js/constants/**/*.js',
-        './public/js/constants.js',
+        './public/js/listeners.js',
+        './public/js/components/**/*.js',
         './public/js/configs/**/*.js',
+        './public/js/constants/**/*.js',
+        './public/js/routes/**/*.js',
         './public/js/services/**/*.js',
         './public/js/controllers/**/*.js',
         './public/js/directives/**/*.js',
         './public/js/filters/**/*.js',
-        './public/js/lib/*.js',
-        './public/js/fb.js',
-        './public/js/utils.js',
-        './public/js/public.js',
-        './public/js/admin.js',
+    ],
+    jsLibraries: [
+        './node_modules/angular/angular.min.js',
+        './node_modules/angular-ui-router/release/angular-ui-router.min.js',
+        './node_modules/angular-resource/angular-resource.min.js',
+        './node_modules/angular-sanitize/angular-sanitize.min.js',
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        './public/js/vendor/ngmap/build/scripts/ng-map.min.js',
+        './node_modules/angular-busy/dist/angular-busy.min.js',
+        './node_modules/angular-osd-form/angular-osd-form.min.js',
+        './node_modules/angular-animate/angular-animate.min.js',
+        './node_modules/angular-aria/angular-aria.min.js',
+        './node_modules/angular-messages/angular-messages.min.js',
+        './node_modules/angular-material/angular-material.min.js',
+        './node_modules/angular-material-data-table/dist/md-data-table.min.js',
+        './node_modules/angular-material-sidemenu/dest/angular-material-sidemenu.js',
+        // Required by angular-osd-form
+        './node_modules/ng-lodash/build/ng-lodash.min.js',
+        './node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+        './node_modules/ng-table/bundles/ng-table.min.js',
+        './node_modules/ng-tags-input/build/ng-tags-input.min.js',
+        './node_modules/ngstorage/ngStorage.min.js',
+        './public/js/vendor/angular-parallax/scripts/angular-parallax.js',
+        './node_modules/underscore/underscore-min.js',
+        './node_modules/angular-barcode/dist/angular-barcode.js',
+        './node_modules/moment/min/moment.min.js',
+        './node_modules/intl-tel-input/build/js/intlTelInput.min.js',
+        './node_modules/ng-intl-tel-input/dist/scripts/ng-intl-tel-input.min.js'
     ],
     img: [
         './public/img/*',
@@ -83,23 +88,23 @@ var paths = {
         './public/fonts/**/*.*'
     ],
     tinymce: [
-        './public/js/vendor/tinymce/**/*.*'
-    ],
-    tinymceTheme: [
-        './public/js/vendor/tinymce/themes/modern/theme.min.js'
+        './node_modules/tinymce/**/*.*'
     ],
     tests: [
-        './public/js/vendor/jquery/jquery.min.js',
-        './public/js/vendor/angular/angular.min.js',
-        './public/js/vendor/bootstrap/bootstrap.min.js',
-        './public/js/vendor/angular-bootstrap/ui-bootstrap.min.js',
-        './public/js/vendor/ng-table/dist/ng-table.min.js',
-        './public/js/vendor/angular-resource/angular-resource.min.js',
-        './public/js/vendor/angular-sanitize/angular-sanitize.min.js',
-        './public/js/vendor/angular-mocks/angular-mocks.js',
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/angular/angular.min.js',
+        './node_modules/bootstrap/dist/js/bootstrap.min.js',
+        './node_modules/ng-table/bundles/ng-table.min.js',
+        './node_modules/angular-resource/angular-resource.min.js',
+        './node_modules/angular-sanitize/angular-sanitize.min.js',
+        './node_modules/angular-mocks/angular-mocks.js',
         './public/js/tests/**/*.js',
         './public/js/templates/**/*.html'
     ]
+};
+
+var isDevEnv = function () {
+    return typeof env !== 'undefined' && env === 'development';
 };
 
 gulp.task('css', ['clean-css'], function () {
@@ -110,16 +115,23 @@ gulp.task('css', ['clean-css'], function () {
     return es.concat(vendorFiles, appFiles)
         .pipe(concat('app.css'))
         .pipe(gulp.dest('./public/dist/css/'))
-        .pipe(minifyCss({keepSpecialComments: 1}))
+        .pipe(cleanCss({keepSpecialComments: 1}))
         .pipe(rename({extname: '.min.css'}))
         .pipe(gulp.dest('./public/dist/css/'))
         .on('error', gutil.log);
 });
 
 gulp.task('js', ['clean-js'], function () {
-    return gulp.src(paths.js)
-        .pipe(concat('app.min.js'))
+    var jsLibraries = gulp.src(paths.jsLibraries)
+        .pipe(gulpif(!isDevEnv, uglify()))
+        .pipe(concat('app.libraries.js'));
+    var js = gulp.src(paths.js)
+        .pipe(babel())
         .pipe(ngAnnotate())
+        .pipe(gulpif(!isDevEnv, uglify()))
+        .pipe(concat('app.js'));
+    return es.concat(jsLibraries, js)
+        .pipe(concat('app.min.js'))
         .pipe(gulp.dest('./public/dist/js'))
         .on('error', gutil.log);
 });
@@ -167,10 +179,14 @@ gulp.task('tinymce', function () {
         .on('error', gutil.log);
 });
 
-gulp.task('tinymceTheme', function () {
-    return gulp.src(paths.tinymceTheme)
-        .pipe(rename('theme.js'))
-        .pipe(gulp.dest('./public/dist/js/vendor/tinymce/themes/modern'))
+gulp.task('clean-template', function () {
+    return gulp.src('./public/dist/html', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('templates', ['clean-template'], function () {
+    return gulp.src(paths.templates)
+        .pipe(gulp.dest('./public/dist/html'))
         .on('error', gutil.log);
 });
 
@@ -182,8 +198,8 @@ gulp.task('test', function () {
     stream.queue(testFiles);
     stream.queue(appFiles);
     return stream.done()
-        .pipe(karma({
-            configFile: './karma.conf.js',
+        .pipe(karma.server({
+            configFile: __dirname + '/karma.conf.js',
             action: 'run'
         }))
         .on('error', function (err) {
@@ -191,19 +207,30 @@ gulp.task('test', function () {
         });
 });
 
+gulp.task('set-development', function() {
+    env = 'development';
+});
+
 gulp.task('default', ['build']);
-gulp.task('build', ['css', 'js', 'img', 'fonts']);
-
-gulp.slurped = false;
-
-gulp.task('watch', ['build'], function () {
-    if(!gulp.slurped){ // step 2
-        gulp.watch("gulpfile.js", ["default"]);
-        gulp.slurped = true; // step 3
-    }
+gulp.task('build', ['css', 'js', 'img', 'fonts', 'templates']);
+gulp.task('watch', ['set-development', 'build'], function () {
     gulp.watch([paths.sassDir, paths.cssDir], ['css']);
     gulp.watch(paths.img, ['img']);
     gulp.watch(paths.js, ['js']);
-    // gulp.watch(paths.partials, ['partials']);
-    // gulp.watch(paths.templates, ['templates']);
+    gulp.watch(paths.templates, ['templates']);
+});
+
+gulp.task('auto-reload', function() {
+  var p;
+
+  gulp.watch('gulpfile.js', spawnChildren);
+  spawnChildren();
+
+  function spawnChildren(e) {
+    // kill previous spawned process
+
+    if(p) { p.kill(); }
+    // `spawn` a child `gulp` process linked to the parent `stdio`
+    p = spawn('gulp', [argv.task], {stdio: 'inherit'});
+  }
 });

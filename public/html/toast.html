@@ -1,0 +1,5 @@
+<md-toast md-theme="{{$toastCtrl.theme}}">
+    <span class="md-toast-text" flex>{{$toastCtrl.message}}</span>
+    <md-button ng-if="$toastCtrl.details" class="md-highlight" ng-click="$toastCtrl.openMoreInfo($event, $toastCtrl.details)">Infos</md-button>
+    <md-button ng-if="$toastCtrl.showClose" ng-click="$toastCtrl.close()">Fermer</md-button>
+</md-toast>

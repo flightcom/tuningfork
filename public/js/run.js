@@ -1,28 +1,42 @@
-(function () {
+(function() {
 
-    'use strict';
+  'use strict';
 
-    // @ngInject
-    function run($rootScope, $cacheFactory, $timeout) {
-        $rootScope.goto = function (location) {
-            window.location.href = location;
-        };
+  // @ngInject
+  function run($rootScope, $http, $templateCache, $cacheFactory, $location, $state, $anchorScroll, $timeout, FILES, PATHS, Utils, Navigation, Storage, User) {
 
-        $rootScope.$on('alert', function (event, alert) {
-            $rootScope.mainAlert = alert;
+    // Affectations
+    $rootScope.FILES = FILES;
+    $rootScope.PATHS = PATHS;
+    $rootScope.Navigation = Navigation;
+    $rootScope.User = User;
+    $rootScope.$state = $state;
 
-            $timeout(function () {
-                $rootScope.mainAlert.show = false;
-            }, alert.timeout ? alert.timeout : 3000);
-        });
+    // Functions
+    $rootScope.goto = location => {
+      window.location.href = location;
+    };
 
-        $rootScope.$on('destroyCache', function () {
-            $cacheFactory.get("$http").removeAll();
-        });
+    $rootScope.gotoAnchor = (state, anchor) => {
+      console.log('test');
+      $state.go(state({
+        '#': anchor
+      }));
+    };
+
+    $rootScope.getTemplate = template => {
+      return PATHS.TEMPLATE + template;
+    };
+
+    // Check if a token already exists
+    if (Storage.get('token')) {
+        $http.defaults.headers.common.Authorization = 'Bearer ' + Storage.get('token');
     }
 
-    angular
-        .module('app')
-        .run(run);
+  }
+
+  angular
+    .module('app')
+    .run(run);
 
 })();

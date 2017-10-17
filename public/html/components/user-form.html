@@ -1,0 +1,157 @@
+<form name="$userCtrl.userForm">
+    <div layout="row">
+         <md-input-container flex md-no-float class="md-block">
+            <label>Prénom</label>
+            <md-icon class="material-icons">perm_identity</md-icon>
+            <input name="prenom" required type="text"
+                ng-model="$userCtrl.item.prenom"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.prenom.$error">
+                <div ng-message="required">Vous devez indiquer votre prénom</div>
+            </div>
+        </md-input-container>
+         <md-input-container flex class="md-block">
+            <label>Nom</label>
+            <input name="nom" required type="text"
+                ng-model="$userCtrl.item.nom"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.nom.$error">
+                <div ng-message="required">Vous devez indiquer votre nom</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row">
+         <md-input-container flex md-no-float class="md-block">
+            <label>Adresse</label>
+            <md-icon class="material-icons">location_on</md-icon>
+            <input name="adresse" required type="text"
+                ng-model="$userCtrl.item.adresse.voie"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.adresse.$error">
+                <div ng-message="required">Vous devez indiquer votre adresse</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row">
+        <md-icon class="material-icons" flex="none"></md-icon>
+<!--             <md-input-container flex="35" class="md-block">
+            <label>Ville</label>
+            <input name="ville" required type="text" readonly
+                ng-model="$userCtrl.item.adresse.ville.nom"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.ville.$error">
+                <div ng-message="required">Vous devez indiquer votre ville</div>
+            </div>
+        </md-input-container>
+-->
+         <md-autocomplete flex
+            md-input-name="autocompleteVille"
+            md-no-cache="$userCtrl.noCache"
+            md-selected-item="$userCtrl.selectedVille"
+            md-search-text="$userCtrl.item.adresse.ville.nom"
+            md-selected-item-change="$userCtrl.selectedVilleChange(item)"
+            md-items="item in $userCtrl.searchVille($userCtrl.item.adresse.ville.nom)"
+            md-item-text="item.nom"
+            md-input-minlength="3"
+            md-floating-label="Ville"
+            md-require-match>
+            <md-item-template>
+                <span md-highlight-text="$userCtrl.item.adresse.ville.nom" md-highlight-flags="^i">{{item.nom}}</span>
+            </md-item-template>
+            <md-not-found>
+                Aucune ville trouvée pour "{{$userCtrl.searchVilleNom}}".
+                <a ng-click="$userCtrl.newVille($userCtrl.item.adresse.ville.nom)">Ajouter une ville</a>
+            </md-not-found>
+            <div ng-messages="$userCtrl.userForm.autocompleteVille.$error">
+                <div ng-message="required">Vous devez choisir une ville</div>
+                <div ng-message="minlength">Votre recherche est trop courte</div>
+                <div ng-message="md-require-match">Choisissez une ville existante</div>
+            </div>
+        </md-autocomplete>
+
+         <md-input-container class="md-block" flex>
+            <!-- <md-select name="pays" placeholder="Pays" required ng-model="$userCtrl.item.adresse.pays" md-on-open="$userCtrl.loadPays()"> -->
+            <md-select name="pays" placeholder="Pays" required ng-model="$userCtrl.item.adresse.pays" ng-model-options="{trackBy: '$userCtrl.pays.id'}">
+                <md-option ng-value="pays" ng-repeat="pays in $userCtrl.pays">{{pays.nom}}</md-option>
+            </md-select>
+            <div ng-messages="$userCtrl.userForm.pays.$error">
+                <div ng-message="required">Vous devez choisir un pays</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row">
+        <md-input-container flex md-no-float class="md-block">
+            <label>Adresse e-mail</label>
+            <md-icon>email</md-icon>
+            <input name="email" required type="email"
+                ng-model="$userCtrl.item.email"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.email.$error">
+                <div ng-message="required">Vous devez indiquer votre email</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container flex md-no-float class="md-block">
+            <label>Téléphone</label>
+            <md-icon class="material-icons">phone</md-icon>
+            <input name="phone" required type="text"
+                ng-model="$userCtrl.item.phone"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.phone.$error">
+                <div ng-message="required">Vous devez indiquer votre numéro de téléphone</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-fill>
+        <md-input-container flex="auto" md-no-float class="md-block">
+            <label>Date de naissance</label>
+            <md-datepicker md-open-on-focus md-current-view="year"
+                md-placeholer="Choisir une date"
+                ng-model="$userCtrl.item.dateNaissance"
+                ng-change="$userCtrl.onChange()"></md-datepicker>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-fill>
+        <md-input-container flex md-no-float class="md-block">
+            <label>Mot de passe</label>
+            <md-icon>security</md-icon>
+            <input name="password" min-length="8" ng-required="!$userCtrl.item.id || $userCtrl.item.password.length" type="password"
+                ng-model="$userCtrl.item.password"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.password.$error">
+                <div ng-message="required">Vous devez indiquer un mot de passe</div>
+                <div ng-message="minLength">Le mot de passe n'est pas assez long</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-fill>
+        <md-input-container flex md-no-float class="md-block">
+            <label>Confirmation Mot de passe</label>
+            <md-icon>security</md-icon>
+            <input name="passwordConfirmation" ng-required="!$userCtrl.item.id || $userCtrl.item.password.length" type="password"
+                compare-to="$userCtrl.item.password"
+                ng-model="$userCtrl.item.passwordConfirmation"
+                ng-change="$userCtrl.onChange()" />
+            <div ng-messages="$userCtrl.userForm.passwordConfirmation.$error">
+            <div ng-message="compareTo">Les mots de passe ne correspondent pas</div>
+            </div>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-fill>
+        <md-input-container flex class="md-block" ng-if="User.isAdmin()">
+            <label>Commentaire</label>
+            <md-icon class="material-icons">message</md-icon>
+            <textarea name="comment" md-maxlength="250" rows="3" md-select-on-focus
+                ng-model="$userCtrl.item.comment"
+                ng-change="$userCtrl.onChange()"></textarea>
+        </md-input-container>
+    </div>
+
+</form>

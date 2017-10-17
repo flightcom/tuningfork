@@ -4,17 +4,17 @@
     function Alert($rootScope) {
         var alertService = {};
 
-        function emitAlert(alert) {
-            $rootScope.$emit('alert', alert);
+        function emitAlert(alert, cb) {
+            $rootScope.$emit('alert', alert, cb);
         }
 
-        alertService.success = function(msg) {
+        alertService.success = function(msg, cb) {
             emitAlert({
                 show: true,
                 title: 'Succès !',
                 msg: msg,
                 class: 'alert-success'
-            });
+            }, cb);
         };
 
         alertService.saved = function(type) {

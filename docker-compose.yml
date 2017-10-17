@@ -10,7 +10,7 @@ services:
       - MYSQL_PASSWORD=tuningfork
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - "3308:3306"
+      - "3388:3306"
     volumes:
       - ./config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./data/skeleton.sql:/docker-entrypoint-initdb.d/skeleton.sql
@@ -18,7 +18,8 @@ services:
   nginx:
     build: ./config/nginx
     ports:
-      - "80:80"
+      - "8002:80"
+      - "443:443"
     links:
       - php
     volumes_from:
@@ -29,8 +30,8 @@ services:
     build: ./config/php
     links:
       - mysql:db-host
-    # expose:
-    #   - "9000"
+    expose:
+      - "9000"
     volumes_from:
       - volumes
 
