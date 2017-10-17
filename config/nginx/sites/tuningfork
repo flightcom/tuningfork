@@ -1,6 +1,5 @@
 upstream php-fpm {
     server php:9000;
-    # server unix:/var/run/php-fpm/php-fpm.sock;
 }
 
 server {
